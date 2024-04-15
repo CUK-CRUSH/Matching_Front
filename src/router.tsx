@@ -6,9 +6,13 @@ import NotFoundPage from '@/pages/error/components/NotFoundPage';
 import Home from '@/pages/home';
 
 import { Toaster } from './components/ui/toaster';
+import Example from './pages/exmaple';
+import Example2 from './pages/example2';
 
 const pageRoutes = {
   main: '/',
+  example: '/example',
+  example2: '/example2',
 };
 
 const CommonLayout = () => (
@@ -25,6 +29,22 @@ const router = createBrowserRouter([
     element: <CommonLayout />,
     children: [
       { path: pageRoutes.main, element: <Home />, errorElement: <ErrorPage /> },
+
+      { path: '*', element: <NotFoundPage /> },
+    ],
+  },
+  {
+    element: <CommonLayout />,
+    children: [
+      { path: pageRoutes.example, element: <Example />, errorElement: <ErrorPage /> },
+
+      { path: '*', element: <NotFoundPage /> },
+    ],
+  },
+  {
+    element: <CommonLayout />,
+    children: [
+      { path: pageRoutes.example2, element: <Example2 />, errorElement: <ErrorPage /> },
 
       { path: '*', element: <NotFoundPage /> },
     ],

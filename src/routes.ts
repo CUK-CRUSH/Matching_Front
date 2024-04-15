@@ -1,4 +1,5 @@
 export const pageRoutes = {
   main: '/',
-  survey: '/survey',
+  example: '/example',
+  example2: '/example2',
 } as const;
