@@ -1,3 +1,4 @@
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { useQuery } from '@tanstack/react-query';
 
 const Page = () => {
@@ -16,6 +17,10 @@ const Page = () => {
       <p>{data.description}</p>
       <strong>👀 {data.subscribers_count}</strong> <strong>✨ {data.stargazers_count}</strong>{' '}
       <strong>🍴 {data.forks_count}</strong>
+      <Card>
+        <CardHeader> asdfsadf</CardHeader>
+        <CardContent>asd;fasdfasdf</CardContent>
+      </Card>
     </div>
   );
 };
