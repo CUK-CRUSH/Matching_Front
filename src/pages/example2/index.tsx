@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getPerson } from './myapi';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
+import { InputForm } from '@/utils/form';
 
 export const useFetchPersonalInfo = () => {
   return useQuery({
@@ -41,6 +42,7 @@ export default function Example2() {
         <span>{count}</span>
         <Button onClick={handleIncrement}>+</Button>
       </div>
+      <InputForm />
     </div>
   );
 }
