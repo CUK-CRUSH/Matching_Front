@@ -6,9 +6,9 @@ interface LayoutProp {
 
 const Layout = ({ children, display = 'none' }: LayoutProp) => {
   // Determine the padding top based on the display prop
-  const paddingTop = display === 'footer' || display === 'none' ? 'pt-0' : 'pt-[100px]';
+  const paddingTop = display === 'footer' || display === 'none' ? 'pt-0' : 'pt-[60px]';
   // Determine the padding bottom based on the display prop
-  const paddingBottom = display === 'header' || display === 'none' ? 'pb-0' : 'pb-[100px]';
+  const paddingBottom = display === 'header' || display === 'none' ? 'pb-0' : 'pb-[120px]';
 
   return (
     <div className="flex flex-col min-h-screen overflow-hidden">
