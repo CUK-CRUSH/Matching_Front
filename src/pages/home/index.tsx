@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <Layout display="both">
       <Header />
-        <ProfileCard />
+      <ProfileCard />
       <Footer />
     </Layout>
   );

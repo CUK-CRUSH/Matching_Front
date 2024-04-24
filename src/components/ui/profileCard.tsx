@@ -30,12 +30,13 @@ const ProfileCard: React.FC = () => {
     setPreviousBackground(currentBackground);
   }, [previousBackground]);
 
-  const profileCardStyle = `flex justify-center items-center h-[800px] ${currentBackground}`;
+  // 잠금 상태
+  const [isLock, setLock] = useState<boolean>(true);
 
+  const profileCardStyle = `${isLock ? 'h-[300px] my-[calc((100vh-200px-300px)/2)]' : 'h-auto my-[0px]'} mx-[4%]  rounded-[16px] ${currentBackground} z-5`;
+  // transform -translate-y-1/2
   return (
-    <div className={profileCardStyle}>
-      {currentBackground}
-    </div>
+    <div className={profileCardStyle} />
   );
 };
 
