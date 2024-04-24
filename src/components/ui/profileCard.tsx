@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import ProfileCardImage from './profileCardImage';
 
 const ProfileCard: React.FC = () => {
   // 배경색 목록
@@ -33,10 +34,12 @@ const ProfileCard: React.FC = () => {
   // 잠금 상태
   const [isLock, setLock] = useState<boolean>(true);
 
-  const profileCardStyle = `${isLock ? 'h-[300px] my-[calc((100vh-200px-300px)/2)]' : 'h-auto my-[0px]'} mx-[4%]  rounded-[16px] ${currentBackground} z-5`;
+  const profileCardStyle = `relative ${isLock ? 'h-[300px] my-[calc((100vh-200px-300px)/2)]' : 'h-auto my-[0px]'} mx-[4%] rounded-[16px] ${currentBackground}`;
   // transform -translate-y-1/2
   return (
-    <div className={profileCardStyle} />
+    <div className={profileCardStyle} >
+      <ProfileCardImage />
+    </div>
   );
 };
 
