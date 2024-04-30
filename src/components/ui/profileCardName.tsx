@@ -3,12 +3,13 @@ import React from 'react';
 
 const ProfileCardName: React.FC = () => {
  
-  const profileCardNameStyle = `relative top-[1.5em] left-[3.5em] `;
+  const profileCardNameStyle = `h-[2rem] w-[90%]`;
   
-  const nameStyle = `font-bold text-[#000] mr-[0.2em]`;
-  const ageStyle = `text-[#2f2f2f] opacity-40 mr-[0.2em]`;
-  const mbtiStyle =`text-[#2f2f2f] opacity-40 mr-[0.2em]`;
-  const barStyle =`text-[#2f2f2f] opacity-40 mr-[0.2em]`
+  const nameStyle = `font-bold text-[#000] text-[1rem] mr-[0.2em]`;
+  const ageStyle = `text-[#2f2f2f] text-[1rem] opacity-40 mr-[0.2em]`;
+  const mbtiStyle =`text-[#2f2f2f] text-[1rem] opacity-40 mr-[0.2em]`;
+  const barStyle =`text-[#2f2f2f] text-[1rem] opacity-40 mr-[0.2em]`;
+  
   return (
     <div className={profileCardNameStyle} >
       <span className={nameStyle}>

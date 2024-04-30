@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ProfileCardImage from './profileCardImage';
 import ProfileCardName from './profileCardName';
+import ProfileCardComment from './profileCardComment';
 
 const ProfileCard: React.FC = () => {
   // 배경색 목록
@@ -35,12 +36,16 @@ const ProfileCard: React.FC = () => {
   // 잠금 상태
   const [isLock, setLock] = useState<boolean>(true);
 
-  const profileCardStyle = `flex ${isLock ? 'h-[300px] my-[calc((100vh-200px-300px)/2)]' : 'h-auto my-[0px]'} mx-[4%] rounded-[16px] ${currentBackground}`;
+  const profileCardStyle = `flex ${isLock ? 'h-[360px] my-[calc((100vh-200px-360px)/2)]' : 'h-auto my-[0px]'} mx-[4%] rounded-[16px] ${currentBackground} w-[calc(100%-8%)]`;
   // transform -translate-y-1/2
   return (
     <div className={profileCardStyle} >
       <ProfileCardImage />
+      {/* height 는 조절해야할수도 */}
+      <div className='relative top-[6.5%] left-[15%] w-[69%] h-[75px]'>
       <ProfileCardName />
+      <ProfileCardComment />
+      </div>
     </div>
   );
 };
