@@ -20,7 +20,7 @@ const ProfileCard: React.FC = () => {
   // 컴포넌트 마운트 시 또는 이전 배경색이 변경될 때 실행
   useEffect(() => {
     // 이전 배경색을 제외한 새로운 배경색 목록 생성
-    const newBackgrounds = backgrounds.filter(bg => bg !== previousBackground);
+    const newBackgrounds = backgrounds.filter((bg) => bg !== previousBackground);
 
     // 새로운 배경색 목록에서 랜덤으로 하나 선택
     const randomBackground = newBackgrounds[Math.floor(Math.random() * newBackgrounds.length)];
@@ -31,12 +31,8 @@ const ProfileCard: React.FC = () => {
   }, [previousBackground]);
 
   const profileCardStyle = `flex justify-center items-center h-[800px] ${currentBackground}`;
-
-  return (
-    <div className={profileCardStyle}>
-      {currentBackground}
-    </div>
-  );
+  // console.log(`"${import.meta.env.VITE_SUPABASE_ORG}"`);
+  return <div className={profileCardStyle}>{currentBackground}</div>;
 };
 
 export default ProfileCard;
