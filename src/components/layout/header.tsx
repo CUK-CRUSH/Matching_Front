@@ -1,15 +1,8 @@
-import Logo from '@/assets/MetLife_logo.svg';
-import { useNavigate } from 'react-router-dom';
-
+// Header.tsx
 const Header = () => {
-  const navigate = useNavigate();
-  const handleHome = () => {
-    navigate('/');
-  };
   return (
-    <header className=" text-black p-4 mx-auto  w-full">
-      <img className="cursor-pointer" onClick={handleHome} src={Logo} />
-      <h1 className="font-bold">Team. 8Seconds</h1>
+    <header className="fixed top-0 left-0 right-0 max-w-[430px] mx-auto h-[60px] bg-white z-50">
+      <h1 className="font-bold text-center">Team. 8Seconds</h1>
     </header>
   );
 };
