@@ -1,4 +1,4 @@
-import ProfileCard from '@/components/ui/profileCard';
+import ProfileCard from '@/components/ui/profileCard/profileCard';
 import Footer from '@/components/layout/footer';
 import Header from '@/components/layout/header';
 import Layout from '@/components/layout/layout';
