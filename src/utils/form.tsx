@@ -4,35 +4,18 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { Button } from '@/components/ui/button';
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
-import {
-  InputOTP,
-  InputOTPGroup,
-  InputOTPSeparator,
-  InputOTPSlot,
-} from '@/components/ui/input-otp';
-import { Input } from '@/components/ui/input';
+import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
+import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp';
 import { toast } from '@/components/ui/use-toast';
 
 const FormSchema = z.object({
-  username: z.string().min(2, {
-    message: 'Username must be at least 2 characters.',
-  }),
   pin: z
     .string()
     .min(11, {
-      message: 'Your PIN must be exactly 11 characters long.',
+      message: '글자를 전부 채워야합니다.',
     })
     .refine((pin) => pin.startsWith('010'), {
-      message: 'The PIN must start with "010".',
+      message: '"010"으로 시작해야합니다.',
     })
     .refine(
       (pin) => {
@@ -46,13 +29,15 @@ const FormSchema = z.object({
 });
 
 export function InputForm() {
-  const form = useForm<z.infer<typeof FormSchema>>({
+  const methods = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
+    mode: 'onChange',
     defaultValues: {
-      username: '',
       pin: '',
     },
   });
+
+  const { formState, handleSubmit, control } = methods;
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
     toast({
@@ -66,60 +51,49 @@ export function InputForm() {
   }
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
-        <FormField
-          control={form.control}
-          name="username"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Username</FormLabel>
-              <FormControl>
-                <Input placeholder="shadcn" {...field} />
-              </FormControl>
-              <FormDescription>This is your public display name.</FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="pin"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>One-Time Password</FormLabel>
-              <FormControl>
-                <InputOTP maxLength={11} {...field}>
-                  <InputOTPGroup>
-                    <InputOTPSlot index={0} />
-                    <InputOTPSlot index={1} />
-                    <InputOTPSlot index={2} />
-                  </InputOTPGroup>
-                  <InputOTPSeparator />
-                  <InputOTPGroup>
-                    <InputOTPSlot index={3} />
-                    <InputOTPSlot index={4} />
-                    <InputOTPSlot index={5} />
-                    <InputOTPSlot index={6} />
-                  </InputOTPGroup>
-                  <InputOTPSeparator />
-                  <InputOTPGroup>
-                    <InputOTPSlot index={7} />
-                    <InputOTPSlot index={8} />
-                    <InputOTPSlot index={9} />
-                    <InputOTPSlot index={10} />
-                  </InputOTPGroup>
-                </InputOTP>
-              </FormControl>
-              <FormDescription>
-                Please enter the one-time password sent to your phone.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button type="submit">Submit</Button>
-      </form>
-    </Form>
+    <div className="w-full ">
+      <Form {...methods}>
+        <form onSubmit={handleSubmit(onSubmit)} className="mx-2 mb-3 space-y-6">
+          <FormField
+            control={control}
+            name="pin"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <InputOTP maxLength={11} {...field}>
+                    <InputOTPGroup className="w-1/3">
+                      <InputOTPSlot className="bg-[#F2F2F2] mr-[0.1rem]" index={0} />
+                      <InputOTPSlot className="bg-[#F2F2F2] mr-[0.1rem]" index={1} />
+                      <InputOTPSlot className="bg-[#F2F2F2]" index={2} />
+                    </InputOTPGroup>
+                    <InputOTPGroup className="w-1/3">
+                      <InputOTPSlot className="bg-[#F2F2F2] mr-[0.1rem]" index={3} />
+                      <InputOTPSlot className="bg-[#F2F2F2] mr-[0.1rem]" index={4} />
+                      <InputOTPSlot className="bg-[#F2F2F2] mr-[0.1rem]" index={5} />
+                      <InputOTPSlot className="bg-[#F2F2F2]" index={6} />
+                    </InputOTPGroup>
+                    <InputOTPGroup className="w-1/3">
+                      <InputOTPSlot className="bg-[#F2F2F2] mr-[0.1rem]" index={7} />
+                      <InputOTPSlot className="bg-[#F2F2F2] mr-[0.1rem]" index={8} />
+                      <InputOTPSlot className="bg-[#F2F2F2] mr-[0.1rem]" index={9} />
+                      <InputOTPSlot className="bg-[#F2F2F2]" index={10} />
+                    </InputOTPGroup>
+                  </InputOTP>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />{' '}
+          <div className="flex justify-center">
+            <Button
+              type="submit"
+              className={formState.isValid ? '' : 'bg-[#ececec] text-[#a0a0a0]'}
+            >
+              인증 메시지 전송
+            </Button>
+          </div>
+        </form>
+      </Form>
+    </div>
   );
 }
