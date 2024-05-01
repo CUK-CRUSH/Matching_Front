@@ -6,7 +6,7 @@ import NotFoundPage from '@/pages/error/components/NotFoundPage';
 import Home from '@/pages/home';
 
 import { Toaster } from './components/ui/toaster';
-import Example from './pages/exmaple';
+import Example from './pages/example';
 import Example2 from './pages/example2';
 
 const pageRoutes = {
