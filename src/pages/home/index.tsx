@@ -1,9 +1,14 @@
+import ProfileCard from '@/components/ui/profileCard/profileCard';
+import Footer from '@/components/layout/footer';
+import Header from '@/components/layout/header';
+import Layout from '@/components/layout/layout';
+
 export default function Home() {
   return (
-    <div className="flex-1 flex-col w-full flex justify-center">
-      <main className="max-w-[430px] w-full bg-white  relative mx-auto">
-        <div className="relative w-full h-screen overflow-hidden">hu</div>
-      </main>
-    </div>
+    <Layout display="both">
+      <Header />
+      <ProfileCard />
+      <Footer />
+    </Layout>
   );
 }

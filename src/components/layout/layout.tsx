@@ -1,19 +1,25 @@
-import Header from './header';
-
+// Layout.tsx
 interface LayoutProp {
   children: React.ReactNode;
+  display?: 'header' | 'footer' | 'both' | 'none'; // 'none' or undefined implies no header/footer
 }
 
-const Layout = ({ children }: LayoutProp) => {
+const Layout = ({ children, display = 'none' }: LayoutProp) => {
+  // Determine the padding top based on the display prop
+  const paddingTop = display === 'footer' || display === 'none' ? 'pt-0' : 'pt-[100px]';
+  // Determine the padding bottom based on the display prop
+  const paddingBottom = display === 'header' || display === 'none' ? 'pb-0' : 'pb-[100px]';
+
   return (
-    <>
-      <div className="flex-1  flex-col w-full flex justify-center">
-        <main className="max-w-[430px] overflow-hidden scrollbar-hide w-full bg-white overflow-y-scroll overflow-x-hidden relative mx-auto">
-          <Header />
-          <div className="flex-grow bg-white overflow-hidden scrollbar-hide">{children}</div>
+    <div className="flex flex-col min-h-screen overflow-hidden">
+      <div
+        className={`${paddingTop} ${paddingBottom} flex flex-1 justify-center items-start overflow-auto scrollbar-hide`}
+      >
+        <main className="w-full max-w-[430px] overflow-y-auto relative font-Pretendard">
+          {children}
         </main>
       </div>
-    </>
+    </div>
   );
 };
 
