@@ -3,7 +3,7 @@ import React from 'react';
 
 const ProfileCardComment: React.FC = () => {
 
-  const profileCardCommentStyle = `w-[90%]`;
+  const profileCardCommentStyle = `w-[90%] mb-[20px]`;
   const commentStyle = `font-bold text-[#2F2F2F] text-[0.7rem] `;
 
   return (
