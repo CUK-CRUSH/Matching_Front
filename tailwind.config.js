@@ -53,6 +53,16 @@ module.exports = {
           foreground: 'hsl(var(--card-foreground))',
         },
       },
+      backgroundImage: {
+        'background-white' : 'linear-gradient(to top, #FFFCFC 100%)',
+        'background-grey' : 'linear-gradient(to top, #FFFCFC 13%, #979797 66%,  #F0F0F0 100%)',
+        'background-yellow': 'linear-gradient(to top, #FFFCFC 13%, #FFC5AC 50%, #FFF389 100%)',
+        'background-green': 'linear-gradient(to top, #FFFCFC 0%, #B9E7BB 44%, #FFFCAC 100%)',
+        'background-kiwi': 'linear-gradient(to top, #FFFDEF 0%, #DDF873 50%, #FFFCFC 100%)',
+        'background-purple': 'linear-gradient(to top, #FFFCFC 0%, #EAD3FC 62%, #FCFFD8 100%)',
+        'background-pink': 'linear-gradient(to top, #FFFCFC 0%, #FF93FB 62%, #FFFBE9 94%)',
+        'background-sky': 'linear-gradient(to top, #FFFCFC 0%, #A9FFFA 62%, #F4FFEF 100%)',
+      },
       borderRadius: {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
@@ -67,10 +77,15 @@ module.exports = {
           from: { height: 'var(--radix-accordion-content-height)' },
           to: { height: '0' },
         },
+        'caret-blink': {
+          '0%,70%,100%': { opacity: '1' },
+          '20%,50%': { opacity: '0' },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        'caret-blink': 'caret-blink 1.25s ease-out infinite',
       },
     },
     fontFamily: {
