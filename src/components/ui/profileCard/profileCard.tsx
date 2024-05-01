@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import ProfileCardImage from '@/components/ui/profileCard/profileCardImage'
+import ProfileCardImage from '@/components/ui/profileCard/profileCardImage';
 import ProfileCardName from '@/components/ui/profileCard/profileCardName';
 import ProfileCardComment from '@/components/ui/profileCard/profileCardComment';
 import ProfileMusicCardTag from './profileCardMusicTag';
@@ -25,7 +25,7 @@ const ProfileCard: React.FC = () => {
   // 컴포넌트 마운트 시 또는 이전 배경색이 변경될 때 실행
   useEffect(() => {
     // 이전 배경색을 제외한 새로운 배경색 목록 생성
-    const newBackgrounds = backgrounds.filter(bg => bg !== previousBackground);
+    const newBackgrounds = backgrounds.filter((bg) => bg !== previousBackground);
 
     // 새로운 배경색 목록에서 랜덤으로 하나 선택
     const randomBackground = newBackgrounds[Math.floor(Math.random() * newBackgrounds.length)];
@@ -42,7 +42,7 @@ const ProfileCard: React.FC = () => {
   const topProfileCardContainer = `flex flex-row ml-[10%] pt-[25px]`;
   const profileCardDetails = `flex flex-col ml-[6%]`;
   return (
-    <div className={profileCardStyle} >
+    <div className={profileCardStyle}>
       <div className={topProfileCardContainer}>
         <ProfileCardImage />
 
@@ -55,7 +55,7 @@ const ProfileCard: React.FC = () => {
           {/* 잠금해제 시 오픈 */}
           {!isLock && <ProfileHabitCardTag />}
         </div>
-        
+
       </div>
     </div>
   );
