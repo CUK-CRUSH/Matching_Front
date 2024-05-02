@@ -9,9 +9,7 @@ const LoginPage = () => {
         titleTexts={['전화번호 로그인']}
         descriptionTexts={['입력한 전화번호로', '인증번호가 전송됩니다.']}
       />
-
       <InputForm />
-
       <ValidationButton navigation="/" />
     </div>
   );
