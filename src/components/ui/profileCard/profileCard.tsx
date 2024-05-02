@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import ProfileCardImage from '@/components/ui/profileCard/profileCardImage'
 import ProfileCardName from '@/components/ui/profileCard/profileCardName';
 import ProfileCardComment from '@/components/ui/profileCard/profileCardComment';
-import ProfileCardTag from './profileCardTag';
+import ProfileCardTag from '@/components/ui/profileCard/profileCardTag';
+import UnlockModal from '@/components/ui/profileCard/unlockModal';
+import SpreadProfileCard from '@/components/ui/profileCard/spreadProfileCard';
 
 const ProfileCard: React.FC = () => {
   // 배경색 목록
@@ -33,19 +35,27 @@ const ProfileCard: React.FC = () => {
     setCurrentBackground(randomBackground);
     setPreviousBackground(currentBackground);
   }, [previousBackground]);
-
+  
   // 잠금 상태
-  const [isLock, ] = useState<boolean>(true);
+  const [isLock, setLock] = useState<boolean>(true);
+  
+  // 오픈 상태
+  const [open] = useState<boolean>(false);
+  
+  const profileCardStyle = ` ${!open ? 'h-[360px] my-[calc((100vh-200px-360px)/2)]' : 'h-[100vh]'}
+                             mx-[4%] rounded-[16px] ${currentBackground} 
+                             w-[calc(100%-8%)]
+                             after:content-[''] after:absolute after:h-[50%] after:bg-[linear-gradient(to_top,rgba(0,0,0,0.1),transparent)]     
+                             `;
 
-  const profileCardStyle = ` ${isLock ? 'h-[360px] my-[calc((100vh-200px-360px)/2)]' : 'h-auto my-[0px]'} mx-[4%] rounded-[16px] ${currentBackground} w-[calc(100%-8%)]`;
   const topProfileCardContainer = `flex flex-row ml-[10%] pt-[25px]`;
   const profileCardDetails = `flex flex-col ml-[6%]`;
   return (
     <div className={profileCardStyle} >
+
       <div className={topProfileCardContainer}>
-      <ProfileCardImage />
-      {/* height 는 조절해야할수도 */}
-      {/* <div className='  w-[69%] h-[75px] inline-block'> */}
+      <ProfileCardImage setLock={setLock}/>
+      {!isLock && <UnlockModal setLock={setLock}/> }
       <div className={profileCardDetails}>
       <ProfileCardName />
       <ProfileCardComment />
@@ -54,6 +64,7 @@ const ProfileCard: React.FC = () => {
       <ProfileCardTag />
       </div>
       </div>
+      <SpreadProfileCard setLock={setLock}/> 
     </div>
   );
 };
