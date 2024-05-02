@@ -8,6 +8,8 @@ import './index.css';
 
 import router from '@/router';
 
+import Layout from '@/components/layout/layout';
+
 const queryClient = new QueryClient();
 
 const isDevEnvironment = import.meta.env.DEV;
@@ -28,8 +30,10 @@ enableMocking().then(() => {
   ReactDOM.createRoot(document.getElementById('root')!).render(
     <RecoilRoot>
       <QueryClientProvider client={queryClient}>
-        {isDevEnvironment && <ReactQueryDevtools />}
-        <RouterProvider router={router} />
+        <Layout>
+          {isDevEnvironment && <ReactQueryDevtools />}
+          <RouterProvider router={router} />
+        </Layout>
       </QueryClientProvider>
     </RecoilRoot>,
   );
