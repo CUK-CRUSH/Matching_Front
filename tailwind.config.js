@@ -55,13 +55,14 @@ module.exports = {
       },
       backgroundImage: {
         'background-white' : 'linear-gradient(to top, #FFFCFC 100%)',
-        'background-grey' : 'linear-gradient(to top, #FFFCFC 13%, #979797 66%,  #F0F0F0 100%)',
+        'background-grey' : 'linear-gradient(to top, #FFFCFC 0%, #979797 34%,  #F0F0F0 87%)',
         'background-yellow': 'linear-gradient(to top, #FFFCFC 13%, #FFC5AC 50%, #FFF389 100%)',
         'background-green': 'linear-gradient(to top, #FFFCFC 0%, #B9E7BB 44%, #FFFCAC 100%)',
         'background-kiwi': 'linear-gradient(to top, #FFFDEF 0%, #DDF873 50%, #FFFCFC 100%)',
         'background-purple': 'linear-gradient(to top, #FFFCFC 0%, #EAD3FC 62%, #FCFFD8 100%)',
         'background-pink': 'linear-gradient(to top, #FFFCFC 0%, #FF93FB 62%, #FFFBE9 94%)',
         'background-sky': 'linear-gradient(to top, #FFFCFC 0%, #A9FFFA 62%, #F4FFEF 100%)',
+        'background-lock' : 'linear-gradient(to top, #FFFCFC 0%, #F0F0F0 62%, #FFC5AC  100%)',
       },
       borderRadius: {
         lg: 'var(--radius)',
