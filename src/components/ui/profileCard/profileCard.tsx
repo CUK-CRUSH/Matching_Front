@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import ProfileCardImage from '@/components/ui/profileCard/profileCardImage'
-import ProfileCardName from '@/components/ui/profileCard/profileCardName';
-import ProfileCardComment from '@/components/ui/profileCard/profileCardComment';
-import ProfileCardTag from '@/components/ui/profileCard/profileCardTag';
-import UnlockModal from '@/components/ui/profileCard/unlockModal';
-import SpreadProfileCard from '@/components/ui/profileCard/spreadProfileCard';
+import ProfileCardImage from '@/components/profileCard/profileCardImage'
+import ProfileCardName from '@/components/profileCard/profileCardName';
+import ProfileCardComment from '@/components/profileCard/profileCardComment';
+import UnlockModal from '@/components/profileCard/unlockModal';
+import SpreadProfileCard from '@/components/profileCard/spreadProfileCard';
 
 const ProfileCard: React.FC = () => {
   // 배경색 목록
@@ -60,7 +59,6 @@ const ProfileCard: React.FC = () => {
       <ProfileCardComment />
       {/* </div> */}
 
-      <ProfileCardTag />
       </div>
       </div>
       <SpreadProfileCard setLock={setLock}/> 

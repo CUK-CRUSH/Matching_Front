@@ -4,15 +4,14 @@ import RootSuspense from '@/pages/common/components/RootSuspense';
 import ErrorPage from '@/pages/error/components/ErrorPage';
 import NotFoundPage from '@/pages/error/components/NotFoundPage';
 import Home from '@/pages/home';
-
 import { Toaster } from './components/ui/toaster';
-import Example from './pages/example';
-import Example2 from './pages/example2';
+import LoginPage from '@/pages/login/index';
+import TermsPage from '@/pages/Terms/index';
 
 const pageRoutes = {
   main: '/',
-  example: '/example',
-  example2: '/example2',
+  login: '/login',
+  terms: '/terms',
 };
 
 const CommonLayout = () => (
@@ -33,18 +32,20 @@ const router = createBrowserRouter([
       { path: '*', element: <NotFoundPage /> },
     ],
   },
+
   {
     element: <CommonLayout />,
     children: [
-      { path: pageRoutes.example, element: <Example />, errorElement: <ErrorPage /> },
+      { path: pageRoutes.login, element: <LoginPage />, errorElement: <ErrorPage /> },
 
       { path: '*', element: <NotFoundPage /> },
     ],
   },
+
   {
     element: <CommonLayout />,
     children: [
-      { path: pageRoutes.example2, element: <Example2 />, errorElement: <ErrorPage /> },
+      { path: pageRoutes.terms, element: <TermsPage />, errorElement: <ErrorPage /> },
 
       { path: '*', element: <NotFoundPage /> },
     ],
