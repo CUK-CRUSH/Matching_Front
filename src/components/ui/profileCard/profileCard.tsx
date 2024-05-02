@@ -45,7 +45,6 @@ const ProfileCard: React.FC = () => {
   const profileCardStyle = ` ${!open ? 'h-[360px] my-[calc((100vh-200px-360px)/2)]' : 'h-[100vh]'}
                              mx-[4%] rounded-[16px] ${currentBackground} 
                              w-[calc(100%-8%)]
-                             after:content-[''] after:absolute after:h-[50%] after:bg-[linear-gradient(to_top,rgba(0,0,0,0.1),transparent)]     
                              `;
 
   const topProfileCardContainer = `flex flex-row ml-[10%] pt-[25px]`;
