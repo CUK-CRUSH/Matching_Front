@@ -1,5 +1,5 @@
 import Logo from '@/assets/Home/Logo.svg';
-import ValidationButton from '@/components/validationButton/validationButton';
+import ValidationButton from '@/components/validation/validationButton';
 
 export default function Home() {
   return (
@@ -7,7 +7,7 @@ export default function Home() {
       <div className="flex-1 flex items-center justify-center">
         <img src={Logo} alt="logo" className="self-center" />
       </div>
-      <ValidationButton text="시작" />
+      <ValidationButton navigation="/terms" text="시작" />
     </div>
   );
 }
