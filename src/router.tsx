@@ -7,11 +7,14 @@ import Home from '@/pages/home';
 import { Toaster } from './components/ui/toaster';
 import LoginPage from './pages/login';
 import ProfileCard from './components/profileCard/profileCard';
+import TermsPage from './pages/Terms';
+
 
 const pageRoutes = {
   main: '/',
   login: '/login',
-  matching : '/matching'
+  matching : '/matching',
+  terms: '/terms',
 };
 
 const CommonLayout = () => (
@@ -50,6 +53,15 @@ const router = createBrowserRouter([
       { path: '*', element: <NotFoundPage /> },
     ],
   },
+  {
+    element: <CommonLayout />,
+    children: [
+      { path: pageRoutes.terms, element: <TermsPage />, errorElement: <ErrorPage /> },
+
+      { path: '*', element: <NotFoundPage /> },
+    ],
+  },
+
 ]);
 
 export default router;
