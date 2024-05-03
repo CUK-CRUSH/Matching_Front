@@ -6,7 +6,7 @@ import NotFoundPage from '@/pages/error/components/NotFoundPage';
 import Home from '@/pages/home';
 import { Toaster } from './components/ui/toaster';
 import LoginPage from './pages/login';
-import ProfileCard from './components/profileCard/profileCard';
+import ProfileCard from '@/pages/matching';
 import TermsPage from '@/pages/Terms';
 import OnBoardingpage from '@/pages/onBoarding';
 
