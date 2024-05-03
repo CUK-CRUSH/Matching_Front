@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import ProfileCardImage from '@/components/ui/profileCard/profileCardImage';
-import ProfileCardName from '@/components/ui/profileCard/profileCardName';
-import ProfileCardComment from '@/components/ui/profileCard/profileCardComment';
+import ProfileCardImage from '@/components/profileCard/profileCardImage';
+import ProfileCardName from '@/components/profileCard/profileCardName';
+import ProfileCardComment from '@/components/profileCard/profileCardComment';
 import ProfileMusicCardTag from './profileCardMusicTag';
 import ProfileHabitCardTag from './profileCardHabitTag';
 
