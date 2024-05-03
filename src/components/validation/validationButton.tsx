@@ -6,12 +6,17 @@ export default function ValidationButton({
   text = '다음',
   navigation,
   buttonEnabled = true,
+  onStateChange,
 }: ValidationButtonDTO) {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    if (navigation && buttonEnabled) {
-      navigate(navigation);
+    if (buttonEnabled) {
+      if (onStateChange) {
+        onStateChange(); // Perform the state update if the handler is provided
+      } else if (navigation) {
+        navigate(navigation); // Navigate to a path if specified
+      }
     }
   };
 
