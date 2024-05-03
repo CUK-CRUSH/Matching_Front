@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import ProfileCardImage from '@/components/profileCard/profileCardImage';
 import ProfileCardName from '@/components/profileCard/profileCardName';
 import ProfileCardComment from '@/components/profileCard/profileCardComment';
-import ProfileMusicCardTag from './profileCardMusicTag';
-import ProfileHabitCardTag from './profileCardHabitTag';
 import UnlockModal from './unlockModal';
 import SpreadProfileCard from './spreadProfileCard';
 
@@ -27,7 +25,7 @@ const ProfileCard: React.FC = () => {
   // 컴포넌트 마운트 시 또는 이전 배경색이 변경될 때 실행
   useEffect(() => {
     // 이전 배경색을 제외한 새로운 배경색 목록 생성
-    const newBackgrounds = backgrounds.filter(bg => bg !== previousBackground);
+    const newBackgrounds = backgrounds.filter((bg) => bg !== previousBackground);
 
     // 새로운 배경색 목록에서 랜덤으로 하나 선택
     const randomBackground = newBackgrounds[Math.floor(Math.random() * newBackgrounds.length)];
@@ -36,13 +34,13 @@ const ProfileCard: React.FC = () => {
     setCurrentBackground(randomBackground);
     setPreviousBackground(currentBackground);
   }, [previousBackground]);
-  
+
   // 잠금 상태
   const [isLock, setLock] = useState<boolean>(true);
-  
+
   // 오픈 상태
   const [open] = useState<boolean>(false);
-  
+
   const profileCardStyle = ` ${!open ? 'h-[360px] my-[calc((100vh-200px-360px)/2)]' : 'h-[100vh]'}
                              mx-[4%] rounded-[16px] ${currentBackground} 
                              w-[calc(100%-8%)]
@@ -51,19 +49,17 @@ const ProfileCard: React.FC = () => {
   const topProfileCardContainer = `flex flex-row ml-[10%] pt-[25px]`;
   const profileCardDetails = `flex flex-col ml-[6%]`;
   return (
-    <div className={profileCardStyle} >
-
+    <div className={profileCardStyle}>
       <div className={topProfileCardContainer}>
-      <ProfileCardImage setLock={setLock}/>
-      {!isLock && <UnlockModal setLock={setLock}/> }
-      <div className={profileCardDetails}>
-      <ProfileCardName />
-      <ProfileCardComment />
-      {/* </div> */}
-
+        <ProfileCardImage setLock={setLock} />
+        {!isLock && <UnlockModal setLock={setLock} />}
+        <div className={profileCardDetails}>
+          <ProfileCardName />
+          <ProfileCardComment />
+          {/* </div> */}
+        </div>
       </div>
-      </div>
-      <SpreadProfileCard setLock={setLock}/> 
+      <SpreadProfileCard setLock={setLock} />
     </div>
   );
 };
