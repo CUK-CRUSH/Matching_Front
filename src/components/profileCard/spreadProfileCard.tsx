@@ -7,7 +7,7 @@ type SpreadProfileCardImageProps = {
 
 const SpreadProfileCard: React.FC<SpreadProfileCardImageProps> = ({ setLock }) => {
 
-  const spreadProfileCardStyle = `w-full flex justify-center items-center cursor-pointer relative -bottom-[160px] h-[50px] `;
+  const spreadProfileCardStyle = `w-full flex justify-center items-center cursor-pointer h-[50px] `;
   const fontStyle = `font-bold text-[#2F2F2F] text-[0.7rem] flex items-center gap-2`;
 
   return (

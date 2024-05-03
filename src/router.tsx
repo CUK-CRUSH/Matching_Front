@@ -4,11 +4,10 @@ import RootSuspense from '@/pages/common/components/RootSuspense';
 import ErrorPage from '@/pages/error/components/ErrorPage';
 import NotFoundPage from '@/pages/error/components/NotFoundPage';
 import Home from '@/pages/home';
-import { Toaster } from './components/ui/toaster';
-import LoginPage from './pages/login';
-import ProfileCard from './components/profileCard/profileCard';
-import TermsPage from './pages/Terms';
-
+import { Toaster } from '@/components/ui/toaster';
+import LoginPage from '@/pages/login';
+import ProfileCard from '@/pages/matching';
+import TermsPage from '@/pages/Terms';
 
 const pageRoutes = {
   main: '/',

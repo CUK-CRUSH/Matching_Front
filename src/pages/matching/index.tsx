@@ -4,8 +4,13 @@ import ProfileCardName from '@/components/profileCard/profileCardName';
 import ProfileCardComment from '@/components/profileCard/profileCardComment';
 import UnlockModal from '@/components/profileCard/unlockModal';
 import SpreadProfileCard from '@/components/profileCard/spreadProfileCard';
+import Layout from '@/components/layout/layout';
+import Footer from '@/components/layout/footer';
+import ProfileCardHeader from '@/components/layout/profileCardheader';
+import ProfileMusicCardTag from '@/components/profileCard/profileCardMusicTag';
+import ProfileHabitCardTag from '@/components/profileCard/profileCardHabitTag';
 
-const ProfileCard: React.FC = () => {
+const MatchingPage: React.FC = () => {
   // 배경색 목록
   const backgrounds = [
     'bg-background-white',
@@ -42,13 +47,16 @@ const ProfileCard: React.FC = () => {
   const [open] = useState<boolean>(false);
 
   const profileCardStyle = ` ${!open ? 'h-[360px] my-[calc((100vh-200px-360px)/2)]' : 'h-[100vh]'}
-                             mx-[4%] rounded-[16px] ${currentBackground} 
-                             w-[calc(100%-8%)]
+                             mx-[8%] rounded-[16px] ${currentBackground} 
+                             w-[calc(100%-16%)]
                              `;
 
   const topProfileCardContainer = `flex flex-row ml-[10%] pt-[25px]`;
   const profileCardDetails = `flex flex-col ml-[6%]`;
+  
   return (
+    <Layout >
+    <ProfileCardHeader />
     <div className={profileCardStyle}>
       <div className={topProfileCardContainer}>
         <ProfileCardImage setLock={setLock} />
@@ -56,12 +64,16 @@ const ProfileCard: React.FC = () => {
         <div className={profileCardDetails}>
           <ProfileCardName />
           <ProfileCardComment />
-          {/* </div> */}
+          <ProfileMusicCardTag />
+          {open && <ProfileHabitCardTag /> }
+          
         </div>
       </div>
       <SpreadProfileCard setLock={setLock} />
     </div>
+    <Footer />
+  </Layout>
   );
 };
 
-export default ProfileCard;
+export default MatchingPage;
