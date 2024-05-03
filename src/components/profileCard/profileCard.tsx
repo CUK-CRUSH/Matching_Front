@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import ProfileCardImage from '@/components/profileCard/profileCardImage';
 import ProfileCardName from '@/components/profileCard/profileCardName';
 import ProfileCardComment from '@/components/profileCard/profileCardComment';
-import UnlockModal from './unlockModal';
-import SpreadProfileCard from './spreadProfileCard';
+import UnlockModal from '@/components/profileCard/unlockModal';
+import SpreadProfileCard from '@/components/profileCard/spreadProfileCard';
 
 const ProfileCard: React.FC = () => {
   // 배경색 목록
