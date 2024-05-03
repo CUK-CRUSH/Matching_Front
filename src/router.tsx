@@ -5,12 +5,15 @@ import ErrorPage from '@/pages/error/components/ErrorPage';
 import NotFoundPage from '@/pages/error/components/NotFoundPage';
 import Home from '@/pages/home';
 import { Toaster } from './components/ui/toaster';
-import LoginPage from '@/pages/login/index';
-import TermsPage from '@/pages/Terms/index';
+import LoginPage from './pages/login';
+import ProfileCard from './components/profileCard/profileCard';
+import TermsPage from './pages/Terms';
+
 
 const pageRoutes = {
   main: '/',
   login: '/login',
+  matching : '/matching',
   terms: '/terms',
 };
 
@@ -45,11 +48,20 @@ const router = createBrowserRouter([
   {
     element: <CommonLayout />,
     children: [
+      { path: pageRoutes.matching, element: <ProfileCard />, errorElement: <ErrorPage /> },
+
+      { path: '*', element: <NotFoundPage /> },
+    ],
+  },
+  {
+    element: <CommonLayout />,
+    children: [
       { path: pageRoutes.terms, element: <TermsPage />, errorElement: <ErrorPage /> },
 
       { path: '*', element: <NotFoundPage /> },
     ],
   },
+
 ]);
 
 export default router;
