@@ -26,7 +26,7 @@ const UnlockModal: React.FC<UnlockModalProps> = ({ setLock }) => {
   }, [setLock]);
 
   const modalBackground = `fixed inset-0 bg-[#000] bg-opacity-30 flex justify-center items-center`;
-  const modalStyle = `w-[250px] relative p-8 bg-white rounded-lg flex flex-col justify-start items-center`;
+  const modalStyle = `w-[250px] relative p-12 bg-white rounded-lg flex flex-col justify-start items-center z-99`;
   const starStyle = `w-[2rem] h-[2rem] mb-[1.5rem]`;
   const fontStyle = `text-[#2f2f2f] text-[0.8rem]`;
   const buttonContainer = `flex justify-center mt-4`;
