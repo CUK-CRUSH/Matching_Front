@@ -51,12 +51,12 @@ const MatchingPage: React.FC = () => {
   // 오픈 상태
   const [open, setOpen] = useState<boolean>(false);
 
-  const profileCardStyle = ` ${!open ? 'h-[400px] my-[calc((100vh-200px-400px)/2)]' : 'h-[100vh] my-[40px] mb-[140px]'}
+  const profileCardStyle = ` ${!open ? 'h-[400px] my-[calc((100vh-200px-400px)/2)]' : 'h-auto my-[40px] mb-[140px]'}
                              mx-[8%] rounded-[16px] ${currentBackground} 
-                             w-[calc(100%-16%)]
+                             w-[calc(100%-16%)] py-[25px]
                              `;
 
-  const topProfileCardContainer = `flex flex-row ml-[10%] pt-[25px]`;
+  const topProfileCardContainer = `flex flex-row ml-[10%] `;
   const profileCardDetails = `flex flex-col ml-[6%]`;
   
   return (
