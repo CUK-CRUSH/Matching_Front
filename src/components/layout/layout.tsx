@@ -1,6 +1,6 @@
 import { LayoutDTO } from '@/type/Layout/layout';
 
-const Layout = ({ children, display = 'none', backgroundColor = 'white' }: LayoutDTO) => {
+const Layout = ({ children, display = 'none', backgroundColor = '#fff' }: LayoutDTO) => {
   const paddingTop = display === 'footer' || display === 'none' ? 'pt-0' : 'pt-[60px]';
 
   const paddingBottom = display === 'header' || display === 'none' ? 'pb-0' : 'pb-[120px]';
@@ -11,7 +11,7 @@ const Layout = ({ children, display = 'none', backgroundColor = 'white' }: Layou
         className={`${paddingTop} ${paddingBottom} flex flex-1 justify-center items-start overflow-auto scrollbar-hide`}
       >
         <main
-          className={`w-full bg-${backgroundColor} max-w-[430px] overflow-y-auto relative font-Pretendard`}
+          className={`w-full bg-[${backgroundColor}] max-w-[430px] overflow-y-auto relative font-Pretendard`}
         >
           {children}
         </main>
