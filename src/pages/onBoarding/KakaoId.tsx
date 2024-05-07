@@ -1,15 +1,21 @@
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import ValidationButton from '@/components/validation/validationButton';
+import ValidationPrevButton from '@/components/validation/validationPrevButton';
 import ValidationText from '@/components/validation/validationText';
 import useOnboardingStore from '@/store/validationStore';
 import { useState } from 'react';
 
 const KakaoIdPage = () => {
-  const { setCurrentPage } = useOnboardingStore();
-  const [kakaoId, setKakaoId] = useState('');
-  const [kakaoIdConfirm, setKakaoIdConfirm] = useState('');
-  const isIdMatch = kakaoId === kakaoIdConfirm && kakaoId.length > 0;
+  const { setCurrentPage, setUserData, userData } = useOnboardingStore();
+
+  const [kakaoIdConfirm, setKakaoIdConfirm] = useState<string>('');
+  const isIdMatch = userData.kakaoId === kakaoIdConfirm && userData.kakaoId.trim().length > 0;
+  const handleNext = () => {
+    if (isIdMatch) {
+      setCurrentPage('sex');
+    }
+  };
   return (
     <div className="flex flex-col justify-between h-screen">
       <div>
@@ -26,8 +32,9 @@ const KakaoIdPage = () => {
             <Input
               type="text"
               id="kakaoId"
+              value={userData.kakaoId}
               placeholder="카카오톡 아이디를 입력해주세요"
-              onChange={(e) => setKakaoId(e.target.value)}
+              onChange={(e) => setUserData('kakaoId', e.target.value)}
             />
           </div>
           <div className="grid w-full max-w-sm items-center gap-1.5 mt-4">
@@ -35,17 +42,17 @@ const KakaoIdPage = () => {
             <Input
               type="text"
               id="kakaoIdConfirm"
+              value={kakaoIdConfirm}
               placeholder="입력한 동일 ID를 한번 더 입력해주세요"
               onChange={(e) => setKakaoIdConfirm(e.target.value)}
             />
           </div>
         </div>
       </div>
-
-      <ValidationButton
-        onStateChange={() => setCurrentPage('location')}
-        buttonEnabled={isIdMatch}
-      />
+      <div className="flex">
+        <ValidationPrevButton navigation="/login" />
+        <ValidationButton onStateChange={handleNext} buttonEnabled={isIdMatch} />
+      </div>
     </div>
   );
 };

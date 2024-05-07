@@ -5,10 +5,10 @@ import ValidationText from '@/components/validation/validationText';
 import { useCallback, useEffect, useState } from 'react';
 
 const TermsPage = () => {
-  const [allChecked, setAllChecked] = useState(false);
-  const [signinChecked, setSigninChecked] = useState(false);
-  const [privacyChecked, setPrivacyChecked] = useState(false);
-  const [smsChecked, setSmsChecked] = useState(false);
+  const [allChecked, setAllChecked] = useState<boolean>(false);
+  const [signinChecked, setSigninChecked] = useState<boolean>(false);
+  const [privacyChecked, setPrivacyChecked] = useState<boolean>(false);
+  const [smsChecked, setSmsChecked] = useState<boolean>(false);
 
   const checkAllCondition = useCallback(() => {
     const all = signinChecked && privacyChecked && smsChecked;
