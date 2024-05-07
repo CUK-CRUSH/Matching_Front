@@ -42,10 +42,7 @@ const KakaoIdPage = () => {
         </div>
       </div>
 
-      <ValidationButton
-        onStateChange={() => setCurrentPage('location')}
-        buttonEnabled={isIdMatch}
-      />
+      <ValidationButton onStateChange={() => setCurrentPage('sex')} buttonEnabled={isIdMatch} />
     </div>
   );
 };

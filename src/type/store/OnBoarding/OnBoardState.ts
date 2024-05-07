@@ -1,4 +1,4 @@
 export type OnboardintState = {
-  currentPage: 'kakaoId' | 'location';
+  currentPage: 'kakaoId' | 'sex' | 'location';
   setCurrentPage: (page: OnboardintState['currentPage']) => void;
 };
