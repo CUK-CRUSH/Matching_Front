@@ -36,9 +36,10 @@ const CustomCalendar = ({ onChange, value }: CustomCalendarDTO) => {
 
   const handleDateChange = useCallback(
     (selectedDate: any) => {
-      onChange(selectedDate);
+      const formattedDate = moment(selectedDate).format('YYYY년 MM월 DD일');
+      setNowDate(formattedDate);
+      onChange(formattedDate);
       setIsOpen(false);
-      setNowDate(moment(selectedDate).format('YYYY년 MM월 DD일'));
     },
     [onChange],
   );

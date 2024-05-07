@@ -6,7 +6,7 @@ import useOnboardingStore from '@/store/validationStore';
 import { useForm } from 'react-hook-form';
 
 const NickNamePage = () => {
-  const { setCurrentPage } = useOnboardingStore();
+  const { setCurrentPage, userData, setUserData } = useOnboardingStore();
   const {
     register,
     handleSubmit,
@@ -15,11 +15,16 @@ const NickNamePage = () => {
   } = useForm({
     mode: 'onChange',
     defaultValues: {
-      nickname: '',
+      nickname: userData.nickname || '',
     },
   });
 
   const nickname = watch('nickname');
+
+  const handleNext = () => {
+    setUserData('nickname', nickname);
+    setCurrentPage('birth');
+  };
 
   return (
     <div className="flex flex-col justify-between h-screen">
@@ -81,7 +86,7 @@ const NickNamePage = () => {
       <div className="flex">
         <ValidationPrevButton onStateChange={() => setCurrentPage('location')} />
         <ValidationButton
-          onStateChange={() => setCurrentPage('birth')}
+          onStateChange={handleNext}
           buttonEnabled={isValid && nickname.length >= 4}
         />
       </div>

@@ -3,15 +3,21 @@ import ValidationPrevButton from '@/components/validation/validationPrevButton';
 import ValidationText from '@/components/validation/validationText';
 import useOnboardingStore from '@/store/validationStore';
 import CustomCalendar from '@/utils/Calendar';
+import moment from 'moment';
 import { useState } from 'react';
 
 const BirthPage = () => {
-  const { setCurrentPage } = useOnboardingStore();
-  const [selectedDate, setSelectedDate] = useState<any>(null);
+  const { setCurrentPage, setUserData, userData } = useOnboardingStore();
+  const [selectedDate, setSelectedDate] = useState<any>(
+    userData.birthDate ? moment(userData.birthDate, 'YYYY년 MM월 DD일').toDate() : null,
+  );
 
   const handleDateChange = (newDate: Date) => {
+    const formattedDate = moment(newDate).format('YYYY년 MM월 DD일');
     setSelectedDate(newDate);
+    setUserData('birthDate', formattedDate); // Store as a string
   };
+  console.log(userData);
 
   return (
     <div className="flex flex-col justify-between h-screen">

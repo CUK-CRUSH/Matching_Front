@@ -6,31 +6,27 @@ import ValidationText from '@/components/validation/validationText';
 import { useLocationData } from '@/services/GoogleLocation';
 import useOnboardingStore from '@/store/validationStore';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
 
 const queryClient = new QueryClient();
 
 const LocationPage = () => {
-  const { setCurrentPage } = useOnboardingStore();
+  const { setCurrentPage, userData } = useOnboardingStore();
   const { locationQuery, addressQuery } = useLocationData();
-  const [buttonEnabled, setButtonEnabled] = useState(false);
-  const [addressInput, setAddressInput] = useState('');
+
+  const { register, setValue } = useForm({
+    defaultValues: {
+      address: userData.address || '',
+    },
+  });
 
   useEffect(() => {
-    if (
-      !locationQuery.isLoading &&
-      !locationQuery.isError &&
-      !addressQuery.isLoading &&
-      !addressQuery.isError &&
-      locationQuery.data &&
-      addressQuery.data
-    ) {
-      setButtonEnabled(true);
-      setAddressInput(addressQuery.data);
-    } else {
-      setButtonEnabled(false);
+    if (userData.address) {
+      setValue('address', userData.address, { shouldValidate: true });
     }
-  }, [locationQuery, addressQuery]);
+  }, [userData.address, setValue]);
+
   // 위도 경도 데이터 보낼때 => locationQuery.data?.lat.toFixed(6), locationQuery.data?.lng.toFixed(6)
   return (
     <QueryClientProvider client={queryClient}>
@@ -48,7 +44,7 @@ const LocationPage = () => {
                   type="text"
                   id="address"
                   placeholder="주소를 자동으로 불러옵니다."
-                  value={addressInput}
+                  {...register('address')}
                   readOnly
                 />
                 <button
@@ -68,7 +64,7 @@ const LocationPage = () => {
           <ValidationPrevButton onStateChange={() => setCurrentPage('sex')} />
           <ValidationButton
             onStateChange={() => setCurrentPage('nickname')}
-            buttonEnabled={buttonEnabled}
+            buttonEnabled={!!userData.address}
           />
         </div>
       </div>
