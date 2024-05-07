@@ -2,7 +2,7 @@ import { OnboardintState } from '@/type/store/OnBoarding/OnBoardState';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-const useOnboardingStore = create(
+export const useOnboardingStore = create(
   persist<OnboardintState>(
     (set) => ({
       currentPage: 'kakaoId',

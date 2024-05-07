@@ -25,7 +25,7 @@ export default function ValidationButton({
     : 'w-full h-12 bg-[#ececec] text-[#a0a0a0] pointer-events-none';
 
   return (
-    <div className="flex justify-center mb-5 mx-2">
+    <div className="flex justify-center mb-5 mx-2 w-full">
       <Button onClick={handleClick} className={buttonCSS}>
         {text}
       </Button>
