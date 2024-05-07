@@ -11,6 +11,9 @@ import ProfileMusicCardTag from '@/components/profileCard/profileCardMusicTag';
 import ProfileHabitCardTag from '@/components/profileCard/profileCardHabitTag';
 import ProfileCardMusicCard from '@/components/profileCard/profileCardMusicCard';
 import ProfileCardBlankMusicCard from '@/components/profileCard/profileCardBlankMusicCard';
+import ProfileCardCoupleMusic from '@/components/profileCard/profileCardCoupleMusic';
+import ProfileCardIntroduction from '@/components/profileCard/profileCardIntroduction';
+import ProfileCardLikeMusic from '@/components/profileCard/profileCardLikeMusic';
 
 const MatchingPage: React.FC = () => {
   // 배경색 목록
@@ -79,6 +82,14 @@ const MatchingPage: React.FC = () => {
 
       {!open && <ProfileCardBlankMusicCard />}
       {!open && <SpreadProfileCard setLock={setLock} />}
+
+      {open && 
+      <>
+        <ProfileCardCoupleMusic />
+        <ProfileCardIntroduction />
+        <ProfileCardLikeMusic />
+      </>
+        }
     </div>
     <Footer />
   </Layout>
