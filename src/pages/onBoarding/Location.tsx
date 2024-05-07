@@ -4,7 +4,7 @@ import ValidationButton from '@/components/validation/validationButton';
 import ValidationPrevButton from '@/components/validation/validationPrevButton';
 import ValidationText from '@/components/validation/validationText';
 import { useLocationData } from '@/services/GoogleLocation';
-import useOnboardingStore from '@/store/store';
+import useOnboardingStore from '@/store/validationStore';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 

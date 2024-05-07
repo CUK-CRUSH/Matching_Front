@@ -1,7 +1,7 @@
 import ValidationButton from '@/components/validation/validationButton';
 import ValidationPrevButton from '@/components/validation/validationPrevButton';
 import ValidationText from '@/components/validation/validationText';
-import useOnboardingStore from '@/store/store';
+import useOnboardingStore from '@/store/validationStore';
 import CustomCalendar from '@/utils/Calendar';
 import { useState } from 'react';
 
@@ -19,14 +19,13 @@ const BirthPage = () => {
         titleTexts={['생년월일']}
         descriptionTexts={['태어난 년도, 월, 날짜를 입력해주세요']}
       />
-      <CustomCalendar onChange={handleDateChange} value={selectedDate} />
+      <div className="flex items-center justify-center">
+        <CustomCalendar onChange={handleDateChange} value={selectedDate} />
+      </div>
       <div className="flex">
-        <ValidationPrevButton onStateChange={() => setCurrentPage('kakaoId')} />
+        <ValidationPrevButton onStateChange={() => setCurrentPage('nickname')} />
 
-        <ValidationButton
-          navigation="/matching"
-          //   buttonEnabled={selectedSex !== ''}
-        />
+        <ValidationButton navigation="/matching" buttonEnabled={selectedDate !== null} />
       </div>
     </div>
   );

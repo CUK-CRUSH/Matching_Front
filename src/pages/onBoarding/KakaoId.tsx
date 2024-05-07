@@ -3,7 +3,7 @@ import { Label } from '@/components/ui/label';
 import ValidationButton from '@/components/validation/validationButton';
 import ValidationPrevButton from '@/components/validation/validationPrevButton';
 import ValidationText from '@/components/validation/validationText';
-import useOnboardingStore from '@/store/store';
+import useOnboardingStore from '@/store/validationStore';
 import { useState } from 'react';
 
 const KakaoIdPage = () => {

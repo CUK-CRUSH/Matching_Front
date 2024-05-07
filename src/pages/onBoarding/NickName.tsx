@@ -2,7 +2,7 @@ import { Input } from '@/components/ui/input';
 import ValidationButton from '@/components/validation/validationButton';
 import ValidationPrevButton from '@/components/validation/validationPrevButton';
 import ValidationText from '@/components/validation/validationText';
-import useOnboardingStore from '@/store/store';
+import useOnboardingStore from '@/store/validationStore';
 import { useForm } from 'react-hook-form';
 
 const NickNamePage = () => {

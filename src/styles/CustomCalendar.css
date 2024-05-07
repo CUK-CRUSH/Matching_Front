@@ -1,0 +1,78 @@
+.react-calendar {
+  width: 90%;
+  margin: auto; /* Center the calendar if not already centered */
+  padding: 0; /* Remove padding that might interfere */
+  background-color: #fff8dc; /* Adjusted color comment to match color code */
+  border-radius: 16px;
+  font-family: 'Arial', sans-serif;
+  line-height: 1.5;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.react-calendar__navigation {
+  width: 100%; /* Ensures navigation fills the parent container */
+  background-color: #ffeff6;
+  height: 44px;
+  margin-bottom: 10px;
+  display: flex; /* Ensure flex box model is used for children alignment */
+  justify-content: space-between; /* Align navigation buttons to the sides */
+  align-items: center; /* Vertically center content */
+}
+
+.react-calendar__navigation button {
+  margin: 0;
+  padding: 0 10px; /* Minimal padding for buttons */
+  border: none;
+  background: none;
+  color: #885ead;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer; /* Visual cue for clickable items */
+}
+
+.react-calendar__month-view__weekdays {
+  text-transform: uppercase;
+  color: #885ead; /* Dark purple for weekdays */
+  font-weight: bold;
+}
+
+.react-calendar__tile {
+  max-width: 100%;
+  text-align: center;
+  padding: 10px 0;
+  border-radius: 8px;
+  transition: background-color 0.3s; /* Smooth background transition */
+}
+
+.react-calendar__tile--active {
+  background-color: #76ba99; /* Soft green */
+  color: white;
+}
+
+.react-calendar__month-view__days__day--weekend {
+  color: #ff9b85; /* Soft red for weekends */
+}
+
+.react-calendar__tile:hover {
+  background-color: #fad2e1; /* Soft pink hover */
+  cursor: pointer;
+}
+
+.react-calendar__tile--happy {
+  background-image: url('../assets/happy_emoji.png');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.button-styling {
+  background-color: #6d28d9; /* A nice shade of purple */
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: background-color 0.3s;
+}
+
+.button-styling:hover {
+  background-color: #5b21b6; /* A darker purple on hover */
+}
