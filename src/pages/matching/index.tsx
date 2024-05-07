@@ -51,7 +51,7 @@ const MatchingPage: React.FC = () => {
   // 오픈 상태
   const [open, setOpen] = useState<boolean>(false);
 
-  const profileCardStyle = ` ${!open ? 'h-[400px] my-[calc((100vh-200px-400px)/2)]' : 'h-[100vh]'}
+  const profileCardStyle = ` ${!open ? 'h-[400px] my-[calc((100vh-200px-400px)/2)]' : 'h-[100vh] my-[40px] mb-[140px]'}
                              mx-[8%] rounded-[16px] ${currentBackground} 
                              w-[calc(100%-16%)]
                              `;
