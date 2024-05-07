@@ -1,4 +1,4 @@
-import useOnboardingStore from '@/store/store';
+import useOnboardingStore from '@/store/validationStore';
 import KakaoIdPage from '@/pages/onBoarding/KakaoId';
 import LocationPage from '@/pages/onBoarding/Location';
 
