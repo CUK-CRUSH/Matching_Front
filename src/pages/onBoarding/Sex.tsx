@@ -3,14 +3,12 @@ import ValidationButton from '@/components/validation/validationButton';
 import ValidationPrevButton from '@/components/validation/validationPrevButton';
 import ValidationText from '@/components/validation/validationText';
 import useOnboardingStore from '@/store/validationStore';
-import { useState } from 'react';
 
 const SexPage = () => {
-  const { setCurrentPage } = useOnboardingStore();
-  const [selectedSex, setSelectedSex] = useState('');
+  const { setCurrentPage, userData, setUserData } = useOnboardingStore();
 
   const handleSelectSex = (sex: string) => {
-    setSelectedSex(sex);
+    setUserData('sex', sex);
   };
   return (
     <div className="flex flex-col justify-between h-screen">
@@ -21,13 +19,13 @@ const SexPage = () => {
         />
         <div className="flex justify-center space-x-2 mt-28 mx-4">
           <Button
-            className={`bg-white text-black w-24 h-16 shadow-md ${selectedSex === 'male' ? 'bg-blue-500 text-white' : ''}`}
+            className={`bg-white text-black w-24 h-16 shadow-md ${userData.sex === 'male' ? 'bg-blue-500 text-white' : ''}`}
             onClick={() => handleSelectSex('male')}
           >
             남성
           </Button>
           <Button
-            className={`bg-white text-black w-24 h-16 shadow-md ${selectedSex === 'female' ? 'bg-pink-500 text-white' : ''}`}
+            className={`bg-white text-black w-24 h-16 shadow-md ${userData.sex === 'female' ? 'bg-pink-500 text-white' : ''}`}
             onClick={() => handleSelectSex('female')}
           >
             여성
@@ -40,7 +38,7 @@ const SexPage = () => {
 
         <ValidationButton
           onStateChange={() => setCurrentPage('location')}
-          buttonEnabled={selectedSex !== ''}
+          buttonEnabled={userData.sex !== ''}
         />
       </div>
     </div>
