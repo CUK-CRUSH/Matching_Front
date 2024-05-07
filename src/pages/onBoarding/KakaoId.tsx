@@ -1,6 +1,7 @@
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import ValidationButton from '@/components/validation/validationButton';
+import ValidationPrevButton from '@/components/validation/validationPrevButton';
 import ValidationText from '@/components/validation/validationText';
 import useOnboardingStore from '@/store/store';
 import { useState } from 'react';
@@ -41,8 +42,10 @@ const KakaoIdPage = () => {
           </div>
         </div>
       </div>
-
-      <ValidationButton onStateChange={() => setCurrentPage('sex')} buttonEnabled={isIdMatch} />
+      <div className="flex">
+        <ValidationPrevButton navigation="/login" />
+        <ValidationButton onStateChange={() => setCurrentPage('sex')} buttonEnabled={isIdMatch} />
+      </div>
     </div>
   );
 };

@@ -5,6 +5,12 @@ export interface ValidationButtonDTO {
   readonly onStateChange?: () => void;
 }
 
+export interface ValidationPrevButtonDTO {
+  readonly text?: string;
+  readonly navigation?: string;
+  readonly onStateChange?: () => void;
+}
+
 export interface ValidationTextDTO {
   readonly titleTexts: string[];
   readonly descriptionTexts?: string[];

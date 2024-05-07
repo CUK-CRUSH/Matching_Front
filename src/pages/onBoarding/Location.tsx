@@ -1,14 +1,17 @@
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import ValidationButton from '@/components/validation/validationButton';
+import ValidationPrevButton from '@/components/validation/validationPrevButton';
 import ValidationText from '@/components/validation/validationText';
 import { useLocationData } from '@/services/GoogleLocation';
+import useOnboardingStore from '@/store/store';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 
 const queryClient = new QueryClient();
 
 const LocationPage = () => {
+  const { setCurrentPage } = useOnboardingStore();
   const { locationQuery, addressQuery } = useLocationData();
   const [buttonEnabled, setButtonEnabled] = useState(false);
   const [addressInput, setAddressInput] = useState('');
@@ -61,7 +64,13 @@ const LocationPage = () => {
           </div>
         </div>
         {/* 현재 위치정보를 제대로 불러왔을떄만 넘어가도록 한다. */}
-        <ValidationButton navigation="/matching" buttonEnabled={buttonEnabled} />
+        <div className="flex">
+          <ValidationPrevButton onStateChange={() => setCurrentPage('sex')} />
+          <ValidationButton
+            onStateChange={() => setCurrentPage('nickname')}
+            buttonEnabled={buttonEnabled}
+          />
+        </div>
       </div>
     </QueryClientProvider>
   );

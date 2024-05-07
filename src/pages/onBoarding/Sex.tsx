@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button';
 import ValidationButton from '@/components/validation/validationButton';
+import ValidationPrevButton from '@/components/validation/validationPrevButton';
 import ValidationText from '@/components/validation/validationText';
 import useOnboardingStore from '@/store/store';
 import { useState } from 'react';
@@ -34,10 +35,14 @@ const SexPage = () => {
         </div>
       </div>
 
-      <ValidationButton
-        onStateChange={() => setCurrentPage('location')}
-        buttonEnabled={selectedSex !== ''}
-      />
+      <div className="flex">
+        <ValidationPrevButton onStateChange={() => setCurrentPage('kakaoId')} />
+
+        <ValidationButton
+          onStateChange={() => setCurrentPage('location')}
+          buttonEnabled={selectedSex !== ''}
+        />
+      </div>
     </div>
   );
 };
