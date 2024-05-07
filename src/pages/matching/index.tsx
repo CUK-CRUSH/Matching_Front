@@ -9,6 +9,8 @@ import Footer from '@/components/layout/footer';
 import ProfileCardHeader from '@/components/layout/profileCardheader';
 import ProfileMusicCardTag from '@/components/profileCard/profileCardMusicTag';
 import ProfileHabitCardTag from '@/components/profileCard/profileCardHabitTag';
+import ProfileCardMusicCard from '@/components/profileCard/profileCardMusicCard';
+import ProfileCardBlankMusicCard from '@/components/profileCard/profileCardBlankMusicCard';
 
 const MatchingPage: React.FC = () => {
   // 배경색 목록
@@ -46,7 +48,7 @@ const MatchingPage: React.FC = () => {
   // 오픈 상태
   const [open] = useState<boolean>(false);
 
-  const profileCardStyle = ` ${!open ? 'h-[360px] my-[calc((100vh-200px-360px)/2)]' : 'h-[100vh]'}
+  const profileCardStyle = ` ${!open ? 'h-[400px] my-[calc((100vh-200px-400px)/2)]' : 'h-[100vh]'}
                              mx-[8%] rounded-[16px] ${currentBackground} 
                              w-[calc(100%-16%)]
                              `;
@@ -58,6 +60,8 @@ const MatchingPage: React.FC = () => {
     <Layout >
     <ProfileCardHeader />
     <div className={profileCardStyle}>
+
+      {/* Top */}
       <div className={topProfileCardContainer}>
         <ProfileCardImage setLock={setLock} />
         {!isLock && <UnlockModal setLock={setLock} />}
@@ -69,6 +73,11 @@ const MatchingPage: React.FC = () => {
           
         </div>
       </div>
+
+      {/* Music Card */}
+      <ProfileCardMusicCard />
+
+      {!open && <ProfileCardBlankMusicCard />}
       <SpreadProfileCard setLock={setLock} />
     </div>
     <Footer />
