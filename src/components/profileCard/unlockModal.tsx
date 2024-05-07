@@ -7,9 +7,11 @@ import useProfileCardStore from '@/store/profileCardStore';
 
 type UnlockModalProps = {
   setLock: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+
 };
 
-const UnlockModal: React.FC<UnlockModalProps> = ({ setLock }) => {
+const UnlockModal: React.FC<UnlockModalProps> = ({ setLock , setOpen}) => {
 
   // 모달 열고닫기
   const unlockModalRef = useRef<HTMLDivElement>(null);
@@ -46,7 +48,12 @@ const UnlockModal: React.FC<UnlockModalProps> = ({ setLock }) => {
         <Button className={`mr-4 w-[85px]`} variant="secondary" size="sm" onClick={() => setLock(prevState => !prevState)}>
           취소
         </Button>
-        <Button className={`w-[85px] `} variant="default" size="sm" onClick={setSpend2Coin}>
+        <Button className={`w-[85px] `} variant="default" size="sm" 
+                onClick={()=>{
+                  setSpend2Coin();
+                  setOpen(prevState => !prevState);
+                  setLock(prevState => !prevState);
+                }} >
           확인
         </Button>
         </div>

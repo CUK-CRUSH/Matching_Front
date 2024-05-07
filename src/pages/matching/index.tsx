@@ -46,7 +46,7 @@ const MatchingPage: React.FC = () => {
   const [isLock, setLock] = useState<boolean>(true);
 
   // 오픈 상태
-  const [open] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(false);
 
   const profileCardStyle = ` ${!open ? 'h-[400px] my-[calc((100vh-200px-400px)/2)]' : 'h-[100vh]'}
                              mx-[8%] rounded-[16px] ${currentBackground} 
@@ -64,7 +64,7 @@ const MatchingPage: React.FC = () => {
       {/* Top */}
       <div className={topProfileCardContainer}>
         <ProfileCardImage setLock={setLock} />
-        {!isLock && <UnlockModal setLock={setLock} />}
+        {!isLock && <UnlockModal setLock={setLock} setOpen={setOpen}/>}
         <div className={profileCardDetails}>
           <ProfileCardName />
           <ProfileCardComment />
@@ -78,7 +78,7 @@ const MatchingPage: React.FC = () => {
       <ProfileCardMusicCard />
 
       {!open && <ProfileCardBlankMusicCard />}
-      <SpreadProfileCard setLock={setLock} />
+      {!open && <SpreadProfileCard setLock={setLock} />}
     </div>
     <Footer />
   </Layout>
