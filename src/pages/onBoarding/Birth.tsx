@@ -14,8 +14,8 @@ const BirthPage = () => {
 
   const handleDateChange = (newDate: Date) => {
     const formattedDate = moment(newDate).format('YYYY년 MM월 DD일');
-    setSelectedDate(newDate);
-    setUserData('birthDate', formattedDate); // Store as a string
+    setSelectedDate(newDate); // newDate는 Date 객체를 저장
+    setUserData('birthDate', formattedDate); // 문자열로 변환된 날짜를 저장
   };
   console.log(userData);
 
