@@ -1,13 +1,12 @@
 export interface ValidationButtonDTO {
   readonly text?: string;
   readonly navigation?: string;
-  readonly navigation?: string;
   readonly buttonEnabled?: boolean;
   readonly onStateChange?: () => void;
 }
 
 export interface ValidationPrevButtonDTO {
-  readonly text?: string;
+  readonly text?: React.ReactNode;
   readonly navigation?: string;
   readonly onStateChange?: () => void;
 }

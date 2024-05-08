@@ -7,7 +7,9 @@ export default function Home() {
       <div className="flex-1 flex items-center justify-center">
         <img src={Logo} alt="logo" className="self-center" />
       </div>
-      <ValidationButton navigation="/terms" text="시작" />
+      <div className="flex">
+        <ValidationButton navigation="/terms" text="시작" />
+      </div>
     </div>
   );
 }

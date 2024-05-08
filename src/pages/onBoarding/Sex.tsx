@@ -19,13 +19,15 @@ const SexPage = () => {
         />
         <div className="flex justify-center space-x-2 mt-28 mx-4">
           <Button
-            className={`bg-white text-black w-24 h-16 shadow-md ${userData.sex === 'male' ? 'bg-blue-500 text-white' : ''}`}
+            variant={'noHover'}
+            className={`bg-white text-black w-24 h-16 shadow-md ${userData.sex === 'male' ? 'bg-[#252525] text-[#f8f8f8]' : ''}`}
             onClick={() => handleSelectSex('male')}
           >
             남성
           </Button>
           <Button
-            className={`bg-white text-black w-24 h-16 shadow-md ${userData.sex === 'female' ? 'bg-pink-500 text-white' : ''}`}
+            variant={'noHover'}
+            className={`bg-white text-black w-24 h-16 shadow-md ${userData.sex === 'female' ? 'bg-[#252525] text-[#f8f8f8]' : ''}`}
             onClick={() => handleSelectSex('female')}
           >
             여성

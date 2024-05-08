@@ -1,9 +1,10 @@
 import { Button } from '@/components/ui/button';
 import { ValidationPrevButtonDTO } from '@/type/validation/validation';
 import { useNavigate } from 'react-router-dom';
+import { LeftOutlined } from '@ant-design/icons';
 
 export default function ValidationPrevButton({
-  text = '<',
+  text = <LeftOutlined />,
   navigation,
   onStateChange,
 }: ValidationPrevButtonDTO) {
@@ -21,7 +22,7 @@ export default function ValidationPrevButton({
   // bg-[#ececec] text-[#a0a0a0]
   return (
     <div className="flex justify-center mb-5 mx-2">
-      <Button onClick={handleClick} className={buttonCSS}>
+      <Button variant={'noHover'} onClick={handleClick} className={buttonCSS}>
         {text}
       </Button>
     </div>

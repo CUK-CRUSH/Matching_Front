@@ -8,6 +8,8 @@ import useOnboardingStore from '@/store/validationStore';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import LocationButton from '@/assets/Button/LocationButton.svg';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
 
 const queryClient = new QueryClient();
 
@@ -45,17 +47,31 @@ const LocationPage = () => {
                   id="address"
                   placeholder="주소를 자동으로 불러옵니다."
                   {...register('address')}
+                  className="h-11"
                   readOnly
                 />
+
                 <button
                   onClick={() => {
                     locationQuery.refetch();
                     addressQuery.refetch();
                   }}
                 >
-                  🔍
+                  {/* <LocationButton /> */}
+                  <img src={LocationButton} alt="locationButton" className="ml-4" />
                 </button>
               </div>
+            </div>
+          </div>
+        </div>
+        <div className="flex justify-center text-sm mt-80 text-[#9d9d9d]">
+          <div className="flex flex-row items-center gap-x-2">
+            <div>
+              <ExclamationCircleOutlined />
+            </div>
+            <div>
+              <p>탐색된 내 위치가 정확하지 꼭 확인해주세요</p>
+              <p>알맞지 않은 경우, 버튼을 다시 눌러 다시 탐색해주세요</p>
             </div>
           </div>
         </div>

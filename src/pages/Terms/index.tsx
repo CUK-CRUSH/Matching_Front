@@ -2,6 +2,7 @@ import TermsCheckBox from '@/components/terms/checkBox';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import ValidationButton from '@/components/validation/validationButton';
 import ValidationText from '@/components/validation/validationText';
+import { TermsOfUseWords, PrivacyWords } from '@/fixture/termsofuse';
 import { useCallback, useEffect, useState } from 'react';
 
 const TermsPage = () => {
@@ -68,18 +69,14 @@ const TermsPage = () => {
       <div>
         <TermsCheckBox
           id="signin"
-          label="회원가입약관"
+          label="이용약관"
           checked={signinChecked}
           onChange={handleSigninCheckedChange}
           required
         />
         <div className="flex justify-center">
           <ScrollArea className="h-[100px] w-[380px] text-sm rounded-md border p-4">
-            Jokester began sneaking into the castle in the middle of the night and leaving jokes all
-            over the place: under the king's pillow, in his soup, even in the royal toilet. The king
-            was furious, but he couldn't seem to stop Jokester. And then, one day, the people of the
-            kingdom discovered that the jokes left by Jokester were so funny that they couldn't help
-            but laugh. And once they started laughing, they couldn't stop.
+            <TermsOfUseWords />
           </ScrollArea>
         </div>
       </div>
@@ -94,11 +91,7 @@ const TermsPage = () => {
 
         <div className="flex justify-center">
           <ScrollArea className="h-[100px] w-[380px] text-sm rounded-md border p-4">
-            Jokester began sneaking into the castle in the middle of the night and leaving jokes all
-            over the place: under the king's pillow, in his soup, even in the royal toilet. The king
-            was furious, but he couldn't seem to stop Jokester. And then, one day, the people of the
-            kingdom discovered that the jokes left by Jokester were so funny that they couldn't help
-            but laugh. And once they started laughing, they couldn't stop.
+            <PrivacyWords />
           </ScrollArea>
         </div>
       </div>
