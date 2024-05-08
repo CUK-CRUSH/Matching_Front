@@ -60,7 +60,7 @@ const MatchingPage: React.FC = () => {
   const Details = `flex flex-col ml-[6%]`;
   
   return (
-    <Layout backgroundColor={'#252525'}>
+    <Layout backgroundColor={'#252525'} display='header'>
     <ProfileCardHeader />
     <div className={Style}>
 
