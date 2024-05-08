@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ProfileHabitCardTag: React.FC = () => {
+const HabitCardTag: React.FC = () => {
   const profileCardHabitTagStyle = `inline-block py-[4px] px-[8px] border-[1px] border-[#252525] rounded-3xl mr-[5px] mb-[5px]`;
   const tagStyle = `font-bold text-[#2F2F2F] text-[0.5rem]`;
 
@@ -18,4 +18,4 @@ const ProfileHabitCardTag: React.FC = () => {
   );
 };
 
-export default ProfileHabitCardTag;
+export default HabitCardTag;

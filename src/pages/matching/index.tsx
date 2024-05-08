@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import ProfileCardImage from '@/components/profileCard/profileCardImage';
-import ProfileCardName from '@/components/profileCard/profileCardName';
-import ProfileCardComment from '@/components/profileCard/profileCardComment';
+import Image from '@/components/profileCard/profileImage';
+import Name from '@/components/profileCard/name';
+import Comment from '@/components/profileCard/comment';
 import UnlockModal from '@/components/profileCard/unlockModal';
-import SpreadProfileCard from '@/components/profileCard/spreadProfileCard';
+import Spread from '@/components/profileCard/spread';
 import Layout from '@/components/layout/layout';
 import Footer from '@/components/layout/footer';
-import ProfileCardHeader from '@/components/layout/profileCardheader';
-import ProfileMusicCardTag from '@/components/profileCard/profileCardMusicTag';
-import ProfileHabitCardTag from '@/components/profileCard/profileCardHabitTag';
-import ProfileCardMusicCard from '@/components/profileCard/profileCardMusicCard';
-import ProfileCardBlankMusicCard from '@/components/profileCard/profileCardBlankMusicCard';
-import ProfileCardCoupleMusic from '@/components/profileCard/profileCardCoupleMusic';
-import ProfileCardIntroduction from '@/components/profileCard/profileCardIntroduction';
-import ProfileCardLikeMusic from '@/components/profileCard/profileCardLikeMusic';
+import Header from '@/components/layout/header';
+import ProfileMusicCardTag from '@/components/profileCard/musicTag';
+import ProfileHabitCardTag from '@/components/profileCard/habitTag';
+import MusicCard from '@/components/profileCard/musicCard';
+import BlankMusicCard from '@/components/profileCard/blankMusicCard';
+import CoupleMusic from '@/components/profileCard/coupleMusic';
+import Introduction from '@/components/profileCard/introduction';
+import LikeMusic from '@/components/profileCard/likeMusic';
 
 const MatchingPage: React.FC = () => {
   // 배경색 목록
@@ -51,26 +51,26 @@ const MatchingPage: React.FC = () => {
   // 오픈 상태
   const [open, setOpen] = useState<boolean>(false);
 
-  const profileCardStyle = ` ${!open ? 'h-[400px] my-[calc((100vh-200px-400px)/2)]' : 'h-auto my-[40px] mb-[140px]'}
+  const Style = ` ${!open ? 'h-[400px] my-[calc((100vh-200px-400px)/2)]' : 'h-auto my-[40px] mb-[140px]'}
                              mx-[8%] rounded-[16px] ${currentBackground} 
                              w-[calc(100%-16%)] py-[25px]
                              `;
 
-  const topProfileCardContainer = `flex flex-row ml-[10%] `;
-  const profileCardDetails = `flex flex-col ml-[6%]`;
+  const topContainer = `flex flex-row ml-[10%] `;
+  const Details = `flex flex-col ml-[6%]`;
   
   return (
     <Layout backgroundColor={'#252525'}>
-    <ProfileCardHeader />
-    <div className={profileCardStyle}>
+    <Header />
+    <div className={Style}>
 
       {/* Top */}
-      <div className={topProfileCardContainer}>
-        <ProfileCardImage setLock={setLock} />
+      <div className={topContainer}>
+        <Image setLock={setLock} />
         {!isLock && <UnlockModal setLock={setLock} setOpen={setOpen}/>}
-        <div className={profileCardDetails}>
-          <ProfileCardName />
-          <ProfileCardComment />
+        <div className={Details}>
+          <Name />
+          <Comment />
           <ProfileMusicCardTag />
           {open && <ProfileHabitCardTag /> }
           
@@ -78,16 +78,16 @@ const MatchingPage: React.FC = () => {
       </div>
 
       {/* Music Card */}
-      <ProfileCardMusicCard />
+      <MusicCard />
 
-      {!open && <ProfileCardBlankMusicCard />}
-      {!open && <SpreadProfileCard setLock={setLock} />}
+      {!open && <BlankMusicCard />}
+      {!open && <Spread setLock={setLock} />}
 
       {open && 
       <>
-        <ProfileCardCoupleMusic />
-        <ProfileCardIntroduction />
-        <ProfileCardLikeMusic />
+        <CoupleMusic />
+        <Introduction />
+        <LikeMusic />
       </>
         }
     </div>

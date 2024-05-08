@@ -1,6 +1,6 @@
 import { Textarea } from "@/components/ui/textarea";
 
-const ProfileCardIntroduction = () => {
+const Introduction = () => {
 
   const profileCardIntroductionStyle = `w-[90%] mx-[5%] mb-[20px] `;
   const CoupleMusicStyle = `text-[#2F2F2F] text-[0.5rem] ml-[4%] font-bold my-[8px]`;
@@ -17,4 +17,4 @@ const ProfileCardIntroduction = () => {
   );
 };
 
-export default ProfileCardIntroduction;
+export default Introduction;

@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-const ProfileCardComment: React.FC = () => {
+const Comment: React.FC = () => {
 
   const profileCardCommentStyle = `w-[90%] mb-[20px]`;
   const commentStyle = `font-bold text-[#2F2F2F] text-[0.5rem] `;
@@ -15,4 +15,4 @@ const ProfileCardComment: React.FC = () => {
   );
 };
 
-export default ProfileCardComment;
+export default Comment;

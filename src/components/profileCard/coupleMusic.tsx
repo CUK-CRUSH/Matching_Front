@@ -1,6 +1,6 @@
 import thumbnail from '@/assets/profileCard/thumbnail.svg';
 
-const ProfileCardCoupleMusic = () => {
+const CoupleMusic = () => {
 
   const profileCardCoupleMusicStyle = `w-[90%] mx-[5%] mb-[20px] `;
   const fontStyle = `text-[#2F2F2F] text-[0.5rem] ml-[4%] font-bold my-[8px]`; 
@@ -23,4 +23,4 @@ const ProfileCardCoupleMusic = () => {
   );
 };
 
-export default ProfileCardCoupleMusic;
+export default CoupleMusic;

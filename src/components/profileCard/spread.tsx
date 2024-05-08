@@ -5,7 +5,7 @@ type SpreadProfileCardImageProps = {
   setLock: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const SpreadProfileCard: React.FC<SpreadProfileCardImageProps> = ({ setLock }) => {
+const Spread: React.FC<SpreadProfileCardImageProps> = ({ setLock }) => {
 
   const spreadProfileCardStyle = `w-full flex justify-center items-center cursor-pointer mt-[8px]`;
   const fontStyle = `font-bold text-[#2F2F2F] text-[0.7rem] flex items-center gap-2`;
@@ -17,4 +17,4 @@ const SpreadProfileCard: React.FC<SpreadProfileCardImageProps> = ({ setLock }) =
   );
 };
 
-export default SpreadProfileCard;
+export default Spread;

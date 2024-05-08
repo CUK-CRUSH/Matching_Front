@@ -1,7 +1,6 @@
 import React from 'react';
 
-
-const ProfileCardName: React.FC = () => {
+const Name: React.FC = () => {
  
   const profileCardNameStyle = `h-[2rem] w-[90%] `;
   
@@ -31,4 +30,4 @@ const ProfileCardName: React.FC = () => {
   );
 };
 
-export default ProfileCardName;
+export default Name;

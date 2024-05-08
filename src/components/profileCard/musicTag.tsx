@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ProfileMusicCardTag: React.FC = () => {
+const MusicCardTag: React.FC = () => {
   const profileCardMusicTagStyle = `inline-block py-[4px] px-[8px] border-[1px] border-[#252525] rounded-3xl mr-[5px] mb-[5px]`;
   const tagStyle = `font-bold text-[#2F2F2F] text-[0.5rem]`;
 
@@ -20,4 +20,4 @@ const ProfileMusicCardTag: React.FC = () => {
   );
 };
 
-export default ProfileMusicCardTag;
+export default MusicCardTag;
