@@ -3,13 +3,17 @@ import React, { useRef, useEffect } from 'react';
 import star from '@/assets/profileCard/stars.svg';
 
 import { Button } from '@/components/ui/button';
+import useProfileCardStore from '@/store/profileCardStore';
 
 type UnlockModalProps = {
   setLock: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+
 };
 
-const UnlockModal: React.FC<UnlockModalProps> = ({ setLock }) => {
+const UnlockModal: React.FC<UnlockModalProps> = ({ setLock , setOpen}) => {
 
+  // 모달 열고닫기
   const unlockModalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -24,6 +28,9 @@ const UnlockModal: React.FC<UnlockModalProps> = ({ setLock }) => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [setLock]);
+
+  // 확인버튼 클릭시 재화 2 소모
+  const {setSpend2Coin} = useProfileCardStore();
 
   const modalBackground = `fixed inset-0 bg-[#000] bg-opacity-30 flex justify-center items-center`;
   const modalStyle = `w-[250px] relative p-12 bg-white rounded-lg flex flex-col justify-start items-center z-99`;
@@ -41,7 +48,12 @@ const UnlockModal: React.FC<UnlockModalProps> = ({ setLock }) => {
         <Button className={`mr-4 w-[85px]`} variant="secondary" size="sm" onClick={() => setLock(prevState => !prevState)}>
           취소
         </Button>
-        <Button className={`w-[85px] `} variant="default" size="sm">
+        <Button className={`w-[85px] `} variant="default" size="sm" 
+                onClick={()=>{
+                  setSpend2Coin();
+                  setOpen(prevState => !prevState);
+                  setLock(prevState => !prevState);
+                }} >
           확인
         </Button>
         </div>

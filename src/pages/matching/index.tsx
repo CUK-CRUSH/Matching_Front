@@ -11,6 +11,9 @@ import ProfileMusicCardTag from '@/components/profileCard/profileCardMusicTag';
 import ProfileHabitCardTag from '@/components/profileCard/profileCardHabitTag';
 import ProfileCardMusicCard from '@/components/profileCard/profileCardMusicCard';
 import ProfileCardBlankMusicCard from '@/components/profileCard/profileCardBlankMusicCard';
+import ProfileCardCoupleMusic from '@/components/profileCard/profileCardCoupleMusic';
+import ProfileCardIntroduction from '@/components/profileCard/profileCardIntroduction';
+import ProfileCardLikeMusic from '@/components/profileCard/profileCardLikeMusic';
 
 const MatchingPage: React.FC = () => {
   // 배경색 목록
@@ -46,25 +49,25 @@ const MatchingPage: React.FC = () => {
   const [isLock, setLock] = useState<boolean>(true);
 
   // 오픈 상태
-  const [open] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(false);
 
-  const profileCardStyle = ` ${!open ? 'h-[400px] my-[calc((100vh-200px-400px)/2)]' : 'h-[100vh]'}
+  const profileCardStyle = ` ${!open ? 'h-[400px] my-[calc((100vh-200px-400px)/2)]' : 'h-auto my-[40px] mb-[140px]'}
                              mx-[8%] rounded-[16px] ${currentBackground} 
-                             w-[calc(100%-16%)]
+                             w-[calc(100%-16%)] py-[25px]
                              `;
 
-  const topProfileCardContainer = `flex flex-row ml-[10%] pt-[25px]`;
+  const topProfileCardContainer = `flex flex-row ml-[10%] `;
   const profileCardDetails = `flex flex-col ml-[6%]`;
   
   return (
-    <Layout >
+    <Layout backgroundColor={'#252525'}>
     <ProfileCardHeader />
     <div className={profileCardStyle}>
 
       {/* Top */}
       <div className={topProfileCardContainer}>
         <ProfileCardImage setLock={setLock} />
-        {!isLock && <UnlockModal setLock={setLock} />}
+        {!isLock && <UnlockModal setLock={setLock} setOpen={setOpen}/>}
         <div className={profileCardDetails}>
           <ProfileCardName />
           <ProfileCardComment />
@@ -78,7 +81,15 @@ const MatchingPage: React.FC = () => {
       <ProfileCardMusicCard />
 
       {!open && <ProfileCardBlankMusicCard />}
-      <SpreadProfileCard setLock={setLock} />
+      {!open && <SpreadProfileCard setLock={setLock} />}
+
+      {open && 
+      <>
+        <ProfileCardCoupleMusic />
+        <ProfileCardIntroduction />
+        <ProfileCardLikeMusic />
+      </>
+        }
     </div>
     <Footer />
   </Layout>
