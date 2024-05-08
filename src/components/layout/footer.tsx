@@ -16,7 +16,7 @@ const Footer = () => {
       {/* 아이콘 배치 */}
       <div className="flex justify-around w-full max-w-[350px]">
         <img src={offMessage} alt="Message" />
-        <div className={`w-[4rem] h-[4rem] bg-[#2C2C2C] rounded-full -mt-[50px] flex justify-center items-center ml-1`}>
+        <div className={`w-[5rem] h-[5rem] bg-[#2C2C2C] rounded-full -mt-[62px] flex justify-center items-center ml-1`}>
           <img src={offMatching} alt="Matching" />
         </div>
 
