@@ -1,10 +1,5 @@
-import React from 'react';
-
 import lock from '@/assets/profileCard/lock.svg';
-
-type ProfileCardImageProps = {
-  setLock: React.Dispatch<React.SetStateAction<boolean>>;
-};
+import { ProfileCardImageProps } from '@/type/ProfileCard/ProfileCard';
 
 const ProfileCardImage = ({setLock} : ProfileCardImageProps) => {
 

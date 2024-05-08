@@ -1,15 +1,10 @@
-import React, { useRef, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 
 import star from '@/assets/profileCard/stars.svg';
 
 import { Button } from '@/components/ui/button';
 import useProfileCardStore from '@/store/profileCardStore';
-
-type UnlockModalProps = {
-  setLock: React.Dispatch<React.SetStateAction<boolean>>;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-
-};
+import {UnlockModalProps} from '@/type/ProfileCard/ProfileCard';
 
 const UnlockModal = ({ setLock , setOpen} : UnlockModalProps) => {
 

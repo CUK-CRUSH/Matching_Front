@@ -6,7 +6,7 @@ import UnlockModal from '@/components/profileCard/unlockModal';
 import Spread from '@/components/profileCard/spread';
 import Layout from '@/components/layout/layout';
 import Footer from '@/components/layout/footer';
-import Header from '@/components/layout/header';
+import ProfileCardHeader from '@/components/layout/profileCardheader';
 import ProfileMusicCardTag from '@/components/profileCard/musicTag';
 import ProfileHabitCardTag from '@/components/profileCard/habitTag';
 import MusicCard from '@/components/profileCard/musicCard';
@@ -29,8 +29,8 @@ const MatchingPage: React.FC = () => {
   ];
 
   // 이전 배경색 상태와 현재 배경색 상태
-  const [previousBackground, setPreviousBackground] = useState('');
-  const [currentBackground, setCurrentBackground] = useState('');
+  const [previousBackground, setPreviousBackground] = useState<string>('');
+  const [currentBackground, setCurrentBackground] = useState<string>('');
 
   // 컴포넌트 마운트 시 또는 이전 배경색이 변경될 때 실행
   useEffect(() => {
@@ -61,7 +61,7 @@ const MatchingPage: React.FC = () => {
   
   return (
     <Layout backgroundColor={'#252525'}>
-    <Header />
+    <ProfileCardHeader />
     <div className={Style}>
 
       {/* Top */}

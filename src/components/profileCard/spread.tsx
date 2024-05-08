@@ -1,9 +1,5 @@
-import React from 'react';
 import doubleDown from '@/assets/profileCard/double-down.svg';
-
-type SpreadProfileCardImageProps = {
-  setLock: React.Dispatch<React.SetStateAction<boolean>>;
-};
+import { SpreadProfileCardImageProps } from '@/type/ProfileCard/ProfileCard';
 
 const Spread = ({ setLock } : SpreadProfileCardImageProps) => {
 
