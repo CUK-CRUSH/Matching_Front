@@ -6,12 +6,12 @@ const Layout = ({ children, display = 'none', backgroundColor = '#fff' }: Layout
   const paddingBottom = display === 'header' || display === 'none' ? 'pb-0' : 'pb-[120px]';
 
   return (
-    <div className="flex flex-col min-h-screen h-screen overflow-hidden">
+    <div className="flex flex-col min-h-screen h-screen overflow-hidden ">
       <div
         className={`${paddingTop} ${paddingBottom} flex flex-1 justify-center items-start overflow-auto scrollbar-hide`}
       >
         <main
-          className={`w-full bg-[${backgroundColor}] max-w-[430px] overflow-y-auto relative font-Pretendard`}
+          className={`w-full bg-[${backgroundColor}] max-w-[430px] h-full scrollbar-hide overflow-y-auto relative font-Pretendard`}
         >
           {children}
         </main>
