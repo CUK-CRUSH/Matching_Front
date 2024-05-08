@@ -1,0 +1,23 @@
+.div-half-circle {
+  width: 100%;
+  max-width: 430px;
+  margin: 0 auto;
+  height: 120px;
+  position: relative;
+  background-image: 
+    linear-gradient(to bottom, transparent 50%, #2C2C2C 50%),
+    radial-gradient(circle at center top, transparent 60px, #2C2C2C 60px);
+  background-size: 100% 100%;
+  overflow: hidden; /* 추가된 부분 */
+}
+
+.div-half-circle::before {
+  content: '';
+  position: absolute;
+  top: 150px; /* 원의 경계 시작 지점 조정 */
+  left: 0;
+  width: 100%;
+  height: 10px; /* 가상 요소의 높이와 원의 경계 지점 조정 */
+  background: yellow;
+  border-radius: 50%; /* 부드러운 곡선 효과 */
+}

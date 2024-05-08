@@ -54,13 +54,14 @@ const MatchingPage: React.FC = () => {
   const Style = ` ${!open ? 'h-[400px] my-[calc((100vh-200px-400px)/2)]' : 'h-auto my-[40px] mb-[140px]'}
                              mx-[8%] rounded-[16px] ${currentBackground} 
                              w-[calc(100%-16%)] py-[25px]
+                             scrollbar-hide overflow-scroll
                              `;
 
   const topContainer = `flex flex-row ml-[10%] `;
   const Details = `flex flex-col ml-[6%]`;
   
   return (
-    <Layout backgroundColor={'#252525'}>
+    <Layout backgroundColor={'#252525'} display='header'>
     <ProfileCardHeader />
     <div className={Style}>
 
@@ -78,6 +79,8 @@ const MatchingPage: React.FC = () => {
       </div>
 
       {/* Music Card */}
+      <MusicCard />
+      <MusicCard />
       <MusicCard />
 
       {!open && <BlankMusicCard />}
