@@ -26,7 +26,7 @@ export default function ValidationButton({
 
   return (
     <div className="flex justify-center mb-5 mx-2 w-full">
-      <Button onClick={handleClick} className={buttonCSS}>
+      <Button variant={'noHover'} onClick={handleClick} className={buttonCSS}>
         {text}
       </Button>
     </div>

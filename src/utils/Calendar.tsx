@@ -1,5 +1,5 @@
 import 'react-calendar/dist/Calendar.css';
-import '@/styles/CustomCalendar.css';
+// import '@/styles/CustomCalendar.css';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Calendar from 'react-calendar';
 import moment from 'moment';
