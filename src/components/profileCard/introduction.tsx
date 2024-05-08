@@ -2,12 +2,9 @@ import { Textarea } from "@/components/ui/textarea";
 
 const Introduction = () => {
 
-  const profileCardIntroductionStyle = `w-[90%] mx-[5%] mb-[20px] `;
-  const CoupleMusicStyle = `text-[#2F2F2F] text-[0.5rem] ml-[4%] font-bold my-[8px]`;
-
   return (
-    <div className={profileCardIntroductionStyle} >
-      <p data-testid='introduction' className={CoupleMusicStyle}>
+    <div className={`w-[90%] mx-[5%] mb-[20px] `} >
+      <p data-testid='introduction' className={`text-[#2F2F2F] text-[0.5rem] ml-[4%] font-bold my-[8px]`}>
         스스로를 소개해주세요
       </p>
       <Textarea 
