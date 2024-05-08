@@ -79,6 +79,8 @@ const MatchingPage: React.FC = () => {
 
       {/* Music Card */}
       <MusicCard />
+      <MusicCard />
+      <MusicCard />
 
       {!open && <BlankMusicCard />}
       {!open && <Spread setLock={setLock} />}
