@@ -15,6 +15,8 @@ import CoupleMusic from '@/components/profileCard/coupleMusic';
 import Introduction from '@/components/profileCard/introduction';
 import LikeMusic from '@/components/profileCard/likeMusic';
 import Post from '@/components/profileCard/post';
+import useProfileCardStore from '@/store/profileCardStore';
+import PostMessage from '@/components/profileCard/postMessage';
 
 const MatchingPage = () => {
   // 배경색 목록
@@ -62,6 +64,9 @@ const MatchingPage = () => {
   const topContainer = `flex flex-row ml-[10%] `;
   const Details = `flex flex-col ml-[6%]`;
   
+  // 메시지보내기 창 모달 오픈
+  const {openMessage} = useProfileCardStore();
+
   return (
     <Layout backgroundColor={'#252525'} display='header'>
     <ProfileCardHeader />
@@ -71,6 +76,7 @@ const MatchingPage = () => {
       <div className={topContainer}>
         <Image setLock={setLock} />
         {!isLock && <UnlockModal setLock={setLock} setOpen={setOpen}/>}
+        {openMessage && <PostMessage />}
         <div className={Details}>
           <Name />
           <Comment />

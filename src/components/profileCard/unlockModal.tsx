@@ -29,7 +29,7 @@ const UnlockModal = ({ setLock , setOpen} : UnlockModalProps) => {
 
   return (
     <div className={`fixed inset-0 bg-[#000] bg-opacity-30 flex justify-center items-center`} onClick={() => setLock(prevState => !prevState)}>
-      <div className={`w-[250px] relative p-12 bg-white rounded-lg flex flex-col justify-start items-center z-99`} ref={unlockModalRef} onClick={e => e.stopPropagation()} data-testid="modalText">
+      <div className={`w-[250px] relative p-12 bg-white rounded-lg flex flex-col justify-start items-center z-99`} ref={unlockModalRef} onClick={e => e.stopPropagation()} data-testid="unlockModalText">
         <img src={star} alt='star' className={`w-[2rem] h-[2rem] mb-[1.5rem]`} />
         <p className={`text-[#2f2f2f] text-[0.8rem]`}>프로필 잠금을 해제할까요?</p>
         <p className={`text-[#2f2f2f] text-[0.8rem]`}>'2' 재화를 소모합니다.</p>
