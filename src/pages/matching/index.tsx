@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Image from '@/components/profileCard/profileImage';
 import Name from '@/components/profileCard/name';
 import Comment from '@/components/profileCard/comment';
@@ -14,8 +14,9 @@ import BlankMusicCard from '@/components/profileCard/blankMusicCard';
 import CoupleMusic from '@/components/profileCard/coupleMusic';
 import Introduction from '@/components/profileCard/introduction';
 import LikeMusic from '@/components/profileCard/likeMusic';
+import Post from '@/components/profileCard/post';
 
-const MatchingPage: React.FC = () => {
+const MatchingPage = () => {
   // 배경색 목록
   const backgrounds = [
     'bg-background-white',
@@ -51,7 +52,8 @@ const MatchingPage: React.FC = () => {
   // 오픈 상태
   const [open, setOpen] = useState<boolean>(false);
 
-  const Style = ` ${!open ? 'h-[400px] my-[calc((100vh-200px-400px)/2)]' : 'h-auto my-[40px] mb-[140px]'}
+  const Style = ` ${!open ? 'h-[400px] my-[calc((100vh-200px-400px)/2)]' : 'h-auto '}
+                             
                              mx-[8%] rounded-[16px] ${currentBackground} 
                              w-[calc(100%-16%)] py-[25px]
                              scrollbar-hide overflow-scroll
@@ -91,9 +93,12 @@ const MatchingPage: React.FC = () => {
         <CoupleMusic />
         <Introduction />
         <LikeMusic />
+
       </>
         }
     </div>
+    {open && <Post />}
+
     <Footer />
   </Layout>
   );

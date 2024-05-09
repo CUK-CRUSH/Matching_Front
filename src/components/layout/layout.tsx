@@ -10,7 +10,7 @@ const Layout = ({ children, display = 'none', backgroundColor = '#fff' }: Layout
       <div
         className={`${paddingTop} ${paddingBottom} flex flex-1 justify-center items-start overflow-auto scrollbar-hide`}
       >
-        <main
+        <main 
           className={`w-full bg-[${backgroundColor}] max-w-[430px] h-full scrollbar-hide overflow-y-auto relative font-Pretendard`}
         >
           {children}
