@@ -1,6 +1,6 @@
 import { useRef, useEffect } from 'react';
 
-import star from '@/assets/profileCard/stars.svg';
+import star from '@/assets/ProfileCard/stars.svg';
 
 import { Button } from '@/components/ui/button';
 import useProfileCardStore from '@/store/profileCardStore';

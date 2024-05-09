@@ -1,4 +1,4 @@
-import doubleDown from '@/assets/profileCard/double-down.svg';
+import doubleDown from '@/assets/ProfileCard/double-down.svg';
 import { SpreadProfileCardImageProps } from '@/type/ProfileCard/ProfileCard';
 
 const Spread = ({ setLock } : SpreadProfileCardImageProps) => {

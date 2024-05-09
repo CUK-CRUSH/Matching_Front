@@ -1,4 +1,4 @@
-import thumbnail from '@/assets/profileCard/thumbnail.svg';
+import thumbnail from '@/assets/ProfileCard/thumbnail.svg';
 
 const CoupleMusic = () => {
 

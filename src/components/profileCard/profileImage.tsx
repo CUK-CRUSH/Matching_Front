@@ -1,4 +1,4 @@
-import lock from '@/assets/profileCard/lock.svg';
+import lock from '@/assets/ProfileCard/lock.svg';
 import { ProfileCardImageProps } from '@/type/ProfileCard/ProfileCard';
 
 const ProfileCardImage = ({setLock} : ProfileCardImageProps) => {
