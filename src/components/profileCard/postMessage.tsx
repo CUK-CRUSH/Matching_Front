@@ -51,7 +51,7 @@ const PostMessage = () => {
     <div className={`fixed inset-0 bg-[#000] bg-opacity-30 flex justify-center items-center`} onClick={setOpenMessage}>
 
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="w-[300px] h-[350px] px-6 py-5 space-y-6 bg-[#fff] rounded-2xl"
+        <form onSubmit={form.handleSubmit(onSubmit)} className="w-[300px] h-[365px] px-6 py-5 space-y-6 bg-[#fff] rounded-2xl"
           onClick={e => e.stopPropagation()}
           data-testid="postMessageModalText">
           <FormField
@@ -97,7 +97,7 @@ const PostMessage = () => {
 
                     <Textarea
                       {...form.register("message")} // 'register' 함수를 사용하여 'message' 필드를 등록합니다.
-                      className="block w-full mt-1 border-0 bg-[#F1F1F1] rounded-md shadow-sm"
+                      className="block w-full mt-1 border-0 bg-[#F1F1F1] rounded-md shadow-sm h-[130px]"
                     />
                     </FormItem>
                   )}
