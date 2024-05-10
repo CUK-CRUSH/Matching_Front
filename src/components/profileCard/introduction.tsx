@@ -9,7 +9,10 @@ const Introduction = () => {
       </p>
       <Textarea 
         className="text-[0.5rem] text-[#2F2F2F] "
-        value={'길게 쓰는 자기소개'}/>
+        value={'길게 쓰는 자기소개'}
+        readOnly
+        />
+        
     </div>
   );
 };
