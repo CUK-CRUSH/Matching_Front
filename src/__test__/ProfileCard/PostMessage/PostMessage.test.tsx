@@ -11,8 +11,9 @@ describe('메세지 보낼때 토스트 창이 잘 나오나 테스트 합니닷
    // 클릭하기 전에는 Modal 텍스트가 보이지 않아야 함
    expect(screen.queryByTestId('postMessageModalText')).toBeNull();
 
-   // img 클릭 alt text로 접근
-   await userEvent.click(screen.getByAltText('lock'));
+    // img 접근 후 alt 'lock' 에 접근 후 버튼 클릭
+    const lockImage = await screen.findByRole('img', {name : 'lock'})
+    await userEvent.click(lockImage);
 
    // 잠금해제하고 더 읽기 로 접근
    await userEvent.click(screen.getByText('잠금해제하고 더 읽기'));
@@ -20,8 +21,12 @@ describe('메세지 보낼때 토스트 창이 잘 나오나 테스트 합니닷
    // 확인 버튼 클릭
    await userEvent.click(screen.getByText('확인'));
    
-   // img 클릭 alt text로 접근
-   await userEvent.click(screen.getByAltText('message'));
+    // alt 텍스트가 'message'인 이미지를 찾습니다.
+    const messageImage = await screen.findByRole('img', { name: 'message' });
+
+    // 이미지 클릭
+    await userEvent.click(messageImage);
+
     // 라디오 버튼 선택과 메시지 입력
     const phoneRadioButton = screen.getByLabelText('전화번호');
     userEvent.click(phoneRadioButton);
