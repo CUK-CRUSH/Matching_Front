@@ -5,6 +5,7 @@ import star from '@/assets/ProfileCard/stars.svg';
 import { Button } from '@/components/ui/button';
 import useProfileCardStore from '@/store/profileCardStore';
 import {UnlockModalProps} from '@/type/ProfileCard/ProfileCard';
+import { toast } from "@/components/ui/use-toast"
 
 const UnlockModal = ({ setLock , setOpen} : UnlockModalProps) => {
 
@@ -27,6 +28,19 @@ const UnlockModal = ({ setLock , setOpen} : UnlockModalProps) => {
   // 확인버튼 클릭시 재화 2 소모
   const {setSpend2Coin} = useProfileCardStore();
 
+  const openProfileCard = () =>{
+    setSpend2Coin();
+    setOpen(prevState => !prevState);
+    setLock(prevState => !prevState);
+    toast({
+      title: "잠금해제 완료! ",
+      className:
+        'h-[40px] w-[90%] bg-[#252525]  text-[#fff] fixed top-[60px] left-1/2 transform -translate-x-1/2 flex justify-center border-0 exceed:w-[358px]'
+      ,
+      
+    })
+  }
+  
   return (
     <div className={`fixed inset-0 bg-[#000] bg-opacity-30 flex justify-center items-center`} onClick={() => setLock(prevState => !prevState)}>
       <div className={`w-[250px] relative p-12 bg-white rounded-lg flex flex-col justify-start items-center z-99`} ref={unlockModalRef} onClick={e => e.stopPropagation()} data-testid="unlockModalText">
@@ -38,11 +52,7 @@ const UnlockModal = ({ setLock , setOpen} : UnlockModalProps) => {
           취소
         </Button>
         <Button className={`w-[85px] `} variant="default" size="sm" 
-                onClick={()=>{
-                  setSpend2Coin();
-                  setOpen(prevState => !prevState);
-                  setLock(prevState => !prevState);
-                }} >
+                onClick={openProfileCard} >
           확인
         </Button>
         </div>

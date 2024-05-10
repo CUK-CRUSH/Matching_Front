@@ -54,7 +54,7 @@ const MatchingPage = () => {
   // 오픈 상태
   const [open, setOpen] = useState<boolean>(false);
 
-  const Style = ` ${!open ? 'h-[400px] my-[calc((100vh-200px-400px)/2)]' : 'h-auto '}
+  const Style = ` ${!open ? 'h-[400px] my-[calc((100vh-200px-400px)/2)]' : 'h-auto mt-[50px]'}
                              
                              mx-[8%] rounded-[16px] ${currentBackground} 
                              w-[calc(100%-16%)] py-[25px]
