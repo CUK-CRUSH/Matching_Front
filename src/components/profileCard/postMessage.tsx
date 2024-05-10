@@ -46,13 +46,14 @@ const PostMessage = () => {
   const { setOpenMessage } = useProfileCardStore();
 
   return (
-    <div className={`fixed inset-0 bg-[#000] bg-opacity-30 flex justify-center items-center`} onClick={setOpenMessage}>
+    <div className={`fixed inset-0 bg-[#000] bg-opacity-30 flex justify-center items-center`} onClick={setOpenMessage} data-testid="postMessageModalText">
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="w-[300px] h-[365px] px-6 py-5 space-y-6 bg-[#fff] rounded-2xl"
           onClick={e => e.stopPropagation()}
-          data-testid="postMessageModalText">
+          >
           <FormField
+            
             control={form.control}
             name="type"
             render={({ field }) => (
