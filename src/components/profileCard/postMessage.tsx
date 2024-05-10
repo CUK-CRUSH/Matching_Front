@@ -67,7 +67,7 @@ const PostMessage = () => {
                     className="flex flex-col space-y-1 px-3 pb-5"
                   >
                     <FormItem className="flex items-center space-x-3 space-y-0">
-                      <FormLabel className={`text-[0.625rem] text-[#0A0A0A]`}>
+                      <FormLabel className={`text-[0.625rem] text-[#0A0A0A] mr-[6px]`}>
                         카톡 ID
                       </FormLabel>
                       <FormControl>
