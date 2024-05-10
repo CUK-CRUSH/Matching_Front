@@ -9,6 +9,7 @@ import './index.css';
 import router from '@/router';
 
 import Layout from '@/components/layout/layout';
+import { Toaster } from "@/components/ui/toaster"
 
 const queryClient = new QueryClient();
 
@@ -31,6 +32,7 @@ enableMocking().then(() => {
     <RecoilRoot>
       <QueryClientProvider client={queryClient}>
         <Layout>
+          <Toaster />
           {isDevEnvironment && <ReactQueryDevtools />}
           <RouterProvider router={router} />
         </Layout>
