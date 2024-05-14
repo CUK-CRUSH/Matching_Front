@@ -3,7 +3,6 @@ import ProfileCard from '@/pages/matching/index';
 import PostMessage from '@/components/profileCard/postMessage';
 import userEvent from '@testing-library/user-event';
 import { toast } from '@/components/ui/use-toast';
-import useProfileCardStore from '@/store/profileCardStore';
 global.ResizeObserver = require('resize-observer-polyfill');
 
 
