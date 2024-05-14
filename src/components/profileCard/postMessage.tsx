@@ -26,7 +26,6 @@ const FormSchema = z.object({
   }).min(1, "메시지를 입력해야 합니다.")
 })
 
-
 const PostMessage = () => {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -35,11 +34,11 @@ const PostMessage = () => {
 
   const onSubmit = () => {
     toast({
-      title: "전송이 완료되었습니다. ",
+      title: "전송이 완료되었습니다.",
       className:
         'h-[40px] w-[90%] fixed top-[60px] left-1/2 transform -translate-x-1/2 flex justify-center rounded-[8px] exceed:w-[358px]'
       ,
-      
+
     })
     setOpenMessage();
   }
@@ -49,11 +48,12 @@ const PostMessage = () => {
     <div className={`fixed inset-0 bg-[#000] bg-opacity-30 flex justify-center items-center`} onClick={setOpenMessage} data-testid="postMessageModalText">
 
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="w-[300px] h-[365px] px-6 py-5 space-y-6 bg-[#fff] rounded-2xl"
+        <form data-testid='submit' onSubmit={form.handleSubmit(onSubmit)} className="w-[300px] h-[365px] px-6 py-5 space-y-6 bg-[#fff] rounded-2xl"
           onClick={e => e.stopPropagation()}
-          >
+        >
+          {/* 라디오 버튼 */}
           <FormField
-            
+
             control={form.control}
             name="type"
             render={({ field }) => (
@@ -86,8 +86,12 @@ const PostMessage = () => {
 
                   </RadioGroup>
                 </FormControl>
-
-                <FormField
+                <FormMessage className="fixed top-0 left-0 right-0 mx-auto" />
+              </FormItem>
+            )}
+          />
+          {/* 텍스트 에어리어 */}
+          <FormField
                   control={form.control}
                   name="message"
                   render={() => (
@@ -96,17 +100,12 @@ const PostMessage = () => {
 
                       <Textarea
                         {...form.register("message")} // 'register' 함수를 사용하여 'message' 필드를 등록합니다.
+                        data-testid="message"
                         className="block w-full mt-1 border-0 bg-[#F1F1F1] rounded-md shadow-sm h-[130px]"
                       />
                     </FormItem>
                   )}
                 />
-
-
-                <FormMessage className="fixed top-0 left-0 right-0 mx-auto"/>
-              </FormItem>
-            )}
-          />
           <div className="text-right">
             <button type="submit">
               <img src={post} alt='post' />

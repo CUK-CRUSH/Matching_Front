@@ -9,7 +9,7 @@ const useProfileCardStore = create<ProfileCardState>(
     setSpend2Coin: () => set((state: { coin: number; }) => ({ coin: state.coin - 2 })),
 
     // 메시지보내기 창 모달 오픈
-    openMessage : false,
+    openMessage : false, 
     setOpenMessage : () => set((state: { openMessage: boolean; }) => ({ openMessage: !state.openMessage })),
   }),
 );
