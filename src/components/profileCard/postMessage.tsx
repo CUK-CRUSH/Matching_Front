@@ -15,6 +15,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { toast } from "@/components/ui/use-toast"
 import useProfileCardStore from "@/store/profileCardStore"
 import post from "@/assets/ProfileCard/post.svg"
+import closeButton from "@/assets/ProfileCard/closeButton.svg"
 
 const FormSchema = z.object({
   type: z.enum(["kakao", "phone"], {
@@ -46,7 +47,7 @@ const PostMessage = () => {
     <div className={`fixed inset-0 bg-[#000] bg-opacity-30 flex justify-center items-center`} onClick={setOpenMessage} data-testid="postMessageModalText">
 
       <Form {...form}>
-        <form data-testid='submit' onSubmit={form.handleSubmit(onSubmit)} className="w-[300px] h-[365px] px-6 py-5 space-y-6 bg-[#fff] rounded-2xl"
+        <form data-testid='submit' onSubmit={form.handleSubmit(onSubmit)} className="w-[300px] h-[350px] px-6 py-5 space-y-6 bg-[#fff] rounded-2xl"
           onClick={e => e.stopPropagation()}
         >
           {/* 라디오 버튼 */}
@@ -55,13 +56,16 @@ const PostMessage = () => {
             control={form.control}
             name="type"
             render={({ field }) => (
-              <FormItem className="space-y-3">
-                <FormLabel className={`text-[0.75rem] text-[#2F2F2F] font-semibold`}>전송방식 선택</FormLabel>
+              <FormItem className="">
+                <div className={`flex flex-row justify-between`}> 
+                  <FormLabel className={`text-[0.75rem] text-[#2F2F2F] font-semibold`}>전송방식 선택</FormLabel>
+                  <img src={closeButton} className={`cursor-pointer`} onClick={setOpenMessage}/>
+                </div>
                 <FormControl>
                   <RadioGroup
                     onValueChange={field.onChange}
                     defaultValue={field.value}
-                    className="flex flex-col space-y-1 px-3 pb-5"
+                    className="flex flex-col space-y-1 px-3"
                   >
                     <FormItem className="flex items-center space-x-3 space-y-0">
                       <FormLabel className={`text-[0.625rem] text-[#0A0A0A] mr-[6px]`}>
@@ -99,7 +103,7 @@ const PostMessage = () => {
                       <Textarea
                         {...form.register("message")} // 'register' 함수를 사용하여 'message' 필드를 등록합니다.
                         data-testid="message"
-                        className="block w-full mt-1 border-0 bg-[#F1F1F1] rounded-md shadow-sm h-[130px]"
+                        className="block w-full border-0 bg-[#F1F1F1] rounded-md shadow-sm h-[130px]"
                       />
                     </FormItem>
                   )}
