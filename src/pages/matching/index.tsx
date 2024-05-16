@@ -54,15 +54,15 @@ const MatchingPage = () => {
   // 오픈 상태
   const [open, setOpen] = useState<boolean>(false);
 
-  const Style = ` ${!open ? 'h-[400px] my-[calc((100vh-200px-400px)/2)]' : 'h-auto mt-[50px]'}
+  const Style = ` ${!open ? 'h-auto my-[calc((100vh-200px-420px)/2)]' : 'h-auto mt-[50px]'}
                              
                              mx-[3%] rounded-[16px] ${currentBackground} 
-                             w-[calc(100%-6%)] py-[25px]
+                             w-[calc(100%-6%)] py-[30px] 
                              scrollbar-hide overflow-scroll
                              `;
 
-  const topContainer = `flex flex-row ml-[10%] `;
-  const Details = `flex flex-col ml-[6%]`;
+  const topContainer = `flex flex-row ml-6 `;
+  const Details = `flex flex-col ml-[5%]`;
   
   // 메시지보내기 창 모달 오픈
   const {openMessage} = useProfileCardStore();
