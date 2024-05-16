@@ -19,7 +19,7 @@ import closeButton from "@/assets/ProfileCard/closeButton.svg"
 
 const FormSchema = z.object({
   type: z.enum(["kakao", "phone"], {
-    required_error: "You need to select a notification type.",
+    required_error: "한 가지 이상은 선택하셔야 합니다.",
   }),
 
   message: z.string({
@@ -41,13 +41,20 @@ const PostMessage = () => {
     })
     setOpenMessage();
   }
+  const onError = () => {
+    toast({
+      title: "오류 : 모든 필드를 올바르게 채워주세요",
+      className:
+        'h-[40px] w-[90%] fixed top-[60px] left-1/2 transform -translate-x-1/2 flex justify-center rounded-[8px] exceed:w-[358px]',
+    })
+  }
   const { setOpenMessage } = useProfileCardStore();
 
   return (
     <div className={`fixed inset-0 bg-[#000] bg-opacity-30 flex justify-center items-center`} onClick={setOpenMessage} data-testid="postMessageModalText">
 
       <Form {...form}>
-        <form data-testid='submit' onSubmit={form.handleSubmit(onSubmit)} className="w-[300px] h-[350px] px-6 py-5 space-y-6 bg-[#fff] rounded-2xl"
+        <form data-testid='submit' onSubmit={form.handleSubmit(onSubmit, onError)} className="w-[300px] h-[350px] px-6 py-5 space-y-6 bg-[#fff] rounded-2xl"
           onClick={e => e.stopPropagation()}
         >
           {/* 라디오 버튼 */}
