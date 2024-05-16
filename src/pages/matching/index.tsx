@@ -14,7 +14,7 @@ import BlankMusicCard from '@/components/profileCard/blankMusicCard';
 import CoupleMusic from '@/components/profileCard/coupleMusic';
 import Introduction from '@/components/profileCard/introduction';
 import LikeMusic from '@/components/profileCard/likeMusic';
-import Post from '@/components/profileCard/post';
+import SocialButtons from '@/components/profileCard/socialButtons';
 import useProfileCardStore from '@/store/profileCardStore';
 import PostMessage from '@/components/profileCard/postMessage';
 
@@ -101,7 +101,7 @@ const MatchingPage = () => {
       </>
         }
     </div>
-    {open && <Post />}
+    {open && <SocialButtons />}
 
     <Footer />
   </Layout>

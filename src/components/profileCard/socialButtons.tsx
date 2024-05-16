@@ -6,7 +6,7 @@ import useProfileCardStore from "@/store/profileCardStore";
 import { useState } from "react";
 import { toast } from "@/components/ui/use-toast";
 
-const Post = () => {
+const SocialButtons = () => {
   
   const { openMessage, setOpenMessage } = useProfileCardStore();
 
@@ -33,4 +33,4 @@ const Post = () => {
     )
 }
 
-export default Post;
+export default SocialButtons;

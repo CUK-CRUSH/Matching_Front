@@ -1,5 +1,5 @@
 import { render, screen, act } from '@testing-library/react';
-import Post from '@/components/profileCard/post'; // 이미지를 포함하고 있는 컴포넌트
+import Post from '@/components/profileCard/socialButtons'; // 이미지를 포함하고 있는 컴포넌트
 import userEvent from '@testing-library/user-event';
 import { toast } from '@/components/ui/use-toast';
 
