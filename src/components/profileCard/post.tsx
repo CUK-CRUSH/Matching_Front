@@ -4,6 +4,7 @@ import offHeart from "@/assets/ProfileCard/offHeart.svg";
 import onHeart from "@/assets/ProfileCard/onHeart.svg";
 import useProfileCardStore from "@/store/profileCardStore";
 import { useState } from "react";
+import { toast } from "@/components/ui/use-toast";
 
 const Post = () => {
   
@@ -12,6 +13,13 @@ const Post = () => {
   const [isLike,setLike] = useState<boolean>(false);
 
   const handleLike = () =>{
+    {!isLike &&
+    toast({
+      title: "좋아요가 전송되었습니다.",
+      className:
+        'h-[40px] w-[90%] fixed top-[60px] left-1/2 transform -translate-x-1/2 flex justify-center rounded-[8px] exceed:w-[358px]',
+    })
+    }
     setLike(prev => !prev)
   }
 

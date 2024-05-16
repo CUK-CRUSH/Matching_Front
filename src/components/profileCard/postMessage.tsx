@@ -36,9 +36,7 @@ const PostMessage = () => {
     toast({
       title: "전송이 완료되었습니다.",
       className:
-        'h-[40px] w-[90%] fixed top-[60px] left-1/2 transform -translate-x-1/2 flex justify-center rounded-[8px] exceed:w-[358px]'
-      ,
-
+        'h-[40px] w-[90%] fixed top-[60px] left-1/2 transform -translate-x-1/2 flex justify-center rounded-[8px] exceed:w-[358px]',
     })
     setOpenMessage();
   }
