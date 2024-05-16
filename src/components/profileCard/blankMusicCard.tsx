@@ -1,4 +1,4 @@
-import ellipsis from "@/assets/profileCard/ellipsis.svg";
+import ellipsis from "@/assets/ProfileCard/ellipsis.svg";
 
 const BlankMusicCard = () => {
   

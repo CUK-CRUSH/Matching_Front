@@ -9,7 +9,9 @@ const LikeMusic = () => {
       </p>
       <Textarea 
         className="text-[0.5rem] text-[#2F2F2F]"
-        value={'나는 이런 음악취향을 가진 상대에게 호감을 느낀다'}/>
+        value={'나는 이런 음악취향을 가진 상대에게 호감을 느낀다'}
+        readOnly
+        />
     </div>
   );
 };

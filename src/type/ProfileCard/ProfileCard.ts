@@ -1,4 +1,4 @@
-export type ProfileCardImageProps = {
+export type ProfileImageProps = {
     setLock: React.Dispatch<React.SetStateAction<boolean>>;
   };
 
