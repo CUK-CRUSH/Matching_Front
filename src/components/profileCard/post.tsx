@@ -25,7 +25,7 @@ const Post = () => {
 
   return (
     // margin bottom 으로 스크롤 범위 조작
-      <div className={`w-[calc(100%-16%)] mx-[8%] flex justify-end mt-[10px] mb-[150px] ml-[15px]`}>
+      <div className={`w-[calc(100%-10%)] mx-[5%] flex justify-end mt-[10px] mb-[150px] ml-[15px]`}>
         <img src={!isLike ? offHeart : onHeart} alt="heart" className={`mr-3`} onClick={handleLike} />
 
         <img src={openMessage ? onMessage : offMessage} alt="message" onClick={setOpenMessage}/>

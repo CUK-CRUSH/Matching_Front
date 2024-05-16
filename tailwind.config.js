@@ -69,6 +69,17 @@ module.exports = {
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
       },
+      fontSize: {
+        'xs' : '0.5rem',
+        's' : '0.75rem',
+        'm' : '0.875rem',
+        'l' : '1rem',
+        'xl' : '1.5rem'
+      },
+      fontWeight : {
+        'bold' : 'bold',
+        'medium' : 'medium'
+      },
       keyframes: {
         'accordion-down': {
           from: { height: '0' },
@@ -90,7 +101,7 @@ module.exports = {
       },
       screens : {
         'exceed' : '430px'
-      }
+      },
     },
     fontFamily: {
       Pretendard: ['Pretendard'],
