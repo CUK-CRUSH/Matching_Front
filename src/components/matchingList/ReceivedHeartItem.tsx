@@ -1,9 +1,10 @@
+import { ReceivedHeartItemProps } from "@/type/MatchingList/MatchingList";
 import { useEffect, useState } from "react";
+import Name from "@/components/common/name";
 
-const ReceivedHeartItem = () => {
+const ReceivedHeartItem = ({name,age,mbti,time,song,singer} : ReceivedHeartItemProps) => {
   // 배경색 목록
   const backgrounds = [
-    'bg-background-small-white',
     'bg-background-small-grey',
     'bg-background-small-yellow',
     'bg-background-small-green',
@@ -31,14 +32,15 @@ const ReceivedHeartItem = () => {
   }, [previousBackground]);
 
   return (
-    <div className={`h-auto mx-[2%] pt-[12px] pb-[8px] ${currentBackground} rounded-[16px]`}>
+    <div className={`h-auto mx-[2%] mb-[8px] pt-[12px] pb-[8px] ${currentBackground} rounded-[16px]`}>
       <div className={`flex justify-between px-[3%] text-[12px]`}>
-        <p>이름</p> <p>26분전</p>
+        <div> <Name name={name} age={age} mbti={mbti} />  </div>
+        <div><p>{time}</p></div>
       </div>
 
-      <div className={`h-[35px] mx-[2%] mt-[4px] rounded-[12px] bg-[#fff] py-[10px] px-[1%] flex justify-between items-center text-[12px]`}>
-        <p>노래제목</p>
-        <p>가수</p>
+      <div className={`h-[35px] mx-[2%] mt-[4px] rounded-[12px] text-[#2f2f2f] bg-[#fff] py-[10px] px-[4%] flex justify-between items-center text-[12px]`}>
+        <p>{song}</p>
+        <p>{singer}</p>
       </div>
 
     </div>

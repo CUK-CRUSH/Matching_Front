@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import Image from '@/components/profileCard/profileImage';
-import Name from '@/components/profileCard/name';
+import Name from '@/components/common/name';
 import Comment from '@/components/profileCard/comment';
 import UnlockModal from '@/components/profileCard/unlockModal';
 import Spread from '@/components/profileCard/spread';
