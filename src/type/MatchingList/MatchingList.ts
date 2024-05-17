@@ -4,7 +4,7 @@ export type ExpandedButtonsProps = {
 }
 
 export type HeartContainerProps = {
-  children? : React.ReactNode;
+  children?: React.ReactNode;
 }
 
 export type ReceivedHeartItemProps = {
@@ -20,5 +20,10 @@ export type ReceivedHeartItemProps = {
 export type MusciCardProps = {
   song: string;
   singer: string;
-  isDark? : boolean;
+  isDark?: boolean;
+}
+
+export type TagProps = {
+  tag: string;
+  isDark?: boolean;
 }
