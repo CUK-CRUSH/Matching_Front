@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Image from '@/components/profileCard/profileImage';
 import Name from '@/components/profileCard/name';
 import Comment from '@/components/profileCard/comment';
@@ -14,8 +14,11 @@ import BlankMusicCard from '@/components/profileCard/blankMusicCard';
 import CoupleMusic from '@/components/profileCard/coupleMusic';
 import Introduction from '@/components/profileCard/introduction';
 import LikeMusic from '@/components/profileCard/likeMusic';
+import SocialButtons from '@/components/profileCard/socialButtons';
+import useProfileCardStore from '@/store/profileCardStore';
+import PostMessage from '@/components/profileCard/postMessage';
 
-const MatchingPage: React.FC = () => {
+const MatchingPage = () => {
   // 배경색 목록
   const backgrounds = [
     'bg-background-white',
@@ -51,15 +54,19 @@ const MatchingPage: React.FC = () => {
   // 오픈 상태
   const [open, setOpen] = useState<boolean>(false);
 
-  const Style = ` ${!open ? 'h-[400px] my-[calc((100vh-200px-400px)/2)]' : 'h-auto my-[40px] mb-[140px]'}
-                             mx-[8%] rounded-[16px] ${currentBackground} 
-                             w-[calc(100%-16%)] py-[25px]
+  const Style = ` ${!open ? 'h-auto my-[calc((100vh-200px-420px)/2)]' : 'h-auto mt-[50px]'}
+                             
+                             mx-[3%] rounded-[16px] ${currentBackground} 
+                             w-[calc(100%-6%)] py-[30px] 
                              scrollbar-hide overflow-scroll
                              `;
 
-  const topContainer = `flex flex-row ml-[10%] `;
-  const Details = `flex flex-col ml-[6%]`;
+  const topContainer = `flex flex-row ml-6 `;
+  const Details = `flex flex-col ml-[5%]`;
   
+  // 메시지보내기 창 모달 오픈
+  const {openMessage} = useProfileCardStore();
+
   return (
     <Layout backgroundColor={'#252525'} display='header'>
     <ProfileCardHeader />
@@ -69,6 +76,7 @@ const MatchingPage: React.FC = () => {
       <div className={topContainer}>
         <Image setLock={setLock} />
         {!isLock && <UnlockModal setLock={setLock} setOpen={setOpen}/>}
+        {openMessage && <PostMessage />}
         <div className={Details}>
           <Name />
           <Comment />
@@ -80,8 +88,6 @@ const MatchingPage: React.FC = () => {
 
       {/* Music Card */}
       <MusicCard />
-      <MusicCard />
-      <MusicCard />
 
       {!open && <BlankMusicCard />}
       {!open && <Spread setLock={setLock} />}
@@ -91,9 +97,12 @@ const MatchingPage: React.FC = () => {
         <CoupleMusic />
         <Introduction />
         <LikeMusic />
+
       </>
         }
     </div>
+    {open && <SocialButtons />}
+
     <Footer />
   </Layout>
   );
