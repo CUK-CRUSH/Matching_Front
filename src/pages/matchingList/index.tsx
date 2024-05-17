@@ -3,6 +3,8 @@ import Footer from '@/components/layout/footer';
 import SocialButtons from '@/components/matchingList/SocialButtons';
 import ExpandedButtons from '@/components/matchingList/ExpandedButtons';
 import Divider from '@/components/matchingList/Divider';
+import ReceivedHeartContainer from '@/components/matchingList/ReceivedHeartContainer';
+import ReceivedHeartItem from '@/components/matchingList/ReceivedHeartItem';
 
 
 const MatchingListPage = () => {
@@ -13,6 +15,9 @@ const MatchingListPage = () => {
         {/* 받은 하트 */}
         <ExpandedButtons heartState='받은 하트' router='receive'/>
         <Divider />
+        <ReceivedHeartContainer>
+          <ReceivedHeartItem />
+        </ReceivedHeartContainer>
         {/* 보낸하트 */}
         <ExpandedButtons heartState='보낸 하트' router='send'/>
         <Divider />
