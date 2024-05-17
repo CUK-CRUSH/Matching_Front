@@ -1,23 +1,25 @@
 import { NameProps } from "@/type/Common/Name";
 
 
-const Name = ({name, age, mbti} : NameProps) => {
- 
+const Name = ({name, age, mbti, isDark} : NameProps) => {
+  
+  const fontStyle = `text-[${isDark ? '#fff' : '#2f2f2f'}] text-[0.625rem] opacity-40 mr-[0.2em]`
+
   return (
     <div className={` `} >
-      <span className={`font-bold text-[#000] text-[0.625rem] opacity-100 mr-[0.2em]`}>
+      <span className={`font-bold text-[${isDark ? '#fff' : '#000'}] text-[0.625rem] opacity-100 mr-[0.2em]`}>
         {name}
       </span>
-      <span className={`text-[#2f2f2f] text-[0.625rem] opacity-40 mr-[0.2em]`}>
+      <span className={fontStyle}>
         |
       </span>
-      <span className={`text-[#2f2f2f] text-[0.625rem] opacity-40 mr-[0.2em]`}>
+      <span className={fontStyle}>
         {age}
       </span>
-      <span className={`text-[#2f2f2f] text-[0.625rem] opacity-40 mr-[0.2em]`}>
+      <span className={fontStyle}>
         |
       </span>
-      <span className={`text-[#2f2f2f] text-[0.625rem] opacity-40 mr-[0.2em]`}>
+      <span className={fontStyle}>
         {mbti}
       </span>
     </div>

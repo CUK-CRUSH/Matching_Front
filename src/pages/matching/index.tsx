@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Image from '@/components/profileCard/profileImage';
 import Name from '@/components/common/name';
 import Comment from '@/components/profileCard/comment';
