@@ -9,6 +9,7 @@ import LoginPage from './pages/login';
 import ProfileCard from '@/pages/matching';
 import TermsPage from '@/pages/Terms';
 import OnBoardingpage from '@/pages/onBoarding';
+import MatchingListPage from '@/pages/matchingList';
 
 const pageRoutes = {
   main: '/',
@@ -16,6 +17,7 @@ const pageRoutes = {
   matching: '/matching',
   terms: '/terms',
   onBoarding: '/onboarding',
+  matchingList : '/matchingList',
 };
 
 const CommonLayout = () => (
@@ -66,6 +68,14 @@ const router = createBrowserRouter([
     element: <CommonLayout />,
     children: [
       { path: pageRoutes.onBoarding, element: <OnBoardingpage />, errorElement: <ErrorPage /> },
+
+      { path: '*', element: <NotFoundPage /> },
+    ],
+  },
+  {
+    element: <CommonLayout />,
+    children: [
+      { path: pageRoutes.matchingList, element: <MatchingListPage />, errorElement: <ErrorPage /> },
 
       { path: '*', element: <NotFoundPage /> },
     ],

@@ -63,6 +63,8 @@ module.exports = {
         'background-pink': 'linear-gradient(to top, #FFFCFC 0%, #FF93FB 62%, #FFFBE9 94%)',
         'background-sky': 'linear-gradient(to top, #FFFCFC 0%, #A9FFFA 62%, #F4FFEF 100%)',
         'background-lock' : 'linear-gradient(to top, #FFFCFC 0%, #F0F0F0 62%, #FFC5AC  100%)',
+        'matching-list': 'linear-gradient(to top, #191919 0%, #252525 100%)'
+
       },
       borderRadius: {
         lg: 'var(--radius)',
