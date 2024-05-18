@@ -17,4 +17,4 @@ const ExpandedButtons = ({heartState, router} : ExpandedButtonsProps) => {
     )
 }
 
-export default ExpandedButtons
+export default ExpandedButtons;
