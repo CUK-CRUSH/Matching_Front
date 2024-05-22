@@ -27,3 +27,8 @@ export type TagProps = {
   tag: string;
   isDark?: boolean;
 }
+
+export type SocialButtonProps = {
+  onSelectedToggle : (selectedValue: string) => void;
+  selected : string;
+}

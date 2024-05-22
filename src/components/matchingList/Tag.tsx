@@ -10,6 +10,4 @@ const Tag = ({ tag, isDark }: TagProps) => {
   )
 }
 
-
-
 export default Tag;
