@@ -9,6 +9,7 @@ import { MOCK_RECEIVE_HEARTS } from '@/fixture/ReceiveHeart';
 import SendedHeartContainer from '@/components/matchingList/SendedHeartContainer';
 import SendedHeartItem from '@/components/matchingList/SendedHeartItem';
 import { useState } from 'react';
+import MatchingListHeader from '@/components/layout/matchingListHeader';
 
 
 const MatchingListPage = () => {
@@ -25,6 +26,7 @@ const MatchingListPage = () => {
    return (
     <Layout backgroundColor='#2C2C2C'>
       <div className="h-auto mt-[10vh] bg-matching-list relative flex flex-col rounded-t-[28px] pb-[130px]">
+        <MatchingListHeader text={'matchingList'}/>
         <SocialButtons onSelectedToggle={handleSelectToggle} selected={selected} />
         {/* 받은 하트 */}
         <ExpandedButtons heartState='받은 하트' router='receive' />

@@ -86,7 +86,8 @@ module.exports = {
         's' : '0.75rem',
         'm' : '0.875rem',
         'l' : '1rem',
-        'xl' : '1.5rem'
+        'xl' : '1.25rem',
+        'xxl' : '1.5rem'
       },
       fontWeight : {
         'bold' : 'bold',
