@@ -27,7 +27,7 @@ const MatchingListPage = () => {
     <Layout backgroundColor='#2C2C2C'>
 
       <div className="h-auto mt-[10vh] bg-matching-list relative flex flex-col rounded-t-[28px] pb-[130px]">
-      <MatchingListHeader text={'matchingList'} background={'#2C2C2C'} />
+      <MatchingListHeader text={'matchingList'} background={'#2C2C2C'} router={'matching'} />
 
         <SocialButtons onSelectedToggle={handleSelectToggle} selected={selected} />
         {/* 받은 하트 */}
