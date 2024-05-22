@@ -3,7 +3,7 @@ export const MOCK_RECEIVE_HEARTS = [
     name: '김철수',
     age: '25',
     mbti: 'INTJ',
-    tag: '#열정적인',
+    tag: '인디',
     time: '5분 전',
     song: 'look',
     singer: 'ABCD'

@@ -20,7 +20,7 @@ const ReceivedHeartItem = ({ name, age, mbti, tag, time, song, singer }: Receive
 
   return (
     <div className={`h-auto mx-[2%] mb-[8px] pt-[12px] pb-[8px] ${currentBackground} rounded-[16px]`}>
-      <div className={`flex justify-between px-[3%] text-s`}>
+      <div className={`flex justify-between px-[3%] `}>
         <div className="flex items-center">
           <Name name={name} age={age} mbti={mbti} />
           <Tag tag={tag} />
