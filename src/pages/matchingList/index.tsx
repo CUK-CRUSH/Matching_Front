@@ -3,14 +3,12 @@ import Footer from '@/components/layout/footer';
 import SocialButtons from '@/components/matchingList/SocialButtons';
 import ExpandedButtons from '@/components/matchingList/ExpandedButtons';
 import Divider from '@/components/matchingList/Divider';
-import ReceivedHeartContainer from '@/components/matchingList/ReceivedHeartContainer';
+import ItemContainer from '@/components/matchingList/ItemContainer';
 import ReceivedHeartItem from '@/components/matchingList/ReceivedHeartItem';
 import { MOCK_RECEIVE_HEARTS } from '@/fixture/ReceiveHeart';
-import SendedHeartContainer from '@/components/matchingList/SendedHeartContainer';
 import SendedHeartItem from '@/components/matchingList/SendedHeartItem';
 import { useState } from 'react';
 import MatchingListHeader from '@/components/layout/matchingListHeader';
-
 
 const MatchingListPage = () => {
 
@@ -36,42 +34,42 @@ const MatchingListPage = () => {
             {/* 받은 하트 */}
             <ExpandedButtons heartState='받은 하트' router='receivedHeart' />
             <Divider />
-            <ReceivedHeartContainer>
+            <ItemContainer>
               {MOCK_RECEIVE_HEARTS.slice(0, 4).map((item, index) => (
                 <ReceivedHeartItem key={index} {...item} />
               ))}
 
-            </ReceivedHeartContainer>
+            </ItemContainer>
             {/* 보낸하트 */}
             <ExpandedButtons heartState='보낸 하트' router='sendedHeart' />
             <Divider />
-            <SendedHeartContainer>
+            <ItemContainer>
               {MOCK_RECEIVE_HEARTS.slice(0, 3).map((item, index) => (
                 <SendedHeartItem key={index} {...item} />
               ))}
-            </SendedHeartContainer>
+            </ItemContainer>
           </>
         }
 
         {selected === 'message' &&
           <>
-            {/* 받은 하트 */}
+            {/* 받은 메시지 */}
             <ExpandedButtons heartState='받은 메시지' router='receivedHeart' />
             <Divider />
-            <ReceivedHeartContainer>
+            <ItemContainer>
               {MOCK_RECEIVE_HEARTS.slice(0, 3).map((item, index) => (
                 <ReceivedHeartItem key={index} {...item} type={selected} />
               ))}
 
-            </ReceivedHeartContainer>
-            {/* 보낸하트 */}
+            </ItemContainer>
+            {/* 보낸 메시지 */}
             <ExpandedButtons heartState='보낸 메시지' router='sendedHeart' />
             <Divider />
-            <SendedHeartContainer>
+            <ItemContainer>
               {MOCK_RECEIVE_HEARTS.slice(0, 3).map((item, index) => (
                 <SendedHeartItem key={index} {...item} />
               ))}
-            </SendedHeartContainer>
+            </ItemContainer>
           </>
         }
 

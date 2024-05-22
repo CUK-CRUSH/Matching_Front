@@ -9,7 +9,7 @@ export type ExpandedButtonsProps = {
   router: string;
 }
 
-export type HeartContainerProps = {
+export type ItemContainerProps = {
   children?: React.ReactNode;
 }
 

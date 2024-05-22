@@ -1,7 +1,7 @@
 import Layout from "@/components/layout/layout"
 import Footer from '@/components/layout/footer';
 import MatchingListHeader from "@/components/layout/matchingListHeader";
-import ReceivedHeartContainer from "@/components/matchingList/ReceivedHeartContainer";
+import ReceivedHeartContainer from "@/components/matchingList/ItemContainer";
 import { MOCK_RECEIVE_HEARTS } from "@/fixture/ReceiveHeart";
 import ReceivedHeartItem from "@/components/matchingList/ReceivedHeartItem";
 
