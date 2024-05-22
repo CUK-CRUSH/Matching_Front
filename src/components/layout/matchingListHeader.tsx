@@ -6,7 +6,7 @@ const matchingListHeader = ({text,background,router} : matchingListHeaderProps) 
 
   const navigate = useNavigate();
 
-  const handleNavigate = (router : string) => {
+  const handleNavigate = (router : string | undefined) => {
     {router ? navigate(`/${router}`) : navigate(-1)}
   }
 
