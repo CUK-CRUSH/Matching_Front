@@ -3,8 +3,9 @@ import Name from "@/components/common/name";
 import useGetRandomBackgrounds from "@/hooks/useGetRandomBackgrounds/useGetRandomBackgrounds";
 import MusicCard from "@/components/matchingList/MusicCard";
 import Tag from "@/components/matchingList/Tag";
+import { Textarea } from "@/components/ui/textarea";
 
-const ReceivedHeartItem = ({ name, age, mbti, tag, time, song, singer }: ReceivedHeartItemProps) => {
+const ReceivedHeartItem = ({ name, age, mbti, tag, time, song, singer, type }: ReceivedHeartItemProps) => {
   // 배경색 목록
   const backgrounds = [
     'bg-background-small-grey',
@@ -28,8 +29,17 @@ const ReceivedHeartItem = ({ name, age, mbti, tag, time, song, singer }: Receive
         <div><p className="text-s">{time}</p></div>
       </div>
 
+      {type === 'message' ?
+        <div className={`w-auto mx-2 mt-1`} >
+          <Textarea
+            className="text-m text-[#2F2F2F] h-[80px] bg-transparent"
+            value={'메시지 보내기'}
+            readOnly
+          />
+        </div>
+        :
+        <MusicCard song={song} singer={singer} isDark={false} />}
 
-      {<MusicCard song={song} singer={singer} isDark={false} />}
 
     </div>
   )

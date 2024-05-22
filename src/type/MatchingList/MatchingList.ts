@@ -21,6 +21,7 @@ export type ReceivedHeartItemProps = {
   time: string;
   song: string;
   singer: string;
+  type? :string;
 }
 
 export type MusciCardProps = {
