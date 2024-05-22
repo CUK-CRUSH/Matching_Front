@@ -10,7 +10,7 @@ const ReceivedHeart = () => {
     <Layout backgroundColor='#252525'>
       <main className="min-h-full h-auto mt-[10vh] bg-matching-list relative flex flex-col pb-[100px]">
 
-        <MatchingListHeader text={'받은 하트'} />
+        <MatchingListHeader text={'받은 하트'} background={'#252525'}  />
         <ReceivedHeartContainer>
           {MOCK_RECEIVE_HEARTS.map((item, index) => (
             <ReceivedHeartItem key={index} {...item} />

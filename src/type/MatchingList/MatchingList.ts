@@ -1,5 +1,6 @@
 export type matchingListHeaderProps = {
   text : string;
+  background? : string;
 }
 
 export type ExpandedButtonsProps = {
