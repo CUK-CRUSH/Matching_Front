@@ -29,7 +29,7 @@ const MatchingListPage = () => {
         <MatchingListHeader text={'matchingList'}/>
         <SocialButtons onSelectedToggle={handleSelectToggle} selected={selected} />
         {/* 받은 하트 */}
-        <ExpandedButtons heartState='받은 하트' router='receive' />
+        <ExpandedButtons heartState='받은 하트' router='receivedHeart' />
         <Divider />
         <ReceivedHeartContainer>
           {MOCK_RECEIVE_HEARTS.slice(0, 4).map((item, index) => (
@@ -38,7 +38,7 @@ const MatchingListPage = () => {
 
         </ReceivedHeartContainer>
         {/* 보낸하트 */}
-        <ExpandedButtons heartState='보낸 하트' router='send' />
+        <ExpandedButtons heartState='보낸 하트' router='sendedHeart' />
         <Divider />
         <SendedHeartContainer>
         {MOCK_RECEIVE_HEARTS.slice(0, 3).map((item, index) => (

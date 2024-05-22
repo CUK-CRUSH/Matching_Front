@@ -10,6 +10,8 @@ import ProfileCard from '@/pages/matching';
 import TermsPage from '@/pages/Terms';
 import OnBoardingpage from '@/pages/onBoarding';
 import MatchingListPage from '@/pages/matchingList';
+import ReceivedHeart from './pages/heart/receivedHeart';
+import SendedHeart from './pages/heart/sendedHeart';
 
 const pageRoutes = {
   main: '/',
@@ -18,6 +20,8 @@ const pageRoutes = {
   terms: '/terms',
   onBoarding: '/onboarding',
   matchingList : '/matchingList',
+  receivedHeart : '/matchingList/receivedHeart',
+  sendedHeart : '/matchingList/sendedHeart',
 };
 
 const CommonLayout = () => (
@@ -76,6 +80,22 @@ const router = createBrowserRouter([
     element: <CommonLayout />,
     children: [
       { path: pageRoutes.matchingList, element: <MatchingListPage />, errorElement: <ErrorPage /> },
+
+      { path: '*', element: <NotFoundPage /> },
+    ],
+  },
+  {
+    element: <CommonLayout />,
+    children: [
+      { path: pageRoutes.receivedHeart, element: <ReceivedHeart />, errorElement: <ErrorPage /> },
+
+      { path: '*', element: <NotFoundPage /> },
+    ],
+  },
+  {
+    element: <CommonLayout />,
+    children: [
+      { path: pageRoutes.sendedHeart, element: <SendedHeart />, errorElement: <ErrorPage /> },
 
       { path: '*', element: <NotFoundPage /> },
     ],
