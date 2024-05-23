@@ -3,7 +3,7 @@ import Footer from '@/components/layout/footer';
 import MatchingListHeader from "@/components/layout/matchingListHeader";
 import ReceivedHeartContainer from "@/components/matchingList/ItemContainer";
 import { MOCK_RECEIVE_HEARTS } from "@/fixture/ReceiveHeart";
-import ReceivedHeartItem from "@/components/matchingList/ReceivedHeartItem";
+import ReceivedHeartItem from "@/components/matchingList/ReceivedItem";
 
 const ReceivedHeart = () => {
   return (

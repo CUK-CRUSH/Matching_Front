@@ -1,11 +1,11 @@
-import { ReceivedHeartItemProps } from "@/type/MatchingList/MatchingList";
+import { ReceivedItemProps } from "@/type/MatchingList/MatchingList";
 import Name from "@/components/common/name";
 import useGetRandomBackgrounds from "@/hooks/useGetRandomBackgrounds/useGetRandomBackgrounds";
 import MusicCard from "@/components/matchingList/MusicCard";
 import Tag from "@/components/matchingList/Tag";
 import { Textarea } from "@/components/ui/textarea";
 
-const ReceivedHeartItem = ({ name, age, mbti, tag, time, song, singer, type }: ReceivedHeartItemProps) => {
+const ReceivedItem = ({ name, age, mbti, tag, time, song, singer, type }: ReceivedItemProps) => {
   // 배경색 목록
   const backgrounds = [
     'bg-background-small-grey',
@@ -45,4 +45,4 @@ const ReceivedHeartItem = ({ name, age, mbti, tag, time, song, singer, type }: R
   )
 }
 
-export default ReceivedHeartItem
+export default ReceivedItem

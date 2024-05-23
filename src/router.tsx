@@ -4,14 +4,15 @@ import RootSuspense from '@/pages/common/components/RootSuspense';
 import ErrorPage from '@/pages/error/components/ErrorPage';
 import NotFoundPage from '@/pages/error/components/NotFoundPage';
 import Home from '@/pages/home';
-import { Toaster } from './components/ui/toaster';
-import LoginPage from './pages/login';
+import { Toaster } from '@/components/ui/toaster';
+import LoginPage from '@/pages/login';
 import ProfileCard from '@/pages/matching';
 import TermsPage from '@/pages/Terms';
 import OnBoardingpage from '@/pages/onBoarding';
 import MatchingListPage from '@/pages/matchingList';
-import ReceivedHeart from './pages/heart/receivedHeart';
-import SendedHeart from './pages/heart/sendedHeart';
+import ReceivedHeart from '@/pages/heart/receivedHeart';
+import SendedHeart from '@/pages/heart/sendedHeart';
+import ReceivedMessage from '@/pages/message';
 
 const pageRoutes = {
   main: '/',
@@ -22,6 +23,7 @@ const pageRoutes = {
   matchingList : '/matchingList',
   receivedHeart : '/matchingList/receivedHeart',
   sendedHeart : '/matchingList/sendedHeart',
+  receivedMessage : '/matchingList/receivedMessage',
 };
 
 const CommonLayout = () => (
@@ -96,6 +98,14 @@ const router = createBrowserRouter([
     element: <CommonLayout />,
     children: [
       { path: pageRoutes.sendedHeart, element: <SendedHeart />, errorElement: <ErrorPage /> },
+
+      { path: '*', element: <NotFoundPage /> },
+    ],
+  },
+  {
+    element: <CommonLayout />,
+    children: [
+      { path: pageRoutes.receivedMessage, element: <ReceivedMessage />, errorElement: <ErrorPage /> },
 
       { path: '*', element: <NotFoundPage /> },
     ],
