@@ -6,7 +6,7 @@ import Divider from '@/components/matchingList/Divider';
 import ItemContainer from '@/components/matchingList/ItemContainer';
 import ReceivedItem from '@/components/matchingList/ReceivedItem';
 import { MOCK_RECEIVE_HEARTS } from '@/fixture/ReceiveHeart';
-import SendedHeartItem from '@/components/matchingList/SendedHeartItem';
+import SendedItem from '@/components/matchingList/SendedItem';
 import { useState } from 'react';
 import MatchingListHeader from '@/components/layout/matchingListHeader';
 
@@ -45,7 +45,7 @@ const MatchingListPage = () => {
             <Divider />
             <ItemContainer>
               {MOCK_RECEIVE_HEARTS.slice(0, 3).map((item, index) => (
-                <SendedHeartItem key={index} {...item} />
+                <SendedItem key={index} {...item} />
               ))}
             </ItemContainer>
           </>
@@ -63,11 +63,11 @@ const MatchingListPage = () => {
 
             </ItemContainer>
             {/* 보낸 메시지 */}
-            <ExpandedButtons heartState='보낸 메시지' router='sendedHeart' />
+            <ExpandedButtons heartState='보낸 메시지' router='sendedMessage' />
             <Divider />
             <ItemContainer>
               {MOCK_RECEIVE_HEARTS.slice(0, 3).map((item, index) => (
-                <SendedHeartItem key={index} {...item} />
+                <SendedItem key={index} {...item} />
               ))}
             </ItemContainer>
           </>

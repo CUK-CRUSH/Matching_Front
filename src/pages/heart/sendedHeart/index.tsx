@@ -3,7 +3,7 @@ import Footer from '@/components/layout/footer';
 import MatchingListHeader from "@/components/layout/matchingListHeader";
 import ItemContainer from "@/components/matchingList/ItemContainer";
 import { MOCK_RECEIVE_HEARTS } from "@/fixture/ReceiveHeart";
-import SendedHeartItem from "@/components/matchingList/SendedHeartItem";
+import SendedItem from "@/components/matchingList/SendedItem";
 
 const SendedHeart = () => {
   return (
@@ -13,7 +13,7 @@ const SendedHeart = () => {
         <MatchingListHeader text={'보낸 하트'} background={'#252525'} />
         <ItemContainer>
           {MOCK_RECEIVE_HEARTS.map((item, index) => (
-            <SendedHeartItem key={index} {...item} />
+            <SendedItem key={index} {...item} />
           ))}
 
         </ItemContainer>

@@ -1,9 +1,9 @@
-import { ReceivedHeartItemProps } from "@/type/MatchingList/MatchingList";
+import { ReceivedItemProps } from "@/type/MatchingList/MatchingList";
 import Name from "@/components/common/name";
 import MusicCard from "@/components/matchingList/MusicCard";
 import Tag from "@/components/matchingList/Tag";
 
-const SendedHeartItem = ({ name, age, mbti, tag, time, song, singer }: ReceivedHeartItemProps) => {
+const SendedItem = ({ name, age, mbti, tag, time, song, singer }: ReceivedItemProps) => {
 
   return (
     <div className={`h-auto mx-[2%] mb-[8px] pt-[12px] pb-[8px] rounded-[16px]`}>
@@ -21,4 +21,4 @@ const SendedHeartItem = ({ name, age, mbti, tag, time, song, singer }: ReceivedH
   )
 }
 
-export default SendedHeartItem
+export default SendedItem
