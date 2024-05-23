@@ -1,13 +1,10 @@
 import heart from '@/assets/MatchingList/heart.svg';
 import message from '@/assets/MatchingList/message.svg';
-import { SocialButtonProps } from '@/type/MatchingList/MatchingList';
+import useMatchingListStateStore from '@/store/matchingListStore';
 
-const SocialButtons = ({ onSelectedToggle, selected } : SocialButtonProps) => {
-
-  const handleSelect = () => {
-    // 부모 컴포넌트의 상태를 변경
-    onSelectedToggle(selected === 'heart' ? 'message' : 'heart');
-  }
+const SocialButtons = () => {
+  
+  const {matchingListState, toggleMatchingListState} = useMatchingListStateStore();
 
   const selectStyle = `absolute -top-[46px] bg-[#252525] text-white w-[52px] h-[50px] flex p-4 rounded-t-[28px]`;
   const selectImgStyle = `flex justify-center items-center`;
@@ -16,12 +13,14 @@ const SocialButtons = ({ onSelectedToggle, selected } : SocialButtonProps) => {
 
   return (
     <>
-      <div style={{right : 70}} className={selected === 'heart' ? selectStyle : unSelectStyle} onClick={handleSelect}>
-        <div className={selected === 'heart' ? selectImgStyle : unSelectImgStyle}> <img src={heart} alt='heart' /> </div>
+      <div style={{right : 70}} className={matchingListState === 'heart' ? selectStyle : unSelectStyle}
+           onClick={() => toggleMatchingListState(matchingListState === 'heart' ? 'message' : 'heart')}>
+        <div className={matchingListState === 'heart' ? selectImgStyle : unSelectImgStyle}> <img src={heart} alt='heart' /> </div>
       </div>
 
-      <div style={{right : 20}} className={selected === 'message' ? selectStyle : unSelectStyle}  onClick={handleSelect}>
-        <div className={selected === 'message' ? selectImgStyle : unSelectImgStyle}> <img src={message} alt='message' /> </div>
+      <div style={{right : 20}} className={matchingListState === 'message' ? selectStyle : unSelectStyle} 
+           onClick={() => toggleMatchingListState(matchingListState === 'heart' ? 'message' : 'heart')}>
+        <div className={matchingListState === 'message' ? selectImgStyle : unSelectImgStyle}> <img src={message} alt='message' /> </div>
       </div>
 
     </>
