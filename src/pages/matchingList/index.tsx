@@ -13,7 +13,6 @@ import useMatchingListStateStore from '@/store/matchingListStore';
 const MatchingListPage = () => {
 
   const {matchingListState} = useMatchingListStateStore();
-
   return (
     <Layout backgroundColor='#2C2C2C'>
 

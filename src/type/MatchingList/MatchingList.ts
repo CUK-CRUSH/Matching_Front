@@ -13,7 +13,7 @@ export type ItemContainerProps = {
   children?: React.ReactNode;
 }
 
-export type ReceivedItemProps = {
+export type ItemProps = {
   name: string;
   age: string;
   mbti: string;

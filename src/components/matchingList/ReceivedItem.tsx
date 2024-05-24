@@ -1,11 +1,11 @@
-import { ReceivedItemProps } from "@/type/MatchingList/MatchingList";
+import { ItemProps } from "@/type/MatchingList/MatchingList";
 import Name from "@/components/common/name";
 import useGetRandomBackgrounds from "@/hooks/useGetRandomBackgrounds/useGetRandomBackgrounds";
 import MusicCard from "@/components/matchingList/MusicCard";
 import Tag from "@/components/matchingList/Tag";
 import { Textarea } from "@/components/ui/textarea";
 
-const ReceivedItem = ({ name, age, mbti, tag, time, song, singer, type }: ReceivedItemProps) => {
+const ReceivedItem = ({ name, age, mbti, tag, time, song, singer, type }: ItemProps) => {
   // 배경색 목록
   const backgrounds = [
     'bg-background-small-grey',
@@ -33,7 +33,7 @@ const ReceivedItem = ({ name, age, mbti, tag, time, song, singer, type }: Receiv
         <div className={`w-auto mx-2 mt-1`} >
           <Textarea
             className="text-m text-[#2F2F2F] h-[80px] bg-transparent"
-            value={'메시지 보내기'}
+            value={'메시지 보내기메시지 보내기메시지 보내기메시지 보내기'}
             readOnly
           />
         </div>
