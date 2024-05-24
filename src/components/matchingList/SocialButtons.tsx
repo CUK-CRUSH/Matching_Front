@@ -12,7 +12,7 @@ const SocialButtons = () => {
   const unSelectImgStyle = `flex justify-center items-center`;
 
   return (
-    <>
+    <div className='z-10'>
       <div style={{right : 70}} className={matchingListState === 'heart' ? selectStyle : unSelectStyle}
            onClick={() => toggleMatchingListState(matchingListState === 'heart' ? 'message' : 'heart')}>
         <div className={matchingListState === 'heart' ? selectImgStyle : unSelectImgStyle}> <img src={heart} alt='heart' /> </div>
@@ -23,7 +23,7 @@ const SocialButtons = () => {
         <div className={matchingListState === 'message' ? selectImgStyle : unSelectImgStyle}> <img src={message} alt='message' /> </div>
       </div>
 
-    </>
+    </div>
   );
 };
 
