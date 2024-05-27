@@ -21,8 +21,8 @@ export default function ValidationButton({
   };
 
   const buttonCSS = buttonEnabled
-    ? 'w-full h-12'
-    : 'w-full h-12 bg-[#ececec] text-[#a0a0a0] pointer-events-none';
+    ? 'w-full h-14 rounded-r-3xl'
+    : 'w-full h-14 bg-[#ececec] text-[#a0a0a0] pointer-events-none rounded-r-3xl';
 
   return (
     <div className="flex justify-center mb-5 mx-2 w-full">

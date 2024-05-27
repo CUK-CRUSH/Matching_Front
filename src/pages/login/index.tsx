@@ -9,7 +9,7 @@ const LoginPage = () => {
       <div>
         <ValidationText
           titleTexts={['전화번호 로그인']}
-          descriptionTexts={['입력한 전화번호로', '인증번호가 전송됩니다.']}
+          descriptionTexts={['입력한 전화번호로', '본인 인증 메시지가 전송됩니다.']}
         />
         <div className="mt-16 mx-4">
           <InputForm />

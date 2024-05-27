@@ -50,7 +50,7 @@ const KakaoIdPage = () => {
         </div>
       </div>
       <div className="flex">
-        <ValidationPrevButton navigation="/login" />
+        <ValidationPrevButton onStateChange={() => setCurrentPage('profileImage')} />
         <ValidationButton onStateChange={handleNext} buttonEnabled={isIdMatch} />
       </div>
     </div>

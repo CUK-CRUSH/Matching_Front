@@ -31,7 +31,10 @@ const BirthPage = () => {
       <div className="flex">
         <ValidationPrevButton onStateChange={() => setCurrentPage('nickname')} />
 
-        <ValidationButton navigation="/matching" buttonEnabled={selectedDate !== null} />
+        <ValidationButton
+          onStateChange={() => setCurrentPage('oneLiner')}
+          buttonEnabled={selectedDate !== null}
+        />
       </div>
     </div>
   );

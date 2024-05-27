@@ -35,8 +35,8 @@ const LocationPage = () => {
       <div className="flex flex-col justify-between h-screen">
         <div>
           <ValidationText
-            titleTexts={['거주지역']}
-            descriptionTexts={['현재 거주하고 있는 지역을', '선택해주세요']}
+            titleTexts={['내 위치 등록']}
+            descriptionTexts={['현재 거주하고 있는 지역을', '등록해주세요']}
           />
           <div className="mt-16 mx-4">
             <div className="grid w-full max-w-sm items-center gap-1.5">
@@ -64,12 +64,11 @@ const LocationPage = () => {
             </div>
           </div>
         </div>
-        <div className="flex justify-center text-sm mt-80 text-[#9d9d9d]">
+        <div className="flex justify-center  mt-80 ">
           <div className="flex flex-row items-center gap-x-2">
-            <div>
-              <ExclamationCircleOutlined />
-            </div>
-            <div>
+            <div className="flex flex-col justify-center items-center text-sm font-bold text-center text-[#858585]">
+              <ExclamationCircleOutlined className="mb-1" />
+
               <p>탐색된 내 위치가 정확하지 꼭 확인해주세요</p>
               <p>알맞지 않은 경우, 버튼을 다시 눌러 다시 탐색해주세요</p>
             </div>

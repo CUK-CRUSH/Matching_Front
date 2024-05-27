@@ -46,23 +46,14 @@ const CustomCalendar = ({ onChange, value }: CustomCalendarDTO) => {
 
   return (
     <div ref={calendarRef} className="relative">
-      {isOpen ? (
-        <Calendar
-          onChange={handleDateChange}
-          value={value}
-          next2Label={null}
-          prev2Label={null}
-          className="flex flex-col items-center justify-center mt-4 mx-auto shadow-md rounded-lg p-4 z-10"
-          formatDay={(_, date) => moment(date).format('DD')}
-        />
-      ) : (
-        <button
-          onClick={handleToggleCalendar}
-          className="button-styling focus:outline-none focus:shadow-outline"
-        >
-          {nowDate}
-        </button>
-      )}
+      <Calendar
+        onChange={handleDateChange}
+        value={value}
+        next2Label={null}
+        prev2Label={null}
+        className="flex flex-col items-center justify-center mt-4 mx-auto shadow-md rounded-lg p-4 z-10"
+        formatDay={(_, date) => moment(date).format('DD')}
+      />
     </div>
   );
 };
