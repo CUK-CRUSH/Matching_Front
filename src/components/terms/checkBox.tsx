@@ -9,7 +9,7 @@ const TermsCheckBox = ({ id, label, checked, onChange, required = false }: Terms
         htmlFor={id}
         className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
       >
-        {label} {required && <span className="text-red-500">(필수)</span>}
+        {label} {required}
       </label>
     </div>
   );
