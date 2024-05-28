@@ -27,7 +27,7 @@ const OneLinerPage = () => {
 
   const handleNext = () => {
     setUserData('oneLiner', oneLiner);
-    navigate('/matching');
+    navigate('/mypage');
   };
 
   return (
