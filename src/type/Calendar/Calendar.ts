@@ -1,4 +1,4 @@
 export interface CustomCalendarDTO {
-  onChange: (date: any) => void;
-  value: Date;
+  onChange: (date: any | null) => void;
+  value: Date | null;
 }

@@ -4,6 +4,7 @@ import ValidationButton from '@/components/validation/validationButton';
 import ValidationPrevButton from '@/components/validation/validationPrevButton';
 import ValidationText from '@/components/validation/validationText';
 import useOnboardingStore from '@/store/validationStore';
+import ProgressBar from '@/utils/ProgressBar';
 import { useState } from 'react';
 
 const KakaoIdPage = () => {
@@ -18,6 +19,9 @@ const KakaoIdPage = () => {
   };
   return (
     <div className="flex flex-col justify-between h-screen">
+      <div className="absolute w-full mt-2">
+        <ProgressBar currentPage={3} totalPages={8} />
+      </div>
       <div>
         <ValidationText
           titleTexts={['카카오톡 아이디']}

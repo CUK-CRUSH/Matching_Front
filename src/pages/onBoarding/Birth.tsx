@@ -3,6 +3,7 @@ import ValidationPrevButton from '@/components/validation/validationPrevButton';
 import ValidationText from '@/components/validation/validationText';
 import useOnboardingStore from '@/store/validationStore';
 import CustomCalendar from '@/utils/Calendar';
+import ProgressBar from '@/utils/ProgressBar';
 import moment from 'moment';
 import { useState } from 'react';
 
@@ -21,6 +22,9 @@ const BirthPage = () => {
 
   return (
     <div className="flex flex-col justify-between h-screen">
+      <div className="absolute w-full mt-2">
+        <ProgressBar currentPage={7} totalPages={8} />
+      </div>
       <ValidationText
         titleTexts={['생년월일']}
         descriptionTexts={['태어난 년도, 월, 날짜를 입력해주세요']}

@@ -6,6 +6,8 @@ import ValidationButton from '@/components/validation/validationButton';
 import ValidationPrevButton from '@/components/validation/validationPrevButton';
 import ValidationText from '@/components/validation/validationText';
 import useOnboardingStore from '@/store/validationStore';
+import InnerImage from '@/assets/InnerImage.png';
+import ProgressBar from '@/utils/ProgressBar';
 
 const ProfileImagePage = () => {
   const { setCurrentPage, setUserData } = useOnboardingStore();
@@ -32,7 +34,7 @@ const ProfileImagePage = () => {
       };
     }
   };
-
+  console.log(imageSrc);
   const handleCropComplete = async (croppedAreaPixels: any) => {
     try {
       const canvas = document.createElement('canvas');
@@ -86,7 +88,10 @@ const ProfileImagePage = () => {
   };
 
   return (
-    <div className="flex flex-col justify-between h-screen">
+    <div className="flex relative flex-col justify-between h-screen">
+      <div className="absolute w-full mt-2">
+        <ProgressBar currentPage={2} totalPages={8} />
+      </div>
       <ValidationText
         titleTexts={['프로필 이미지']}
         descriptionTexts={[
@@ -105,7 +110,7 @@ const ProfileImagePage = () => {
               />
             ) : (
               <div className="flex flex-col items-center justify-center">
-                <img src="/path/to/default-image-icon.png" alt="Add" className="w-16 h-16" />
+                <img src={InnerImage} alt="Add" className="w-16 h-16" />
               </div>
             )}
           </div>
@@ -146,8 +151,8 @@ const ProfileImagePage = () => {
           <Button onClick={() => handleCropComplete(croppedArea)}>확인</Button>
         </Dialog>
       </div>
-      <div className="flex justify-between mt-4 mx-4">
-        <ValidationPrevButton onStateChange={() => setCurrentPage('nickname')} />
+      <div className="flex justify-between mt-4">
+        <ValidationPrevButton navigation="/login" />
         <ValidationButton
           onStateChange={() => setCurrentPage('kakaoId')}
           buttonEnabled={compressedImage !== null}

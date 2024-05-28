@@ -3,6 +3,7 @@ import ValidationButton from '@/components/validation/validationButton';
 import ValidationPrevButton from '@/components/validation/validationPrevButton';
 import ValidationText from '@/components/validation/validationText';
 import useOnboardingStore from '@/store/validationStore';
+import ProgressBar from '@/utils/ProgressBar';
 
 const SexPage = () => {
   const { setCurrentPage, userData, setUserData } = useOnboardingStore();
@@ -12,6 +13,9 @@ const SexPage = () => {
   };
   return (
     <div className="flex flex-col justify-between h-screen">
+      <div className="absolute w-full mt-2">
+        <ProgressBar currentPage={4} totalPages={8} />
+      </div>
       <div>
         <ValidationText
           titleTexts={['성별 설정']}

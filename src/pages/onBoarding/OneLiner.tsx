@@ -6,6 +6,7 @@ import useOnboardingStore from '@/store/validationStore';
 import { useForm } from 'react-hook-form';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
+import ProgressBar from '@/utils/ProgressBar';
 
 const OneLinerPage = () => {
   const navigate = useNavigate();
@@ -31,6 +32,9 @@ const OneLinerPage = () => {
   console.log(userData);
   return (
     <div className="flex flex-col justify-between h-screen">
+      <div className="absolute w-full mt-2">
+        <ProgressBar currentPage={8} totalPages={8} />
+      </div>
       <div>
         <ValidationText
           titleTexts={['한줄소개']}

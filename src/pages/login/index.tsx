@@ -1,11 +1,15 @@
 import ValidationButton from '@/components/validation/validationButton';
 import ValidationPrevButton from '@/components/validation/validationPrevButton';
 import ValidationText from '@/components/validation/validationText';
+import ProgressBar from '@/utils/ProgressBar';
 import { InputForm } from '@/utils/form';
 
 const LoginPage = () => {
   return (
     <div className="flex flex-col justify-between h-screen">
+      <div className="absolute w-full mt-2">
+        <ProgressBar currentPage={1} totalPages={8} />
+      </div>
       <div>
         <ValidationText
           titleTexts={['전화번호 로그인']}
