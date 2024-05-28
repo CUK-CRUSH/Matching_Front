@@ -123,8 +123,9 @@ const TermsPage = () => {
           />
         </div>
       </div>
-
-      <ValidationButton navigation="/login" buttonEnabled={buttonEnabled} />
+      <div className="flex justify-center items-center">
+        <ValidationButton rounded={false} navigation="/login" buttonEnabled={buttonEnabled} />
+      </div>
     </div>
   );
 };
