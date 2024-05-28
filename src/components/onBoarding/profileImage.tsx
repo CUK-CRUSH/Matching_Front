@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Compressor from 'compressorjs';
 import Cropper from 'react-easy-crop';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Slider } from '@mui/material';
@@ -10,7 +10,7 @@ import InnerImage from '@/assets/InnerImage.png';
 import ProgressBar from '@/utils/ProgressBar';
 
 const ProfileImagePage = () => {
-  const { setCurrentPage, setUserData } = useOnboardingStore();
+  const { setCurrentPage, userData, setUserData } = useOnboardingStore();
   const [imageSrc, setImageSrc] = useState<string | null>(null);
   const [croppedArea, setCroppedArea] = useState<null | {
     width: number;
@@ -18,7 +18,7 @@ const ProfileImagePage = () => {
     x: number;
     y: number;
   }>(null);
-  const [compressedImage, setCompressedImage] = useState<string | null>(null);
+  const [compressedImage, setCompressedImage] = useState<string | null>(userData.profileImage);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [open, setOpen] = useState(false);
@@ -34,7 +34,13 @@ const ProfileImagePage = () => {
       };
     }
   };
-  console.log(imageSrc);
+
+  useEffect(() => {
+    if (userData.profileImage) {
+      setImageSrc(userData.profileImage);
+    }
+  }, [userData.profileImage]);
+
   const handleCropComplete = async (croppedAreaPixels: any) => {
     try {
       const canvas = document.createElement('canvas');

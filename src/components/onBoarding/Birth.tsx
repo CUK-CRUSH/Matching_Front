@@ -18,7 +18,6 @@ const BirthPage = () => {
     setSelectedDate(newDate); // newDate는 Date 객체를 저장
     setUserData('birthDate', formattedDate); // 문자열로 변환된 날짜를 저장
   };
-  console.log(userData);
 
   return (
     <div className="flex flex-col justify-between h-screen">

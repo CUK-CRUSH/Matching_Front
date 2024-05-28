@@ -5,9 +5,11 @@ import ValidationText from '@/components/validation/validationText';
 import useOnboardingStore from '@/store/validationStore';
 import { useForm } from 'react-hook-form';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
 import ProgressBar from '@/utils/ProgressBar';
 
-const NickNamePage = () => {
+const OneLinerPage = () => {
+  const navigate = useNavigate();
   const { setCurrentPage, userData, setUserData } = useOnboardingStore();
   const {
     register,
@@ -17,35 +19,35 @@ const NickNamePage = () => {
   } = useForm({
     mode: 'onChange',
     defaultValues: {
-      nickname: userData.nickname || '',
+      oneLiner: userData.oneLiner || '',
     },
   });
 
-  const nickname = watch('nickname');
+  const oneLiner = watch('oneLiner');
 
   const handleNext = () => {
-    setUserData('nickname', nickname);
-    setCurrentPage('birth');
+    setUserData('oneLiner', oneLiner);
+    navigate('/matching');
   };
-  console.log(userData);
+
   return (
     <div className="flex flex-col justify-between h-screen">
       <div className="absolute w-full mt-2">
-        <ProgressBar currentPage={6} totalPages={8} />
+        <ProgressBar currentPage={8} totalPages={8} />
       </div>
       <div>
         <ValidationText
-          titleTexts={['닉네임 입력']}
-          descriptionTexts={['DUETT에서 사용할 별칭을 입력해주세요']}
+          titleTexts={['한줄소개']}
+          descriptionTexts={['한줄소개글을 작성해주세요']}
         />
 
         <div className="mt-16 mx-4">
-          <form onSubmit={handleSubmit(() => setCurrentPage('birth'))}>
+          <form onSubmit={handleSubmit(handleNext)}>
             <Input
               type="text"
-              id="nickname"
+              id="oneLiner"
               placeholder="닉네임을 입력해주세요"
-              {...register('nickname', {
+              {...register('oneLiner', {
                 required: '닉네임은 필수 입력 사항입니다',
                 minLength: {
                   value: 4,
@@ -57,24 +59,24 @@ const NickNamePage = () => {
                 },
               })}
             />
-            {errors.nickname && (
+            {errors.oneLiner && (
               <p className="text-red-500 text-sm italic mt-1">
                 <ExclamationCircleOutlined />
-                {errors.nickname.message}
+                {errors.oneLiner.message}
               </p>
             )}
           </form>
         </div>
       </div>
       <div className="flex">
-        <ValidationPrevButton onStateChange={() => setCurrentPage('location')} />
+        <ValidationPrevButton onStateChange={() => setCurrentPage('birth')} />
         <ValidationButton
           onStateChange={handleNext}
-          buttonEnabled={isValid && nickname.length >= 4}
+          buttonEnabled={isValid && oneLiner.length >= 4}
         />
       </div>
     </div>
   );
 };
 
-export default NickNamePage;
+export default OneLinerPage;
