@@ -4,14 +4,9 @@ import { calculateAge } from '@/utils/CalculateAge';
 import lock from '@/assets/ProfileCard/lock.svg';
 import useMyPageStore from '@/store/myPageStore';
 import { LeftOutlined } from '@ant-design/icons';
-import axios from 'axios';
 import { Product } from '@/type/product';
 import { useQuery } from '@tanstack/react-query';
-
-const getUserData = async () => {
-  const { data } = await axios.get('/v1/user');
-  return data;
-};
+import { getUserData } from '@/services/Mypage/MypageAPI';
 
 const MyPageMain = () => {
   const { setCurrentPage } = useMyPageStore();
