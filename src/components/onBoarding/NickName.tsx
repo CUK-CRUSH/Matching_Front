@@ -27,7 +27,7 @@ const NickNamePage = () => {
     setUserData('nickname', nickname);
     setCurrentPage('birth');
   };
-
+  console.log(userData);
   return (
     <div className="flex flex-col justify-between h-screen">
       <div className="absolute w-full mt-2">

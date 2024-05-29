@@ -1,16 +1,36 @@
-import useOnboardingStore from '@/store/validationStore';
 import { Link, useNavigate } from 'react-router-dom';
 import { Avatar, Box, CircularProgress } from '@mui/material';
 import { calculateAge } from '@/utils/CalculateAge';
 import lock from '@/assets/ProfileCard/lock.svg';
 import useMyPageStore from '@/store/myPageStore';
 import { LeftOutlined } from '@ant-design/icons';
+import axios from 'axios';
+import { Product } from '@/type/product';
+import { useQuery } from '@tanstack/react-query';
+
+const getUserData = async () => {
+  const { data } = await axios.get('/v1/user');
+  return data;
+};
 
 const MyPageMain = () => {
-  const { userData } = useOnboardingStore();
   const { setCurrentPage } = useMyPageStore();
   const navigate = useNavigate();
 
+  const { data: userData, error } = useQuery<Product>({
+    queryKey: ['userData'],
+    queryFn: getUserData,
+    staleTime: 1000 * 60 * 5,
+    placeholderData: (previousData) => previousData,
+  });
+
+  if (error) {
+    return <div>error</div>;
+  }
+  if (!userData) {
+    return <div>No user data found</div>; // userData가 없을 때 처리
+  }
+  console.log(userData);
   return (
     <div className="bg-[#1c1c1c] text-white h-full flex flex-col items-center pb-20">
       <div className="w-full max-w-md mx-auto">
@@ -23,12 +43,12 @@ const MyPageMain = () => {
         {/* 상단 유저 정보 */}
         <div className="flex flex-col items-center mt-4">
           <Avatar
-            src={userData.profileImage}
+            src={userData.data.profileImage ?? undefined}
             sx={{ width: 80, height: 80 }}
-            alt={userData.nickname}
+            alt={userData.data.nickname}
           />
-          <h2 className="text-m font-bold mt-2">{userData.nickname}</h2>
-          <p className="text-m text-gray-400">{calculateAge(userData.birthDate)} | ENFJ</p>
+          <h2 className="text-m font-bold mt-2">{userData.data.nickname}</h2>
+          <p className="text-m text-gray-400">{calculateAge(userData.data.birthDate)} | ENFJ</p>
         </div>
         {/* 페이지 이동 버튼 */}
         <div className="flex justify-between items-center mt-4 w-full px-4">
