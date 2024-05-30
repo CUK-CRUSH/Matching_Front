@@ -1,5 +1,4 @@
 import Layout from '@/components/layout/layout';
-import Footer from '@/components/layout/footer';
 import useMyPageStore from '@/store/myPageStore';
 import MyPageMain from '@/components/MyPage/mypage';
 import InfoPage from '@/components/MyPage/Info';
@@ -24,12 +23,7 @@ const MyPage = () => {
     }
   };
 
-  return (
-    <Layout>
-      {renderPage()}
-      <Footer />
-    </Layout>
-  );
+  return <Layout>{renderPage()}</Layout>;
 };
 
 export default MyPage;

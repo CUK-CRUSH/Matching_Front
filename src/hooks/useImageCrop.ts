@@ -96,6 +96,7 @@ export const useImageCrop = (initialImage: string | null = null, updateUser: boo
     crop,
     zoom,
     open,
+    croppedArea,
     setCrop,
     setZoom,
     setOpen,

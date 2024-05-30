@@ -7,6 +7,7 @@ import { LeftOutlined } from '@ant-design/icons';
 import { Product } from '@/type/product';
 import { useQuery } from '@tanstack/react-query';
 import { getUserData } from '@/services/Mypage/MypageAPI';
+import Footer from '@/components/layout/footer';
 
 const MyPageMain = () => {
   const { setCurrentPage } = useMyPageStore();
@@ -191,6 +192,7 @@ const MyPageMain = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react';
-import Compressor from 'compressorjs';
 import Cropper from 'react-easy-crop';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Slider } from '@mui/material';
 import ValidationButton from '@/components/validation/validationButton';
@@ -8,90 +6,24 @@ import ValidationText from '@/components/validation/validationText';
 import useOnboardingStore from '@/store/validationStore';
 import InnerImage from '@/assets/InnerImage.png';
 import ProgressBar from '@/utils/ProgressBar';
+import { useImageCrop } from '@/hooks/useImageCrop';
 
 const ProfileImagePage = () => {
-  const { setCurrentPage, userData, setUserData } = useOnboardingStore();
-  const [imageSrc, setImageSrc] = useState<string | null>(null);
-  const [croppedArea, setCroppedArea] = useState<null | {
-    width: number;
-    height: number;
-    x: number;
-    y: number;
-  }>(null);
-  const [compressedImage, setCompressedImage] = useState<string | null>(userData.profileImage);
-  const [crop, setCrop] = useState({ x: 0, y: 0 });
-  const [zoom, setZoom] = useState(1);
-  const [open, setOpen] = useState(false);
-
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        setImageSrc(reader.result as string);
-        setOpen(true);
-      };
-    }
-  };
-
-  useEffect(() => {
-    if (userData.profileImage) {
-      setImageSrc(userData.profileImage);
-    }
-  }, [userData.profileImage]);
-
-  const handleCropComplete = async (croppedAreaPixels: any) => {
-    try {
-      const canvas = document.createElement('canvas');
-      const image = new Image();
-      image.src = imageSrc!;
-      const ctx = canvas.getContext('2d');
-
-      image.onload = () => {
-        const scaleX = image.naturalWidth / image.width;
-        const scaleY = image.naturalHeight / image.height;
-        canvas.width = croppedAreaPixels.width;
-        canvas.height = croppedAreaPixels.height;
-        ctx!.drawImage(
-          image,
-          croppedAreaPixels.x * scaleX,
-          croppedAreaPixels.y * scaleY,
-          croppedAreaPixels.width * scaleX,
-          croppedAreaPixels.height * scaleY,
-          0,
-          0,
-          croppedAreaPixels.width,
-          croppedAreaPixels.height,
-        );
-
-        canvas.toBlob(async (blob) => {
-          if (blob) {
-            new Compressor(blob, {
-              quality: 0.6,
-              maxWidth: 500,
-              maxHeight: 500,
-              success(result) {
-                const reader = new FileReader();
-                reader.readAsDataURL(result);
-                reader.onloadend = () => {
-                  const base64data = reader.result as string;
-                  setCompressedImage(base64data);
-                  setUserData('profileImage', base64data);
-                  setOpen(false);
-                };
-              },
-              error(err) {
-                console.error(err.message);
-              },
-            });
-          }
-        }, 'image/jpeg');
-      };
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const { setCurrentPage, userData } = useOnboardingStore();
+  const {
+    imageSrc,
+    compressedImage,
+    crop,
+    zoom,
+    open,
+    croppedArea,
+    setCrop,
+    setZoom,
+    setOpen,
+    handleImageChange,
+    handleCropComplete,
+    setCroppedArea,
+  } = useImageCrop(userData.profileImage, true);
 
   return (
     <div className="flex relative flex-col justify-between h-screen">
