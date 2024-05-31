@@ -39,3 +39,14 @@ export type SocialButtonProps = {
   onSelectedToggle : (selectedValue: string) => void;
   selected : string;
 }
+
+export type ClickedMessagePopUpProps = { 
+  isClicked : boolean;
+  handleClick : () => void;
+  currentBackground : string;
+  name: string;
+  age: string;
+  mbti: string;
+  tag: string;
+  time: string;
+}
