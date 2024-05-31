@@ -149,13 +149,11 @@ const MyPageMain = () => {
             <h3 className="text-lg font-bold text-gray-300">나의 Duett</h3>
             <button
               className="mt-2 text-left text-white pl-4" // padding-left 추가
-              onClick={() => navigate('/settings/location')}
             >
               내 위치 설정
             </button>
             <button
               className="mt-2 text-left text-white pl-4" // padding-left 추가
-              onClick={() => navigate('/settings/payment')}
             >
               결제관리
             </button>
@@ -164,13 +162,11 @@ const MyPageMain = () => {
             <h3 className="text-lg font-bold text-gray-300">Duett 소식</h3>
             <button
               className="mt-2 text-left text-white pl-4" // padding-left 추가
-              onClick={() => navigate('/news/announcements')}
             >
               공지사항
             </button>
             <button
               className="mt-2 text-left text-white pl-4" // padding-left 추가
-              onClick={() => navigate('/news/policies')}
             >
               약관 및 정책
             </button>
@@ -179,13 +175,11 @@ const MyPageMain = () => {
             <h3 className="text-lg font-bold text-gray-300">회원관리</h3>
             <button
               className="mt-2 text-left text-white pl-4" // padding-left 추가
-              onClick={() => navigate('/logout')}
             >
               로그아웃
             </button>
             <button
               className="mt-2 text-left text-white pl-4" // padding-left 추가
-              onClick={() => navigate('/delete-account')}
             >
               회원 탈퇴
             </button>

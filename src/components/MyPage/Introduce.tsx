@@ -46,7 +46,7 @@ const IntroducePage = () => {
     J_P: string | null;
   }) => {
     const mbtiArray = [mbti.E_I, mbti.N_S, mbti.F_T, mbti.J_P].filter((v) => v !== null);
-    setMbtiString(mbtiArray.join(''));
+    setMbtiString(mbtiArray.length === 0 ? 'NONE' : mbtiArray.join(''));
   };
 
   const handleMusicTagClick = (tag: string) => {
@@ -61,11 +61,11 @@ const IntroducePage = () => {
   const textarea1 = watch('textarea1') || '';
   const textarea2 = watch('textarea2') || '';
 
-  const filledMbtiCount = mbtiString.length === 4 || isMBTIDisabled ? 1 : 0;
+  const filledMbtiCount = isMBTIDisabled || mbtiString.length === 4 ? 1 : 0;
   const filledTextAreaCount =
     (textarea1.length >= 50 && textarea1.length <= 500 ? 1 : 0) +
     (textarea2.length >= 50 && textarea2.length <= 500 ? 1 : 0);
-  const filledMusicAndHobbyCount = selectedMusicTag && selectedMusicTag ? 1 : 0;
+  const filledMusicAndHobbyCount = selectedMusicTag && selectedHobbyTag ? 1 : 0;
 
   const totalField = 4;
   const filledFieldsCount = filledMbtiCount + filledMusicAndHobbyCount + filledTextAreaCount;
@@ -116,7 +116,9 @@ const IntroducePage = () => {
                           F_T: null,
                           J_P: null,
                         });
-                        setMbtiString('d');
+                        setMbtiString('NONE');
+                      } else {
+                        setMbtiString('');
                       }
                     }}
                   />
@@ -193,7 +195,7 @@ const IntroducePage = () => {
             {/* 길게 적는 소개글 */}
             <div className="flex items-center justify-between">
               <span className="text-lg font-bold">1문 N답 : 길게 적는 내 소개글</span>
-              <span>{filledTextAreaCount}/2</span>
+              {/* <span>{filledTextAreaCount}/2</span> */}
             </div>
             <div>
               <span className="text-m font-bold">Q. 스스로에 대해 이야기해주세요.</span>
@@ -248,11 +250,15 @@ const IntroducePage = () => {
               />
             </div>
             <div className="flex justify-center w-full mt-4">
-              <div className="bg-gray-700 w-auto text-white py-2 px-4 rounded-full">
+              <p>
                 {filledFieldsCount}/{totalField} 완료
-              </div>
+              </p>
             </div>
-            <Button type="submit" className="w-full bg-white text-black mt-4">
+            <Button
+              type="submit"
+              disabled={filledFieldsCount !== 4}
+              className="w-full bg-white text-black mt-4"
+            >
               저장하기
             </Button>
           </form>
