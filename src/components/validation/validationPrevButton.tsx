@@ -18,7 +18,7 @@ export default function ValidationPrevButton({
     }
   };
 
-  const buttonCSS = 'w-12 h-12 ';
+  const buttonCSS = 'w-10 h-14 ';
   // bg-[#ececec] text-[#a0a0a0]
   return (
     <div className="flex justify-center mb-5 mx-2">

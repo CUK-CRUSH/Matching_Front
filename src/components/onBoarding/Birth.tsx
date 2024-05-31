@@ -3,6 +3,7 @@ import ValidationPrevButton from '@/components/validation/validationPrevButton';
 import ValidationText from '@/components/validation/validationText';
 import useOnboardingStore from '@/store/validationStore';
 import CustomCalendar from '@/utils/Calendar';
+import ProgressBar from '@/utils/ProgressBar';
 import moment from 'moment';
 import { useState } from 'react';
 
@@ -17,10 +18,12 @@ const BirthPage = () => {
     setSelectedDate(newDate); // newDate는 Date 객체를 저장
     setUserData('birthDate', formattedDate); // 문자열로 변환된 날짜를 저장
   };
-  console.log(userData);
 
   return (
     <div className="flex flex-col justify-between h-screen">
+      <div className="absolute w-full mt-2">
+        <ProgressBar currentPage={7} totalPages={8} />
+      </div>
       <ValidationText
         titleTexts={['생년월일']}
         descriptionTexts={['태어난 년도, 월, 날짜를 입력해주세요']}
@@ -31,7 +34,10 @@ const BirthPage = () => {
       <div className="flex">
         <ValidationPrevButton onStateChange={() => setCurrentPage('nickname')} />
 
-        <ValidationButton navigation="/matching" buttonEnabled={selectedDate !== null} />
+        <ValidationButton
+          onStateChange={() => setCurrentPage('oneLiner')}
+          buttonEnabled={selectedDate !== null}
+        />
       </div>
     </div>
   );

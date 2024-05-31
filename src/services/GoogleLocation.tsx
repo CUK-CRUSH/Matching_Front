@@ -9,7 +9,7 @@ const fetchAddress = async (lat: number, lng: number): Promise<string> => {
   const response = await fetch(url);
   const data = await response.json();
   if (data.status === 'OK' && data.results?.length > 2) {
-    return data.results[2].formatted_address;
+    return data.results[3].formatted_address;
   } else {
     throw new Error('주소를 찾을 수 없습니다.');
   }

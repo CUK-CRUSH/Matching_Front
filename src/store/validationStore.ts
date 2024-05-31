@@ -2,8 +2,9 @@ import { OnboardintState } from '@/type/store/OnBoarding/OnBoardState';
 import { create } from 'zustand';
 
 export const useOnboardingStore = create<OnboardintState>((set) => ({
-  currentPage: 'kakaoId',
+  currentPage: 'profileImage',
   userData: {
+    profileImage: null,
     kakaoId: '',
     sex: '',
     address: '',
@@ -11,6 +12,7 @@ export const useOnboardingStore = create<OnboardintState>((set) => ({
     location_Y: 0,
     nickname: '',
     birthDate: null,
+    oneLiner: '',
   },
   setCurrentPage: (page) => set({ currentPage: page }),
   setUserData: (key, value) =>

@@ -3,6 +3,7 @@ export interface ValidationButtonDTO {
   readonly navigation?: string;
   readonly buttonEnabled?: boolean;
   readonly onStateChange?: () => void;
+  readonly rounded?: boolean;
 }
 
 export interface ValidationPrevButtonDTO {
