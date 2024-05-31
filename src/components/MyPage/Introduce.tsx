@@ -6,7 +6,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { useState } from 'react';
 import { Textarea } from '../ui/textarea';
 
-const mbtiOptions = ['E', 'I', 'N', 'S', 'F', 'T', 'J', 'P'];
+const mbtiOptions = ['E', 'N', 'F', 'J', 'I', 'S', 'T', 'P'];
 
 type MBTIGroup = 'E_I' | 'N_S' | 'F_T' | 'J_P';
 
@@ -61,14 +61,14 @@ const IntroducePage = () => {
   const textarea1 = watch('textarea1') || '';
   const textarea2 = watch('textarea2') || '';
 
+  const filledMbtiCount = mbtiString.length === 4 || isMBTIDisabled ? 1 : 0;
   const filledTextAreaCount =
     (textarea1.length >= 50 && textarea1.length <= 500 ? 1 : 0) +
     (textarea2.length >= 50 && textarea2.length <= 500 ? 1 : 0);
-  const filledFieldsCount =
-    (mbtiString ? 1 : 0) +
-    (selectedMusicTag ? 1 : 0) +
-    (selectedHobbyTag ? 1 : 0) +
-    filledTextAreaCount;
+  const filledMusicAndHobbyCount = selectedMusicTag && selectedMusicTag ? 1 : 0;
+
+  const totalField = 4;
+  const filledFieldsCount = filledMbtiCount + filledMusicAndHobbyCount + filledTextAreaCount;
 
   const onSubmit = (data: any) => {
     const postData = {
@@ -109,6 +109,15 @@ const IntroducePage = () => {
                     onCheckedChange={(value) => {
                       field.onChange(value);
                       setValue('living', value);
+                      if (value) {
+                        setSelectedMBTI({
+                          E_I: null,
+                          N_S: null,
+                          F_T: null,
+                          J_P: null,
+                        });
+                        setMbtiString('d');
+                      }
                     }}
                   />
                 </div>
@@ -118,7 +127,7 @@ const IntroducePage = () => {
           {/* mbti */}
           <div className="grid grid-cols-4 gap-2 mx-4">
             {mbtiOptions.map((type, index) => {
-              const group = ['E_I', 'N_S', 'F_T', 'J_P'][Math.floor(index / 2)] as MBTIGroup;
+              const group = ['E_I', 'N_S', 'F_T', 'J_P'][index % 4] as MBTIGroup;
               return (
                 <Button
                   key={type}
@@ -240,7 +249,7 @@ const IntroducePage = () => {
             </div>
             <div className="flex justify-center w-full mt-4">
               <div className="bg-gray-700 w-auto text-white py-2 px-4 rounded-full">
-                {filledFieldsCount}/5 완료
+                {filledFieldsCount}/{totalField} 완료
               </div>
             </div>
             <Button type="submit" className="w-full bg-white text-black mt-4">
