@@ -1,6 +1,7 @@
 export type OnboardintState = {
-  currentPage: 'kakaoId' | 'sex' | 'location' | 'nickname' | 'birth';
+  currentPage: 'profileImage' | 'kakaoId' | 'sex' | 'location' | 'nickname' | 'birth' | 'oneLiner';
   userData: {
+    profileImage: any;
     kakaoId: string;
     sex: string;
     address: string;
@@ -8,6 +9,7 @@ export type OnboardintState = {
     location_Y: number;
     nickname: string;
     birthDate: any;
+    oneLiner: string;
   };
   setCurrentPage: (page: OnboardintState['currentPage']) => void;
   setUserData: <K extends keyof OnboardintState['userData']>(

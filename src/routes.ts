@@ -1,5 +1,8 @@
 export const pageRoutes = {
   main: '/',
-  example: '/example',
-  example2: '/example2',
+  login: '/login',
+  matching: '/matching',
+  terms: '/terms',
+  onBoarding: '/onboarding',
+  myPage: '/mypage',
 } as const;

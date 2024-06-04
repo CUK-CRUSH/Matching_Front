@@ -5,6 +5,7 @@ import ValidationText from '@/components/validation/validationText';
 import useOnboardingStore from '@/store/validationStore';
 import { useForm } from 'react-hook-form';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
+import ProgressBar from '@/utils/ProgressBar';
 
 const NickNamePage = () => {
   const { setCurrentPage, userData, setUserData } = useOnboardingStore();
@@ -29,6 +30,9 @@ const NickNamePage = () => {
   console.log(userData);
   return (
     <div className="flex flex-col justify-between h-screen">
+      <div className="absolute w-full mt-2">
+        <ProgressBar currentPage={6} totalPages={8} />
+      </div>
       <div>
         <ValidationText
           titleTexts={['닉네임 입력']}

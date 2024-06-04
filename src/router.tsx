@@ -14,6 +14,7 @@ import ReceivedHeart from '@/pages/heart/receivedHeart';
 import SendedHeart from '@/pages/heart/sendedHeart';
 import ReceivedMessage from '@/pages/message/receivedMessage';
 import SendedMessage from '@/pages/message/sendedMessage';
+import MyPage from '@/pages/Mypage';
 
 const pageRoutes = {
   main: '/',
@@ -26,7 +27,7 @@ const pageRoutes = {
   sendedHeart : '/matchingList/sendedHeart',
   receivedMessage : '/matchingList/receivedMessage',
   sendedMessage : '/matchingList/sendedMessage',
-
+  myPage: '/mypage',
 };
 
 const CommonLayout = () => (
@@ -117,10 +118,16 @@ const router = createBrowserRouter([
     element: <CommonLayout />,
     children: [
       { path: pageRoutes.sendedMessage, element: <SendedMessage />, errorElement: <ErrorPage /> },
-
       { path: '*', element: <NotFoundPage /> },
     ],
   },
+  {
+    element: <CommonLayout />,
+    children: [
+      { path: pageRoutes.myPage, element: <MyPage />, errorElement: <ErrorPage /> },
+      { path: '*', element: <NotFoundPage /> },
+      ],
+    },
 ]);
 
 export default router;
