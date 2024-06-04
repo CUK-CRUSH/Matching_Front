@@ -13,14 +13,14 @@ const SocialButtons = () => {
 
   return (
     <div className='z-10'>
-      <div style={{right : 70}} className={matchingListState === 'heart' ? selectStyle : unSelectStyle}
+      <div data-testid='heart' style={{right : 70}} className={matchingListState === 'heart' ? selectStyle : unSelectStyle}
            onClick={() => toggleMatchingListState(matchingListState === 'heart' ? 'message' : 'heart')}>
-        <div className={matchingListState === 'heart' ? selectImgStyle : unSelectImgStyle}> <img src={heart} alt='heart' /> </div>
+        <div data-testod='heart_icon' className={matchingListState === 'heart' ? selectImgStyle : unSelectImgStyle}> <img src={heart} alt='heart' /> </div>
       </div>
 
-      <div style={{right : 20}} className={matchingListState === 'message' ? selectStyle : unSelectStyle} 
+      <div data-testid='message' style={{right : 20}} className={matchingListState === 'message' ? selectStyle : unSelectStyle} 
            onClick={() => toggleMatchingListState(matchingListState === 'heart' ? 'message' : 'heart')}>
-        <div className={matchingListState === 'message' ? selectImgStyle : unSelectImgStyle}> <img src={message} alt='message' /> </div>
+        <div data-testod='message_icon' className={matchingListState === 'message' ? selectImgStyle : unSelectImgStyle}> <img src={message} alt='message' /> </div>
       </div>
 
     </div>
