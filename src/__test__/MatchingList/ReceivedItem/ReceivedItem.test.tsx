@@ -15,7 +15,7 @@ describe('ReceivedItem 컴포넌트', () => {
     };
 
     const { getByPlaceholderText } = render(<ReceivedItem {...mockProps} />);
-    const textarea = getByPlaceholderText('메시지 보내기');
+    const textarea = getByPlaceholderText('메시지보내기');
 
     expect(textarea).toBeInTheDocument();
     expect(textarea).toHaveAttribute('readonly');

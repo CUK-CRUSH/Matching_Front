@@ -47,7 +47,7 @@ const ReceivedItem = ({ name, age, mbti, tag, time, song, singer, type }: ItemPr
             <Textarea
               className="text-m text-[#2F2F2F] h-[80px] bg-transparent"
               value={'메시지 보내기'}
-              placeholder="메시지 보내기"
+              placeholder="메시지보내기"
               readOnly
             />
           </div>
