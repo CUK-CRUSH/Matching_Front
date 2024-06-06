@@ -62,31 +62,38 @@ const ProfileImagePage = () => {
         />
       </div>
 
-      <div className="h-screen w-full">
-        <Dialog open={open} onClose={() => setOpen(false)} fullWidth fullScreen>
-          <DialogTitle>이미지 크롭</DialogTitle>
-          <DialogContent>
-            <Cropper
-              image={imageSrc ?? undefined} // null일 때 undefined로 설정
-              crop={crop}
-              zoom={zoom}
-              aspect={1}
-              onCropChange={setCrop}
-              onCropComplete={(_, croppedAreaPixels) => setCroppedArea(croppedAreaPixels)}
-              onZoomChange={setZoom}
-            />
+      <div className="h-screen w-full ">
+        <Dialog
+          open={open}
+          onClose={() => setOpen(false)}
+          fullWidth
+          maxWidth="lg"
+          PaperProps={{
+            style: {
+              height: '100vh',
+              maxWidth: '430px',
+
+              background: 'rgba(0, 0, 0)',
+            },
+          }}
+        >
+          <div className="flex flex-row justify-between p-4 z-50">
+            <Button onClick={() => setOpen(false)}>취소</Button>
+            <Button onClick={() => handleCropComplete(croppedArea)}>확인</Button>
+          </div>
+          <DialogContent className="p-0">
+            <div className="h-full">
+              <Cropper
+                image={imageSrc ?? undefined}
+                crop={crop}
+                zoom={zoom}
+                aspect={1}
+                onCropChange={setCrop}
+                onCropComplete={(_, croppedAreaPixels) => setCroppedArea(croppedAreaPixels)}
+                onZoomChange={setZoom}
+              />
+            </div>
           </DialogContent>
-          <DialogActions>
-            <Slider
-              value={zoom}
-              min={1}
-              max={3}
-              step={0.1}
-              aria-labelledby="Zoom"
-              onChange={(_, zoom) => setZoom(zoom as number)}
-            />
-          </DialogActions>
-          <Button onClick={() => handleCropComplete(croppedArea)}>확인</Button>
         </Dialog>
       </div>
       <div className="flex justify-between mt-4">
