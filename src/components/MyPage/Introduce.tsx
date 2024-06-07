@@ -1,66 +1,56 @@
 import useMyPageStore from '@/store/myPageStore';
-import { LeftOutlined } from '@ant-design/icons';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { useForm, Controller } from 'react-hook-form';
 import { useState } from 'react';
 import { Textarea } from '../ui/textarea';
 import MatchingListHeader from '../layout/matchingListHeader';
+import { MBTIState } from '@/type/store/MyPage/MypageState';
 
 const mbtiOptions = ['E', 'N', 'F', 'J', 'I', 'S', 'T', 'P'];
 
 type MBTIGroup = 'E_I' | 'N_S' | 'F_T' | 'J_P';
 
 const IntroducePage = () => {
-  const { setCurrentPage } = useMyPageStore();
-  const { control, watch, setValue, handleSubmit } = useForm();
-  const [selectedMBTI, setSelectedMBTI] = useState<{
-    E_I: string | null;
-    N_S: string | null;
-    F_T: string | null;
-    J_P: string | null;
-  }>({
-    E_I: null,
-    N_S: null,
-    F_T: null,
-    J_P: null,
+  const {
+    setCurrentPage,
+    selectedMBTI,
+    setSelectedMBTI,
+    selectedMusicTag,
+    setSelectedMusicTag,
+    selectedHobbyTag,
+    setSelectedHobbyTag,
+    textarea1,
+    setTextarea1,
+    textarea2,
+    setTextarea2,
+  } = useMyPageStore();
+
+  const { control, watch, setValue, handleSubmit } = useForm({
+    defaultValues: {
+      textarea1,
+      textarea2,
+      living: false,
+    },
   });
-  const [selectedMusicTag, setSelectedMusicTag] = useState<string | null>(null);
-  const [selectedHobbyTag, setSelectedHobbyTag] = useState<string | null>(null);
+
   const [mbtiString, setMbtiString] = useState<string>('');
 
   const handleMBTIClick = (group: MBTIGroup, value: string) => {
-    setSelectedMBTI((prev) => {
-      const newState = {
-        ...prev,
-        [group]: prev[group] === value ? null : value,
-      };
-      updateMBTIString(newState);
-      return newState;
-    });
+    const newMBTI = {
+      ...selectedMBTI,
+      [group]: selectedMBTI[group] === value ? null : value,
+    };
+    setSelectedMBTI(newMBTI);
+    updateMBTIString(newMBTI);
   };
 
-  const updateMBTIString = (mbti: {
-    E_I: string | null;
-    N_S: string | null;
-    F_T: string | null;
-    J_P: string | null;
-  }) => {
+  const updateMBTIString = (mbti: MBTIState) => {
     const mbtiArray = [mbti.E_I, mbti.N_S, mbti.F_T, mbti.J_P].filter((v) => v !== null);
     setMbtiString(mbtiArray.length === 0 ? 'NONE' : mbtiArray.join(''));
   };
 
-  const handleMusicTagClick = (tag: string) => {
-    setSelectedMusicTag(tag);
-  };
-
-  const handleHobbyTagClick = (tag: string) => {
-    setSelectedHobbyTag(tag);
-  };
-
   const isMBTIDisabled = watch('living');
-  const textarea1 = watch('textarea1') || '';
-  const textarea2 = watch('textarea2') || '';
 
   const filledMbtiCount = isMBTIDisabled || mbtiString.length === 4 ? 1 : 0;
   const filledTextAreaCount =
@@ -72,6 +62,8 @@ const IntroducePage = () => {
   const filledFieldsCount = filledMbtiCount + filledMusicAndHobbyCount + filledTextAreaCount;
 
   const onSubmit = (data: any) => {
+    setTextarea1(data.textarea1);
+    setTextarea2(data.textarea2);
     const postData = {
       mbtiString,
       selectedMusicTag,
@@ -82,15 +74,24 @@ const IntroducePage = () => {
     console.log(postData);
   };
 
-  console.log(mbtiString, selectedMusicTag, selectedHobbyTag);
+  const handleHighlightMusicTag = (tag: string) => {
+    setSelectedMusicTag([tag]);
+  };
+
+  const handleHighlightHobbyTag = (tag: string) => {
+    setSelectedHobbyTag([tag]);
+  };
 
   return (
-    <div className=" text-white h-full flex flex-col items-center overflow-y-auto scrollbar-hide">
+    <div className="text-white h-full flex flex-col items-center overflow-y-auto scrollbar-hide">
       <div className="w-full max-w-md mx-auto flex flex-col h-full">
-        <MatchingListHeader text="내 소개" onStateChange={() => setCurrentPage('mypage')} />
+        <MatchingListHeader
+          text="내 소개"
+          onStateChange={() => setCurrentPage('mypage')}
+          mypageText="My Page | 프로필 수정"
+        />
 
         <div className="flex flex-col p-4 space-y-4">
-          {/* mbti 타이틀 */}
           <div className="flex items-center justify-between">
             <span className="text-lg font-bold">MBTI</span>
             <Controller
@@ -122,7 +123,7 @@ const IntroducePage = () => {
               )}
             />
           </div>
-          {/* mbti */}
+
           <div className="grid grid-cols-4 gap-2 mx-4">
             {mbtiOptions.map((type, index) => {
               const group = ['E_I', 'N_S', 'F_T', 'J_P'][index % 4] as MBTIGroup;
@@ -142,64 +143,51 @@ const IntroducePage = () => {
               );
             })}
           </div>
-          {/* 태그 타이틀 */}
+
           <div className="flex items-center justify-between">
             <span className="text-lg font-bold">태그</span>
             <button onClick={() => setCurrentPage('tags')}>태그 수정하기</button>
           </div>
-          {/* 음악 */}
+
           <div className="mx-4">
             <span className="text-lg font-bold">음악</span>
             <div className="flex space-x-2 mt-2">
-              {['인디', '국내힙합', 'POP'].map((tag) => (
+              {selectedMusicTag.map((tag) => (
                 <Button
                   key={tag}
                   variant="outline"
-                  className={`${selectedMusicTag === tag ? 'bg-white text-black' : 'bg-[#1c1c1c]'} rounded-3xl`}
-                  onClick={() => handleMusicTagClick(tag)}
+                  className={`${selectedMusicTag[0] === tag ? 'bg-white text-black' : 'bg-[#1c1c1c]'} rounded-3xl`}
+                  onClick={() => handleHighlightMusicTag(tag)}
                 >
                   {tag}
                 </Button>
               ))}
-            </div>
-          </div>
-          {/* 취미 */}
-          <div className="mx-4">
-            <span className="text-lg font-bold">취미</span>
-            <div className="flex space-x-2 mt-2">
-              {['뮤직페스티벌', 'LP모으기', '콘서트'].map((tag) => (
-                <Button
-                  key={tag}
-                  variant="outline"
-                  className={`${selectedHobbyTag === tag ? 'bg-white text-black' : 'bg-[#1c1c1c]'} rounded-3xl`}
-                  onClick={() => handleHobbyTagClick(tag)}
-                >
-                  {tag}
-                </Button>
-              ))}
-            </div>
-          </div>
-          {/* 인포 타이틀 */}
-          <div className="flex items-center mt-4 space-x-2 text-sm mx-4">
-            <span className="text-xl">ⓘ</span>
-            <div>
-              <p>강조하고싶은 대표 태그를,</p>
-              <p> 카테고리(음악/취미)당 1개씩 눌러 선택해주세요</p>
             </div>
           </div>
 
-          <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col w-full space-y-4">
-            {/* 길게 적는 소개글 */}
-            <div className="flex items-center justify-between">
-              <span className="text-lg font-bold">1문 N답 : 길게 적는 내 소개글</span>
-              {/* <span>{filledTextAreaCount}/2</span> */}
+          <div className="mx-4">
+            <span className="text-lg font-bold">취미</span>
+            <div className="flex space-x-2 mt-2">
+              {selectedHobbyTag.map((tag) => (
+                <Button
+                  key={tag}
+                  variant="outline"
+                  className={`${selectedHobbyTag[0] === tag ? 'bg-white text-black' : 'bg-[#1c1c1c]'} rounded-3xl`}
+                  onClick={() => handleHighlightHobbyTag(tag)}
+                >
+                  {tag}
+                </Button>
+              ))}
             </div>
+          </div>
+
+          <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col space-y-4">
             <div>
-              <span className="text-m font-bold">Q. 스스로에 대해 이야기해주세요.</span>
+              <span className="text-lg font-bold">Q. 스스로에 대해 이야기해주세요.</span>
               <Controller
                 name="textarea1"
                 control={control}
-                defaultValue=""
+                defaultValue={textarea1}
                 rules={{ minLength: 50, maxLength: 500 }}
                 render={({ field, fieldState }) => (
                   <>
@@ -220,14 +208,13 @@ const IntroducePage = () => {
               />
             </div>
             <div>
-              <span className="text-m font-bold">
-                Q. 어떤 음악취향을 가진 상대에게
-                <br /> 호감을 느끼나요?
+              <span className="text-lg font-bold">
+                Q. 어떤 음악취향을 가진 상대에게 호감을 느끼나요?
               </span>
               <Controller
                 name="textarea2"
                 control={control}
-                defaultValue=""
+                defaultValue={textarea2}
                 rules={{ minLength: 50, maxLength: 500 }}
                 render={({ field, fieldState }) => (
                   <>
@@ -248,15 +235,11 @@ const IntroducePage = () => {
               />
             </div>
             <div className="flex justify-center w-full mt-4">
-              <p>
+              <div className="bg-gray-700 w-auto text-white py-2 px-4 rounded-full">
                 {filledFieldsCount}/{totalField} 완료
-              </p>
+              </div>
             </div>
-            <Button
-              type="submit"
-              disabled={filledFieldsCount !== 4}
-              className="w-full bg-white text-black mt-4"
-            >
+            <Button type="submit" className="w-full bg-white text-black mt-4">
               저장하기
             </Button>
           </form>

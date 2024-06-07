@@ -1,5 +1,5 @@
 export type matchingListHeaderProps = {
-  text: string;
+  text?: string;
   background?: string;
   router?: string;
   mypageText?: string;
