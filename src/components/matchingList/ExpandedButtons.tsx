@@ -1,12 +1,12 @@
 import { ExpandedButtonsProps } from "@/type/MatchingList/MatchingList"
 import { Link } from "react-router-dom"
 
-const ExpandedButtons = ({heartState, router} : ExpandedButtonsProps) => {
+const ExpandedButtons = ({state, router} : ExpandedButtonsProps) => {
 
   return (
       <div className="flex justify-between px-[5%] mt-[24px] ">
         <p className="text-[#F8F8F8] font-bold text-[12px]">
-          {heartState}
+          {state}
         </p>
         <p className="text-[#F8F8F8] font-bold text-[12px]">
           <Link to={router}>

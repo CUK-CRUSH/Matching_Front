@@ -24,7 +24,7 @@ const MatchingListPage = () => {
         {matchingListState === 'heart' &&
           <>
             {/* 받은 하트 */}
-            <ExpandedButtons heartState='받은 하트' router='receivedHeart' />
+            <ExpandedButtons state='받은 하트' router='receivedHeart' />
             <Divider />
             <ItemContainer>
               {MOCK_RECEIVE_HEARTS.slice(0, 4).map((item, index) => (
@@ -33,7 +33,7 @@ const MatchingListPage = () => {
 
             </ItemContainer>
             {/* 보낸하트 */}
-            <ExpandedButtons heartState='보낸 하트' router='sendedHeart' />
+            <ExpandedButtons state='보낸 하트' router='sendedHeart' />
             <Divider />
             <ItemContainer>
               {MOCK_RECEIVE_HEARTS.slice(0, 3).map((item, index) => (
@@ -46,7 +46,7 @@ const MatchingListPage = () => {
         {matchingListState === 'message' &&
           <>
             {/* 받은 메시지 */}
-            <ExpandedButtons heartState='받은 메시지' router='receivedMessage' />
+            <ExpandedButtons state='받은 메시지' router='receivedMessage' />
             <Divider />
             <ItemContainer>
               {MOCK_RECEIVE_HEARTS.slice(0, 3).map((item, index) => (
@@ -55,7 +55,7 @@ const MatchingListPage = () => {
 
             </ItemContainer>
             {/* 보낸 메시지 */}
-            <ExpandedButtons heartState='보낸 메시지' router='sendedMessage' />
+            <ExpandedButtons state='보낸 메시지' router='sendedMessage' />
             <Divider />
             <ItemContainer>
               {MOCK_RECEIVE_HEARTS.slice(0, 3).map((item, index) => (

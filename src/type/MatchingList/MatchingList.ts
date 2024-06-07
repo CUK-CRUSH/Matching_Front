@@ -5,7 +5,7 @@ export type matchingListHeaderProps = {
 }
 
 export type ExpandedButtonsProps = {
-  heartState: string;
+  state: string;
   router: string;
 }
 
