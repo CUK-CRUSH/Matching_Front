@@ -134,9 +134,10 @@ const IntroducePage = () => {
                 <Button
                   key={type}
                   variant="outline"
-                  className={`${
-                    selectedMBTI[group] === type ? 'bg-white text-black' : 'bg-2B2B2B text-white'
-                  } ${isMBTIDisabled ? 'bg-2B2B2B text-gray-600' : ''}`}
+                  className={`flex items-center justify-center h-20 w-full 
+          ${index < 4 ? 'rounded-t-2xl' : 'rounded-b-2xl'}
+          ${selectedMBTI[group] === type ? 'bg-white text-black' : 'bg-2B2B2B text-white'}
+          ${isMBTIDisabled ? 'bg-2B2B2B text-gray-600' : ''}`}
                   onClick={() => handleMBTIClick(group, type)}
                   disabled={isMBTIDisabled}
                 >
@@ -224,7 +225,8 @@ const IntroducePage = () => {
             </div>
             <div>
               <span className="text-m font-bold">
-                Q. 어떤 음악취향을 가진 상대에게 호감을 느끼나요?
+                Q. 어떤 음악취향을 가진 상대에게
+                <br /> 호감을 느끼나요?
               </span>
               <Controller
                 name="textarea2"

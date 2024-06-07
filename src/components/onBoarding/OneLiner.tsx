@@ -70,14 +70,11 @@ const OneLinerPage = () => {
               id="oneLiner"
               placeholder="닉네임을 입력해주세요"
               {...register('oneLiner', {
-                required: '닉네임은 필수 입력 사항입니다',
-                minLength: {
-                  value: 4,
-                  message: '3자 이상 입력해주세요',
-                },
+                required: '필수 입력 사항입니다',
+
                 maxLength: {
-                  value: 15,
-                  message: '최대 15자까지만 입력할 수 있어요',
+                  value: 50,
+                  message: '최대 50자까지만 입력할 수 있어요',
                 },
               })}
             />
