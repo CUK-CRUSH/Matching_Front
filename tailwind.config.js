@@ -54,6 +54,7 @@ module.exports = {
         },
       },
       backgroundImage: {
+        // 프로필카드 배경색
         'background-white' : 'linear-gradient(to top, #FFFCFC 100%)',
         'background-grey' : 'linear-gradient(to top, #FFFCFC 0%, #979797 34%,  #F0F0F0 87%)',
         'background-yellow': 'linear-gradient(to top, #FFFCFC 13%, #FFC5AC 50%, #FFF389 100%)',
@@ -63,6 +64,17 @@ module.exports = {
         'background-pink': 'linear-gradient(to top, #FFFCFC 0%, #FF93FB 62%, #FFFBE9 94%)',
         'background-sky': 'linear-gradient(to top, #FFFCFC 0%, #A9FFFA 62%, #F4FFEF 100%)',
         'background-lock' : 'linear-gradient(to top, #FFFCFC 0%, #F0F0F0 62%, #FFC5AC  100%)',
+        'matching-list': 'linear-gradient(to top, #191919 0%, #252525 100%)',
+        // 매칭리스트 배경색
+        'background-small-white' : 'linear-gradient(to top, #FFFCFC 100%)',
+        'background-small-grey' : 'linear-gradient(to top, #979797 0%,  #F0F0F0 87%)',
+        'background-small-yellow': 'linear-gradient(to top, #FFC5AC 0%, #FFF389 100%)',
+        'background-small-green': 'linear-gradient(to top, #B9E7BB 0%, #FFFCAC 100%)',
+        'background-small-kiwi': 'linear-gradient(to top, #DDF873 0%, #FFFCFC 100%)',
+        'background-small-purple': 'linear-gradient(to top,  #EAD3FC 0%, #FCFFD8 100%)',
+        'background-small-pink': 'linear-gradient(to top,  #FF93FB 0%, #FFFBE9 94%)',
+        'background-small-sky': 'linear-gradient(to top,  #A9FFFA 0%, #F4FFEF 100%)',
+        'background-small-lock' : 'linear-gradient(to top,  #F0F0F0 0%, #FFC5AC  100%)',
       },
       borderRadius: {
         lg: 'var(--radius)',
@@ -74,7 +86,8 @@ module.exports = {
         's' : '0.75rem',
         'm' : '0.875rem',
         'l' : '1rem',
-        'xl' : '1.5rem'
+        'xl' : '1.25rem',
+        'xxl' : '1.5rem'
       },
       fontWeight : {
         'bold' : 'bold',

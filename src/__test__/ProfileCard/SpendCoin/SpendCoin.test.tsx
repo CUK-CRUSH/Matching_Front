@@ -6,6 +6,7 @@ describe('ProfileCard에서 재화 감소 확인', () => {
   it('확인 버튼을 클릭하면 재화가 12에서 10으로 올바르게 감소한다', async () => {
     render(<ProfileCard />);
 
+    // getByTestId는 요소가 반드시 존재해야 하며, 요소가 없을 경우 에러를 발생시키는 반면, queryByTestId는 요소가 없을 경우 null을 반환합니다.
     // 가정: 재화의 초기 값이 화면에 표시되고 있음
     expect(screen.getByTestId('currency')).toHaveTextContent('12');
 
