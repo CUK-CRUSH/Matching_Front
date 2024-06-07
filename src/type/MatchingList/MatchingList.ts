@@ -10,7 +10,7 @@ export type ExpandedButtonsProps = {
 }
 
 export type ItemContainerProps = {
-  children?: React.ReactNode;
+  children: React.ReactNode;
 }
 
 export type ItemProps = {
@@ -25,8 +25,8 @@ export type ItemProps = {
 }
 
 export type MusciCardProps = {
-  song?: string;
-  artist?: string;
+  song: string;
+  artist: string;
   isDark?: boolean;
   isProilfeCard? : boolean;
 }
