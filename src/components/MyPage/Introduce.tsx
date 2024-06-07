@@ -5,6 +5,7 @@ import { Switch } from '@/components/ui/switch';
 import { useForm, Controller } from 'react-hook-form';
 import { useState } from 'react';
 import { Textarea } from '../ui/textarea';
+import MatchingListHeader from '../layout/matchingListHeader';
 
 const mbtiOptions = ['E', 'N', 'F', 'J', 'I', 'S', 'T', 'P'];
 
@@ -84,14 +85,9 @@ const IntroducePage = () => {
   console.log(mbtiString, selectedMusicTag, selectedHobbyTag);
 
   return (
-    <div className="bg-[#1c1c1c] text-white h-full flex flex-col items-center overflow-y-auto scrollbar-hide">
+    <div className=" text-white h-full flex flex-col items-center overflow-y-auto scrollbar-hide">
       <div className="w-full max-w-md mx-auto flex flex-col h-full">
-        <div className="flex flex-row items-center w-full p-4 space-x-1">
-          <button onClick={() => setCurrentPage('mypage')}>
-            <LeftOutlined />
-          </button>
-          <h1 className="text-2xl font-bold">내 소개</h1>
-        </div>
+        <MatchingListHeader text="내 소개" onStateChange={() => setCurrentPage('mypage')} />
 
         <div className="flex flex-col p-4 space-y-4">
           {/* mbti 타이틀 */}
@@ -149,7 +145,7 @@ const IntroducePage = () => {
           {/* 태그 타이틀 */}
           <div className="flex items-center justify-between">
             <span className="text-lg font-bold">태그</span>
-            <button>태그 수정하기</button>
+            <button onClick={() => setCurrentPage('tags')}>태그 수정하기</button>
           </div>
           {/* 음악 */}
           <div className="mx-4">
