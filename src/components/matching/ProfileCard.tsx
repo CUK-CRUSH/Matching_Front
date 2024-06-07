@@ -4,9 +4,6 @@ import Name from '@/components/common/name';
 import Comment from '@/components/matching/Comment';
 import UnlockModal from '@/components/matching/UnlockModal';
 import Spread from '@/components/matching/Spread';
-import ProfileCardHeader from '@/components/layout/profileCardheader';
-import ProfileMusicCardTag from '@/components/matching/MusicTag';
-import ProfileHabitCardTag from '@/components/matching/HabitTag';
 import MusicCard from '@/components/common/MusicCard';
 import BlankMusicCard from '@/components/matching/BlankMusicCard';
 import CoupleMusic from '@/components/matching/CoupleMusic';
@@ -18,7 +15,7 @@ import PostMessage from '@/components/matching/PostMessage';
 import useGetRandomBackgrounds from '@/hooks/useGetRandomBackgrounds/useGetRandomBackgrounds';
 import MusicCardContainer from '@/components/matching/MusicCardContainer';
 import { ProfileCardProps } from '@/type/ProfileCard/ProfileCard';
-import Tag from '../matchingList/Tag';
+import Tag from '@/components/matchingList/Tag';
 
 const ProfileCard = ({name,age,mbti,tag,music,couple,introduce,likeMusic} : ProfileCardProps) => {
   // 배경색 목록
@@ -40,18 +37,16 @@ const ProfileCard = ({name,age,mbti,tag,music,couple,introduce,likeMusic} : Prof
   // 오픈 상태
   const [open, setOpen] = useState<boolean>(false);
 
-  const Style = ` ${!open ? 'h-auto my-[calc((100vh-200px-420px)/2)]' : 'h-auto mt-[50px]'}
-                             
+  const Style = ` ${!open ? 'h-auto my-[calc((100vh-200px-340px)/2)]' : 'h-auto mt-[50px]'}
                              mx-[3%] rounded-[16px] ${currentBackground} 
                              w-[calc(100%-6%)] py-[30px] 
-                             scrollbar-hide overflow-scroll
+                             scrollbar-hide overflow-scroll 
                              `;
 
   // 메시지보내기 창 모달 오픈
   const { openMessage } = useProfileCardStore();
   return (
     <>
-      <ProfileCardHeader />
       <div className={Style}>
 
         {/* Top */}
@@ -63,13 +58,20 @@ const ProfileCard = ({name,age,mbti,tag,music,couple,introduce,likeMusic} : Prof
             <Name name={name} age={age} mbti={mbti} />
             <Comment />
 
+            {/* 음악취향 */}
             <div className='flex flex-wrap mb-[5px]'>
             {tag.map((item) => (
               <Tag tag={item} isProfileCard={true} />
             ))}
             </div>
 
-            {open && <ProfileHabitCardTag />}
+            {/* 취미취향 */}
+            {/* {open && 
+            <div className='flex flex-wrap mb-[5px]'>
+            {tag.map((item) => (
+              <Tag tag={item} isProfileCard={true} />
+            ))}
+            </div>} */}
 
           </div>
         </div>
