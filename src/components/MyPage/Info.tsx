@@ -30,8 +30,8 @@ const formSchema = z.object({
       message: '3자 이상 입력해주세요',
     })
     .max(15, { message: '최대 15자 까지만 입력할 수 있어요' }),
-  oneLiner: z.string().max(30, {
-    message: '최대 30자 까지 입력할 수 있어요',
+  oneLiner: z.string().max(50, {
+    message: '최대 50자 까지 입력할 수 있어요',
   }),
 });
 
@@ -76,7 +76,7 @@ const InfoPage = () => {
     (form.watch('nickname').length >= 3 && form.watch('nickname').length <= 15 ? 1 : 0) +
     (userData?.data.birthDate ? 1 : 0) +
     (userData?.data.sex ? 1 : 0) +
-    (form.watch('oneLiner').length <= 30 ? 1 : 0);
+    (form.watch('oneLiner').length <= 50 && form.watch('oneLiner').length > 0 ? 1 : 0);
 
   const {
     imageSrc,
