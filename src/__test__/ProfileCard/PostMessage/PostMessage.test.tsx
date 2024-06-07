@@ -1,6 +1,6 @@
 import { render, screen, act, fireEvent } from '@testing-library/react';
 import ProfileCard from '@/pages/matching/index';
-import PostMessage from '@/components/profileCard/postMessage';
+import PostMessage from '@/components/matching/PostMessage';
 import userEvent from '@testing-library/user-event';
 import { toast } from '@/components/ui/use-toast';
 global.ResizeObserver = require('resize-observer-polyfill');

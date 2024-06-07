@@ -1,6 +1,7 @@
 import { Textarea } from "@/components/ui/textarea";
+import { IntroductionProps } from "@/type/ProfileCard/ProfileCard";
 
-const Introduction = () => {
+const Introduction = ({introduce} : IntroductionProps) => {
 
   return (
     <div className={`w-[90%] mx-[5%] mt-[24px] `} >
@@ -9,7 +10,7 @@ const Introduction = () => {
       </p>
       <Textarea 
         className="text-m text-[#2F2F2F] h-[142px] "
-        value={'길게 쓰는 자기소개'}
+        value={introduce}
         readOnly
         />
         

@@ -25,14 +25,17 @@ export type ItemProps = {
 }
 
 export type MusciCardProps = {
-  song: string;
-  singer: string;
+  song?: string;
+  artist?: string;
   isDark?: boolean;
+  isProilfeCard? : boolean;
 }
 
 export type TagProps = {
   tag: string;
   isDark?: boolean;
+  isProfileCard? : boolean;
+
 }
 
 export type SocialButtonProps = {

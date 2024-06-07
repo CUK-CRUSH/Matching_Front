@@ -1,6 +1,7 @@
 import { Textarea } from "@/components/ui/textarea";
+import { LikeMusciProps } from "@/type/ProfileCard/ProfileCard";
 
-const LikeMusic = () => {
+const LikeMusic = ({likeMusic} : LikeMusciProps) => {
 
   return (
     <div className={`w-[90%] mx-[5%] mt-[24px]`} >
@@ -9,7 +10,7 @@ const LikeMusic = () => {
       </p>
       <Textarea 
         className="text-m text-[#2F2F2F] h-[142px]"
-        value={'나는 이런 음악취향을 가진 상대에게 호감을 느낀다'}
+        value={likeMusic}
         readOnly
         />
     </div>
