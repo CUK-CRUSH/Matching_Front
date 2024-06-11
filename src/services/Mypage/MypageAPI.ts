@@ -1,6 +1,7 @@
-import axios from 'axios';
+import { api } from '../client';
+import { Product } from '@/type/product';
 
 export const getUserData = async () => {
-  const { data } = await axios.get('/v1/user');
+  const { data } = await api.get<Product>('/v1/user');
   return data;
 };
