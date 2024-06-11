@@ -9,7 +9,6 @@ const CustomCalendar = ({ onChange, value }: CustomCalendarDTO) => {
   const handleDateChange = useCallback(
     (selectedDate: any | Date[] | null) => {
       if (selectedDate && !Array.isArray(selectedDate)) {
-        const formattedDate = moment(selectedDate).format('YYYY년 MM월 DD일');
         onChange(selectedDate);
       } else {
         onChange(null);

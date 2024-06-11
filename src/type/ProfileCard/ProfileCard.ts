@@ -38,6 +38,7 @@ export type ProfileCardProps = {
   mbti: string;
   tag: string[];
   music: Music[];
+  time : string;
   couple: CoupleProps;
   introduce: string;
   likeMusic: string;

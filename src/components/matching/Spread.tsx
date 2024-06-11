@@ -1,7 +1,7 @@
 import doubleDown from '@/assets/ProfileCard/double-down.svg';
-import { SpreadProfileCardImageProps } from '@/type/ProfileCard/ProfileCard';
+import { OpenProfileCardImageProps } from '@/type/ProfileCard/ProfileCard';
 
-const Spread = ({ setLock } : SpreadProfileCardImageProps) => {
+const Spread = ({ setLock } : OpenProfileCardImageProps) => {
 
   return (
     <div className={`w-full flex justify-center items-center cursor-pointer `} onClick={() => setLock(prevState => !prevState)}>
