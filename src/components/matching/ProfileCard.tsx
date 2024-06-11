@@ -17,7 +17,7 @@ import MusicCardContainer from '@/components/matching/MusicCardContainer';
 import { ProfileCardProps } from '@/type/ProfileCard/ProfileCard';
 import Tag from '@/components/matchingList/Tag';
 
-const ProfileCard = ({name,age,mbti,tag,music,couple,introduce,likeMusic} : ProfileCardProps) => {
+const ProfileCard = ({ name, age, mbti, tag, music, couple, introduce, likeMusic }: ProfileCardProps) => {
   // 배경색 목록
   const backgrounds = [
     'bg-background-grey',
@@ -37,7 +37,7 @@ const ProfileCard = ({name,age,mbti,tag,music,couple,introduce,likeMusic} : Prof
   // 오픈 상태
   const [open, setOpen] = useState<boolean>(false);
 
-  const Style = ` ${!open ? 'h-auto my-[calc((100vh-200px-340px)/2)]' : 'h-auto mt-[50px]'}
+  const Style = ` ${!open ? 'h-auto my-[calc((100vh-200px-340px)/2)]' : 'h-auto mt-[80px]'}
                              mx-[3%] rounded-[16px] ${currentBackground} 
                              w-[calc(100%-6%)] py-[30px] 
                              scrollbar-hide overflow-scroll 
@@ -60,9 +60,9 @@ const ProfileCard = ({name,age,mbti,tag,music,couple,introduce,likeMusic} : Prof
 
             {/* 음악취향 */}
             <div className='flex flex-wrap mb-[5px]'>
-            {tag.map((item) => (
-              <Tag tag={item} isProfileCard={true} />
-            ))}
+              {tag.map((item) => (
+                <Tag tag={item} isProfileCard={true} />
+              ))}
             </div>
 
             {/* 취미취향 */}
@@ -78,6 +78,9 @@ const ProfileCard = ({name,age,mbti,tag,music,couple,introduce,likeMusic} : Prof
 
         {/* Music Card */}
         <MusicCardContainer >
+          {open && <p className={`text-[#2F2F2F] text-s ml-[6%] font-bold my-[8px]`}>
+            인생곡 TOP 3
+          </p>}
           {music.map((item) => (
             <MusicCard song={item.song} artist={item.artist} isProilfeCard={true} />
           ))}

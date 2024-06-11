@@ -4,6 +4,7 @@ const MusicCardContainer = ({ children }: ContainerProps) => {
   
   return (
     <div className="h-[150px]">
+      
       {children}
     </div>
   );
