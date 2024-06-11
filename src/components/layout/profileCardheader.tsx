@@ -1,6 +1,6 @@
 import useProfileCardStore from "@/store/profileCardStore";
 
-import money from "../../assets/ProfileCard/money.svg";
+import coinLogo from "../../assets/ProfileCard/coin.svg";
 const ProfileCardHeader = () => { 
   const {coin} = useProfileCardStore();
 
@@ -11,7 +11,7 @@ const ProfileCardHeader = () => {
       </div>
       
       <div className="flex items-center" data-testid='currency'> 
-        <img src={money} alt='money' />
+        <img src={coinLogo} alt='coinLogo' />
         <span className="text-[1.2rem] text-[#F8F8F8] ml-[2px]">{coin}</span> 
       </div>
     </header>
