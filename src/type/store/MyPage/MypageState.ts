@@ -1,0 +1,26 @@
+export type MBTIState = {
+  E_I: string | null;
+  N_S: string | null;
+  F_T: string | null;
+  J_P: string | null;
+};
+
+export type MyPageState = {
+  currentPage: 'mypage' | 'info' | 'introduce' | 'music' | 'tags';
+  setCurrentPage: (page: MyPageState['currentPage']) => void;
+
+  selectedMBTI: MBTIState;
+  setSelectedMBTI: (mbti: MBTIState) => void;
+
+  selectedMusicTag: string[];
+  setSelectedMusicTag: (tags: string[]) => void;
+
+  selectedHobbyTag: string[];
+  setSelectedHobbyTag: (tags: string[]) => void;
+
+  textarea1: string;
+  setTextarea1: (text: string) => void;
+
+  textarea2: string;
+  setTextarea2: (text: string) => void;
+};

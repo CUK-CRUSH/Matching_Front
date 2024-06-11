@@ -87,9 +87,9 @@ export function InputForm() {
           <div className="flex justify-center">
             <Button
               type="submit"
-              className={formState.isValid ? '' : 'bg-[#ececec] text-[#a0a0a0]'}
+              className={formState.isValid ? 'bg-[#ececec] text-[#a0a0a0]' : ' pointer-events-none'}
             >
-              인증 메시지 전송
+              {formState.isValid ? '인증 성공!' : '인증 메시지 전송'}
             </Button>
           </div>
         </form>
