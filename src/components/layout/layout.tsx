@@ -1,6 +1,6 @@
 import { LayoutDTO } from '@/type/Layout/layout';
 
-const Layout = ({ children, display = 'none', backgroundColor = '#fff' }: LayoutDTO) => {
+const   Layout = ({ children, display = 'none', backgroundColor = '#fff' }: LayoutDTO) => {
   const paddingTop = display === 'footer' || display === 'none' ? 'pt-0' : 'pt-[60px]';
 
   const paddingBottom = display === 'header' || display === 'none' ? 'pb-0' : 'pb-[120px]';

@@ -1,11 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Textarea } from "../ui/textarea";
+import { useState, useEffect, useRef } from 'react';
+import { Textarea } from "@/components/ui/textarea";
+import { AutoResizeTextareaProps } from '@/type/Common/AutoResizeTextarea';
 
-interface AutoResizeTextareaProps {
-  value: string;
-}
-
-const AutoResizeTextarea: React.FC<AutoResizeTextareaProps> = ({ value }) => {
+const AutoResizeTextarea = ({ value } : AutoResizeTextareaProps) => {
   const [height, setHeight] = useState<string>('auto');
   // HTMLTextAreaElement 타입을 useRef에 명시하여 textarea 참조 타입을 정확하게 합니다.
   const textareaRef = useRef<HTMLTextAreaElement>(null);

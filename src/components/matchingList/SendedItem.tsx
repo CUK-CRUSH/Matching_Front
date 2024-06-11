@@ -1,6 +1,6 @@
 import { ItemProps } from "@/type/MatchingList/MatchingList";
 import Name from "@/components/common/name";
-import MusicCard from "@/components/matchingList/MusicCard";
+import MusicCard from "@/components/common/MusicCard";
 import Tag from "@/components/matchingList/Tag";
 
 const SendedItem = ({ name, age, mbti, tag, time, song, singer }: ItemProps) => {
