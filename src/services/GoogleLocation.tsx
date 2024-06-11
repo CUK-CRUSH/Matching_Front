@@ -29,7 +29,10 @@ export const useLocationData = () => {
             setUserData('location_Y', longitude);
             resolve({ lat: latitude, lng: longitude });
           },
-          (error) => reject(new Error('위치 정보를 가져오는 데 실패했습니다.')),
+          (error) => {
+            console.error('Geolocation error:', error);
+            reject(new Error('위치 정보를 가져오는 데 실패했습니다.'));
+          },
         );
       }),
     refetchOnWindowFocus: false,
