@@ -1,6 +1,6 @@
 import useProfileCardStore from "@/store/profileCardStore";
 
-import coinLogo from "@/assets/ProfileCard/coin.svg";
+import coinLogo from "../../assets/ProfileCard/coin.svg";
 const ProfileCardHeader = () => { 
   const {coin} = useProfileCardStore();
 
