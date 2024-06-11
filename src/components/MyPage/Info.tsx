@@ -1,7 +1,6 @@
 import { getUserData } from '@/services/Mypage/MypageAPI';
 import useMyPageStore from '@/store/myPageStore';
 import { Product } from '@/type/product';
-import { LeftOutlined } from '@ant-design/icons';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -22,6 +21,7 @@ import { useImageCrop } from '@/hooks/useImageCrop';
 import { Dialog, DialogActions, DialogContent, DialogTitle, Slider } from '@mui/material';
 import Cropper from 'react-easy-crop';
 import axios from 'axios';
+import MatchingListHeader from '../layout/matchingListHeader';
 
 const formSchema = z.object({
   nickname: z
@@ -30,8 +30,8 @@ const formSchema = z.object({
       message: '3자 이상 입력해주세요',
     })
     .max(15, { message: '최대 15자 까지만 입력할 수 있어요' }),
-  oneLiner: z.string().max(30, {
-    message: '최대 30자 까지 입력할 수 있어요',
+  oneLiner: z.string().max(50, {
+    message: '최대 50자 까지 입력할 수 있어요',
   }),
 });
 
@@ -76,7 +76,7 @@ const InfoPage = () => {
     (form.watch('nickname').length >= 3 && form.watch('nickname').length <= 15 ? 1 : 0) +
     (userData?.data.birthDate ? 1 : 0) +
     (userData?.data.sex ? 1 : 0) +
-    (form.watch('oneLiner').length <= 30 ? 1 : 0);
+    (form.watch('oneLiner').length <= 50 && form.watch('oneLiner').length > 0 ? 1 : 0);
 
   const {
     imageSrc,
@@ -92,7 +92,7 @@ const InfoPage = () => {
     setCroppedArea,
     croppedArea,
   } = useImageCrop(userData?.data.profileImage || null, true);
-  console.log(userData);
+
   if (error) {
     return <div>error</div>;
   }
@@ -100,14 +100,13 @@ const InfoPage = () => {
     return <div>No user data found</div>; // userData가 없을 때 처리
   }
   return (
-    <div className="bg-[#1c1c1c] text-white h-full flex flex-col items-center">
+    <div className="text-white h-full flex flex-col items-center">
       <div className="w-full max-w-md mx-auto flex flex-col h-full ">
-        <div className="flex flex-row  items-center w-full p-4 space-x-1">
-          <button onClick={() => setCurrentPage('mypage')}>
-            <LeftOutlined />
-          </button>
-          <h1 className="text-2xl font-bold">내 정보 설정</h1>
-        </div>
+        <MatchingListHeader
+          text="내 정보 설정"
+          onStateChange={() => setCurrentPage('mypage')}
+          mypageText="My Page | 프로필 수정"
+        />
         <div className="flex flex-col h-full">
           <div className="flex flex-col items-center mt-4">
             <Avatar className="w-32 h-32 rounded-lg relative">

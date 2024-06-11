@@ -22,11 +22,11 @@ const pageRoutes = {
   matching: '/matching',
   terms: '/terms',
   onBoarding: '/onboarding',
-  matchingList : '/matchingList',
-  receivedHeart : '/matchingList/receivedHeart',
-  sendedHeart : '/matchingList/sendedHeart',
-  receivedMessage : '/matchingList/receivedMessage',
-  sendedMessage : '/matchingList/sendedMessage',
+  matchingList: '/matchingList',
+  receivedHeart: '/matchingList/receivedHeart',
+  sendedHeart: '/matchingList/sendedHeart',
+  receivedMessage: '/matchingList/receivedMessage',
+  sendedMessage: '/matchingList/sendedMessage',
   myPage: '/mypage',
 };
 
@@ -109,7 +109,11 @@ const router = createBrowserRouter([
   {
     element: <CommonLayout />,
     children: [
-      { path: pageRoutes.receivedMessage, element: <ReceivedMessage />, errorElement: <ErrorPage /> },
+      {
+        path: pageRoutes.receivedMessage,
+        element: <ReceivedMessage />,
+        errorElement: <ErrorPage />,
+      },
 
       { path: '*', element: <NotFoundPage /> },
     ],
@@ -126,8 +130,8 @@ const router = createBrowserRouter([
     children: [
       { path: pageRoutes.myPage, element: <MyPage />, errorElement: <ErrorPage /> },
       { path: '*', element: <NotFoundPage /> },
-      ],
-    },
+    ],
+  },
 ]);
 
 export default router;
