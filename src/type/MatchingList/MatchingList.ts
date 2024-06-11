@@ -2,6 +2,9 @@ export type matchingListHeaderProps = {
   text : string;
   background? : string;
   router? : string;
+  mypageText? : string;
+  onStateChange? : () => void;
+  marginTop? : string;
 }
 
 export type ExpandedButtonsProps = {
