@@ -16,6 +16,7 @@ import useGetRandomBackgrounds from '@/hooks/useGetRandomBackgrounds/useGetRando
 import MusicCardContainer from '@/components/matching/MusicCardContainer';
 import { ProfileCardProps } from '@/type/ProfileCard/ProfileCard';
 import Tag from '@/components/matchingList/Tag';
+import Fold from '@/components/matching/Fold';
 
 const ProfileCard = ({ name, age, mbti, tag, music, couple, introduce, likeMusic }: ProfileCardProps) => {
   // 배경색 목록
@@ -95,6 +96,7 @@ const ProfileCard = ({ name, age, mbti, tag, music, couple, introduce, likeMusic
             <CoupleMusic song={couple.song} artist={couple.artist} />
             <Introduction introduce={introduce} />
             <LikeMusic likeMusic={likeMusic} />
+            {/* <Fold setLock={setLock} /> */}
           </>
         }
       </div>

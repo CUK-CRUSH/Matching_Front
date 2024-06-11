@@ -2,7 +2,7 @@ export type ProfileImageProps = {
     setLock: React.Dispatch<React.SetStateAction<boolean>>;
   };
 
-export type SpreadProfileCardImageProps = {
+export type OpenProfileCardImageProps = {
     setLock: React.Dispatch<React.SetStateAction<boolean>>;
   };
   
