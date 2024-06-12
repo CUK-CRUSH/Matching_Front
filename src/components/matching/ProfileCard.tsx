@@ -16,6 +16,7 @@ import useGetRandomBackgrounds from '@/hooks/useGetRandomBackgrounds/useGetRando
 import MusicCardContainer from '@/components/matching/MusicCardContainer';
 import { ProfileCardProps } from '@/type/ProfileCard/ProfileCard';
 import Tag from '@/components/matchingList/Tag';
+import Fold from '@/components/matching/Fold';
 
 const ProfileCard = ({name,age,mbti,tag,music,couple,introduce,likeMusic} : ProfileCardProps) => {
   // 배경색 목록
@@ -51,8 +52,8 @@ const ProfileCard = ({name,age,mbti,tag,music,couple,introduce,likeMusic} : Prof
 
         {/* Top */}
         <div className={`flex flex-row ml-6`}>
-          <ProfileImage setLock={setLock} />
-          {!isLock && <UnlockModal setLock={setLock} setOpen={setOpen} />}
+          <ProfileImage setOpen={setOpen} isOpen={open} />
+          {!isLock  && <UnlockModal setLock={setLock} setOpen={setOpen} />}
           {openMessage && <PostMessage />}
           <div className={`flex flex-col ml-[5%]`}>
             <Name name={name} age={age} mbti={mbti} />
@@ -85,18 +86,18 @@ const ProfileCard = ({name,age,mbti,tag,music,couple,introduce,likeMusic} : Prof
         </MusicCardContainer>
 
         {!open && <BlankMusicCard />}
-        {!open && <Spread setLock={setLock} />}
+        {!open && <Spread setOpen={setOpen} />}
 
         {open &&
           <>
             <CoupleMusic song={couple.song} artist={couple.artist} />
             <Introduction introduce={introduce} />
             <LikeMusic likeMusic={likeMusic} />
+            <Fold setOpen={setOpen}/>
           </>
         }
       </div>
       {open && <SocialButtons />}
-
     </>
   );
 }
