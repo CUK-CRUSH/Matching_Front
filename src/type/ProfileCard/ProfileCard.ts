@@ -36,6 +36,7 @@ export type ProfileCardProps = {
   name: string;
   age: string;
   mbti: string;
+  time : string;
   tag: string[];
   music: Music[];
   couple: CoupleProps;

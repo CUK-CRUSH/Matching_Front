@@ -52,7 +52,7 @@ const ReceivedItem = ({ name, age, mbti, tag, time, song, singer, type }: ItemPr
             />
           </div>
           :
-          <MusicCard song={song} singer={singer} isDark={false} />}
+          <MusicCard song={song} artist={singer} isDark={false} />}
       </div>
 
       {/* 메시지 팝업 클릭했을때 */}
