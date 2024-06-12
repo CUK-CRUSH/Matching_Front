@@ -1,6 +1,6 @@
 import { matchingListHeaderProps } from '@/type/MatchingList/MatchingList';
 import back from '@/assets/MatchingList/back.svg';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const MatchingListHeader = ({
   text,
@@ -10,6 +10,15 @@ const MatchingListHeader = ({
   onStateChange,
   marginTop = '20',
 }: matchingListHeaderProps) => {
+  const navigate = useNavigate();
+
+  const handleBackClick = () => {
+    if (onStateChange) {
+      onStateChange();
+    } else {
+      navigate(-1);
+    }
+  };
   return (
     <div className={`mt-${marginTop}`}>
       <header
@@ -17,13 +26,18 @@ const MatchingListHeader = ({
       >
         <div className="flex justify-between w-full px-4">
           <div className="flex flex-row items-center w-full space-x-3">
-            {onStateChange ? (
-              <img src={back} alt="back" className="cursor-pointer" onClick={onStateChange} />
-            ) : (
-              <Link to={`/${router ? router : ''}`}>
-                <img src={back} alt="back" className="cursor-pointer" />
-              </Link>
-            )}
+            <img
+              src={back}
+              alt="back"
+              className="cursor-pointer"
+              onClick={() => {
+                if (router) {
+                  navigate(`/${router}`);
+                } else {
+                  handleBackClick();
+                }
+              }}
+            />
             <span className="text-[#F8F8F8] text-xl font-bold">{text}</span>
           </div>
           {mypageText && (

@@ -27,8 +27,8 @@ const MyPageMain = () => {
 
   return (
     <div className=" text-white h-full flex flex-col items-center pb-20">
-      <div className="w-full max-w-md mx-auto">
-        <MatchingListHeader text="My Page" router="/matching" />
+      <div className="w-full max-w-md mx-auto ">
+        <MatchingListHeader text="My Page" router="matching" />
 
         {/* 상단 유저 정보 */}
         <div className="flex flex-col items-center mt-4">
@@ -141,7 +141,12 @@ const MyPageMain = () => {
           </div>
           <div className="flex flex-col mt-8 w-full px-4">
             <h3 className="text-lg font-bold text-gray-300">나의 Duett</h3>
-            <button className="mt-2 text-left text-white pl-4">내 위치 설정</button>
+            <button
+              onClick={() => setCurrentPage('location')}
+              className="mt-2 text-left text-white pl-4"
+            >
+              내 위치 설정
+            </button>
             <button className="mt-2 text-left text-white pl-4">결제관리</button>
           </div>
           <div className="flex flex-col mt-8 w-full px-4">

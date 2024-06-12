@@ -1,9 +1,13 @@
 import { ValidationTextDTO } from '@/type/validation/validation';
 
-export default function ValidationText({ titleTexts, descriptionTexts }: ValidationTextDTO) {
+export default function ValidationText({
+  titleTexts,
+  descriptionTexts,
+  titleTextColor = '#363636',
+}: ValidationTextDTO) {
   return (
     <div>
-      <div className="ml-2 mt-32 font-bold  text-[#363636]">
+      <div className={`ml-2 mt-32 font-bold text-[${titleTextColor}]`}>
         {titleTexts.map((title) => (
           <h2 key={title} className="text-xl font-extrabold mb-2">
             {title}
