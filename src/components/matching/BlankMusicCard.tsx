@@ -11,7 +11,7 @@ const BlankMusicCard = () => {
                       flex justify-between rounded-[11px] 
                       bg-[linear-gradient(to top, #FFFFFF80 0%, #FFFFFF80 100%)]`} >
                         
-        <span className={`text-s text-[#2F2F2F] font-semibold invisible`}>aa</span>
+        <span className={`text-s text-[#2F2F2F] font-semibold invisible`}>a</span>
       </div>
     </div>
   );
