@@ -14,7 +14,7 @@ const SendedItem = ({ name, age, mbti, tag, time, song, singer }: ItemProps) => 
         <div><p className="text-s">{time}</p></div>
       </div>
 
-      <MusicCard song={song} singer={singer} isDark={true} />
+      <MusicCard song={song} artist={singer} isDark={true} />
 
       {/* 하단 테두리 */}
       <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-[calc(100%-4%)] h-[1px] bg-[#191919]"></div>
