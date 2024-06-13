@@ -37,7 +37,7 @@ const ProfileCard = ({name,age,mbti,tag,music,couple,introduce,likeMusic,isOpen,
   // 모달 오픈 상태
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
 
-  console.log(`isLock: ${isLock} isOpen : ${isOpen} ,isOpenModal : ${isOpenModal}` )
+  // console.log(`isLock: ${isLock} isOpen : ${isOpen} ,isOpenModal : ${isOpenModal}` )
   const Style = ` ${!open ? 'h-auto my-[calc((100vh-200px-340px)/2)]' : 'h-auto mt-[50px]'}
                              mx-[3%] rounded-[16px] ${currentBackground} 
                              w-[calc(100%-6%)] py-[30px] 
