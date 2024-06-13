@@ -4,10 +4,12 @@ import Footer from '@/components/layout/footer';
 import { MOCK_PROFILECARD } from "@/fixture/ProfileCard";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import ProfileCardHeader from '@/components/layout/profileCardheader';
+import useSetOpen from '@/hooks/useSetOpen/useSetOpen';
 
 import 'swiper/swiper-bundle.css';
 
 const MatchingPage = () => {
+  const {isOpen, setOpen} = useSetOpen(); 
 
   return (
     <Layout backgroundColor={'#252525'}>
@@ -16,12 +18,12 @@ const MatchingPage = () => {
       <Swiper
         onSlideChange={() => console.log('slide change')}
         onSwiper={(swiper) => console.log(swiper)}
-        // allowTouchMove={isSlideEnabled} // 터치 슬라이딩 허용 여부
+        allowTouchMove={!isOpen} 
       >
         {MOCK_PROFILECARD.map((item, index) => (
           <SwiperSlide key={index}>
 
-            <ProfileCard key={index} {...item} />
+            <ProfileCard key={index} {...item} isOpen={isOpen} setOpen={setOpen} />
           </SwiperSlide>
         ))}
       </Swiper>

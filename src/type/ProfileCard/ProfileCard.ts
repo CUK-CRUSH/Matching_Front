@@ -1,10 +1,13 @@
 export type ProfileImageProps = {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  isOpen : boolean;
+  setOpenModal : React.Dispatch<React.SetStateAction<boolean>>;
+  isLock : boolean;
 };
 
 export type SpreadProfileCardImageProps = {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpenModal : React.Dispatch<React.SetStateAction<boolean>>;
+  isLock : boolean;
 };
 export type FoldProfileCardImageProps = {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -12,6 +15,7 @@ export type FoldProfileCardImageProps = {
 export type UnlockModalProps = {
   setLock: React.Dispatch<React.SetStateAction<boolean>>;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpenModal:  React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export type ContainerProps = {
@@ -45,5 +49,7 @@ export type ProfileCardProps = {
   couple: CoupleProps;
   introduce: string;
   likeMusic: string;
+  isOpen : boolean;
+  setOpen : React.Dispatch<React.SetStateAction<boolean>>;
 }
 

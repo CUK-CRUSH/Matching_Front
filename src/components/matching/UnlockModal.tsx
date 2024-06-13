@@ -7,7 +7,7 @@ import useProfileCardStore from '@/store/profileCardStore';
 import {UnlockModalProps} from '@/type/ProfileCard/ProfileCard';
 import { toast } from "@/components/ui/use-toast"
 
-const UnlockModal = ({ setLock , setOpen} : UnlockModalProps) => {
+const UnlockModal = ({ setLock , setOpen,setOpenModal} : UnlockModalProps) => {
 
   // 모달 열고닫기
   const unlockModalRef = useRef<HTMLDivElement>(null);
@@ -31,7 +31,8 @@ const UnlockModal = ({ setLock , setOpen} : UnlockModalProps) => {
   const openProfileCard = () =>{
     setSpend2Coin();
     setOpen(prevState => !prevState);
-    setLock(prevState => !prevState);
+    setLock(false);
+    setOpenModal(false);
     toast({
       title: "잠금해제 완료! ",
       className:
@@ -48,7 +49,7 @@ const UnlockModal = ({ setLock , setOpen} : UnlockModalProps) => {
         <p className={`text-[#2f2f2f] text-[0.8rem]`}>프로필 잠금을 해제할까요?</p>
         <p className={`text-[#2f2f2f] text-[0.8rem]`}>'2' 재화를 소모합니다.</p>
         <div className={`flex justify-center mt-4`}>
-        <Button className={`mr-4 w-[85px]`} variant="secondary" size="sm" onClick={() => setLock(prevState => !prevState)}>
+        <Button className={`mr-4 w-[85px]`} variant="secondary" size="sm" onClick={() => setOpenModal(false)}>
           취소
         </Button>
         <Button className={`w-[85px] `} variant="default" size="sm" 

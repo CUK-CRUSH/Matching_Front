@@ -18,7 +18,7 @@ import { ProfileCardProps } from '@/type/ProfileCard/ProfileCard';
 import Tag from '@/components/matchingList/Tag';
 import Fold from '@/components/matching/Fold';
 
-const ProfileCard = ({name,age,mbti,tag,music,couple,introduce,likeMusic} : ProfileCardProps) => {
+const ProfileCard = ({name,age,mbti,tag,music,couple,introduce,likeMusic,isOpen,setOpen} : ProfileCardProps) => {
   // 배경색 목록
   const backgrounds = [
     'bg-background-grey',
@@ -29,15 +29,15 @@ const ProfileCard = ({name,age,mbti,tag,music,couple,introduce,likeMusic} : Prof
     'bg-background-pink',
     'bg-background-sky',
   ];
-
   const currentBackground = useGetRandomBackgrounds({ backgrounds });
 
   // 잠금 상태
   const [isLock, setLock] = useState<boolean>(true);
 
-  // 오픈 상태
-  const [open, setOpen] = useState<boolean>(false);
+  // 모달 오픈 상태
+  const [isOpenModal, setOpenModal] = useState<boolean>(false);
 
+  console.log(`isLock: ${isLock} isOpen : ${isOpen} ,isOpenModal : ${isOpenModal}` )
   const Style = ` ${!open ? 'h-auto my-[calc((100vh-200px-340px)/2)]' : 'h-auto mt-[50px]'}
                              mx-[3%] rounded-[16px] ${currentBackground} 
                              w-[calc(100%-6%)] py-[30px] 
@@ -52,8 +52,8 @@ const ProfileCard = ({name,age,mbti,tag,music,couple,introduce,likeMusic} : Prof
 
         {/* Top */}
         <div className={`flex flex-row ml-6`}>
-          <ProfileImage setOpen={setOpen} isOpen={open} />
-          {!isLock  && <UnlockModal setLock={setLock} setOpen={setOpen} />}
+          <ProfileImage setOpenModal={setOpenModal} setOpen={setOpen} isLock={isLock} />
+          {isOpenModal  && <UnlockModal setLock={setLock} setOpen={setOpen} setOpenModal={setOpenModal}/>}
           {openMessage && <PostMessage />}
           <div className={`flex flex-col ml-[5%]`}>
             <Name name={name} age={age} mbti={mbti} />
@@ -85,10 +85,10 @@ const ProfileCard = ({name,age,mbti,tag,music,couple,introduce,likeMusic} : Prof
 
         </MusicCardContainer>
 
-        {!open && <BlankMusicCard />}
-        {!open && <Spread setOpen={setOpen} />}
+        {!isOpen && <BlankMusicCard />}
+        {!isOpen && <Spread setOpenModal={setOpenModal} setOpen={setOpen} isLock={isLock} />}
 
-        {open &&
+        {isOpen &&
           <>
             <CoupleMusic song={couple.song} artist={couple.artist} />
             <Introduction introduce={introduce} />
@@ -97,7 +97,7 @@ const ProfileCard = ({name,age,mbti,tag,music,couple,introduce,likeMusic} : Prof
           </>
         }
       </div>
-      {open && <SocialButtons />}
+      {isOpen && <SocialButtons />}
     </>
   );
 }
