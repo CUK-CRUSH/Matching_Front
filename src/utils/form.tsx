@@ -44,36 +44,13 @@ export function InputForm() {
     try {
       const response = await getAuthenticationCode(data.pin);
 
+      if (!response || !response.data || !response.data.code) {
+        throw new Error('Invalid response data');
+      }
+
       const smsUrl = `sms:${import.meta.env.VITE_DUETT_EMAIL}?body=${encodeURIComponent(response.data.code)}`;
-      // const smsUrl = `sms:minskim222@gmail.com?body=hihihi`;
+
       window.location.href = smsUrl;
-      // if (!response || !response.data || !response.data.code) {
-      //   throw new Error('Invalid response data');
-      // }
-
-      // const userAgent = navigator.userAgent.toLowerCase();
-
-      // let smsUrl;
-
-      // if (userAgent.includes('android')) {
-      //   // 안드로이드
-      //   smsUrl = `sms:${import.meta.env.VITE_DUETT_EMAIL}?body=${encodeURIComponent(response.data.code)}`;
-      // } else if (
-      //   userAgent.includes('iphone') ||
-      //   userAgent.includes('ipad') ||
-      //   userAgent.includes('ipod')
-      // ) {
-      //   // iOS
-      //   smsUrl = `sms:${import.meta.env.VITE_DUETT_EMAIL}&body=${encodeURIComponent(response.data.code)}`;
-      // } else {
-      //   // 나머지
-      //   console.log(response.data.code);
-      //   smsUrl = '';
-      // }
-
-      // if (smsUrl) {
-      //   window.location.href = smsUrl;
-      // }
 
       toast({
         title: '인증 메시지가 전송되었습니다.',
