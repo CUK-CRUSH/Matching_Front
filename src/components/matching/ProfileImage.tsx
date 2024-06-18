@@ -7,7 +7,7 @@ const ProfileImage = ({setOpen,setOpenModal,isLock} : ProfileImageProps) => {
       <img className={`absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2`} 
            src={true ? lock: 'profileImage'} 
            alt='lock' 
-           onClick={() => isLock ? setOpenModal(prevState => !prevState) : setOpen(prevState => !prevState)} />
+           onClick={() => isLock ? setOpenModal(prevState => !prevState) : setOpen(true)} />
     </div>
   );
 };

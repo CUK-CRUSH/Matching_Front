@@ -30,7 +30,7 @@ const UnlockModal = ({ setLock , setOpen,setOpenModal} : UnlockModalProps) => {
 
   const openProfileCard = () =>{
     setSpend2Coin();
-    setOpen(prevState => !prevState);
+    setOpen(true);
     setLock(false);
     setOpenModal(false);
     toast({

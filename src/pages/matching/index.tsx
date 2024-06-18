@@ -7,19 +7,33 @@ import ProfileCardHeader from '@/components/layout/profileCardheader';
 import useSetOpen from '@/hooks/useSetOpen/useSetOpen';
 
 import 'swiper/swiper-bundle.css';
+import { useState } from "react";
 
 const MatchingPage = () => {
-  const { isOpen, setOpen } = useSetOpen();
-
+// 각 프로필 카드의 열고 닫기 상태를 관리하는 배열
+const [isOpen, setOpen] = useState<boolean[]>(MOCK_PROFILECARD.map(() => false));
+const [activeIndex, setActiveIndex] = useState<number>(0);
+console.log(isOpen)
+console.log(isOpen[activeIndex])
+const handleSetOpen = (index: number, value: boolean) => {
+  setOpen(prev => prev.map((isOpen , i ) => i === index ? value : isOpen));
+};
+const handleSlideChange = (swiper: any) => {
+  setActiveIndex(swiper.activeIndex);
+};
   return (
     <Layout backgroundColor={'#252525'}>
       <ProfileCardHeader />
       <Swiper
-        allowTouchMove={!isOpen} // 초기 설정
+        onSlideChange={handleSlideChange}
+        allowTouchMove={!isOpen[activeIndex]}
       >
         {MOCK_PROFILECARD.map((item, index) => (
           <SwiperSlide key={index}>
-            <ProfileCard key={index} {...item} isOpen={isOpen} setOpen={setOpen} />
+            <ProfileCard key={index} {...item} 
+              isOpen={isOpen[index]} 
+              setOpen={(value: boolean) => handleSetOpen(index, value)}  
+            />
           </SwiperSlide>
         ))}
       </Swiper>

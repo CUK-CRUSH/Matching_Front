@@ -38,7 +38,7 @@ const ProfileCard = ({name,age,mbti,tag,music,couple,introduce,likeMusic,isOpen,
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
 
   // console.log(`isLock: ${isLock} isOpen : ${isOpen} ,isOpenModal : ${isOpenModal}` )
-  const Style = ` ${!open ? 'h-auto my-[calc((100vh-200px-340px)/2)]' : 'h-auto mt-[50px]'}
+  const Style = ` ${!isOpen ? 'h-auto my-[calc((100vh-200px-340px)/2)]' : 'h-auto mt-[50px]'}
                              mx-[3%] rounded-[16px] ${currentBackground} 
                              w-[calc(100%-6%)] py-[30px] 
                              scrollbar-hide overflow-scroll 

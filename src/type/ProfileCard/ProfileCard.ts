@@ -1,20 +1,20 @@
 export type ProfileImageProps = {
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpen: (value: boolean) => void;
   setOpenModal : React.Dispatch<React.SetStateAction<boolean>>;
   isLock : boolean;
 };
 
 export type SpreadProfileCardImageProps = {
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpen: (value: boolean) => void;
   setOpenModal : React.Dispatch<React.SetStateAction<boolean>>;
   isLock : boolean;
 };
 export type FoldProfileCardImageProps = {
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpen: (value: boolean) => void;
 };
 export type UnlockModalProps = {
   setLock: React.Dispatch<React.SetStateAction<boolean>>;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpen: (value: boolean) => void;
   setOpenModal:  React.Dispatch<React.SetStateAction<boolean>>;
 };
 
@@ -54,7 +54,7 @@ export type ProfileCardProps = {
 
 export type OpenProfileCardProps = {
   isOpen : boolean;
-  setOpen : React.Dispatch<React.SetStateAction<boolean>>;
+  setOpen : (value: boolean) => void;
 }
 
 export type CombinedProfileCardProps = ProfileCardProps & OpenProfileCardProps;
