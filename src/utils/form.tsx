@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
 import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp';
 import { toast } from '@/components/ui/use-toast';
+import { getAuthenticationCode } from '@/services/Login/LoginAPI';
 
 const FormSchema = z.object({
   pin: z
@@ -39,16 +40,23 @@ export function InputForm() {
 
   const { formState, handleSubmit, control } = methods;
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    toast({
-      title: 'You submitted the following values:',
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    });
-  }
+  const onSubmit = async (data: z.infer<typeof FormSchema>) => {
+    try {
+      const response = await getAuthenticationCode(data.pin);
+
+      const mailtoUrl = `mailto:${import.meta.env.VITE_DUETT_EMAIL}?subject=인증 코드&body=${encodeURIComponent(response.data.code)}`;
+      window.location.href = mailtoUrl;
+      toast({
+        title: '인증 메시지가 전송되었습니다.',
+        description: `인증 코드: ${response.data.code}`,
+      });
+    } catch (error) {
+      toast({
+        title: '인증 메시지 전송 실패',
+        description: '인증 메시지 전송에 실패했습니다. 다시 시도해주세요.',
+      });
+    }
+  };
 
   return (
     <div className="w-full ">

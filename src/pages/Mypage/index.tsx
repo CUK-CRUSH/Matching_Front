@@ -5,6 +5,7 @@ import InfoPage from '@/components/MyPage/Info';
 import IntroducePage from '@/components/MyPage/Introduce';
 import MusicPage from '@/components/MyPage/Music';
 import TagsPage from '@/components/MyPage/Tags';
+import ChangeLocationPage from '@/components/MyPage/Location/ChangeLocation';
 
 const MyPage = () => {
   const { currentPage } = useMyPageStore();
@@ -21,6 +22,8 @@ const MyPage = () => {
         return <MusicPage />;
       case 'tags':
         return <TagsPage />;
+      case 'location':
+        return <ChangeLocationPage />;
       default:
         return <MyPageMain />;
     }
