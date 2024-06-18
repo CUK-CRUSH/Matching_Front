@@ -43,6 +43,9 @@ export function InputForm() {
   const onSubmit = async (data: z.infer<typeof FormSchema>) => {
     try {
       const response = await getAuthenticationCode(data.pin);
+      if (!response || !response.data || !response.data.code) {
+        throw new Error('Invalid response data');
+      }
 
       const userAgent = navigator.userAgent.toLowerCase();
 
@@ -60,16 +63,20 @@ export function InputForm() {
         smsUrl = `sms:${import.meta.env.VITE_DUETT_EMAIL}&body=${encodeURIComponent(response.data.code)}`;
       } else {
         // 나머지
-        smsUrl = `sms:${import.meta.env.VITE_DUETT_EMAIL}?body=${encodeURIComponent(response.data.code)}`;
+        console.log(response.data.code);
+        smsUrl = '';
       }
 
-      window.location.href = smsUrl;
+      if (smsUrl) {
+        window.location.href = smsUrl;
+      }
 
       toast({
         title: '인증 메시지가 전송되었습니다.',
         description: `인증 코드: ${response.data.code}`,
       });
     } catch (error) {
+      console.error(error);
       toast({
         title: `인증 에러: ${error}`,
         description: '인증 메시지 전송에 실패했습니다. 다시 시도해주세요.',
