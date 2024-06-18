@@ -44,15 +44,34 @@ export function InputForm() {
     try {
       const response = await getAuthenticationCode(data.pin);
 
-      const mailtoUrl = `mailto:${import.meta.env.VITE_DUETT_EMAIL}?subject=인증 코드&body=${encodeURIComponent(response.data.code)}`;
-      window.location.href = mailtoUrl;
+      const userAgent = navigator.userAgent.toLowerCase();
+
+      let smsUrl;
+
+      if (userAgent.includes('android')) {
+        // 안드로이드
+        smsUrl = `sms:${import.meta.env.VITE_DUETT_EMAIL}?body=${encodeURIComponent(response.data.code)}`;
+      } else if (
+        userAgent.includes('iphone') ||
+        userAgent.includes('ipad') ||
+        userAgent.includes('ipod')
+      ) {
+        // iOS
+        smsUrl = `sms:${import.meta.env.VITE_DUETT_EMAIL}&body=${encodeURIComponent(response.data.code)}`;
+      } else {
+        // 나머지
+        smsUrl = `sms:${import.meta.env.VITE_DUETT_EMAIL}?body=${encodeURIComponent(response.data.code)}`;
+      }
+
+      window.location.href = smsUrl;
+
       toast({
         title: '인증 메시지가 전송되었습니다.',
         description: `인증 코드: ${response.data.code}`,
       });
     } catch (error) {
       toast({
-        title: '인증 메시지 전송 실패',
+        title: `인증 에러: ${error}`,
         description: '인증 메시지 전송에 실패했습니다. 다시 시도해주세요.',
       });
     }
