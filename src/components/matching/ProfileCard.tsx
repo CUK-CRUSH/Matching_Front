@@ -14,11 +14,11 @@ import useProfileCardStore from '@/store/profileCardStore';
 import PostMessage from '@/components/matching/PostMessage';
 import useGetRandomBackgrounds from '@/hooks/useGetRandomBackgrounds/useGetRandomBackgrounds';
 import MusicCardContainer from '@/components/matching/MusicCardContainer';
-import { ProfileCardProps } from '@/type/ProfileCard/ProfileCard';
+import { CombinedProfileCardProps } from '@/type/ProfileCard/ProfileCard';
 import Tag from '@/components/matchingList/Tag';
 import Fold from '@/components/matching/Fold';
 
-const ProfileCard = ({name,age,mbti,tag,music,couple,introduce,likeMusic,isOpen,setOpen} : ProfileCardProps) => {
+const ProfileCard = ({name,age,mbti,tag,music,couple,introduce,likeMusic,isOpen,setOpen} : CombinedProfileCardProps ) => {
   // 배경색 목록
   const backgrounds = [
     'bg-background-grey',

@@ -10,35 +10,20 @@ import 'swiper/swiper-bundle.css';
 
 const MatchingPage = () => {
   const { isOpen, setOpen } = useSetOpen();
-  console.log(isOpen)
+
   return (
     <Layout backgroundColor={'#252525'}>
       <ProfileCardHeader />
-
-      {/* allowTouchMove 가 안먹으면 조건문으로 스와이퍼를 없애는 방법으로 해야할듯... */}
-      {!isOpen ?
-        <Swiper
-          onSlideChange={() => console.log('slide change')}
-          onSwiper={(swiper) => console.log(swiper)}
-          allowTouchMove={!isOpen}
-        >
-          {MOCK_PROFILECARD.map((item, index) => (
-            <SwiperSlide key={index}>
-              <ProfileCard key={index} {...item} isOpen={isOpen} setOpen={setOpen} />
-
-            </SwiperSlide>
-          ))}
-        </Swiper> :
-        <>
-          {MOCK_PROFILECARD.map((item, index) => (
-            <SwiperSlide key={index}>
-              <ProfileCard key={index} {...item} isOpen={isOpen} setOpen={setOpen} />
-
-            </SwiperSlide>
-          ))}
-        </>}
+      <Swiper
+        allowTouchMove={!isOpen} // 초기 설정
+      >
+        {MOCK_PROFILECARD.map((item, index) => (
+          <SwiperSlide key={index}>
+            <ProfileCard key={index} {...item} isOpen={isOpen} setOpen={setOpen} />
+          </SwiperSlide>
+        ))}
+      </Swiper>
       <Footer />
-
     </Layout>
   );
 };

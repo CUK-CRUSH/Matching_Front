@@ -49,7 +49,12 @@ export type ProfileCardProps = {
   couple: CoupleProps;
   introduce: string;
   likeMusic: string;
+
+}
+
+export type OpenProfileCardProps = {
   isOpen : boolean;
   setOpen : React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+export type CombinedProfileCardProps = ProfileCardProps & OpenProfileCardProps;
