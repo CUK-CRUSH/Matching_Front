@@ -44,17 +44,13 @@ export function InputForm() {
     try {
       const response = await getAuthenticationCode(data.pin);
 
-      if (!response || !response.data || !response.data.code) {
-        throw new Error('Invalid response data');
-      }
-
-      const smsUrl = `sms:${import.meta.env.VITE_DUETT_EMAIL}?body=${encodeURIComponent(response.data.code)}`;
+      const smsUrl = `sms:${import.meta.env.VITE_DUETT_EMAIL}?body=${encodeURIComponent(response.data?.code)}`;
 
       window.location.href = smsUrl;
 
       toast({
         title: '인증 메시지가 전송되었습니다.',
-        description: `인증 코드: ${response.data.code}`,
+        // description: `인증 코드: ${response.data.code}`,
       });
     } catch (error) {
       console.error(error);
