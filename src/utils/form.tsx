@@ -44,8 +44,8 @@ export function InputForm() {
     try {
       const response = await getAuthenticationCode(data.pin);
 
-      // const smsUrl = `sms:${import.meta.env.VITE_DUETT_EMAIL}?body=${encodeURIComponent(response.data.code)}`;
-      const smsUrl = `sms:minskim222@gmail.com?body=hihihi`;
+      const smsUrl = `sms:${import.meta.env.VITE_DUETT_EMAIL}?body=${encodeURIComponent(response.data.code)}`;
+      // const smsUrl = `sms:minskim222@gmail.com?body=hihihi`;
       window.location.href = smsUrl;
       // if (!response || !response.data || !response.data.code) {
       //   throw new Error('Invalid response data');
