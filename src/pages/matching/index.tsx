@@ -4,7 +4,6 @@ import Footer from '@/components/layout/footer';
 import { MOCK_PROFILECARD } from "@/fixture/ProfileCard";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import ProfileCardHeader from '@/components/layout/profileCardheader';
-import useSetOpen from '@/hooks/useSetOpen/useSetOpen';
 
 import 'swiper/swiper-bundle.css';
 import { useState } from "react";
