@@ -43,9 +43,10 @@ export function InputForm() {
   const onSubmit = async (data: z.infer<typeof FormSchema>) => {
     try {
       const response = await getAuthenticationCode(data.pin);
+      console.log(response.data.code);
 
-      const smsUrl = `sms:${import.meta.env.VITE_DUETT_EMAIL}?body=${encodeURIComponent(response.data?.code)}`;
-
+      const smsUrl = `sms:${import.meta.env.VITE_DUETT_EMAIL}?body=${response.data?.code}`;
+      console.log(smsUrl);
       window.location.href = smsUrl;
 
       toast({
