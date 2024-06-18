@@ -9,33 +9,51 @@ import 'swiper/swiper-bundle.css';
 import { useState } from "react";
 
 const MatchingPage = () => {
-// 각 프로필 카드의 열고 닫기 상태를 관리하는 배열
-const [isOpen, setOpen] = useState<boolean[]>(MOCK_PROFILECARD.map(() => false));
-const [activeIndex, setActiveIndex] = useState<number>(0);
-console.log(isOpen)
-console.log(isOpen[activeIndex])
-const handleSetOpen = (index: number, value: boolean) => {
-  setOpen(prev => prev.map((isOpen , i ) => i === index ? value : isOpen));
+  // 각 프로필 카드의 열고 닫기 상태를 관리하는 배열
+  const [profiles, setProfiles] = useState(MOCK_PROFILECARD);
+
+ // 프로필카드 열기
+ const handleSetOpen = (index: number, value: boolean) => {
+  setProfiles(prev => 
+    prev.map((profile, i) => 
+      i === index ? { ...profile, isOpen: value } : profile
+    )
+  );
 };
-const handleSlideChange = (swiper: any) => {
-  setActiveIndex(swiper.activeIndex);
-};
+
+// isOpen이 true인 프로필을 필터링
+const openProfiles = profiles.filter(item => item.isOpen);
+
+// isOpen이 false인 프로필을 필터링
+const closedProfiles = profiles.filter(item => !item.isOpen);
   return (
     <Layout backgroundColor={'#252525'}>
       <ProfileCardHeader />
+
       <Swiper
-        onSlideChange={handleSlideChange}
-        allowTouchMove={!isOpen[activeIndex]}
+        onSwiper={(swiper) => console.log(swiper.activeIndex)}
       >
-        {MOCK_PROFILECARD.map((item, index) => (
-          <SwiperSlide key={index}>
-            <ProfileCard key={index} {...item} 
-              isOpen={isOpen[index]} 
-              setOpen={(value: boolean) => handleSetOpen(index, value)}  
-            />
-          </SwiperSlide>
-        ))}
+        {openProfiles.length > 0 ? (
+          openProfiles.map((item, index) => (
+              <ProfileCard
+                {...item}
+                isOpen={item.isOpen}
+                setOpen={(value: boolean) => handleSetOpen(index, value)}
+              />
+          ))
+        ) : (
+          closedProfiles.map((item, index) => (
+            <SwiperSlide key={index}>
+              <ProfileCard
+                {...item}
+                isOpen={item.isOpen}
+                setOpen={(value: boolean) => handleSetOpen(index, value)}
+              />
+            </SwiperSlide>
+          ))
+        )}
       </Swiper>
+
       <Footer />
     </Layout>
   );

@@ -49,11 +49,11 @@ export type ProfileCardProps = {
   couple: CoupleProps;
   introduce: string;
   likeMusic: string;
+  isOpen : boolean;
 
 }
 
 export type OpenProfileCardProps = {
-  isOpen : boolean;
   setOpen : (value: boolean) => void;
 }
 

@@ -23,6 +23,7 @@ export const MOCK_PROFILECARD: ProfileCardProps[] = [
     },
     introduce: '안녕하세요. 저는 김철수입니다.',
     likeMusic: 'music',
+    isOpen : false,
   },
   {
     name: '박영희',
@@ -46,6 +47,8 @@ export const MOCK_PROFILECARD: ProfileCardProps[] = [
     },
     introduce: '안녕하세요. 저는 박영희입니다.',
     likeMusic: 'music',
+    isOpen : false,
+
   },
   {
     name: '이민호',
@@ -69,5 +72,7 @@ export const MOCK_PROFILECARD: ProfileCardProps[] = [
     },
     introduce: '안녕하세요. 저는 이민호입니다.',
     likeMusic: 'music',
+    isOpen : false,
+
   }
 ];
