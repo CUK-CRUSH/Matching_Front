@@ -44,15 +44,17 @@ export function InputForm() {
     try {
       const response = await getAuthenticationCode(data.pin);
       console.log(response.data.code);
+      if (response.data.code) {
+        const smsUrl = `sms:${import.meta.env.VITE_DUETT_EMAIL}?body=${encodeURIComponent(response?.data?.code)}`;
 
-      const smsUrl = `sms:${import.meta.env.VITE_DUETT_EMAIL}?body=${response.data?.code}`;
-      console.log(smsUrl);
-      window.location.href = smsUrl;
+        window.location.href = smsUrl;
 
-      toast({
-        title: '인증 메시지가 전송되었습니다.',
-        // description: `인증 코드: ${response.data.code}`,
-      });
+        toast({
+          title: '인증 메시지가 전송되었습니다.',
+        });
+      } else {
+        throw new Error('reponse가 없나?');
+      }
     } catch (error) {
       console.error(error);
       toast({
