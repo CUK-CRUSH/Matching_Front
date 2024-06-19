@@ -32,11 +32,10 @@ export type CoupleProps = {
   artist: string;
 }
 
-export type IntroductionProps = {
-  introduce: string;
-}
-export type LikeMusciProps = {
-  likeMusic: string;
+export type UserTasteProps = {
+  title: string;
+  value: string;
+  testId: string;
 }
 
 export type ProfileCardProps = {

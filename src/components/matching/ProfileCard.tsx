@@ -7,8 +7,6 @@ import Spread from '@/components/matching/Spread';
 import MusicCard from '@/components/common/MusicCard';
 import BlankMusicCard from '@/components/matching/BlankMusicCard';
 import CoupleMusic from '@/components/matching/CoupleMusic';
-import Introduction from '@/components/matching/Introduction';
-import LikeMusic from '@/components/matching/LikeMusic';
 import SocialButtons from '@/components/matching/SocialButtons';
 import useProfileCardStore from '@/store/profileCardStore';
 import PostMessage from '@/components/matching/PostMessage';
@@ -18,6 +16,7 @@ import { CombinedProfileCardProps } from '@/type/ProfileCard/ProfileCard';
 import Tag from '@/components/matchingList/Tag';
 import Fold from '@/components/matching/Fold';
 import Divider from '@/components/common/Divider';
+import UserTaste from '@/components/matching/UserTaste';
 
 const ProfileCard = ({ name, age, mbti, tag, music, couple, introduce, likeMusic, index, isOpen, setOpen }: CombinedProfileCardProps) => {
   // 배경색 목록
@@ -102,8 +101,14 @@ const ProfileCard = ({ name, age, mbti, tag, music, couple, introduce, likeMusic
         {isOpen &&
           <>
             <CoupleMusic song={couple.song} artist={couple.artist} />
-            <Introduction introduce={introduce} />
-            <LikeMusic likeMusic={likeMusic} />
+            <UserTaste 
+              title="스스로를 소개해주세요"
+              value={introduce}
+              testId="introduction" />
+            <UserTaste 
+              title="어떤 음악취향을 가진 상대에게 호감을 느끼나요 ?"
+              value={likeMusic}
+              testId="likeMusic" />
             <div className={` bg-yellow-250`}>
               <Fold setOpen={(value: boolean) => setOpen(index, value)} />
               <Divider />
