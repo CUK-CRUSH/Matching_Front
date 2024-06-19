@@ -45,7 +45,7 @@ const ReceivedItem = ({ name, age, mbti, tag, time, song, singer, type }: ItemPr
         {type === 'message' ?
           <div className={`w-auto mx-2 mt-1 `}>
             <Textarea
-              className="text-m text-[#2F2F2F] h-[80px] bg-transparent"
+              className="text-m text-[#2F2F2F] bg-[#fff] border-0 h-[80px] rounded-[12px]"
               value={'메시지 보내기'}
               placeholder="메시지보내기"
               readOnly

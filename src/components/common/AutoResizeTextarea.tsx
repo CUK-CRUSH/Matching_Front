@@ -17,7 +17,7 @@ const AutoResizeTextarea = ({ value } : AutoResizeTextareaProps) => {
   return (
     <Textarea
       ref={textareaRef}
-      className="text-m text-[#2F2F2F] bg-transparent overflow-hidden resize-none"
+      className="text-m text-[#2F2F2F] bg-[#fff] border-0 rounded-[12px] overflow-hidden resize-none"
       style={{ height }}
       value={value}
       readOnly
