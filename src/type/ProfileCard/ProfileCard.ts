@@ -50,11 +50,12 @@ export type ProfileCardProps = {
   introduce: string;
   likeMusic: string;
   isOpen : boolean;
+  index? : number;
 
 }
 
 export type OpenProfileCardProps = {
-  setOpen : (value: boolean) => void;
+  setOpen : (index: number | undefined, value: boolean) => void;
 }
 
 export type CombinedProfileCardProps = ProfileCardProps & OpenProfileCardProps;

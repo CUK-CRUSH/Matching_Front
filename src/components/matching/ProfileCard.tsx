@@ -18,7 +18,7 @@ import { CombinedProfileCardProps } from '@/type/ProfileCard/ProfileCard';
 import Tag from '@/components/matchingList/Tag';
 import Fold from '@/components/matching/Fold';
 
-const ProfileCard = ({name,age,mbti,tag,music,couple,introduce,likeMusic,isOpen,setOpen} : CombinedProfileCardProps ) => {
+const ProfileCard = ({ name, age, mbti, tag, music, couple, introduce, likeMusic, index, isOpen, setOpen }: CombinedProfileCardProps) => {
   // 배경색 목록
   const backgrounds = [
     'bg-background-grey',
@@ -38,7 +38,7 @@ const ProfileCard = ({name,age,mbti,tag,music,couple,introduce,likeMusic,isOpen,
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
 
   // console.log(`isLock: ${isLock} isOpen : ${isOpen} ,isOpenModal : ${isOpenModal}` )
-  const Style = ` ${!isOpen ? 'h-auto my-[calc((100vh-200px-340px)/2)]' : 'h-auto mt-[50px]'}
+  const Style = ` ${isOpen ? 'h-auto mt-[80px]' : 'h-auto my-[calc((100vh-200px-340px)/2)]'}
                              mx-[3%] rounded-[16px] ${currentBackground} 
                              w-[calc(100%-6%)] py-[30px] 
                              scrollbar-hide overflow-scroll 
@@ -46,14 +46,18 @@ const ProfileCard = ({name,age,mbti,tag,music,couple,introduce,likeMusic,isOpen,
 
   // 메시지보내기 창 모달 오픈
   const { openMessage } = useProfileCardStore();
+
   return (
+    
     <>
       <div className={Style}>
 
         {/* Top */}
         <div className={`flex flex-row ml-6`}>
-          <ProfileImage setOpenModal={setOpenModal} setOpen={setOpen} isLock={isLock} />
-          {isOpenModal  && <UnlockModal setLock={setLock} setOpen={setOpen} setOpenModal={setOpenModal}/>}
+          <ProfileImage setOpenModal={setOpenModal} setOpen={(value: boolean) => setOpen(index, value)}
+            isLock={isLock} />
+          {isOpenModal && <UnlockModal setLock={setLock} setOpen={(value: boolean) => setOpen(index, value)}
+            setOpenModal={setOpenModal} />}
           {openMessage && <PostMessage />}
           <div className={`flex flex-col ml-[5%]`}>
             <Name name={name} age={age} mbti={mbti} />
@@ -61,9 +65,9 @@ const ProfileCard = ({name,age,mbti,tag,music,couple,introduce,likeMusic,isOpen,
 
             {/* 음악취향 */}
             <div className='flex flex-wrap mb-[5px]'>
-            {tag.map((item) => (
-              <Tag tag={item} isProfileCard={true} />
-            ))}
+              {tag.map((item) => (
+                <Tag tag={item} isProfileCard={true} />
+              ))}
             </div>
 
             {/* 취미취향 */}
@@ -86,14 +90,16 @@ const ProfileCard = ({name,age,mbti,tag,music,couple,introduce,likeMusic,isOpen,
         </MusicCardContainer>
 
         {!isOpen && <BlankMusicCard />}
-        {!isOpen && <Spread setOpenModal={setOpenModal} setOpen={setOpen} isLock={isLock} />}
+        {!isOpen && <Spread setOpenModal={setOpenModal} setOpen={(value: boolean) => setOpen(index, value)}
+          isLock={isLock} />}
 
         {isOpen &&
           <>
             <CoupleMusic song={couple.song} artist={couple.artist} />
             <Introduction introduce={introduce} />
             <LikeMusic likeMusic={likeMusic} />
-            <Fold setOpen={setOpen}/>
+            <Fold setOpen={(value: boolean) => setOpen(index, value)}
+            />
           </>
         }
       </div>
