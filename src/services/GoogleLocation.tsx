@@ -25,8 +25,8 @@ export const useLocationData = () => {
         navigator.geolocation.getCurrentPosition(
           (position) => {
             const { latitude, longitude } = position.coords;
-            setUserData('location_X', latitude);
-            setUserData('location_Y', longitude);
+            setUserData('location', [latitude, longitude]);
+
             resolve({ lat: latitude, lng: longitude });
           },
           (error) => {

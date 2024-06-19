@@ -20,14 +20,14 @@ const OneLinerPage = () => {
   } = useForm({
     mode: 'onChange',
     defaultValues: {
-      oneLiner: userData.oneLiner || '',
+      comment: userData.comment || '',
     },
   });
 
-  const oneLiner = watch('oneLiner');
+  const comment = watch('comment');
 
   const handleNext = async () => {
-    setUserData('oneLiner', oneLiner);
+    setUserData('comment', comment);
     const formData = new FormData();
 
     (Object.keys(userData) as (keyof typeof userData)[]).forEach((key) => {
@@ -67,9 +67,9 @@ const OneLinerPage = () => {
           <form onSubmit={handleSubmit(handleNext)}>
             <Input
               type="text"
-              id="oneLiner"
+              id="comment"
               placeholder="닉네임을 입력해주세요"
-              {...register('oneLiner', {
+              {...register('comment', {
                 required: '필수 입력 사항입니다',
 
                 maxLength: {
@@ -78,10 +78,10 @@ const OneLinerPage = () => {
                 },
               })}
             />
-            {errors.oneLiner && (
+            {errors.comment && (
               <p className="text-red-500 text-sm italic mt-1">
                 <ExclamationCircleOutlined />
-                {errors.oneLiner.message}
+                {errors.comment.message}
               </p>
             )}
           </form>
@@ -91,7 +91,7 @@ const OneLinerPage = () => {
         <ValidationPrevButton onStateChange={() => setCurrentPage('birth')} />
         <ValidationButton
           onStateChange={handleNext}
-          buttonEnabled={isValid && oneLiner.length >= 4}
+          buttonEnabled={isValid && comment.length >= 4}
         />
       </div>
     </div>
