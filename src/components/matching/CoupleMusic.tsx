@@ -4,7 +4,7 @@ import { CoupleProps } from '@/type/ProfileCard/ProfileCard';
 const CoupleMusic = ({song,artist} : CoupleProps) => {
 
   return (
-    <div className={`w-[90%] mx-[5%] mt-[24px] `}>
+    <div className={`w-[96%] mt-[24px] mx-[2%]`}>
       <p data-testid='couple' className={`text-[#2F2F2F] text-s ml-[4%] font-bold my-[8px]`}>
         연인과 함께 듣고싶은 곡
       </p>

@@ -17,6 +17,7 @@ import MusicCardContainer from '@/components/matching/MusicCardContainer';
 import { CombinedProfileCardProps } from '@/type/ProfileCard/ProfileCard';
 import Tag from '@/components/matchingList/Tag';
 import Fold from '@/components/matching/Fold';
+import Divider from '@/components/common/Divider';
 
 const ProfileCard = ({ name, age, mbti, tag, music, couple, introduce, likeMusic, index, isOpen, setOpen }: CombinedProfileCardProps) => {
   // 배경색 목록
@@ -38,9 +39,9 @@ const ProfileCard = ({ name, age, mbti, tag, music, couple, introduce, likeMusic
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
 
   // console.log(`isLock: ${isLock} isOpen : ${isOpen} ,isOpenModal : ${isOpenModal}` )
-  const Style = ` ${isOpen ? 'h-auto mt-[80px]' : 'h-auto my-[calc((100vh-200px-340px)/2)]'}
+  const Style = ` ${isOpen ? 'h-auto mt-[80px] pb-[8px]' : 'h-auto my-[calc((100vh-200px-340px)/2)] pb-[20px]'}
                              mx-[3%] rounded-[16px] ${currentBackground} 
-                             w-[calc(100%-6%)] py-[30px] 
+                             w-[calc(100%-6%)] pt-[30px] 
                              scrollbar-hide overflow-scroll 
                              `;
 
@@ -48,7 +49,7 @@ const ProfileCard = ({ name, age, mbti, tag, music, couple, introduce, likeMusic
   const { openMessage } = useProfileCardStore();
 
   return (
-    
+
     <>
       <div className={Style}>
 
@@ -83,6 +84,11 @@ const ProfileCard = ({ name, age, mbti, tag, music, couple, introduce, likeMusic
 
         {/* Music Card */}
         <MusicCardContainer >
+          {isOpen &&
+            <p data-testid='music' className={`text-[#2F2F2F] text-s ml-[6%] font-bold my-[8px]`}>
+              인생곡 TOP 3
+            </p>
+          }
           {music.map((item) => (
             <MusicCard song={item.song} artist={item.artist} isProilfeCard={true} />
           ))}
@@ -98,8 +104,10 @@ const ProfileCard = ({ name, age, mbti, tag, music, couple, introduce, likeMusic
             <CoupleMusic song={couple.song} artist={couple.artist} />
             <Introduction introduce={introduce} />
             <LikeMusic likeMusic={likeMusic} />
-            <Fold setOpen={(value: boolean) => setOpen(index, value)}
-            />
+            <div className={` bg-yellow-250`}>
+              <Fold setOpen={(value: boolean) => setOpen(index, value)} />
+              <Divider />
+            </div>
           </>
         }
       </div>
