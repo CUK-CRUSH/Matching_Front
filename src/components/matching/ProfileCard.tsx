@@ -39,7 +39,7 @@ const ProfileCard = ({ name, age, mbti, tag, music, couple, introduce, likeMusic
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
 
   // console.log(`isLock: ${isLock} isOpen : ${isOpen} ,isOpenModal : ${isOpenModal}` )
-  const Style = ` ${isOpen ? 'h-auto mt-[80px] pb-[8px]' : 'h-auto my-[calc((100vh-200px-340px)/2)] pb-[20px]'}
+  const ProfileCardStyle = ` ${isOpen ? 'h-auto mt-[80px] pb-[8px]' : 'h-auto my-[calc((100vh-200px-340px)/2)] pb-[20px]'}
                              mx-[3%] rounded-[16px] ${currentBackground} 
                              w-[calc(100%-6%)] pt-[30px] 
                              scrollbar-hide overflow-scroll 
@@ -51,7 +51,7 @@ const ProfileCard = ({ name, age, mbti, tag, music, couple, introduce, likeMusic
   return (
 
     <>
-      <div className={Style}>
+      <div className={ProfileCardStyle}>
 
         {/* Top */}
         <div className={`flex flex-row ml-6`}>
