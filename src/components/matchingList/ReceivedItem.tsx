@@ -57,7 +57,6 @@ const ReceivedItem = ({ name, age, mbti, tag, time, song, singer, type }: ItemPr
 
       {/* 메시지 팝업 클릭했을때 */}
       {isClicked && <ClickedMessagePopUp 
-                      isClicked={isClicked}
                       handleClick={handleClick}
                       currentBackground={currentBackground} 
                       name={name} age={age} mbti={mbti} tag={tag} time={time} />}

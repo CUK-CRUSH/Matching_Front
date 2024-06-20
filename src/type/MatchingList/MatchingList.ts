@@ -47,7 +47,6 @@ export type SocialButtonProps = {
 }
 
 export type ClickedMessagePopUpProps = { 
-  isClicked : boolean;
   handleClick : () => void;
   currentBackground? : string;
   name: string;

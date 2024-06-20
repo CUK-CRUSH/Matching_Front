@@ -7,7 +7,7 @@ import whiteProfile from "@/assets/MatchingList/whiteProfile.svg";
 import cancel from "@/assets/MatchingList/cancel.svg";
 import blackProfile from "@/assets/MatchingList/blackProfile.svg";
 
-const ClickedMessagePopUp = ({ isClicked, handleClick, currentBackground, name, age, mbti, tag, time, isDark  }: ClickedMessagePopUpProps) => {
+const ClickedMessagePopUp = ({ handleClick, currentBackground, name, age, mbti, tag, time, isDark  }: ClickedMessagePopUpProps) => {
 
   // 버튼색 배열
   const backgrounds = [
@@ -23,7 +23,6 @@ const ClickedMessagePopUp = ({ isClicked, handleClick, currentBackground, name, 
   const index = useFindBackgroundIndex(currentBackground, backgrounds);
 
     return (
-    isClicked &&
     <div onClick={handleClick}
       className="fixed top-0 left-0 w-full h-full inset-0 flex flex-col items-center justify-center bg-opacity-50 bg-black z-50">
 
