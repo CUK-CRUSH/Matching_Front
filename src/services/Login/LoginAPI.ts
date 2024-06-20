@@ -2,6 +2,7 @@ import { AuthenticationCodeResponse } from '@/type/services/Login/Login';
 import { api } from '../client';
 import { OnboardintState } from '@/type/store/OnBoarding/OnBoardState';
 import axios from 'axios';
+import { Base64ToBlob } from '@/utils/Base64ToBlob';
 
 export const getAuthenticationCode = async (
   phoneNumber: string,
@@ -11,23 +12,6 @@ export const getAuthenticationCode = async (
   return data;
 };
 
-function base64ToBlob(base64: string, contentType = '', sliceSize = 512) {
-  const byteCharacters = atob(base64.split(',')[1]);
-  const byteArrays = [];
-
-  for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-    const slice = byteCharacters.slice(offset, offset + sliceSize);
-    const byteNumbers = new Array(slice.length);
-    for (let i = 0; i < slice.length; i++) {
-      byteNumbers[i] = slice.charCodeAt(i);
-    }
-    const byteArray = new Uint8Array(byteNumbers);
-    byteArrays.push(byteArray);
-  }
-
-  return new Blob(byteArrays, { type: contentType });
-}
-
 export const postSignUp = async (userData: OnboardintState['userData']) => {
   const url = `${import.meta.env.VITE_DUETT_API_URL}/api/v1/sign-up`;
   const formData = new FormData();
@@ -35,7 +19,7 @@ export const postSignUp = async (userData: OnboardintState['userData']) => {
   // Convert base64 profileImage to Blob and append to FormData
   if (userData.profileImage) {
     const contentType = userData.profileImage.split(';')[0].split(':')[1];
-    const blob = base64ToBlob(userData.profileImage, contentType);
+    const blob = Base64ToBlob(userData.profileImage, contentType);
     formData.append('profileImage', blob, 'profileImage.jpg'); // Adjust file name as needed
   }
 
