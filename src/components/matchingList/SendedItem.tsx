@@ -4,6 +4,7 @@ import MusicCard from "@/components/common/MusicCard";
 import Tag from "@/components/matchingList/Tag";
 import { useState } from "react";
 import ClickedMessagePopUp from "@/components/matchingList/ClickedMessagePopUp";
+import Time from "@/components/common/Time";
 
 const SendedItem = ({ name, age, mbti, tag, time, song, singer, type }: ItemProps) => {
   const [isClicked, setIsClicked] = useState<boolean>(false);
@@ -24,7 +25,7 @@ const SendedItem = ({ name, age, mbti, tag, time, song, singer, type }: ItemProp
             <Name name={name} age={age} mbti={mbti} isDark={true} />
             <Tag tag={tag} isDark={true} />
           </div>
-          <div><p className="text-s text-white">{time}</p></div>
+          <div><Time time={time} /></div>
         </div>
 
         <MusicCard song={song} artist={singer} isDark={true} />

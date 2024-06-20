@@ -6,6 +6,7 @@ import useFindBackgroundIndex from "@/hooks/useFindBackgroundIndex/useFindBackgr
 import whiteProfile from "@/assets/MatchingList/whiteProfile.svg";
 import cancel from "@/assets/MatchingList/cancel.svg";
 import blackProfile from "@/assets/MatchingList/blackProfile.svg";
+import Time from "@/components/common/Time";
 
 const ClickedMessagePopUp = ({ handleClick, currentBackground, name, age, mbti, tag, time, isDark  }: ClickedMessagePopUpProps) => {
 
@@ -42,7 +43,7 @@ const ClickedMessagePopUp = ({ handleClick, currentBackground, name, age, mbti, 
           </div>
           <div className="flex justify-between px-4 mt-2">
             <Tag tag={tag} isDark={isDark} />
-            <p className="text-s">{time}</p>
+            <Time time={time} />
           </div>
         </div>
 

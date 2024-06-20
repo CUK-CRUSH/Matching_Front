@@ -6,6 +6,7 @@ import Tag from "@/components/matchingList/Tag";
 import { useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import ClickedMessagePopUp from "@/components/matchingList/ClickedMessagePopUp";
+import Time from "@/components/common/Time";
 
 const ReceivedItem = ({ name, age, mbti, tag, time, song, singer, type }: ItemProps) => {
   const [isClicked, setIsClicked] = useState<boolean>(false);
@@ -40,7 +41,7 @@ const ReceivedItem = ({ name, age, mbti, tag, time, song, singer, type }: ItemPr
             <Name name={name} age={age} mbti={mbti} />
             <Tag tag={tag} />
           </div>
-          <div><p className="text-s">{time}</p></div>
+          <div><Time time={time} /></div>
         </div>
         {type === 'message' ?
           <div className={`w-auto mx-2 mt-1 `}>
