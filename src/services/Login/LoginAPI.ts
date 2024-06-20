@@ -20,6 +20,7 @@ export const getExistMember = async (phoneNumber: string): Promise<ExistMemberRe
   return data;
 };
 
+// 회원가입
 export const postSignUp = async (userData: OnboardintState['userData']) => {
   const url = `${import.meta.env.VITE_DUETT_API_URL}/api/v1/sign-up`;
   const formData = new FormData();
@@ -49,6 +50,36 @@ export const postSignUp = async (userData: OnboardintState['userData']) => {
         'Content-Type': 'multipart/form-data',
       },
     });
+    return data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      // Handle Axios error
+      console.error(
+        'Error during postSignUp:',
+        error.response ? error.response.data : error.message,
+      );
+    } else {
+      // Handle unexpected errors
+      console.error('Unexpected error during postSignUp:', error);
+    }
+    throw error;
+  }
+};
+
+// 로그인
+export const postLogin = async (phoneNumber: string, verificationCode: string) => {
+  const url = `${import.meta.env.VITE_DUETT_API_URL}/login`;
+  const formData = new FormData();
+  formData.append('phoneNumber', phoneNumber);
+  formData.append('verificationCode', verificationCode);
+
+  try {
+    const { data } = await api.post(url, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+
     return data;
   } catch (error) {
     if (axios.isAxiosError(error)) {

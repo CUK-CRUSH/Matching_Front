@@ -13,3 +13,12 @@ export type ExistMemberResponse = {
     exists: boolean;
   };
 };
+
+export type LoginResponse = {
+  status: number;
+  message: string;
+  data: {
+    accessToken: string;
+    refreshToken: string;
+  };
+};
