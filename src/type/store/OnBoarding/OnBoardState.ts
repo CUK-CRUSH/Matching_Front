@@ -3,13 +3,12 @@ export type OnboardintState = {
   userData: {
     phoneNumber: string;
     code: string;
-    profileImage: string | null;
+    nickname: string;
     kakaoId: string;
     sex: string;
-    address: string;
+    birth: string;
     location: [number, number];
-    nickname: string;
-    birth: any;
+    profileImage: string;
     comment: string;
   };
   setCurrentPage: (page: OnboardintState['currentPage']) => void;

@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import ProgressBar from '@/utils/ProgressBar';
-import axios from 'axios';
+import { postSignUp } from '@/services/Login/LoginAPI';
 
 const OneLinerPage = () => {
   const navigate = useNavigate();
@@ -27,26 +27,17 @@ const OneLinerPage = () => {
   const comment = watch('comment');
 
   const handleNext = async () => {
+    const updatedUserData = {
+      ...userData,
+      comment: comment,
+    };
     setUserData('comment', comment);
-    const formData = new FormData();
 
-    (Object.keys(userData) as (keyof typeof userData)[]).forEach((key) => {
-      if (userData[key] === null || userData[key] === undefined) {
-        alert(`${key} is missing`);
-        throw new Error(`${key} is missing`);
-      }
-      formData.append(key, userData[key].toString());
-    });
     try {
-      await axios.post('/v1/user', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-
+      console.log(updatedUserData);
+      await postSignUp(updatedUserData);
       navigate('/mypage');
     } catch (error) {
-      console.log(formData);
       console.error('Failed to submit data:', error);
       alert('Failed to submit data');
     }
@@ -90,6 +81,7 @@ const OneLinerPage = () => {
       <div className="flex">
         <ValidationPrevButton onStateChange={() => setCurrentPage('birth')} />
         <ValidationButton
+          text="완료"
           onStateChange={handleNext}
           buttonEnabled={isValid && comment.length >= 4}
         />

@@ -43,9 +43,10 @@ export const useLocationData = () => {
     queryKey: ['address', locationQuery.data?.lat, locationQuery.data?.lng],
     queryFn: async () => {
       if (locationQuery.data) {
-        const address = await fetchAddress(locationQuery.data.lat, locationQuery.data.lng);
-        setUserData('address', address);
-        return address;
+        if (locationQuery.data) {
+          return await fetchAddress(locationQuery.data.lat, locationQuery.data.lng);
+        }
+        throw new Error('Location data is not available');
       }
       throw new Error('Location data is not available');
     },

@@ -8,6 +8,7 @@ import { Form, FormControl, FormField, FormItem, FormMessage } from '@/component
 import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp';
 import { toast } from '@/components/ui/use-toast';
 import { getAuthenticationCode } from '@/services/Login/LoginAPI';
+import useOnboardingStore from '@/store/validationStore';
 
 const FormSchema = z.object({
   pin: z
@@ -30,6 +31,7 @@ const FormSchema = z.object({
 });
 
 export function InputForm() {
+  const { setUserData } = useOnboardingStore();
   const methods = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     mode: 'onChange',
@@ -43,8 +45,10 @@ export function InputForm() {
   const onSubmit = async (data: z.infer<typeof FormSchema>) => {
     try {
       const response = await getAuthenticationCode(data.pin);
-      console.log(response.data.code);
       if (response.data.code) {
+        setUserData('phoneNumber', data.pin);
+        setUserData('code', response.data.code);
+
         const smsUrl = `sms:${import.meta.env.VITE_DUETT_EMAIL}?body=${encodeURIComponent(response?.data?.code)}`;
 
         window.location.href = smsUrl;
