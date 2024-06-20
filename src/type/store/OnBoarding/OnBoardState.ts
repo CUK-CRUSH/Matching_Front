@@ -8,12 +8,14 @@ export type OnboardintState = {
     sex: string;
     birth: string;
     location: [number, number];
-    profileImage: string;
+    profileImage: string | null;
     comment: string;
   };
+  userExist: boolean;
   setCurrentPage: (page: OnboardintState['currentPage']) => void;
   setUserData: <K extends keyof OnboardintState['userData']>(
     key: K,
     value: OnboardintState['userData'][K],
   ) => void;
+  setUserExist: (exists: boolean) => void;
 };

@@ -4,6 +4,7 @@ export interface ValidationButtonDTO {
   readonly buttonEnabled?: boolean;
   readonly onStateChange?: () => void;
   readonly rounded?: boolean;
+  readonly userExists?: boolean;
 }
 
 export interface ValidationPrevButtonDTO {

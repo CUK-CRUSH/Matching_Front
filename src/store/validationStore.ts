@@ -11,14 +11,16 @@ export const useOnboardingStore = create<OnboardintState>((set) => ({
     sex: '',
     birth: '',
     location: [0, 0],
-    profileImage: null,
+    profileImage: '',
     comment: '',
   },
+  userExist: false,
   setCurrentPage: (page) => set({ currentPage: page }),
   setUserData: (key, value) =>
     set((state) => ({
       userData: { ...state.userData, [key]: value },
     })),
+  setUserExist: (exists) => set({ userExist: exists }),
 }));
 
 export default useOnboardingStore;

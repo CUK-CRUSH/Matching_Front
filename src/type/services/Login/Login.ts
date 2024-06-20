@@ -5,3 +5,11 @@ export type AuthenticationCodeResponse = {
     code: string;
   };
 };
+
+export type ExistMemberResponse = {
+  status: number;
+  message: string;
+  data: {
+    exists: boolean;
+  };
+};

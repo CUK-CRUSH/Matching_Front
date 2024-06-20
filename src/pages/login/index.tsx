@@ -1,10 +1,13 @@
 import ValidationButton from '@/components/validation/validationButton';
 import ValidationPrevButton from '@/components/validation/validationPrevButton';
 import ValidationText from '@/components/validation/validationText';
+import useOnboardingStore from '@/store/validationStore';
 import ProgressBar from '@/utils/ProgressBar';
 import { InputForm } from '@/utils/form';
 
 const LoginPage = () => {
+  const { userExist } = useOnboardingStore();
+  console.log(userExist);
   return (
     <div className="flex flex-col justify-between h-screen">
       <div className="absolute w-full mt-2">
@@ -21,7 +24,7 @@ const LoginPage = () => {
       </div>
       <div className="flex">
         <ValidationPrevButton navigation="/" />
-        <ValidationButton navigation="/onboarding" />
+        <ValidationButton navigation="/onboarding" userExists={userExist} />
       </div>
     </div>
   );
