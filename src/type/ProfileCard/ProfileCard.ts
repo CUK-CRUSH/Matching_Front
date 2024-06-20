@@ -1,15 +1,22 @@
 export type ProfileImageProps = {
-    setLock: React.Dispatch<React.SetStateAction<boolean>>;
-  };
+  setOpen: (value: boolean) => void;
+  setOpenModal : React.Dispatch<React.SetStateAction<boolean>>;
+  isLock : boolean;
+};
 
 export type SpreadProfileCardImageProps = {
-    setLock: React.Dispatch<React.SetStateAction<boolean>>;
-  };
-  
+  setOpen: (value: boolean) => void;
+  setOpenModal : React.Dispatch<React.SetStateAction<boolean>>;
+  isLock : boolean;
+};
+export type FoldProfileCardImageProps = {
+  setOpen: (value: boolean) => void;
+};
 export type UnlockModalProps = {
-    setLock: React.Dispatch<React.SetStateAction<boolean>>;
-    setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  };
+  setLock: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpen: (value: boolean) => void;
+  setOpenModal:  React.Dispatch<React.SetStateAction<boolean>>;
+};
 
 export type ContainerProps = {
   children: React.ReactNode;
@@ -25,22 +32,29 @@ export type CoupleProps = {
   artist: string;
 }
 
-export type IntroductionProps = {
-  introduce: string;
-}
-export type LikeMusciProps = {
-  likeMusic : string;
+export type UserTasteProps = {
+  title: string;
+  value: string;
+  testId: string;
 }
 
 export type ProfileCardProps = {
   name: string;
   age: string;
   mbti: string;
-  time : string;
+  time: string;
   tag: string[];
   music: Music[];
   couple: CoupleProps;
   introduce: string;
   likeMusic: string;
+  isOpen : boolean;
+  index? : number;
+
 }
 
+export type OpenProfileCardProps = {
+  setOpen : (index: number | undefined, value: boolean) => void;
+}
+
+export type CombinedProfileCardProps = ProfileCardProps & OpenProfileCardProps;

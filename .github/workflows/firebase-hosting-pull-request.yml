@@ -13,7 +13,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      
+      - name: env setting
+        run: |
+          echo "VITE_DUETT_API_URL=${{ secrets.VITE_DUETT_API_URL }}" >> .env
+          echo "VITE_GOOGLE_MAP_API_KEY=${{ secrets.VITE_GOOGLE_MAP_API_KEY }}" >> .env
+          echo "VITE_DUETT_EMAIL=${{ secrets.VITE_DUETT_EMAIL }}" >> .env
+
       - run: yarn install && yarn run build
+
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}

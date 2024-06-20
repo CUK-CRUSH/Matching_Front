@@ -2,7 +2,7 @@ import Layout from '@/components/layout/layout';
 import Footer from '@/components/layout/footer';
 import SocialButtons from '@/components/matchingList/SocialButtons';
 import ExpandedButtons from '@/components/matchingList/ExpandedButtons';
-import Divider from '@/components/matchingList/Divider';
+import Divider from '@/components/common/Divider';
 import ItemContainer from '@/components/matchingList/ItemContainer';
 import ReceivedItem from '@/components/matchingList/ReceivedItem';
 import { MOCK_RECEIVE_HEARTS } from '@/fixture/ReceiveHeart';
