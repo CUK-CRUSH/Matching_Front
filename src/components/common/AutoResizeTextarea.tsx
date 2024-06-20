@@ -26,3 +26,4 @@ const AutoResizeTextarea = ({ value } : AutoResizeTextareaProps) => {
 };
 
 export default AutoResizeTextarea;
+

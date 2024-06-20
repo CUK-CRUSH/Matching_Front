@@ -26,9 +26,9 @@ const ReceivedItem = ({ name, age, mbti, tag, time, song, singer, type }: ItemPr
     'bg-background-small-pink',
     'bg-background-small-sky',
   ];
-
+  
   const currentBackground = useGetRandomBackgrounds({ backgrounds });
-
+  
   return (
     <>
       <div

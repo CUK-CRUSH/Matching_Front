@@ -5,7 +5,7 @@ const useGetRandomBackgrounds = ({backgrounds} : useGetRandomBackgroundsProps) =
 
     const [previousBackground, setPreviousBackground] = useState<string>('');
     const [currentBackground, setCurrentBackground] = useState<string>('');
-  
+
     useEffect(() => {
       // 이전 배경색을 제외한 새로운 배경색 목록 생성
       const newBackgrounds = backgrounds.filter((bg) => bg !== previousBackground);
@@ -17,8 +17,8 @@ const useGetRandomBackgrounds = ({backgrounds} : useGetRandomBackgroundsProps) =
       setCurrentBackground(randomBackground);
       setPreviousBackground(currentBackground);
     }, [previousBackground]);
-  
-    return currentBackground;
+    
+    return currentBackground
 }
 
 export default useGetRandomBackgrounds;
