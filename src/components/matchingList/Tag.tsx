@@ -6,7 +6,7 @@ const Tag = ({ tag, isDark, isProfileCard }: TagProps) => {
     <div className={`inline-block w-auto px-[9px] border-[1px]
                     ${isProfileCard ? 'h-[28px]' : 'h-[18px] '}
                      ${isDark ? 'border-[#F9F9F9]' : 'border-[#252525]'} 
-                     rounded-3xl mx-1 mb-[5px] flex items-center justify-center`}>
+                     rounded-3xl mr-1 mb-[5px] flex items-center justify-center`}>
       <span className={`font-bold ${isDark ? 'text-[#f9f9f9]' : 'text-[#252525]'} 
                         ${isProfileCard ? 'text-s' : 'text-xs'}`}>{tag}</span>
     </div>
