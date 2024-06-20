@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const useFindBackgroundIndex = (currentBackground : string, backgrounds : string[]) => {
+const useFindBackgroundIndex = (currentBackground : string | undefined, backgrounds : string[]) => {
   const [index, setIndex] = useState<number>(-1);
 
   useEffect(() => {

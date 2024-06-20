@@ -13,7 +13,7 @@ const SendedMessage = () => {
         <MatchingListHeader text={'보낸 메시지'} background={'#252525'} />
         <ItemContainer>
           {MOCK_RECEIVE_HEARTS.map((item, index) => (
-            <SendedItem key={index} {...item} />
+            <SendedItem key={index} {...item} type={'message'}/>
           ))}
 
         </ItemContainer>

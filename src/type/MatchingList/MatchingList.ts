@@ -49,10 +49,11 @@ export type SocialButtonProps = {
 export type ClickedMessagePopUpProps = { 
   isClicked : boolean;
   handleClick : () => void;
-  currentBackground : string;
+  currentBackground? : string;
   name: string;
   age: string;
   mbti: string;
   tag: string;
   time: string;
+  isDark? : boolean;
 }

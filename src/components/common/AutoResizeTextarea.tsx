@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Textarea } from "@/components/ui/textarea";
 import { AutoResizeTextareaProps } from '@/type/Common/AutoResizeTextarea';
 
-const AutoResizeTextarea = ({ value } : AutoResizeTextareaProps) => {
+const AutoResizeTextarea = ({ value,isDark} : AutoResizeTextareaProps) => {
   const [height, setHeight] = useState<string>('auto');
   // HTMLTextAreaElement 타입을 useRef에 명시하여 textarea 참조 타입을 정확하게 합니다.
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -17,7 +17,7 @@ const AutoResizeTextarea = ({ value } : AutoResizeTextareaProps) => {
   return (
     <Textarea
       ref={textareaRef}
-      className="text-m text-[#2F2F2F] bg-[#fff] border-0 rounded-[12px] overflow-hidden resize-none"
+      className={`text-m text-[${isDark ? '#F8F8F8' : '#2F2F2F'}] bg-[${isDark ? '#252525' : '#ffffff'}] border-0 rounded-[12px] overflow-hidden resize-none`}
       style={{ height }}
       value={value}
       readOnly
