@@ -6,8 +6,9 @@ import ProgressBar from '@/utils/ProgressBar';
 import { InputForm } from '@/utils/form';
 
 const LoginPage = () => {
-  const { userExist } = useOnboardingStore();
+  const { userExist, isSubmitted } = useOnboardingStore();
   console.log(userExist);
+  console.log(isSubmitted);
   return (
     <div className="flex flex-col justify-between h-screen">
       <div className="absolute w-full mt-2">
@@ -24,7 +25,11 @@ const LoginPage = () => {
       </div>
       <div className="flex">
         <ValidationPrevButton navigation="/" />
-        <ValidationButton navigation="/onboarding" userExists={userExist} />
+        <ValidationButton
+          navigation="/onboarding"
+          userExists={userExist}
+          buttonEnabled={isSubmitted}
+        />
       </div>
     </div>
   );

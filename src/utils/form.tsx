@@ -31,7 +31,7 @@ const FormSchema = z.object({
 });
 
 export const InputForm = () => {
-  const { setUserData, setUserExist } = useOnboardingStore();
+  const { setUserData, setUserExist, isSubmitted, setIsSubmitted } = useOnboardingStore();
   const methods = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     mode: 'onChange',
@@ -60,6 +60,8 @@ export const InputForm = () => {
         toast({
           title: '인증 메시지가 전송되었습니다.',
         });
+
+        setIsSubmitted(true);
       } else {
         throw new Error('reponse가 없나?');
       }
@@ -109,9 +111,9 @@ export const InputForm = () => {
           <div className="flex justify-center">
             <Button
               type="submit"
-              className={formState.isValid ? 'bg-[#ececec] text-[#a0a0a0]' : ' pointer-events-none'}
+              className={`w-full h-14 ${isSubmitted ? 'bg-[#a0a0a0] text-white pointer-events-none' : formState.isValid ? 'bg-[#ececec] text-black' : 'bg-[#a0a0a0] text-white pointer-events-none'}`}
             >
-              {formState.isValid ? '인증 성공!' : '인증 메시지 전송'}
+              {isSubmitted ? '메시지 전송 성공' : '인증 메시지 전송'}
             </Button>
           </div>
         </form>

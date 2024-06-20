@@ -15,12 +15,14 @@ export const useOnboardingStore = create<OnboardintState>((set) => ({
     comment: '',
   },
   userExist: false,
+  isSubmitted: false,
   setCurrentPage: (page) => set({ currentPage: page }),
   setUserData: (key, value) =>
     set((state) => ({
       userData: { ...state.userData, [key]: value },
     })),
   setUserExist: (exists) => set({ userExist: exists }),
+  setIsSubmitted: (sub) => set({ isSubmitted: sub }),
 }));
 
 export default useOnboardingStore;
