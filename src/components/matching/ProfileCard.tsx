@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import ProfileImage from '@/components/matching/ProfileImage';
-import Name from '@/components/common/name';
+import Name from '@/components/common/Name';
 import Comment from '@/components/matching/Comment';
 import UnlockModal from '@/components/matching/UnlockModal';
 import Spread from '@/components/matching/Spread';

@@ -1,6 +1,6 @@
 import AutoResizeTextarea from "@/components/common/AutoResizeTextarea";
 import Tag from "@/components/matchingList/Tag";
-import Name from "@/components/common/name";
+import Name from "@/components/common/Name";
 import { ClickedMessagePopUpProps } from "@/type/MatchingList/MatchingList";
 import useFindBackgroundIndex from "@/hooks/useFindBackgroundIndex/useFindBackgroundIndex";
 import whiteProfile from "@/assets/MatchingList/whiteProfile.svg";

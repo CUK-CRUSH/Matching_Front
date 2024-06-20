@@ -1,5 +1,5 @@
 import { ItemProps } from "@/type/MatchingList/MatchingList";
-import Name from "@/components/common/name";
+import Name from "@/components/common/Name";
 import MusicCard from "@/components/common/MusicCard";
 import Tag from "@/components/matchingList/Tag";
 import { useState } from "react";
