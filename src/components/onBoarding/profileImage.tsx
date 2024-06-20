@@ -24,7 +24,7 @@ const ProfileImagePage = () => {
     handleCropComplete,
     setCroppedArea,
   } = useImageCrop(userData.profileImage, true);
-
+  console.log(compressedImage === null ? 1 : 0);
   return (
     <div className="flex relative flex-col justify-between h-screen">
       <div className="absolute w-full mt-2">

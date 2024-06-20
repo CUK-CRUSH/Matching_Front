@@ -8,15 +8,17 @@ export default function ValidationButton({
   buttonEnabled = true,
   onStateChange,
   rounded = true,
+  userExists,
 }: ValidationButtonDTO) {
   const navigate = useNavigate();
 
   const handleClick = () => {
     if (buttonEnabled) {
       if (onStateChange) {
-        onStateChange(); // Perform the state update if the handler is provided
+        onStateChange();
       } else if (navigation) {
-        navigate(navigation); // Navigate to a path if specified
+        const nextPage = userExists ? '/mypage' : navigation;
+        navigate(nextPage);
       }
     }
   };
