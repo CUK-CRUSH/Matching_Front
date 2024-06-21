@@ -2,7 +2,7 @@ export type OnboardintState = {
   currentPage: 'profileImage' | 'kakaoId' | 'sex' | 'location' | 'nickname' | 'birth' | 'oneLiner';
   userData: {
     phoneNumber: string;
-    code: string;
+    verificationCode: string;
     nickname: string;
     kakaoId: string;
     sex: string;
