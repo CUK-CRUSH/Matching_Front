@@ -5,7 +5,7 @@ export const useOnboardingStore = create<OnboardintState>((set) => ({
   currentPage: 'profileImage',
   userData: {
     phoneNumber: '',
-    code: '',
+    verificationCode: '',
     nickname: '',
     kakaoId: '',
     sex: '',

@@ -22,7 +22,7 @@ export default function ValidationButton({
       } else if (navigation) {
         if (userExists) {
           try {
-            await postLogin(userData.phoneNumber, userData.code);
+            await postLogin(userData.phoneNumber, userData.verificationCode);
             navigate('/mypage');
           } catch (error) {
             console.error('로그인 실패', error);
