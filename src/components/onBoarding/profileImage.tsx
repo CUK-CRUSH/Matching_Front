@@ -1,5 +1,5 @@
 import Cropper from 'react-easy-crop';
-import { Button, Dialog, DialogContent } from '@mui/material';
+import { Button } from '@mui/material';
 import ValidationButton from '@/components/validation/validationButton';
 import ValidationPrevButton from '@/components/validation/validationPrevButton';
 import ValidationText from '@/components/validation/validationText';
