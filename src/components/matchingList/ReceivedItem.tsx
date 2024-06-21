@@ -2,7 +2,7 @@ import { ItemProps } from "@/type/MatchingList/MatchingList";
 import Name from "@/components/common/Name";
 import useGetRandomBackgrounds from "@/hooks/useGetRandomBackgrounds/useGetRandomBackgrounds";
 import MusicCard from "@/components/common/MusicCard";
-import Tag from "@/components/matchingList/Tag";
+import Tag from "@/components/common/Tag";
 import { useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import ClickedMessagePopUp from "@/components/matchingList/ClickedMessagePopUp";

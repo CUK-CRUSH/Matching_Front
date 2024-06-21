@@ -1,7 +1,7 @@
 import { ItemProps } from "@/type/MatchingList/MatchingList";
 import Name from "@/components/common/Name";
 import MusicCard from "@/components/common/MusicCard";
-import Tag from "@/components/matchingList/Tag";
+import Tag from "@/components/common/Tag";
 import { useState } from "react";
 import ClickedMessagePopUp from "@/components/matchingList/ClickedMessagePopUp";
 import Time from "@/components/common/Time";
