@@ -15,20 +15,20 @@ import ProgressBar from '@/utils/ProgressBar';
 const queryClient = new QueryClient();
 
 const LocationPage = () => {
-  const { setCurrentPage, userData } = useOnboardingStore();
+  const { setCurrentPage } = useOnboardingStore();
   const { locationQuery, addressQuery } = useLocationData();
 
   const { register, setValue } = useForm({
     defaultValues: {
-      address: userData.address || '',
+      address: '',
     },
   });
 
   useEffect(() => {
-    if (userData.address) {
-      setValue('address', userData.address, { shouldValidate: true });
+    if (addressQuery.data) {
+      setValue('address', addressQuery.data, { shouldValidate: true });
     }
-  }, [userData.address, setValue]);
+  }, [addressQuery.data, setValue]);
 
   // 위도 경도 데이터 보낼때 => locationQuery.data?.lat.toFixed(6), locationQuery.data?.lng.toFixed(6)
   return (
@@ -67,7 +67,7 @@ const LocationPage = () => {
             </div>
           </div>
         </div>
-        {userData.address && (
+        {addressQuery.data && (
           <div className="flex justify-center mt-80">
             <div className="flex flex-row items-center gap-x-2">
               <div className="flex flex-col justify-center items-center text-sm font-bold text-center text-[#858585]">
@@ -83,7 +83,7 @@ const LocationPage = () => {
           <ValidationPrevButton onStateChange={() => setCurrentPage('sex')} />
           <ValidationButton
             onStateChange={() => setCurrentPage('nickname')}
-            buttonEnabled={!!userData.address}
+            buttonEnabled={!!addressQuery.data}
           />
         </div>
       </div>

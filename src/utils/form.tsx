@@ -7,7 +7,8 @@ import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
 import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp';
 import { toast } from '@/components/ui/use-toast';
-import { getAuthenticationCode } from '@/services/Login/LoginAPI';
+import { getAuthenticationCode, getExistMember } from '@/services/Login/LoginAPI';
+import useOnboardingStore from '@/store/validationStore';
 
 const FormSchema = z.object({
   pin: z
@@ -29,7 +30,8 @@ const FormSchema = z.object({
     ),
 });
 
-export function InputForm() {
+export const InputForm = () => {
+  const { setUserData, setUserExist, isSubmitted, setIsSubmitted } = useOnboardingStore();
   const methods = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     mode: 'onChange',
@@ -42,16 +44,24 @@ export function InputForm() {
 
   const onSubmit = async (data: z.infer<typeof FormSchema>) => {
     try {
-      const response = await getAuthenticationCode(data.pin);
-      console.log(response.data.code);
-      if (response.data.code) {
-        const smsUrl = `sms:${import.meta.env.VITE_DUETT_EMAIL}?body=${encodeURIComponent(response?.data?.code)}`;
+      const authenticationCode = await getAuthenticationCode(data.pin);
+
+      if (authenticationCode.data.code) {
+        setUserData('phoneNumber', data.pin);
+        setUserData('code', authenticationCode.data.code);
+
+        const memberStatus = await getExistMember(data.pin);
+        setUserExist(memberStatus.data.exists);
+
+        const smsUrl = `sms:${import.meta.env.VITE_DUETT_EMAIL}?body=${encodeURIComponent(authenticationCode?.data?.code)}`;
 
         window.location.href = smsUrl;
 
         toast({
           title: '인증 메시지가 전송되었습니다.',
         });
+
+        setIsSubmitted(true);
       } else {
         throw new Error('reponse가 없나?');
       }
@@ -101,13 +111,13 @@ export function InputForm() {
           <div className="flex justify-center">
             <Button
               type="submit"
-              className={formState.isValid ? 'bg-[#ececec] text-[#a0a0a0]' : ' pointer-events-none'}
+              className={`w-full h-14 ${isSubmitted ? 'bg-[#a0a0a0] text-white pointer-events-none' : formState.isValid ? 'bg-[#ececec] text-black' : 'bg-[#a0a0a0] text-white pointer-events-none'}`}
             >
-              {formState.isValid ? '인증 성공!' : '인증 메시지 전송'}
+              {isSubmitted ? '메시지 전송 성공' : '인증 메시지 전송'}
             </Button>
           </div>
         </form>
       </Form>
     </div>
   );
-}
+};

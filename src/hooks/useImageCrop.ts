@@ -21,6 +21,9 @@ export const useImageCrop = (initialImage: string | null = null, updateUser: boo
   useEffect(() => {
     if (initialImage) {
       setImageSrc(initialImage);
+      setCompressedImage(initialImage);
+    } else {
+      setCompressedImage(null);
     }
   }, [initialImage]);
 

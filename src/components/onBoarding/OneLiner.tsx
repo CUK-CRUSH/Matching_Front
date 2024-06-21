@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import ProgressBar from '@/utils/ProgressBar';
-import axios from 'axios';
+import { postSignUp } from '@/services/Login/LoginAPI';
 
 const OneLinerPage = () => {
   const navigate = useNavigate();
@@ -20,33 +20,24 @@ const OneLinerPage = () => {
   } = useForm({
     mode: 'onChange',
     defaultValues: {
-      oneLiner: userData.oneLiner || '',
+      comment: userData.comment || '',
     },
   });
 
-  const oneLiner = watch('oneLiner');
+  const comment = watch('comment');
 
   const handleNext = async () => {
-    setUserData('oneLiner', oneLiner);
-    const formData = new FormData();
+    const updatedUserData = {
+      ...userData,
+      comment: comment,
+    };
+    setUserData('comment', comment);
 
-    (Object.keys(userData) as (keyof typeof userData)[]).forEach((key) => {
-      if (userData[key] === null || userData[key] === undefined) {
-        alert(`${key} is missing`);
-        throw new Error(`${key} is missing`);
-      }
-      formData.append(key, userData[key].toString());
-    });
     try {
-      await axios.post('/v1/user', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-
+      console.log(updatedUserData);
+      await postSignUp(updatedUserData);
       navigate('/mypage');
     } catch (error) {
-      console.log(formData);
       console.error('Failed to submit data:', error);
       alert('Failed to submit data');
     }
@@ -67,9 +58,9 @@ const OneLinerPage = () => {
           <form onSubmit={handleSubmit(handleNext)}>
             <Input
               type="text"
-              id="oneLiner"
+              id="comment"
               placeholder="닉네임을 입력해주세요"
-              {...register('oneLiner', {
+              {...register('comment', {
                 required: '필수 입력 사항입니다',
 
                 maxLength: {
@@ -78,10 +69,10 @@ const OneLinerPage = () => {
                 },
               })}
             />
-            {errors.oneLiner && (
+            {errors.comment && (
               <p className="text-red-500 text-sm italic mt-1">
                 <ExclamationCircleOutlined />
-                {errors.oneLiner.message}
+                {errors.comment.message}
               </p>
             )}
           </form>
@@ -90,8 +81,9 @@ const OneLinerPage = () => {
       <div className="flex">
         <ValidationPrevButton onStateChange={() => setCurrentPage('birth')} />
         <ValidationButton
+          text="완료"
           onStateChange={handleNext}
-          buttonEnabled={isValid && oneLiner.length >= 4}
+          buttonEnabled={isValid && comment.length >= 4}
         />
       </div>
     </div>

@@ -1,4 +1,6 @@
 import { Button } from '@/components/ui/button';
+import { postLogin } from '@/services/Login/LoginAPI';
+import useOnboardingStore from '@/store/validationStore';
 import { ValidationButtonDTO } from '@/type/validation/validation';
 import { useNavigate } from 'react-router-dom';
 
@@ -8,15 +10,26 @@ export default function ValidationButton({
   buttonEnabled = true,
   onStateChange,
   rounded = true,
+  userExists,
 }: ValidationButtonDTO) {
   const navigate = useNavigate();
+  const { userData } = useOnboardingStore();
 
-  const handleClick = () => {
+  const handleClick = async () => {
     if (buttonEnabled) {
       if (onStateChange) {
-        onStateChange(); // Perform the state update if the handler is provided
+        onStateChange();
       } else if (navigation) {
-        navigate(navigation); // Navigate to a path if specified
+        if (userExists) {
+          try {
+            await postLogin(userData.phoneNumber, userData.code);
+            navigate('/mypage');
+          } catch (error) {
+            console.error('로그인 실패', error);
+          }
+        } else {
+          navigate(navigation);
+        }
       }
     }
   };
