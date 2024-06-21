@@ -24,7 +24,7 @@ const ProfileImagePage = () => {
     handleCropComplete,
     setCroppedArea,
   } = useImageCrop(userData.profileImage, true);
-  console.log(compressedImage === null ? 1 : 0);
+
   return (
     <div className="flex relative flex-col justify-between h-screen">
       <div className="absolute w-full mt-2">
@@ -37,7 +37,7 @@ const ProfileImagePage = () => {
           '(얼굴이 명확하게 보이는 사진을 골라주세요)',
         ]}
       />
-      <div className="flex flex-col items-center mt-16 mx-4">
+      <div className="flex flex-col items-center mx-4">
         <label htmlFor="file-input" className="cursor-pointer">
           <div className="w-48 h-48 bg-[#303030] flex items-center justify-center rounded-3xl overflow-hidden">
             {compressedImage ? (
@@ -62,40 +62,34 @@ const ProfileImagePage = () => {
         />
       </div>
 
-      <div className="h-screen w-full ">
-        <Dialog
-          open={open}
-          onClose={() => setOpen(false)}
-          fullWidth
-          maxWidth="lg"
-          PaperProps={{
-            style: {
-              height: '100vh',
-              maxWidth: '430px',
-
-              background: 'rgba(0, 0, 0)',
-            },
-          }}
-        >
-          <div className="flex flex-row justify-between p-4 z-50">
-            <Button onClick={() => setOpen(false)}>취소</Button>
-            <Button onClick={() => handleCropComplete(croppedArea)}>확인</Button>
+      {open && (
+        <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black">
+          <div className="flex flex-row justify-between p-4 w-full max-w-[430px]">
+            <Button onClick={() => setOpen(false)} className="text-red-500">
+              취소
+            </Button>
+            <Button onClick={() => handleCropComplete(croppedArea)} className="text-green-500">
+              저장
+            </Button>
           </div>
-          <DialogContent className="p-0">
-            <div className="h-full">
-              <Cropper
-                image={imageSrc ?? undefined}
-                crop={crop}
-                zoom={zoom}
-                aspect={1}
-                onCropChange={setCrop}
-                onCropComplete={(_, croppedAreaPixels) => setCroppedArea(croppedAreaPixels)}
-                onZoomChange={setZoom}
-              />
-            </div>
-          </DialogContent>
-        </Dialog>
-      </div>
+          <div className="relative flex-grow w-full max-w-[430px] h-full">
+            <Cropper
+              image={imageSrc ?? undefined}
+              crop={crop}
+              zoom={zoom}
+              aspect={1}
+              onCropChange={setCrop}
+              onCropComplete={(_, croppedAreaPixels) => setCroppedArea(croppedAreaPixels)}
+              onZoomChange={setZoom}
+              style={{
+                containerStyle: { height: '100%', width: '100%' },
+                cropAreaStyle: { border: '2px solid white' },
+              }}
+            />
+          </div>
+        </div>
+      )}
+
       <div className="flex justify-between mt-4">
         <ValidationPrevButton navigation="/login" />
         <ValidationButton

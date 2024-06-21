@@ -48,14 +48,29 @@ export const InputForm = () => {
 
       if (authenticationCode.data.code) {
         setUserData('phoneNumber', data.pin);
-        setUserData('code', authenticationCode.data.code);
+        setUserData('verificationCode', authenticationCode.data.code);
 
         const memberStatus = await getExistMember(data.pin);
         setUserExist(memberStatus.data.exists);
 
-        const smsUrl = `sms:${import.meta.env.VITE_DUETT_EMAIL}?body=${encodeURIComponent(authenticationCode?.data?.code)}`;
+        // 핸드폰 기종에 따라 분기
+        const userAgent = navigator.userAgent.toLowerCase();
 
-        window.location.href = smsUrl;
+        if (userAgent.indexOf('android') > -1) {
+          const smsUrl = `sms:${import.meta.env.VITE_DUETT_EMAIL}?body=${encodeURIComponent(authenticationCode?.data?.code)}`;
+          window.location.href = smsUrl;
+        } else if (
+          userAgent.indexOf('iphone') > -1 ||
+          userAgent.indexOf('ipad') > -1 ||
+          userAgent.indexOf('ipod') > -1
+        ) {
+          const smsUrl = `sms:${import.meta.env.VITE_DUETT_EMAIL}&body=${encodeURIComponent(authenticationCode?.data?.code)}`;
+          window.location.href = smsUrl;
+        } else {
+          const smsUrl = `sms:${import.meta.env.VITE_DUETT_EMAIL}?body=${encodeURIComponent(authenticationCode?.data?.code)}`;
+
+          window.location.href = smsUrl;
+        }
 
         toast({
           title: '인증 메시지가 전송되었습니다.',
