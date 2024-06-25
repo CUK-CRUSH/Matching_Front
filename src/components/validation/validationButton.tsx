@@ -27,18 +27,27 @@ export default function ValidationButton({
       } else if (navigation) {
         if (userExists) {
           try {
-            const response: any = await postLogin(userData.phoneNumber, userData.verificationCode);
+            setTimeout(async () => {
+              const response: any = await postLogin(
+                userData.phoneNumber,
+                userData.verificationCode,
+              );
 
-            setCookie('accessToken', response.data.accessToken, { path: '/' });
-            localStorage.setItem('refreshToken', response.data.refreshToken);
+              setCookie('accessToken', response.data.accessToken, { path: '/' });
+              localStorage.setItem('refreshToken', response.data.refreshToken);
 
-            navigate('/mypage');
+              navigate('/mypage');
+              setIsLoading(false);
+            }, 3000); // 3-second delay
           } catch (error) {
             console.error('로그인 실패', error);
             setIsLoading(false);
           }
         } else {
-          navigate(navigation);
+          setTimeout(() => {
+            navigate(navigation);
+            setIsLoading(false);
+          }, 3000); // 3-second delay
         }
       }
     }
