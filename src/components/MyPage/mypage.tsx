@@ -2,18 +2,21 @@ import { Avatar, Box, CircularProgress } from '@mui/material';
 import { calculateAge } from '@/utils/CalculateAge';
 import lock from '@/assets/ProfileCard/lock.svg';
 import useMyPageStore from '@/store/myPageStore';
-import { Product } from '@/type/product';
 import { useQuery } from '@tanstack/react-query';
-import { getUserData } from '@/services/Mypage/MypageAPI';
+import { getMainData } from '@/services/Mypage/MypageAPI';
 import Footer from '@/components/layout/footer';
 import MatchingListHeader from '../layout/matchingListHeader';
+import { useCookies } from 'react-cookie';
+import { MainInfoDataDTO } from '@/type/services/Mypage/MypageDTO';
 
 const MyPageMain = () => {
   const { setCurrentPage } = useMyPageStore();
+  const [cookies] = useCookies(['accessToken']);
+  const accessToken = cookies.accessToken;
 
-  const { data: userData, error } = useQuery<Product>({
+  const { data: userData, error } = useQuery<MainInfoDataDTO>({
     queryKey: ['userData'],
-    queryFn: getUserData,
+    queryFn: () => getMainData(accessToken),
     staleTime: 1000 * 60 * 5,
     placeholderData: (previousData) => previousData,
   });
@@ -33,11 +36,11 @@ const MyPageMain = () => {
         {/* 상단 유저 정보 */}
         <div className="flex flex-col items-center mt-4">
           <Avatar
-            src={userData.data.profileImage ?? undefined}
+            src={userData.data.profileImageUrl ?? undefined}
             sx={{ width: 80, height: 80 }}
-            alt={userData.data.nickname}
+            alt={userData.data.profileImageUrl}
           />
-          <h2 className="text-m font-bold mt-2">{userData.data.nickname}</h2>
+          <h2 className="text-m font-bold mt-2">{userData.data.name}</h2>
           <p className="text-m text-gray-400">{calculateAge(userData.data.birthDate)} | ENFJ</p>
         </div>
         {/* 페이지 이동 버튼 */}
@@ -66,10 +69,10 @@ const MyPageMain = () => {
                   alignItems="center"
                   justifyContent="center"
                 >
-                  <p className="text-white text-sm">5/5</p>
+                  <p className="text-white text-sm">{userData.data.infoCount}/2</p>
                 </Box>
               </Box>
-              <p className="text-white text-sm mt-1">내 정보</p>
+              <p className="text-white text-sm mt-1">{userData.data.infoCount}/4</p>
             </div>
           </button>
           <button
@@ -96,7 +99,7 @@ const MyPageMain = () => {
                   alignItems="center"
                   justifyContent="center"
                 >
-                  <p className="text-white text-sm">1/4</p>
+                  <p className="text-white text-sm">{userData.data.musicCount}/2</p>
                 </Box>
               </Box>
               <p className="text-white text-sm mt-1">내 소개</p>

@@ -8,7 +8,6 @@ import { InputForm } from '@/utils/form';
 const LoginPage = () => {
   const { userExist, isSubmitted } = useOnboardingStore();
   console.log(userExist);
-  console.log(isSubmitted);
   return (
     <div className="flex flex-col justify-between h-screen">
       <div className="absolute w-full mt-2">
