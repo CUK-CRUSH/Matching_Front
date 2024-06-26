@@ -22,6 +22,7 @@ export default function ValidationButton({
   const handleClick = async () => {
     if (buttonEnabled && !isLoading) {
       setIsLoading(true);
+
       if (onStateChange) {
         onStateChange();
       } else if (navigation) {
@@ -44,10 +45,8 @@ export default function ValidationButton({
             setIsLoading(false);
           }
         } else {
-          setTimeout(() => {
-            navigate(navigation);
-            setIsLoading(false);
-          }, 3000); // 3-second delay
+          navigate(navigation);
+          setIsLoading(false);
         }
       }
     }
