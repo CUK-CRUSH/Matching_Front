@@ -1,11 +1,17 @@
-import { ItemContainerProps } from "@/type/MatchingList/MatchingList"
+import { forwardRef } from 'react';
+import { ItemContainerProps } from "@/type/MatchingList/MatchingList";
 
-const ItemContainer = ({ children }: ItemContainerProps) => {
+const ItemContainer = forwardRef<HTMLDivElement, ItemContainerProps>(({ children }, ref) => {
   return (
-    <div className={`h-auto mt-[12px] mb-[26px]`}>
-      {children}
+    <div 
+      ref={ref}
+      className={`h-auto mt-[12px] mb-[26px] `}>
+      
+      <div >
+        {children}
+      </div>
     </div>
-  )
-}
+  );
+});
 
-export default ItemContainer
+export default ItemContainer;

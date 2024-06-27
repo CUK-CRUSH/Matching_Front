@@ -1,0 +1,15 @@
+/* 반드시 overlay 여야함!! */
+.test { overflow: overlay; }
+
+.test::-webkit-scrollbar {
+
+    width: 1vw;
+
+}
+
+.test::-webkit-scrollbar-thumb {
+
+    background-color: hsla(0, 0%, 42%, 0.49);
+    border-radius: 100px;
+
+}
