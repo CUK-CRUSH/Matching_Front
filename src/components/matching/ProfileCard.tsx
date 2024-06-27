@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import ProfileImage from '@/components/matching/ProfileImage';
-import Name from '@/components/common/name';
+import Name from '@/components/common/Name';
 import Comment from '@/components/matching/Comment';
 import UnlockModal from '@/components/matching/UnlockModal';
 import Spread from '@/components/matching/Spread';
@@ -13,7 +13,7 @@ import PostMessage from '@/components/matching/PostMessage';
 import useGetRandomBackgrounds from '@/hooks/useGetRandomBackgrounds/useGetRandomBackgrounds';
 import MusicCardContainer from '@/components/matching/MusicCardContainer';
 import { CombinedProfileCardProps } from '@/type/ProfileCard/ProfileCard';
-import Tag from '@/components/matchingList/Tag';
+import Tag from '@/components/common/Tag';
 import Fold from '@/components/matching/Fold';
 import Divider from '@/components/common/Divider';
 import UserTaste from '@/components/matching/UserTaste';

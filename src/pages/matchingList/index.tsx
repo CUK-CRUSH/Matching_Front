@@ -13,13 +13,14 @@ import useMatchingListStateStore from '@/store/matchingListStore';
 const MatchingListPage = () => {
 
   const {matchingListState} = useMatchingListStateStore();
+
   return (
     <Layout backgroundColor='#2C2C2C'>
 
-      <div className="h-auto mt-[11vh] bg-matching-list relative flex flex-col rounded-t-[28px] pb-[130px]">
+      <div className="h-auto bg-matching-list relative flex flex-col rounded-t-[28px] pb-[130px]">
         <MatchingListHeader text={'matchingList'} background={'#2C2C2C'} router={'matching'} />
 
-        <SocialButtons  />
+        <SocialButtons />
 
         {matchingListState === 'heart' &&
           <>

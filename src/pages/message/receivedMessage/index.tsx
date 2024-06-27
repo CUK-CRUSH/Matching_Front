@@ -4,19 +4,34 @@ import MatchingListHeader from "@/components/layout/matchingListHeader";
 import ItemContainer from "@/components/matchingList/ItemContainer";
 import { MOCK_RECEIVE_HEARTS } from "@/fixture/ReceiveHeart";
 import ReceivedItem from "@/components/matchingList/ReceivedItem";
+import useCustomScroll from "@/hooks/useCustomScrollBar/useCustomScrollBar";
+import { useRef } from "react";
 
 const ReceivedMessage = () => {
+  const outerContainerRef = useRef<HTMLDivElement | null>(null);
+  const innerContainerRef = useRef<HTMLDivElement | null>(null);
+  const { ScrollBarThumb, calculateThumbY, thumbH, thumbRef } = useCustomScroll(
+    {
+      outerContainerRef,
+      innerContainerRef,
+      outerContainerBorderWidth: 1
+    }
+  );
   return (
     <Layout backgroundColor='#252525'>
-      <main className="min-h-full h-auto mt-[10vh] bg-matching-list relative flex flex-col pb-[100px]">
+      <main className="min-h-full h-auto bg-matching-list relative flex flex-col">
 
         <MatchingListHeader text={'받은 메시지'} background={'#252525'} />
-        <ItemContainer>
-          {MOCK_RECEIVE_HEARTS.map((item, index) => (
+        <div className="relative h-[calc(75vh)] overflow-y-scroll scrollbar-hide" ref={outerContainerRef} onScroll={calculateThumbY}>
+        <ScrollBarThumb ref={thumbRef} height={thumbH} />
+
+        <ItemContainer ref={innerContainerRef}>
+        {MOCK_RECEIVE_HEARTS.map((item, index) => (
             <ReceivedItem key={index} {...item} type={'message'} />
           ))}
 
         </ItemContainer>
+        </div>
         <Footer />
       </main>
 
