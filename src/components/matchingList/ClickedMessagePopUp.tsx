@@ -28,14 +28,14 @@ const ClickedMessagePopUp = ({ handleClick, currentBackground, name, age, mbti, 
       className="fixed top-0 left-0 w-full h-full inset-0 flex flex-col items-center justify-center bg-opacity-50 bg-black z-50">
 
       {/* 닫기버튼 */}
-      <div className=" exceed:w-[400px] flex justify-end px-2 mb-2 cursor-pointer">
+      <div className="exceed:w-[400px] w-[80%] flex justify-end px-2 mb-2 cursor-pointer">
         <img src={cancel} alt='cancel' className="" />
       </div>
 
       {/* 메시지 내용 */}
       <div
         onClick={(e: React.MouseEvent<HTMLDivElement, MouseEvent>) => e.stopPropagation()}
-        className={`exceed:w-[400px] mx-[2%] mb-[8px] pt-[12px] pb-[8px] ${isDark ? 'bg-[#141414] border-[#858585] border': currentBackground} rounded-[16px]`}
+        className={`exceed:w-[400px] w-[80%] mx-[2%] mb-[8px] pt-[12px] pb-[8px] ${isDark ? 'bg-[#141414] border-[#858585] border': currentBackground} rounded-[16px]`}
       >
         <div className={`flex flex-col`}>
           <div className="px-4 flex items-center">
@@ -54,7 +54,7 @@ const ClickedMessagePopUp = ({ handleClick, currentBackground, name, age, mbti, 
       </div>
 
       {/* 프로필 */}
-      <div className=" exceed:w-[400px] flex justify-end px-2">
+      <div className=" exceed:w-[400px] w-[80%] flex justify-end px-2">
 
         <button className={`${isDark ? 'bg-[#474747]': backgrounds[index]} flex items-center justify-center w-[110px] h-[34px] text-s font-bold rounded-[8px]`}>
           <span className={`mr-1 ${isDark && 'text-[#F8F8F8]'}`}>프로필</span>
