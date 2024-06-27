@@ -1,23 +1,7 @@
 import { forwardRef } from "react";
-import { useRef, useState, useEffect, MutableRefObject } from "react";
+import { useRef, useState, useEffect,  } from "react";
+import {Props , ReturnType, ScrollBarThumbProps } from "@/type/customHook/useCustomScrollBar/useCustomScrollBar"
 
-// Props 인터페이스 정의: 컴포넌트에 전달될 props의 타입을 정의
-interface Props {
-  outerContainerRef: MutableRefObject<any | null>;
-  innerContainerRef: MutableRefObject<HTMLDivElement | null>;
-  outerContainerBorderWidth: number;
-}
-
-// ReturnType 인터페이스 정의: 커스텀 훅의 반환 타입을 정의
-interface ReturnType {
-  calculateThumbY: () => void;
-  ScrollBarThumb: any;
-  thumbH: number;
-  thumbRef: MutableRefObject<HTMLDivElement | null>;
-}
-interface ScrollBarThumbProps {
-  height: number;
-}
 // 커스텀 스크롤바 훅 정의
 export default function useCustomScrollBar({
   outerContainerRef,
