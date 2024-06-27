@@ -7,7 +7,7 @@ export const getUserData = async () => {
   return data;
 };
 
-// Main 페이지 데이터 가져오기
+// Main 페이지 데이터 가져오기(Home)
 export const getMainData = async (accessToken: string): Promise<MainInfoDataDTO> => {
   const url = `${import.meta.env.VITE_DUETT_API_URL}/api/v1/profiles/home`;
   try {
