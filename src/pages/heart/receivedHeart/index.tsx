@@ -24,7 +24,7 @@ const ReceivedHeart = () => {
       <main className="min-h-full h-auto bg-matching-list relative flex flex-col">
 
         <MatchingListHeader text={'받은 하트'} background={'#252525'} />
-        <div className="relative my-20 h-[500px] overflow-y-scroll scrollbar-hide" ref={outerContainerRef} onScroll={calculateThumbY}>
+        <div className="relative  h-[calc(75vh)] overflow-y-scroll scrollbar-hide" ref={outerContainerRef} onScroll={calculateThumbY}>
           <ScrollBarThumb ref={thumbRef} height={thumbH} />
           <ItemContainer ref={innerContainerRef}>
             {MOCK_RECEIVE_HEARTS.map((item, index) => (
@@ -32,14 +32,6 @@ const ReceivedHeart = () => {
             ))}
           </ItemContainer>
         </div>
-        {/* <ul className="relative mt-10 h-[500px] overflow-y-scroll scrollbar-hide" ref={outerContainerRef} onScroll={calculateThumbY}>
-          <ScrollBarThumb ref={thumbRef} height={thumbH} />
-          <div ref={innerContainerRef}>
-            {MOCK_RECEIVE_HEARTS.map((item, index) => (
-              <li className={`border list-none p-1 text-white`}>{item.age}</li>
-            ))}
-          </div>
-        </ul> */}
         
         <Footer />
       </main>

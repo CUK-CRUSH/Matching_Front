@@ -8,10 +8,10 @@ import SendedItem from "@/components/matchingList/SendedItem";
 const SendedHeart = () => {
   return (
     <Layout backgroundColor='#252525'>
-      <main className="min-h-full h-auto mt-[10vh] bg-matching-list relative flex flex-col pb-[100px]">
+      <main className="min-h-full h-auto bg-matching-list relative flex flex-col pb-[100px]">
 
         <MatchingListHeader text={'보낸 하트'} background={'#252525'} />
-        <ItemContainer type={'scroll'}>
+        <ItemContainer >
           {MOCK_RECEIVE_HEARTS.map((item, index) => (
             <SendedItem key={index} {...item} />
           ))}

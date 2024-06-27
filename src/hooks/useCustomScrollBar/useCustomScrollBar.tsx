@@ -1,4 +1,4 @@
-import React, { forwardRef } from "react";
+import { forwardRef } from "react";
 import { useRef, useState, useEffect, MutableRefObject } from "react";
 
 // Props 인터페이스 정의: 컴포넌트에 전달될 props의 타입을 정의
@@ -102,7 +102,7 @@ export default function useCustomScrollBar({
     <div
       ref={ref}
       style={{ height: `${height}px` }}
-      className="absolute cursor-pointer rounded-sm bg-yellow-300  w-1.5 right-1 z-10"
+      className="absolute cursor-pointer rounded-sm bg-yellow-300  w-1.5 right-1 top-3 z-10"
     />
   ));
 
