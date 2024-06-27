@@ -15,8 +15,8 @@ const MyPageMain = () => {
   const [cookies] = useCookies(['accessToken']);
   const accessToken = cookies.accessToken;
 
-  const { data: userData, error } = useQuery<MainInfoDataDTO>({
-    queryKey: ['userData'],
+  const { data: mainData, error } = useQuery<MainInfoDataDTO>({
+    queryKey: ['mainData'],
     queryFn: () => getMainData(accessToken),
     staleTime: 1000 * 60 * 5,
     placeholderData: (previousData) => previousData,
@@ -25,7 +25,7 @@ const MyPageMain = () => {
   if (error) {
     return <div>error</div>;
   }
-  if (!userData) {
+  if (!mainData) {
     return <div>No user data found</div>; // userData가 없을 때 처리
   }
 
@@ -37,12 +37,12 @@ const MyPageMain = () => {
         {/* 상단 유저 정보 */}
         <div className="flex flex-col items-center mt-4">
           <Avatar
-            src={userData.data.profileImageUrl ?? undefined}
+            src={mainData.data.profileImageUrl ?? undefined}
             sx={{ width: 80, height: 80 }}
-            alt={userData.data.profileImageUrl}
+            alt={mainData.data.profileImageUrl}
           />
-          <h2 className="text-m font-bold mt-2">{userData.data.name}</h2>
-          <p className="text-m text-gray-400">{calculateAge(userData.data.birthDate)} | ENFJ</p>
+          <h2 className="text-m font-bold mt-2">{mainData.data.name}</h2>
+          <p className="text-m text-gray-400">{calculateAge(mainData.data.birthDate)} | ENFJ</p>
         </div>
         {/* 페이지 이동 버튼 */}
         <div className="flex justify-between items-center mt-4 w-full px-4">
@@ -51,7 +51,7 @@ const MyPageMain = () => {
             onClick={() => setCurrentPage('info')}
           >
             <div className="flex flex-col items-center justify-center w-full bg-[#303030] rounded-lg aspect-square">
-              <CircularProgressWithLabel value={userData.data.infoCount} total={2} />
+              <CircularProgressWithLabel value={mainData.data.infoCount} total={2} />
               <p className="text-white text-sm mt-1">내 정보</p>
             </div>
           </button>
@@ -60,7 +60,7 @@ const MyPageMain = () => {
             onClick={() => setCurrentPage('introduce')}
           >
             <div className="flex flex-col items-center justify-center w-full bg-[#303030] rounded-lg aspect-square">
-              <CircularProgressWithLabel value={userData.data.introCount} total={4} />
+              <CircularProgressWithLabel value={mainData.data.introCount} total={4} />
               <p className="text-white text-sm mt-1">내 소개</p>
             </div>
           </button>
@@ -69,7 +69,7 @@ const MyPageMain = () => {
             onClick={() => setCurrentPage('music')}
           >
             <div className="flex flex-col items-center justify-center w-full bg-[#303030] rounded-lg aspect-square">
-              <CircularProgressWithLabel value={userData.data.musicCount} total={2} />
+              <CircularProgressWithLabel value={mainData.data.musicCount} total={2} />
               <p className="text-white text-sm mt-1">음악 취향</p>
             </div>
           </button>
