@@ -8,7 +8,7 @@ const MatchingListHeader = ({
   router,
   mypageText,
   onStateChange,
-  marginTop = '20',
+  marginTop = '80',
 }: matchingListHeaderProps) => {
   const navigate = useNavigate();
 
@@ -19,10 +19,13 @@ const MatchingListHeader = ({
       navigate(-1);
     }
   };
+
+  const marginTopStyle = { marginTop: `${marginTop}px` };
+
   return (
-    <div className={`mt-${marginTop}`}>
+    <div style={marginTopStyle}>
       <header
-        className={`flex fixed top-[0px] pt-[32px] pb-[12px] w-full max-w-[430px] bg-[${background}] z-10`}
+        className={`flex  fixed top-[0px] pt-[32px] pb-[12px] w-full max-w-[430px] bg-[${background}] z-10`}
       >
         <div className="flex justify-between w-full px-4">
           <div className="flex flex-row items-center w-full space-x-3">
