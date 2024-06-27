@@ -11,7 +11,7 @@ const ReceivedMessage = () => {
       <main className="min-h-full h-auto mt-[10vh] bg-matching-list relative flex flex-col pb-[100px]">
 
         <MatchingListHeader text={'받은 메시지'} background={'#252525'} />
-        <ItemContainer>
+        <ItemContainer type={'scroll'}>
           {MOCK_RECEIVE_HEARTS.map((item, index) => (
             <ReceivedItem key={index} {...item} type={'message'} />
           ))}

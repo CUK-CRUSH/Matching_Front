@@ -14,6 +14,7 @@ export type ExpandedButtonsProps = {
 
 export type ItemContainerProps = {
   children: React.ReactNode;
+  ref : React.MutableRefObject<HTMLDivElement | null>;
 }
 
 export type ItemProps = {
