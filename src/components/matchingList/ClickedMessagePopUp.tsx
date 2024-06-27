@@ -1,6 +1,6 @@
 import AutoResizeTextarea from "@/components/common/AutoResizeTextarea";
 import Tag from "@/components/matchingList/Tag";
-import Name from "@/components/common/name";
+import Name from "@/components/common/Name";
 import { ClickedMessagePopUpProps } from "@/type/MatchingList/MatchingList";
 
 const ClickedMessagePopUp = ({ isClicked, handleClick, currentBackground, name, age, mbti, tag, time}: ClickedMessagePopUpProps) => {
