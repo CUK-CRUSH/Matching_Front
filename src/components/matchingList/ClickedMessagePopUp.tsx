@@ -1,5 +1,5 @@
 import AutoResizeTextarea from "@/components/common/AutoResizeTextarea";
-import Tag from "@/components/matchingList/Tag";
+import Tag from "@/components/common/Tag";
 import Name from "@/components/common/Name";
 import { ClickedMessagePopUpProps } from "@/type/MatchingList/MatchingList";
 import useFindBackgroundIndex from "@/hooks/useFindBackgroundIndex/useFindBackgroundIndex";
