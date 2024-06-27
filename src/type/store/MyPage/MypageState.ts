@@ -6,7 +6,7 @@ export type MBTIState = {
 };
 
 export type MyPageState = {
-  currentPage: 'mypage' | 'info' | 'introduce' | 'music' | 'tags' | 'location';
+  currentPage: 'mypage' | 'info' | 'introduce' | 'music' | 'musicDetail' | 'tags' | 'location';
   setCurrentPage: (page: MyPageState['currentPage']) => void;
 
   selectedMBTI: MBTIState;
