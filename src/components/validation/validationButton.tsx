@@ -1,6 +1,4 @@
 import { Button } from '@/components/ui/button';
-import { postLogin } from '@/services/Login/LoginAPI';
-import useOnboardingStore from '@/store/validationStore';
 import { ValidationButtonDTO } from '@/type/validation/validation';
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
@@ -15,7 +13,7 @@ export default function ValidationButton({
   userExists,
 }: ValidationButtonDTO) {
   const navigate = useNavigate();
-  const { userData } = useOnboardingStore();
+  // const { userData } = useOnboardingStore();
   const [, setCookie] = useCookies(['accessToken']);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -29,10 +27,10 @@ export default function ValidationButton({
         if (userExists) {
           try {
             setTimeout(async () => {
-              const response: any = await postLogin(
-                userData.phoneNumber,
-                userData.verificationCode,
-              );
+              // const response: any = await postLogin(
+              //   userData.phoneNumber,
+              //   userData.verificationCode,
+              // );
 
               // setCookie('accessToken', response.data.accessToken, { path: '/' });
               setCookie(

@@ -5,18 +5,9 @@ export type MBTIState = {
   J_P: string | null;
 };
 
-type UserProfile = {
-  name: string;
-  oneLineIntroduction: string;
-  profileImageUrl: string;
-}
-
 export type MyPageState = {
   currentPage: 'mypage' | 'info' | 'introduce' | 'music' | 'musicDetail' | 'tags' | 'location';
   setCurrentPage: (page: MyPageState['currentPage']) => void;
-
-  userProfile: UserProfile | null;
-  setUserProfile: (profile: UserProfile) => void;
 
   selectedMBTI: MBTIState;
   setSelectedMBTI: (mbti: MBTIState) => void;
