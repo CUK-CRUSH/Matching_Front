@@ -5,6 +5,9 @@ export const useMyPageStore = create<MyPageState>((set) => ({
   currentPage: 'mypage',
   setCurrentPage: (page) => set({ currentPage: page }),
 
+  userProfile: null,
+  setUserProfile: (profile) => set({ userProfile: profile }),
+
   selectedMBTI: { E_I: null, N_S: null, F_T: null, J_P: null },
   setSelectedMBTI: (mbti) => set({ selectedMBTI: mbti }),
 

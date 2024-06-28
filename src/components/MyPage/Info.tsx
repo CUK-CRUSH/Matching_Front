@@ -15,12 +15,12 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useImageCrop } from '@/hooks/useImageCrop';
 import { Dialog, DialogActions, DialogContent, DialogTitle, Slider } from '@mui/material';
 import Cropper from 'react-easy-crop';
 import MatchingListHeader from '../layout/matchingListHeader';
-import { ProfilesInfoDTO } from '@/type/services/Mypage/MypageDTO';
+import { ProfilesInfoDTO, UserInfoDTO } from '@/type/services/Mypage/MypageDTO';
 import { useCookies } from 'react-cookie';
 
 const formSchema = z.object({
@@ -39,12 +39,21 @@ const InfoPage = () => {
   const { setCurrentPage } = useMyPageStore();
   const [cookies] = useCookies(['accessToken']);
   const accessToken = cookies.accessToken;
+  const queryClient = useQueryClient();
 
   const { data: InfoData, error } = useQuery<ProfilesInfoDTO>({
     queryKey: ['InfoData'],
     queryFn: () => getUserInfoData(accessToken),
     staleTime: 1000 * 60 * 5,
-    placeholderData: (previousData) => previousData,
+  });
+
+  const mutation = useMutation({
+    mutationFn: (updatedData: UserInfoDTO) => patchUserInfoData(accessToken, updatedData),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['InfoData'] });
+      queryClient.invalidateQueries({ queryKey: ['mainData'] });
+      setCurrentPage('mypage'); // 페이지 이동을 성공 후로 이동
+    },
   });
 
   const form = useForm({
@@ -55,19 +64,15 @@ const InfoPage = () => {
     },
   });
 
-  console.log(InfoData);
-  const onSubmit = async (data: z.infer<typeof formSchema>) => {
-    try {
-      await patchUserInfoData(accessToken, {
-        name: data.nickname,
-        oneLineIntroduction: data.oneLiner,
-        isDeleteImage: true,
-      });
-    } catch (error) {
-      console.error('error', error);
-      alert('프로필 수정에 실패했습니다.' + error);
-    }
+  const onSubmit = (data: z.infer<typeof formSchema>) => {
+    mutation.mutate({
+      profileImage: compressedImage ?? undefined,
+      name: data.nickname,
+      oneLineIntroduction: data.oneLiner,
+      isDeleteImage: true,
+    });
   };
+
   const filledFieldsCount =
     (form.watch('nickname').length >= 3 && form.watch('nickname').length <= 15 ? 1 : 0) +
     (form.watch('oneLiner').length <= 50 && form.watch('oneLiner').length > 0 ? 1 : 0);
@@ -93,6 +98,7 @@ const InfoPage = () => {
   if (!InfoData) {
     return <div>No user data found</div>; // userData가 없을 때 처리
   }
+
   return (
     <div className="text-white h-full flex flex-col items-center">
       <div className="w-full max-w-md mx-auto flex flex-col h-full ">

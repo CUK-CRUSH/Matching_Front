@@ -34,8 +34,17 @@ export default function ValidationButton({
                 userData.verificationCode,
               );
 
-              setCookie('accessToken', response.data.accessToken, { path: '/' });
-              localStorage.setItem('refreshToken', response.data.refreshToken);
+              // setCookie('accessToken', response.data.accessToken, { path: '/' });
+              setCookie(
+                'accessToken',
+                'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzMCIsInR5cGUiOiJhY2Nlc3NfdG9rZW4iLCJpYXQiOjE3MTk0NzIxODcsImV4cCI6MTcyODExMjE4N30.sYBuQMorZuEB7g17Td257N8Ev1SE4Gpx7ly-NWUiZEg',
+                { path: '/' },
+              );
+              // localStorage.setItem('refreshToken', response.data.refreshToken);
+              localStorage.setItem(
+                'refreshToken',
+                'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzMCIsInR5cGUiOiJyZWZyZXNoX3Rva2VuIiwiaWF0IjoxNzE5NDcyMTg3LCJleHAiOjE3MTk0NzI3ODd9.qS0RD-8XyJPpPeu4b5ZCaeDQPBW12LFj1XBIGfCpMNU',
+              );
 
               navigate('/mypage');
               setIsLoading(false);

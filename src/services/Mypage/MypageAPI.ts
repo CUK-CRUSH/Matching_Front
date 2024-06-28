@@ -1,6 +1,7 @@
 import { MainInfoDataDTO, ProfilesInfoDTO, UserInfoDTO } from '@/type/services/Mypage/MypageDTO';
 import { api } from '../client';
 import { Product } from '@/type/product';
+import { Base64ToBlob } from '@/utils/Base64ToBlob';
 
 export const getUserData = async () => {
   const { data } = await api.get<Product>('/v1/user');
@@ -44,9 +45,12 @@ export const patchUserInfoData = async (accessToken: string, userInfo: UserInfoD
   const formData = new FormData();
   const url = `${import.meta.env.VITE_DUETT_API_URL}/api/v1/profiles/info`;
 
-  if (userInfo.profileImage) {
-    formData.append('profileImage', userInfo.profileImage);
+  if (userInfo.profileImage && userInfo.profileImage.includes(',')) {
+    const contentType = userInfo.profileImage.split(';')[0].split(':')[1];
+    const blob = Base64ToBlob(userInfo.profileImage, contentType);
+    formData.append('profileImage', blob, 'profileImage.jpg'); // Adjust file name as needed
   }
+
   if (userInfo.name) {
     formData.append('name', userInfo.name);
   }

@@ -36,7 +36,7 @@ const OneLinerPage = () => {
     try {
       console.log(updatedUserData);
       await postSignUp(updatedUserData);
-      navigate('/mypage');
+      navigate('/login');
     } catch (error) {
       console.log(updatedUserData);
       console.error('Failed to submit data:', error);
