@@ -1,6 +1,5 @@
-import { getUserData } from '@/services/Mypage/MypageAPI';
+import { getUserInfoData, patchUserInfoData } from '@/services/Mypage/MypageAPI';
 import useMyPageStore from '@/store/myPageStore';
-import { Product } from '@/type/product';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -16,12 +15,13 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useImageCrop } from '@/hooks/useImageCrop';
 import { Dialog, DialogActions, DialogContent, DialogTitle, Slider } from '@mui/material';
 import Cropper from 'react-easy-crop';
-import axios from 'axios';
 import MatchingListHeader from '../layout/matchingListHeader';
+import { ProfilesInfoDTO, UserInfoDTO } from '@/type/services/Mypage/MypageDTO';
+import { useCookies } from 'react-cookie';
 
 const formSchema = z.object({
   nickname: z
@@ -37,45 +37,44 @@ const formSchema = z.object({
 
 const InfoPage = () => {
   const { setCurrentPage } = useMyPageStore();
-  const { data: userData, error } = useQuery<Product>({
-    queryKey: ['userData'],
-    queryFn: getUserData,
+  const [cookies] = useCookies(['accessToken']);
+  const accessToken = cookies.accessToken;
+  const queryClient = useQueryClient();
+
+  const { data: InfoData, error } = useQuery<ProfilesInfoDTO>({
+    queryKey: ['InfoData'],
+    queryFn: () => getUserInfoData(accessToken),
     staleTime: 1000 * 60 * 5,
-    placeholderData: (previousData) => previousData,
+  });
+
+  const mutation = useMutation({
+    mutationFn: (updatedData: UserInfoDTO) => patchUserInfoData(accessToken, updatedData),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['InfoData'] });
+      queryClient.invalidateQueries({ queryKey: ['mainData'] });
+      setCurrentPage('mypage'); // 페이지 이동을 성공 후로 이동
+    },
   });
 
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      nickname: userData?.data.nickname || '',
-      oneLiner: userData?.data.oneLiner || '',
+      nickname: InfoData?.data.name || '',
+      oneLiner: InfoData?.data.oneLineIntroduction || '',
     },
   });
 
-  const onSubmit = async (data: z.infer<typeof formSchema>) => {
-    try {
-      const formData = new FormData();
-      formData.append('profileImage', compressedImage || userData?.data.profileImage || '');
-      formData.append('nickname', data.nickname);
-      formData.append('oneLiner', data.oneLiner);
-
-      await axios.post(`/v1/user`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-      setCurrentPage('mypage');
-      alert('수정 완료');
-    } catch (e) {
-      console.error(e);
-      alert('실패');
-    }
+  const onSubmit = (data: z.infer<typeof formSchema>) => {
+    mutation.mutate({
+      profileImage: compressedImage ?? undefined,
+      name: data.nickname,
+      oneLineIntroduction: data.oneLiner,
+      isDeleteImage: true,
+    });
   };
+
   const filledFieldsCount =
-    (userData?.data.profileImage ? 1 : 0) +
     (form.watch('nickname').length >= 3 && form.watch('nickname').length <= 15 ? 1 : 0) +
-    (userData?.data.birthDate ? 1 : 0) +
-    (userData?.data.sex ? 1 : 0) +
     (form.watch('oneLiner').length <= 50 && form.watch('oneLiner').length > 0 ? 1 : 0);
 
   const {
@@ -91,14 +90,15 @@ const InfoPage = () => {
     handleCropComplete,
     setCroppedArea,
     croppedArea,
-  } = useImageCrop(userData?.data.profileImage || null, true);
+  } = useImageCrop(InfoData?.data.profileImageUrl || null, true);
 
   if (error) {
     return <div>error</div>;
   }
-  if (!userData) {
+  if (!InfoData) {
     return <div>No user data found</div>; // userData가 없을 때 처리
   }
+
   return (
     <div className="text-white h-full flex flex-col items-center">
       <div className="w-full max-w-md mx-auto flex flex-col h-full ">
@@ -110,7 +110,7 @@ const InfoPage = () => {
         <div className="flex flex-col h-full">
           <div className="flex flex-col items-center mt-4">
             <Avatar className="w-32 h-32 rounded-lg relative">
-              <AvatarImage src={compressedImage ?? userData.data.profileImage ?? undefined} />
+              <AvatarImage src={compressedImage ?? InfoData.data.profileImageUrl ?? undefined} />
               <AvatarFallback>CN</AvatarFallback>
               <input
                 type="file"
@@ -144,13 +144,13 @@ const InfoPage = () => {
                     disabled
                     className="w-auto inline-flex items-center justify-center bg-gray-600 cursor-not-allowed"
                   >
-                    {userData?.data.birthDate || '생년월일'}
+                    {InfoData?.data.birthDate || '생년월일'}
                   </Button>
                   <Button
                     disabled
                     className="w-auto inline-flex items-center justify-center bg-gray-600 cursor-not-allowed"
                   >
-                    {userData?.data.sex || '성별'}
+                    {InfoData?.data.gender || '성별'}
                   </Button>
                 </div>
                 <FormField
@@ -173,11 +173,11 @@ const InfoPage = () => {
                 />
                 <div className="absolute bottom-9 w-full px-4 right-0">
                   <div className="flex flex-col justify-center w-full mt-4">
-                    <p className="text-center">{filledFieldsCount}/5 완료</p>
+                    <p className="text-center">{filledFieldsCount}/2 완료</p>
 
                     <Button
                       type="submit"
-                      disabled={filledFieldsCount !== 5}
+                      disabled={filledFieldsCount !== 2}
                       variant={'noHover'}
                       className={`w-full bg-white text-l text-black mt-4 max-w-md rounded-lg mx-auto ${filledFieldsCount !== 5 && 'cursor-not-allowed'}`}
                     >
