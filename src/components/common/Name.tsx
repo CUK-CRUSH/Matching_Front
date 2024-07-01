@@ -1,7 +1,8 @@
 import { NameProps } from "@/type/Common/Name";
+import { calculateAge } from "@/utils/CalculateAge";
 
 
-const Name = ({name, age, mbti, isDark} : NameProps) => {
+const Name = ({name, birthDate, mbti, isDark} : NameProps) => {
   
   const fontStyle = `${isDark ? 'text-[#858585]' : 'text-[#2f2f2f]'} text-m mr-[0.2em] ${isDark ? '' : 'text-opacity-40'}`;
 
@@ -14,7 +15,7 @@ const Name = ({name, age, mbti, isDark} : NameProps) => {
         |
       </span>
       <span className={fontStyle}>
-        {age}
+        {calculateAge(birthDate)}
       </span>
       <span className={fontStyle}>
         |

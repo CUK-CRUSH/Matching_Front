@@ -39,21 +39,26 @@ export type UserTasteProps = {
 }
 
 export type ProfileCardProps = {
+  profileId: number;
   name: string;
-  age: string;
+  birthDate: string;
   mbti: string;
-  time: string;
-  tag: string[];
-  music: Music[];
-  couple: CoupleProps;
-  introduce: string;
-  likeMusic: string;
-  isOpen : boolean;
-  index? : number;
+  oneLineIntroduction: string;
+  distance: string;
+  lifeMusics: {
+    musicId: number;
+    title: string;
+    artist: string;
+    url: string;
+  }[];
+  
+  tags: string[];
+  
 
 }
 
 export type OpenProfileCardProps = {
+  isOpen ? : boolean;
   setOpen : (index: number | undefined, value: boolean) => void;
 }
 
