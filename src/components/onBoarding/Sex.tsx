@@ -8,8 +8,8 @@ import ProgressBar from '@/utils/ProgressBar';
 const SexPage = () => {
   const { setCurrentPage, userData, setUserData } = useOnboardingStore();
 
-  const handleSelectSex = (sex: string) => {
-    setUserData('sex', sex);
+  const handleSelectSex = (gender: string) => {
+    setUserData('gender', gender);
   };
   return (
     <div className="flex flex-col justify-between h-screen">
@@ -24,15 +24,15 @@ const SexPage = () => {
         <div className="flex justify-center space-x-2 mt-28 mx-4">
           <Button
             variant={'noHover'}
-            className={`bg-white text-black w-24 h-16 shadow-md ${userData.sex === 'MAN' ? 'bg-[#252525] text-[#f8f8f8]' : ''}`}
-            onClick={() => handleSelectSex('male')}
+            className={`bg-white text-black w-24 h-16 shadow-md ${userData.gender === 'MAN' ? 'bg-[#252525] text-[#f8f8f8]' : ''}`}
+            onClick={() => handleSelectSex('MAN')}
           >
             남성
           </Button>
           <Button
             variant={'noHover'}
-            className={`bg-white text-black w-24 h-16 shadow-md ${userData.sex === 'WOMAN' ? 'bg-[#252525] text-[#f8f8f8]' : ''}`}
-            onClick={() => handleSelectSex('female')}
+            className={`bg-white text-black w-24 h-16 shadow-md ${userData.gender === 'WOMAN' ? 'bg-[#252525] text-[#f8f8f8]' : ''}`}
+            onClick={() => handleSelectSex('WOMAN')}
           >
             여성
           </Button>
@@ -44,7 +44,7 @@ const SexPage = () => {
 
         <ValidationButton
           onStateChange={() => setCurrentPage('location')}
-          buttonEnabled={userData.sex !== ''}
+          buttonEnabled={userData.gender !== ''}
         />
       </div>
     </div>

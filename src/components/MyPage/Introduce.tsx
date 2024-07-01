@@ -2,10 +2,14 @@ import useMyPageStore from '@/store/myPageStore';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { useForm, Controller } from 'react-hook-form';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Textarea } from '../ui/textarea';
 import MatchingListHeader from '../layout/matchingListHeader';
 import { MBTIState } from '@/type/store/MyPage/MypageState';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { getUserIntroData, patchUserIntroData } from '@/services/Mypage/MypageAPI';
+import { useCookies } from 'react-cookie';
+import { TagsState, UserIntroDTO } from '@/type/services/Mypage/MypageDTO';
 
 const mbtiOptions = ['E', 'N', 'F', 'J', 'I', 'S', 'T', 'P'];
 
@@ -16,23 +20,58 @@ const IntroducePage = () => {
     setCurrentPage,
     selectedMBTI,
     setSelectedMBTI,
-    selectedMusicTag,
+    selectedMusicTag = [],
     setSelectedMusicTag,
-    selectedHobbyTag,
+    selectedHobbyTag = [],
     setSelectedHobbyTag,
-    textarea1,
+    textarea1 = '',
     setTextarea1,
-    textarea2,
+    textarea2 = '',
     setTextarea2,
   } = useMyPageStore();
 
+  // access토큰
+  const [cookies] = useCookies(['accessToken']);
+  const accessToken = cookies.accessToken;
+
+  const queryClient = useQueryClient();
+
+  const { data: IntroData, error } = useQuery<UserIntroDTO>({
+    queryKey: ['IntroData'],
+    queryFn: () => getUserIntroData(accessToken),
+    staleTime: 1000 * 60 * 5,
+  });
+
+  const mutation = useMutation({
+    mutationFn: (IntroData: UserIntroDTO) => patchUserIntroData(accessToken, IntroData),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['IntroData'] });
+      setCurrentPage('mypage');
+    },
+  });
+
   const { control, watch, setValue, handleSubmit } = useForm({
     defaultValues: {
-      textarea1,
-      textarea2,
+      textarea1: textarea1 || '',
+      textarea2: textarea2 || '',
       living: false,
     },
   });
+
+  useEffect(() => {
+    if (IntroData) {
+      setSelectedMusicTag(
+        IntroData.musicTags.filter((tag) => tag.state === 'FEATURED').map((tag) => tag.name),
+      );
+      setSelectedHobbyTag(
+        IntroData.hobbyTags.filter((tag) => tag.state === 'FEATURED').map((tag) => tag.name),
+      );
+      setTextarea1(IntroData.selfIntroduction);
+      setTextarea2(IntroData.likeableMusicTaste);
+      setValue('textarea1', IntroData.selfIntroduction);
+      setValue('textarea2', IntroData.likeableMusicTaste);
+    }
+  }, [IntroData, setSelectedMusicTag, setSelectedHobbyTag, setTextarea1, setTextarea2, setValue]);
 
   const [mbtiString, setMbtiString] = useState<string>('');
 
@@ -52,26 +91,43 @@ const IntroducePage = () => {
 
   const isMBTIDisabled = watch('living');
 
-  const filledMbtiCount = isMBTIDisabled || mbtiString.length === 4 ? 1 : 0;
-  const filledTextAreaCount =
-    (textarea1.length >= 50 && textarea1.length <= 500 ? 1 : 0) +
-    (textarea2.length >= 50 && textarea2.length <= 500 ? 1 : 0);
-  const filledMusicAndHobbyCount = selectedMusicTag && selectedHobbyTag ? 1 : 0;
+  // const filledMbtiCount = isMBTIDisabled || mbtiString.length === 4 ? 1 : 0;
+  // const filledTextAreaCount =
+  //   (textarea1.length >= 50 && textarea1.length <= 500 ? 1 : 0) +
+  //   (textarea2.length >= 50 && textarea2.length <= 500 ? 1 : 0);
+  // const filledMusicAndHobbyCount =
+  //   selectedMusicTag.length > 0 && selectedHobbyTag.length > 0 ? 1 : 0;
 
   const totalField = 4;
-  const filledFieldsCount = filledMbtiCount + filledMusicAndHobbyCount + filledTextAreaCount;
+  // const filledFieldsCount = filledMbtiCount + filledMusicAndHobbyCount + filledTextAreaCount;
 
   const onSubmit = (data: any) => {
     setTextarea1(data.textarea1);
     setTextarea2(data.textarea2);
-    const postData = {
-      mbtiString,
-      selectedMusicTag,
-      selectedHobbyTag,
-      textarea1: data.textarea1,
-      textarea2: data.textarea2,
+
+    const updatedMusicTags = IntroData?.musicTags.map((tag) => ({
+      ...tag,
+      state: selectedMusicTag.includes(tag.name)
+        ? ('FEATURED' as TagsState)
+        : ('STANDARD' as TagsState),
+    }));
+
+    const updatedHobbyTags = IntroData?.hobbyTags.map((tag) => ({
+      ...tag,
+      state: selectedHobbyTag.includes(tag.name)
+        ? ('FEATURED' as TagsState)
+        : ('STANDARD' as TagsState),
+    }));
+
+    const postData: UserIntroDTO = {
+      mbti: mbtiString,
+      musicTags: updatedMusicTags ?? [],
+      hobbyTags: updatedHobbyTags ?? [],
+      selfIntroduction: data.textarea1,
+      likeableMusicTaste: data.textarea2,
     };
-    console.log(postData);
+
+    mutation.mutate(postData);
   };
 
   const handleHighlightMusicTag = (tag: string) => {
@@ -81,6 +137,19 @@ const IntroducePage = () => {
   const handleHighlightHobbyTag = (tag: string) => {
     setSelectedHobbyTag([tag]);
   };
+  if (error) {
+    return <div>Error loading intro data</div>;
+  }
+
+  if (!IntroData) {
+    return <div>Loading...</div>;
+  }
+  const allMusicTags = IntroData.musicTags
+    .filter((tag) => tag.state === 'STANDARD')
+    .map((tag) => tag.name);
+  const allHobbyTags = IntroData.hobbyTags
+    .filter((tag) => tag.state === 'STANDARD')
+    .map((tag) => tag.name);
 
   return (
     <div className="text-white h-full flex flex-col items-center overflow-y-auto scrollbar-hide">
@@ -152,11 +221,11 @@ const IntroducePage = () => {
           <div className="mx-4">
             <span className="text-lg font-bold">음악</span>
             <div className="flex space-x-2 mt-2">
-              {selectedMusicTag.map((tag) => (
+              {allMusicTags.map((tag) => (
                 <Button
                   key={tag}
                   variant="outline"
-                  className={`${selectedMusicTag[0] === tag ? 'bg-white text-black' : 'bg-[#1c1c1c]'} rounded-3xl`}
+                  className={`${selectedMusicTag.includes(tag) ? 'bg-white text-black' : 'bg-[#1c1c1c]'} rounded-3xl`}
                   onClick={() => handleHighlightMusicTag(tag)}
                 >
                   {tag}
@@ -168,11 +237,11 @@ const IntroducePage = () => {
           <div className="mx-4">
             <span className="text-lg font-bold">취미</span>
             <div className="flex space-x-2 mt-2">
-              {selectedHobbyTag.map((tag) => (
+              {allHobbyTags.map((tag) => (
                 <Button
                   key={tag}
                   variant="outline"
-                  className={`${selectedHobbyTag[0] === tag ? 'bg-white text-black' : 'bg-[#1c1c1c]'} rounded-3xl`}
+                  className={`${selectedHobbyTag.includes(tag) ? 'bg-white text-black' : 'bg-[#1c1c1c]'} rounded-3xl`}
                   onClick={() => handleHighlightHobbyTag(tag)}
                 >
                   {tag}
@@ -236,7 +305,7 @@ const IntroducePage = () => {
             </div>
             <div className="flex justify-center w-full mt-4">
               <div className="bg-gray-700 w-auto text-white py-2 px-4 rounded-full">
-                {filledFieldsCount}/{totalField} 완료
+                1/{totalField} 완료
               </div>
             </div>
             <Button type="submit" className="w-full bg-white text-black mt-4">

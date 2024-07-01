@@ -37,3 +37,30 @@ export type MainInfoDataDTO = {
   message: string;
   data: MainDataDTO;
 };
+
+/** Intro 페이지 데이터 타입 */
+export type TagsState = 'FEATURED' | 'STANDARD' | 'NONE';
+
+type MusicTagDTO = {
+  name: string;
+  state: TagsState;
+};
+
+type HobbyTagDTO = {
+  name: string;
+  state: TagsState;
+};
+
+export type UserIntroDTO = {
+  mbti: string;
+  musicTags: MusicTagDTO[];
+  hobbyTags: HobbyTagDTO[];
+  selfIntroduction: string;
+  likeableMusicTaste: string;
+};
+
+/** MusicTag 데이터 타입 */
+export type UserMusicTagDTO = {
+  musicTags: MusicTagDTO[];
+  hobbyTags: HobbyTagDTO[];
+};
