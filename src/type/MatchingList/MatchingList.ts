@@ -38,7 +38,8 @@ export type MusciCardProps = {
 }
 
 export type TagProps = {
-  tag: string;
+  name: string;
+  state : string;
   isDark?: boolean;
   isProfileCard?: boolean;
 

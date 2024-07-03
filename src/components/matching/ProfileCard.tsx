@@ -56,19 +56,26 @@ const ProfileCard = ({ profileId, name, birthDate, mbti,oneLineIntroduction,dist
         <div className={`flex flex-row ml-6`}>
           <ProfileImage setOpenModal={setOpenModal} setOpen={(value: boolean) => setOpen(profileId, value)}
             isLock={isLock} />
-          {isOpenModal && <UnlockModal setLock={setLock} setOpen={(value: boolean) => setOpen(profileId, value)}
-            setOpenModal={setOpenModal} />}
+
+          {isOpenModal && <UnlockModal 
+            setLock={setLock} 
+            setOpen={(value: boolean) => setOpen(profileId, value)}
+            setOpenModal={setOpenModal} 
+            profileId={profileId}
+            
+            />}
+
           {openMessage && <PostMessage />}
           <div className={`flex flex-col ml-[5%]`}>
             <Name name={name} birthDate={birthDate} mbti={mbti} />
             <Comment />
 
             {/* 음악취향 */}
-            <div className='flex flex-wrap mb-[5px]'>
-              {tags.map((item) => (
+            {/* <div className='flex flex-wrap mb-[5px]'>
+              {tags?.map((item) => (
                 <Tag tag={item} isProfileCard={true} />
               ))}
-            </div>
+            </div> */}
 
             {/* 취미취향 */}
             {/* {open && 
@@ -98,9 +105,9 @@ const ProfileCard = ({ profileId, name, birthDate, mbti,oneLineIntroduction,dist
         {!isOpen && <Spread setOpenModal={setOpenModal} setOpen={(value: boolean) => setOpen(profileId, value)}
           isLock={isLock} />}
 
-        {/* {isOpen &&
+        {isOpen &&
           <>
-            <CoupleMusic song={couple.song} artist={couple.artist} />
+            {/* <CoupleMusic song={couple.song} artist={couple.artist} /> */}
             <UserTaste 
               title="스스로를 소개해주세요"
               // value={introduce}
@@ -110,11 +117,11 @@ const ProfileCard = ({ profileId, name, birthDate, mbti,oneLineIntroduction,dist
               // value={likeMusic}
               testId="likeMusic" />
             <div className={` bg-yellow-250`}>
-              <Fold setOpen={(value: boolean) => setOpen(index, value)} />
+              <Fold setOpen={(value: boolean) => setOpen(profileId, value)} />
               <Divider />
             </div>
           </>
-        } */}
+        }
       </div>
       {isOpen && <SocialButtons />}
     </>

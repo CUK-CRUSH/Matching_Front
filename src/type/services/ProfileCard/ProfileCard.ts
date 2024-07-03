@@ -21,13 +21,38 @@ export type ProfileCardProps = {
   mbti: string;
   oneLineIntroduction: string;
   distance: string;
+  profileImageUrl : string;
   lifeMusics: {
     musicId: number;
     title: string;
     artist: string;
     url: string;
   }[];
-  tags: string[];
+  // 딛혀있을때
+  tags?: {
+    name : string;
+    state : string;
+  }[];
+
+  musicTags?: {
+    name : string;
+    state : string;
+  }[];
+
+  hobbyTags?: {
+    name : string;
+    state : string;
+  }[];
+  // 열린상태 
+
+  mood? : {
+    title : string;
+    artist : string;
+    moodImage : string;
+    isDeleteImage : boolean;
+  }[]
+  selfIntroduction? : string;
+  likeableMusicTaste? : string;
 
 }
 
