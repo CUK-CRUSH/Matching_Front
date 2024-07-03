@@ -106,7 +106,7 @@ const InfoPage = () => {
     return <div>error</div>;
   }
   if (!InfoData) {
-    return <div>No user data found</div>; // userData가 없을 때 처리
+    return <div>No user data found</div>;
   }
 
   return (

@@ -42,7 +42,9 @@ const MyPageMain = () => {
             alt={mainData.data.profileImageUrl}
           />
           <h2 className="text-m font-bold mt-2">{mainData.data.name}</h2>
-          <p className="text-m text-gray-400">{calculateAge(mainData.data.birthDate)} | ENFJ</p>
+          <p className="text-m text-gray-400">
+            {calculateAge(mainData.data.birthDate)} | {mainData.data.mbti}
+          </p>
         </div>
         {/* 페이지 이동 버튼 */}
         <div className="flex justify-between items-center mt-4 w-full px-4">

@@ -26,7 +26,7 @@ type MainDataDTO = {
   profileImageUrl: string;
   name: string;
   birthDate: string;
-  mbtiL: string;
+  mbti: string;
   infoCount: number;
   introCount: number;
   musicCount: number;

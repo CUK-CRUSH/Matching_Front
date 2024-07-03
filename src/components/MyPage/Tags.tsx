@@ -28,10 +28,10 @@ const TagsPage = () => {
   useEffect(() => {
     if (MusicTagsData) {
       const initialMusicTags = MusicTagsData.musicTags
-        .filter((tag) => tag.state === 'STANDARD')
+        .filter((tag) => tag.state === 'STANDARD' || tag.state === 'FEATURED')
         .map((tag) => tag.name);
       const initialHobbyTags = MusicTagsData.hobbyTags
-        .filter((tag) => tag.state === 'STANDARD')
+        .filter((tag) => tag.state === 'STANDARD' || tag.state === 'FEATURED')
         .map((tag) => tag.name);
       setSelectedMusicTags(initialMusicTags);
       setSelectedHobbyTags(initialHobbyTags);
@@ -113,20 +113,22 @@ const TagsPage = () => {
             <span className="text-lg font-bold">음악 태그 (최대 3개)</span>
             <div className="flex flex-wrap gap-2 mt-2">
               {availableMusicTags
-                .slice(0, showAllMusicTags ? availableMusicTags.length : 12)
+                .slice(0, showAllMusicTags ? availableMusicTags.length : 15)
                 .map((tag) => (
                   <Button
                     key={tag}
                     variant="outline"
-                    className={`${selectedMusicTags.includes(tag) ? 'bg-white text-black' : 'bg-[#1c1c1c]'} rounded-3xl`}
+                    className={`${
+                      selectedMusicTags.includes(tag) ? 'bg-white text-black' : 'bg-[#1c1c1c]'
+                    } rounded-3xl`}
                     onClick={() => handleMusicTagClick(tag)}
                     disabled={!selectedMusicTags.includes(tag) && selectedMusicTags.length >= 3}
                   >
                     {tag}
                   </Button>
                 ))}
-            </div>{' '}
-            {availableMusicTags.length > 12 && (
+            </div>
+            {availableMusicTags.length > 15 && (
               <Button
                 className="mt-2 bg-white text-black"
                 onClick={() => setShowAllMusicTags(!showAllMusicTags)}
@@ -140,20 +142,22 @@ const TagsPage = () => {
             <span className="text-lg font-bold">취미 태그 (최대 3개)</span>
             <div className="flex flex-wrap gap-2 mt-2">
               {availableHobbyTags
-                .slice(0, showAllHobbyTags ? availableHobbyTags.length : 12)
+                .slice(0, showAllHobbyTags ? availableHobbyTags.length : 13)
                 .map((tag) => (
                   <Button
                     key={tag}
                     variant="outline"
-                    className={`${selectedHobbyTags.includes(tag) ? 'bg-white text-black' : 'bg-[#1c1c1c]'} rounded-3xl`}
+                    className={`${
+                      selectedHobbyTags.includes(tag) ? 'bg-white text-black' : 'bg-[#1c1c1c]'
+                    } rounded-3xl`}
                     onClick={() => handleHobbyTagClick(tag)}
                     disabled={!selectedHobbyTags.includes(tag) && selectedHobbyTags.length >= 3}
                   >
                     {tag}
                   </Button>
                 ))}
-            </div>{' '}
-            {availableHobbyTags.length > 12 && (
+            </div>
+            {availableHobbyTags.length > 13 && (
               <Button
                 className="mt-2 bg-white text-black"
                 onClick={() => setShowAllHobbyTags(!showAllHobbyTags)}

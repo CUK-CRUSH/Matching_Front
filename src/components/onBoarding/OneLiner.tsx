@@ -5,12 +5,10 @@ import ValidationText from '@/components/validation/validationText';
 import useOnboardingStore from '@/store/validationStore';
 import { useForm } from 'react-hook-form';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
-import { useNavigate } from 'react-router-dom';
 import ProgressBar from '@/utils/ProgressBar';
 import { postSignUp } from '@/services/Login/LoginAPI';
 
 const OneLinerPage = () => {
-  const navigate = useNavigate();
   const { setCurrentPage, userData, setUserData } = useOnboardingStore();
   const {
     register,
@@ -36,7 +34,7 @@ const OneLinerPage = () => {
     try {
       console.log(updatedUserData);
       await postSignUp(updatedUserData);
-      navigate('/login');
+      location.replace('/login');
     } catch (error) {
       console.log(updatedUserData);
       console.error('Failed to submit data:', error);
