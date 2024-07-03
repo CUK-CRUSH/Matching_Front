@@ -13,23 +13,31 @@ import { ProfileCardDTO } from "@/type/services/ProfileCard/ProfileCard";
 import { getProfileCardData } from "@/services/ProfileCard/ProfileCardApi";
 
 const MatchingPage = () => {
-  const [page, ] = useState(0);
-  const [size, ] = useState(10);
-  const [radius, ] = useState(999999);
+
+  // 프로필목록 조회
+  const { data: profileCardData, error } = useQuery<ProfileCardDTO>({
+    queryKey: ['profileCardData',],
+    queryFn: () => getProfileCardData(page, size, radius),
+    staleTime: 1000 * 60 * 5, // 5분
+    placeholderData: (previousData) => previousData,
+  });
+
+  const [page,] = useState(0);
+  const [size,] = useState(10);
+  const [radius,] = useState(999999);
 
   // 프로필아이디 저장
   const [profileId, setProfileId] = useState<number[] | undefined>([]);
 
-  const { data : profileCardData, error } = useProfileCardData(page, size, radius);
-
   // 각 프로필 카드의 열고 닫기 상태를 관리하는 배열
-  const [profiles, setProfiles] = useState<ProfileCardProps[] | undefined>(profileCardData);
+  const [profiles, setProfiles] = useState<ProfileCardProps[] | undefined>(profileCardData?.data);
 
   useEffect(() => {
-      setProfiles(profileCardData);
-      setProfileId(profileCardData.map((item) => item.profileId));
+    setProfiles(profileCardData?.data);
+    setProfileId(profiles?.map((item) => item.profileId));
 
   }, [profileCardData]);
+
 
   // 프로필카드 열기
   const handleSetOpen = (profileId: number | undefined, value: boolean) => {
@@ -51,10 +59,10 @@ const MatchingPage = () => {
   return (
     <Layout backgroundColor={'#252525'}>
       <ProfileCardHeader />
-      <Swiper>  
+      <Swiper>
         {profiles?.map((item, index) => (
           <SwiperSlide key={index}>
-            <ProfileCard {...item} 
+            <ProfileCard {...item}
               setOpen={handleSetOpen}
             />
           </SwiperSlide>
@@ -64,31 +72,5 @@ const MatchingPage = () => {
     </Layout>
   );
 };
-
-type ProfileCardData = {
-  data: ProfileCardProps[];
-  error?: Error;
-  refetch: () => void;
-}
-
-const useProfileCardData = (
-  page: number,
-  size: number,
-  radius: number
-): ProfileCardData => {
-  const { data, error, refetch } = useQuery<ProfileCardDTO, Error>({
-    queryKey: ['profileCardData', page, size, radius],
-    queryFn: () => getProfileCardData(page, size, radius),
-    staleTime: 1000 * 60 * 5, // 5분
-    enabled: true, // 자동 리팻치 비활성화
-  });
-
-  return {
-    data: data?.data || [],
-    error : error || undefined,
-    refetch,
-  };
-};
-
 
 export default MatchingPage;

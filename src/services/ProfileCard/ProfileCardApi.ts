@@ -10,7 +10,7 @@ export const spendCoin = async (
   try {
     const { data } = await api.get<ProfileCardDTO>(url, {
       headers: {
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzMSIsInR5cGUiOiJhY2Nlc3NfdG9rZW4iLCJpYXQiOjE3MTk4OTcyNDUsImV4cCI6MTcyODUzNzI0NX0.7WoAvzJ1HzZiKTGmi4djCr0jeYch_1ENX-Y8p9LDn9s`,
+        Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MCIsInR5cGUiOiJhY2Nlc3NfdG9rZW4iLCJpYXQiOjE3MTk5OTA1ODUsImV4cCI6MTcyODYzMDU4NX0.WwS_VpbMQlZQN_8J2mSjeBxFX4tcghiabCwirSFUuQo`,
       },
     });
     return data;
@@ -30,7 +30,7 @@ export const getProfileCardData = async (
   try {
     const { data } = await api.get<ProfileCardDTO>(url, {
       headers: {
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzMSIsInR5cGUiOiJhY2Nlc3NfdG9rZW4iLCJpYXQiOjE3MTk4OTcyNDUsImV4cCI6MTcyODUzNzI0NX0.7WoAvzJ1HzZiKTGmi4djCr0jeYch_1ENX-Y8p9LDn9s`,
+        Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MCIsInR5cGUiOiJhY2Nlc3NfdG9rZW4iLCJpYXQiOjE3MTk5OTA1ODUsImV4cCI6MTcyODYzMDU4NX0.WwS_VpbMQlZQN_8J2mSjeBxFX4tcghiabCwirSFUuQo`,
       },
     });
     return data;
