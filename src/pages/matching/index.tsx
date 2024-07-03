@@ -26,15 +26,11 @@ const MatchingPage = () => {
   const [size,] = useState(10);
   const [radius,] = useState(999999);
 
-  // 프로필아이디 저장
-  const [profileId, setProfileId] = useState<number[] | undefined>([]);
-
   // 각 프로필 카드의 열고 닫기 상태를 관리하는 배열
   const [profiles, setProfiles] = useState<ProfileCardProps[] | undefined>(profileCardData?.data);
 
   useEffect(() => {
     setProfiles(profileCardData?.data);
-    setProfileId(profiles?.map((item) => item.profileId));
 
   }, [profileCardData]);
 
