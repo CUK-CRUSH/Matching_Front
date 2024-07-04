@@ -25,8 +25,7 @@ const MusicDetailPage = () => {
     queryKey: ['musicDetailData'],
     queryFn: () => getYoutubeMusicData(accessToken, query, 5),
     staleTime: 1000 * 60 * 5,
-    enabled: false, // Disable automatic refetching
-    placeholderData: (previousData) => previousData,
+    enabled: false,
   });
 
   const onSubmit = async () => {

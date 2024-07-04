@@ -3,20 +3,25 @@ import MatchingListHeader from '../../layout/matchingListHeader';
 import { useCookies } from 'react-cookie';
 import { Button } from '@/components/ui/button';
 import {
+  LifeMusicItem,
   MusicTasteDataDTO,
   MusicTasteRequestDTO,
-  LifeMusicItem,
 } from '@/type/services/Music/MusicDTO';
 import { getMusicTasteData, postMusicTasteData } from '@/services/Music/MusicAPI';
-import { useQuery } from '@tanstack/react-query';
-import { useEffect } from 'react';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
 
 const MusicPage = () => {
   const { setCurrentPage, selectedMusic, setSelectedMusic } = useMyPageStore();
   const [cookies] = useCookies(['accessToken']);
   const accessToken = cookies.accessToken;
 
-  const { data: musicTasteData } = useQuery<MusicTasteDataDTO>({
+  const queryClient = useQueryClient();
+
+  const [deleteLifeMusics, setDeleteLifeMusics] = useState<number[]>([]);
+  const [updateLifeMusics, setUpdateLifeMusics] = useState<LifeMusicItem[]>([]);
+
+  const { data: musicTasteData, isLoading: isFetching } = useQuery<MusicTasteDataDTO>({
     queryKey: ['musicTasteData'],
     queryFn: () => getMusicTasteData(accessToken),
     staleTime: 1000 * 60 * 5,
@@ -28,44 +33,58 @@ const MusicPage = () => {
     }
   }, [musicTasteData, selectedMusic.length, setSelectedMusic]);
 
+  const mutation = useMutation({
+    mutationFn: (musicTasteRequest: MusicTasteRequestDTO) =>
+      postMusicTasteData(accessToken, musicTasteRequest),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['musicTasteData'] }).then(() => {
+        const updatedMusicTasteData = queryClient.getQueryData<MusicTasteDataDTO>([
+          'musicTasteData',
+        ]);
+        if (updatedMusicTasteData) {
+          setSelectedMusic(updatedMusicTasteData.lifeMusics);
+        }
+      });
+      setDeleteLifeMusics([]);
+      setUpdateLifeMusics([]);
+    },
+  });
+
   const handleAddMusicClick = () => {
     setCurrentPage('musicDetail');
   };
 
-  const handleRemoveMusicClick = (musicId: number) => {
+  const handleRemoveMusicClick = (musicId: number | undefined) => {
+    if (musicId) {
+      setDeleteLifeMusics((prev) => [...prev, musicId]);
+    }
     const updatedMusic = selectedMusic.filter((item) => item.musicId !== musicId);
+
     setSelectedMusic(updatedMusic);
-    console.log(updatedMusic);
+  };
+
+  const handleUpdateMusicClick = (music: LifeMusicItem) => {
+    setUpdateLifeMusics((prev) => [...prev, music]);
+    // setCurrentPage('musicDetail'); // 이걸로 수정 페이지로 이동하는 논리를 추가할 수 있습니다.
   };
 
   const handleSaveMusic = async () => {
     const createLifeMusics = selectedMusic.filter((item) => !item.musicId);
-    const updateLifeMusics = selectedMusic.filter((item) => item.musicId);
 
     const musicTasteRequest: MusicTasteRequestDTO = {
       createLifeMusics: createLifeMusics.length > 0 ? createLifeMusics : undefined,
       updateLifeMusics: updateLifeMusics.length > 0 ? updateLifeMusics : undefined,
-      deleteLifeMusics: [],
+      deleteLifeMusics:
+        deleteLifeMusics.length > 0 ? deleteLifeMusics.map((id) => ({ musicId: id })) : undefined,
     };
 
     try {
-      await postMusicTasteData(accessToken, musicTasteRequest);
+      await mutation.mutateAsync(musicTasteRequest);
       console.log('Music data saved successfully');
     } catch (error) {
       console.error('Failed to save music data:', error);
     }
   };
-
-  const handleAddMockMusic = () => {
-    const mockMusic: LifeMusicItem = {
-      title: 'Mock Song',
-      artist: 'Mock Artist',
-      url: 'https://mock-url.com',
-    };
-    setSelectedMusic([...selectedMusic, mockMusic]);
-  };
-
-  console.log('Selected Music:', selectedMusic);
 
   return (
     <div className="text-white h-full flex flex-col items-center pb-20">
@@ -97,12 +116,22 @@ const MusicPage = () => {
                   <span>
                     {music.title} - {music.artist}
                   </span>
-                  <Button
-                    onClick={() => handleRemoveMusicClick(music.musicId!)}
-                    className="bg-red-500 p-2 rounded"
-                  >
-                    <i className="material-icons">close</i>
-                  </Button>
+                  <div className="flex items-center">
+                    {music.musicId && (
+                      <Button
+                        onClick={() => handleUpdateMusicClick(music)}
+                        className="bg-blue-500 p-2 rounded mx-1"
+                      >
+                        <i className="material-icons">edit</i>
+                      </Button>
+                    )}
+                    <Button
+                      onClick={() => handleRemoveMusicClick(music.musicId)}
+                      className="bg-red-500 p-2 rounded"
+                    >
+                      <i className="material-icons">close</i>
+                    </Button>
+                  </div>
                 </div>
               ))}
               {selectedMusic.length < 3 && (
@@ -117,14 +146,12 @@ const MusicPage = () => {
           )}
         </div>
       </div>
-      <button className="bg-blue-500 text-white py-2 px-4 rounded" onClick={handleSaveMusic}>
-        저장
-      </button>
       <button
-        className="bg-green-500 text-white py-2 px-4 rounded mt-2"
-        onClick={handleAddMockMusic}
+        className="bg-blue-500 text-white py-2 px-4 rounded"
+        onClick={handleSaveMusic}
+        // disabled={mutation.status}
       >
-        Add Mock Music
+        저장
       </button>
     </div>
   );
