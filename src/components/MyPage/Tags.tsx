@@ -1,6 +1,6 @@
 import useMyPageStore from '@/store/myPageStore';
 import MatchingListHeader from '../layout/matchingListHeader';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Button } from '../ui/button';
 import { useCookies } from 'react-cookie';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
