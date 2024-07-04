@@ -3,19 +3,26 @@ import MatchingListHeader from '../layout/matchingListHeader';
 import { useEffect, useState } from 'react';
 import { Button } from '../ui/button';
 import { useCookies } from 'react-cookie';
-import { useQuery } from '@tanstack/react-query';
-import { UserMusicTagDTO } from '@/type/services/Mypage/MypageDTO';
-import { getMusicTagsData } from '@/services/Mypage/MypageAPI';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import {
+  HobbyTagDTO,
+  MusicTagDTO,
+  TagsState,
+  UserIntroDTO,
+  UserMusicTagDTO,
+} from '@/type/services/Mypage/MypageDTO';
+import { getMusicTagsData, patchUserIntroData } from '@/services/Mypage/MypageAPI';
+import { getMBTIString } from '@/utils/transformMBTI';
 
 const TagsPage = () => {
-  const { setCurrentPage, setSelectedMusicTag, setSelectedHobbyTag } = useMyPageStore();
+  const { setCurrentPage, selectedMBTI } = useMyPageStore();
   const [selectedMusicTags, setSelectedMusicTags] = useState<string[]>([]);
   const [selectedHobbyTags, setSelectedHobbyTags] = useState<string[]>([]);
-  // access토큰
   const [cookies] = useCookies(['accessToken']);
   const accessToken = cookies.accessToken;
 
-  // 모달
+  const queryClient = useQueryClient();
+
   const [showAllMusicTags, setShowAllMusicTags] = useState(false);
   const [showAllHobbyTags, setShowAllHobbyTags] = useState(false);
 
@@ -25,68 +32,17 @@ const TagsPage = () => {
     staleTime: 1000 * 60 * 5,
   });
 
+  const mutation = useMutation({
+    mutationFn: (introData: UserIntroDTO) => patchUserIntroData(accessToken, introData),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['MusicTagsData'] });
+      queryClient.invalidateQueries({ queryKey: ['mainData'] });
+      setCurrentPage('mypage');
+    },
+  });
   useEffect(() => {
-    if (MusicTagsData) {
-      const initialMusicTags = MusicTagsData.musicTags
-        .filter((tag) => tag.state === 'STANDARD' || tag.state === 'FEATURED')
-        .map((tag) => tag.name);
-      const initialHobbyTags = MusicTagsData.hobbyTags
-        .filter((tag) => tag.state === 'STANDARD' || tag.state === 'FEATURED')
-        .map((tag) => tag.name);
-      setSelectedMusicTags(initialMusicTags);
-      setSelectedHobbyTags(initialHobbyTags);
-    }
-  }, [MusicTagsData]);
-
-  const handleMusicTagClick = (tag: string) => {
-    setSelectedMusicTags((prev) => {
-      if (prev.includes(tag)) {
-        return prev.filter((t) => t !== tag);
-      } else if (prev.length < 3) {
-        return [...prev, tag];
-      } else {
-        return prev; // 이미 3개 선택된 경우 아무 것도 하지 않음
-      }
-    });
-  };
-
-  const handleHobbyTagClick = (tag: string) => {
-    setSelectedHobbyTags((prev) => {
-      if (prev.includes(tag)) {
-        return prev.filter((t) => t !== tag);
-      } else if (prev.length < 3) {
-        return [...prev, tag];
-      } else {
-        return prev; // 이미 3개 선택된 경우 아무 것도 하지 않음
-      }
-    });
-  };
-
-  const handleSaveTags = () => {
-    if (MusicTagsData) {
-      setSelectedMusicTag(selectedMusicTags);
-      setSelectedHobbyTag(selectedHobbyTags);
-
-      // 태그 상태 설정
-      const updatedMusicTags = MusicTagsData.musicTags.map((tag) => ({
-        name: tag.name,
-        state: selectedMusicTags.includes(tag.name) ? 'STANDARD' : 'NONE',
-      }));
-      const updatedHobbyTags = MusicTagsData.hobbyTags.map((tag) => ({
-        name: tag.name,
-        state: selectedHobbyTags.includes(tag.name) ? 'STANDARD' : 'NONE',
-      }));
-
-      console.log('Updated Music Tags:', updatedMusicTags);
-      console.log('Updated Hobby Tags:', updatedHobbyTags);
-
-      // 여기에 실제로 업데이트하는 코드를 추가해야 합니다. (API 호출 등)
-
-      setCurrentPage('introduce');
-    } else {
-      console.error('MusicTagsData is undefined');
-    }
-  };
+    console.log('Current MBTI:', selectedMBTI); // MBTI 값을 확인
+  }, [selectedMBTI]);
 
   if (error) {
     return <div>Error loading tags</div>;
@@ -102,6 +58,69 @@ const TagsPage = () => {
   const availableHobbyTags = MusicTagsData.hobbyTags
     ? MusicTagsData.hobbyTags.map((tag) => tag.name)
     : [];
+
+  const handleMusicTagClick = (tag: string) => {
+    setSelectedMusicTags((prev) => {
+      if (prev.includes(tag)) {
+        return prev.filter((t) => t !== tag);
+      } else if (prev.length < 3) {
+        return [...prev, tag];
+      } else {
+        return prev;
+      }
+    });
+  };
+
+  const handleHobbyTagClick = (tag: string) => {
+    setSelectedHobbyTags((prev) => {
+      if (prev.includes(tag)) {
+        return prev.filter((t) => t !== tag);
+      } else if (prev.length < 3) {
+        return [...prev, tag];
+      } else {
+        return prev;
+      }
+    });
+  };
+  console.log(getMBTIString(selectedMBTI));
+  const handleSaveTags = () => {
+    if (MusicTagsData) {
+      // 태그 상태 설정
+      const updatedMusicTags: MusicTagDTO[] = MusicTagsData.musicTags.map((tag) => ({
+        ...tag,
+        state: selectedMusicTags.includes(tag.name)
+          ? ('STANDARD' as TagsState)
+          : tag.state === 'FEATURED'
+            ? 'FEATURED'
+            : 'NONE',
+      }));
+
+      const updatedHobbyTags: HobbyTagDTO[] = MusicTagsData.hobbyTags.map((tag) => ({
+        ...tag,
+        state: selectedHobbyTags.includes(tag.name)
+          ? ('STANDARD' as TagsState)
+          : tag.state === 'FEATURED'
+            ? 'FEATURED'
+            : 'NONE',
+      }));
+      console.log('Updated Music Tags:', updatedMusicTags);
+      console.log('Updated Hobby Tags:', updatedHobbyTags);
+
+      // Call the mutation to update the tags
+      const updatedIntroData: UserIntroDTO = {
+        // mbti: getMBTIString(selectedMBTI),
+        mbti: null,
+        musicTags: updatedMusicTags,
+        hobbyTags: updatedHobbyTags,
+        selfIntroduction: null, // Provide appropriate values
+        likeableMusicTaste: null, // Provide appropriate values
+      };
+
+      mutation.mutate(updatedIntroData);
+    } else {
+      console.error('MusicTagsData is undefined');
+    }
+  };
 
   return (
     <div className="text-white h-full flex flex-col items-center overflow-y-auto scrollbar-hide">

@@ -43,7 +43,8 @@ const MyPageMain = () => {
           />
           <h2 className="text-m font-bold mt-2">{mainData.data.name}</h2>
           <p className="text-m text-gray-400">
-            {calculateAge(mainData.data.birthDate)} | {mainData.data.mbti}
+            {calculateAge(mainData.data.birthDate)}
+            {mainData.data.mbti !== 'NONE' ? `| ${mainData.data.mbti}` : ''}
           </p>
         </div>
         {/* 페이지 이동 버튼 */}

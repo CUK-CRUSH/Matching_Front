@@ -19,6 +19,9 @@ export const useMyPageStore = create<MyPageState>((set) => ({
 
   textarea2: '',
   setTextarea2: (text) => set({ textarea2: text }),
+
+  selectedMusic: [],
+  setSelectedMusic: (music) => set({ selectedMusic: music }),
 }));
 
 export default useMyPageStore;

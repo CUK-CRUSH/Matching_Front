@@ -33,9 +33,9 @@ const IntroducePage = () => {
     setCurrentPage,
     selectedMBTI,
     setSelectedMBTI,
-    selectedMusicTag = [],
+    selectedMusicTag,
     setSelectedMusicTag,
-    selectedHobbyTag = [],
+    selectedHobbyTag,
     setSelectedHobbyTag,
     textarea1 = '',
     setTextarea1,
@@ -75,10 +75,10 @@ const IntroducePage = () => {
 
   useEffect(() => {
     if (IntroData) {
-      setTextarea1(IntroData.selfIntroduction);
-      setTextarea2(IntroData.likeableMusicTaste);
-      setValue('textarea1', IntroData.selfIntroduction);
-      setValue('textarea2', IntroData.likeableMusicTaste);
+      setTextarea1(IntroData.selfIntroduction || '');
+      setTextarea2(IntroData.likeableMusicTaste || '');
+      setValue('textarea1', IntroData.selfIntroduction || '');
+      setValue('textarea2', IntroData.likeableMusicTaste || '');
 
       const mbtiData = IntroData.mbti ? IntroData.mbti.split('') : [];
       setSelectedMBTI({
@@ -95,12 +95,16 @@ const IntroducePage = () => {
         .filter((tag) => tag.state === 'FEATURED')
         .map((tag) => tag.name);
 
-      setSelectedMusicTag(featuredMusicTags.length ? featuredMusicTags : selectedMusicTag);
-      setSelectedHobbyTag(featuredHobbyTags.length ? featuredHobbyTags : selectedHobbyTag);
+      setSelectedMusicTag(featuredMusicTags.length ? featuredMusicTags : []);
+      setSelectedHobbyTag(featuredHobbyTags.length ? featuredHobbyTags : []);
+
+      if (IntroData.mbti === 'NONE') {
+        setValue('living', true);
+      }
     }
   }, [IntroData, setTextarea1, setTextarea2, setValue, setSelectedMBTI]);
 
-  const [mbtiString, setMbtiString] = useState<string>('');
+  const [mbtiString, setMbtiString] = useState<string>(IntroData?.mbti || '');
 
   const handleMBTIClick = (group: MBTIGroup, value: string) => {
     const newMBTI = {
@@ -125,7 +129,11 @@ const IntroducePage = () => {
     selectedTags: string[],
     setSelectedTags: (tags: string[]) => void,
   ) => {
-    setSelectedTags([tag]); // FEATURED 상태는 하나만 선택되도록 함
+    if (selectedTags.includes(tag)) {
+      setSelectedTags(selectedTags.filter((t) => t !== tag));
+    } else {
+      setSelectedTags([tag]); // FEATURED 상태는 하나만 선택되도록 함
+    }
   };
 
   const handleMusicTagClick = (tag: string) => {
@@ -155,7 +163,7 @@ const IntroducePage = () => {
     }));
 
     const postData: UserIntroDTO = {
-      mbti: mbtiString,
+      mbti: mbtiString || IntroData?.mbti || '',
       musicTags: updatedMusicTags ?? [],
       hobbyTags: updatedHobbyTags ?? [],
       selfIntroduction: data.textarea1,
@@ -166,13 +174,8 @@ const IntroducePage = () => {
     mutation.mutate(postData);
   };
 
-  if (error) {
-    return <div>Error loading intro data</div>;
-  }
-
-  if (!IntroData) {
-    return <div>Loading...</div>;
-  }
+  if (error) return <div>Error loading intro data</div>;
+  if (!IntroData) return <div>Loading...</div>;
 
   return (
     <div className="text-white h-full flex flex-col items-center overflow-y-auto scrollbar-hide">
@@ -244,17 +247,17 @@ const IntroducePage = () => {
           <div className="mx-4">
             <span className="text-lg font-bold">음악</span>
             <div className="flex space-x-2 mt-2">
-              {selectedMusicTag.map((tag) => (
+              {IntroData.musicTags.map((tag) => (
                 <Button
-                  key={tag}
+                  key={tag.name}
                   variant="outline"
                   className={`${
-                    selectedMusicTag.includes(tag) ? 'bg-white text-black' : 'bg-[#1c1c1c]'
+                    selectedMusicTag.includes(tag.name) ? 'bg-white text-black' : 'bg-[#1c1c1c]'
                   } rounded-3xl`}
-                  onClick={() => handleMusicTagClick(tag)}
-                  disabled={!selectedMusicTag.includes(tag) && selectedMusicTag.length > 0}
+                  onClick={() => handleMusicTagClick(tag.name)}
+                  disabled={!selectedMusicTag.includes(tag.name) && selectedMusicTag.length > 0}
                 >
-                  {tag}
+                  {tag.name}
                 </Button>
               ))}
             </div>
@@ -263,17 +266,17 @@ const IntroducePage = () => {
           <div className="mx-4">
             <span className="text-lg font-bold">취미</span>
             <div className="flex space-x-2 mt-2">
-              {selectedHobbyTag.map((tag) => (
+              {IntroData.hobbyTags.map((tag) => (
                 <Button
-                  key={tag}
+                  key={tag.name}
                   variant="outline"
                   className={`${
-                    selectedHobbyTag.includes(tag) ? 'bg-white text-black' : 'bg-[#1c1c1c]'
+                    selectedHobbyTag.includes(tag.name) ? 'bg-white text-black' : 'bg-[#1c1c1c]'
                   } rounded-3xl`}
-                  onClick={() => handleHobbyTagClick(tag)}
-                  disabled={!selectedHobbyTag.includes(tag) && selectedHobbyTag.length > 0}
+                  onClick={() => handleHobbyTagClick(tag.name)}
+                  disabled={!selectedHobbyTag.includes(tag.name) && selectedHobbyTag.length > 0}
                 >
-                  {tag}
+                  {tag.name}
                 </Button>
               ))}
             </div>
