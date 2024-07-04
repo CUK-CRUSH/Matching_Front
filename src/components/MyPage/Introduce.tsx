@@ -2,14 +2,31 @@ import useMyPageStore from '@/store/myPageStore';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { useForm, Controller } from 'react-hook-form';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Textarea } from '../ui/textarea';
 import MatchingListHeader from '../layout/matchingListHeader';
 import { MBTIState } from '@/type/store/MyPage/MypageState';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { getUserIntroData, patchUserIntroData } from '@/services/Mypage/MypageAPI';
+import { useCookies } from 'react-cookie';
+import { TagsState, UserIntroDTO } from '@/type/services/Mypage/MypageDTO';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 const mbtiOptions = ['E', 'N', 'F', 'J', 'I', 'S', 'T', 'P'];
 
 type MBTIGroup = 'E_I' | 'N_S' | 'F_T' | 'J_P';
+
+const formSchema = z.object({
+  textarea1: z
+    .string()
+    .min(50, { message: '최소 50자 이상 입력해주세요' })
+    .max(500, { message: '최대 500자 까지 입력할 수 있어요' }),
+  textarea2: z
+    .string()
+    .min(50, { message: '최소 50자 이상 입력해주세요' })
+    .max(500, { message: '최대 500자 까지 입력할 수 있어요' }),
+});
 
 const IntroducePage = () => {
   const {
@@ -20,21 +37,74 @@ const IntroducePage = () => {
     setSelectedMusicTag,
     selectedHobbyTag,
     setSelectedHobbyTag,
-    textarea1,
+    textarea1 = '',
     setTextarea1,
-    textarea2,
+    textarea2 = '',
     setTextarea2,
   } = useMyPageStore();
 
+  // access토큰
+  const [cookies] = useCookies(['accessToken']);
+  const accessToken = cookies.accessToken;
+
+  const queryClient = useQueryClient();
+
+  const { data: IntroData, error } = useQuery<UserIntroDTO>({
+    queryKey: ['IntroData'],
+    queryFn: () => getUserIntroData(accessToken),
+    staleTime: 1000 * 60 * 5,
+  });
+
+  const mutation = useMutation({
+    mutationFn: (IntroData: UserIntroDTO) => patchUserIntroData(accessToken, IntroData),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['IntroData'] });
+      queryClient.invalidateQueries({ queryKey: ['mainData'] });
+      setCurrentPage('mypage');
+    },
+  });
+
   const { control, watch, setValue, handleSubmit } = useForm({
+    resolver: zodResolver(formSchema),
     defaultValues: {
-      textarea1,
-      textarea2,
+      textarea1: textarea1 || '',
+      textarea2: textarea2 || '',
       living: false,
     },
   });
 
-  const [mbtiString, setMbtiString] = useState<string>('');
+  useEffect(() => {
+    if (IntroData) {
+      setTextarea1(IntroData.selfIntroduction || '');
+      setTextarea2(IntroData.likeableMusicTaste || '');
+      setValue('textarea1', IntroData.selfIntroduction || '');
+      setValue('textarea2', IntroData.likeableMusicTaste || '');
+
+      const mbtiData = IntroData.mbti ? IntroData.mbti.split('') : [];
+      setSelectedMBTI({
+        E_I: mbtiData.includes('E') ? 'E' : mbtiData.includes('I') ? 'I' : null,
+        N_S: mbtiData.includes('N') ? 'N' : mbtiData.includes('S') ? 'S' : null,
+        F_T: mbtiData.includes('F') ? 'F' : mbtiData.includes('T') ? 'T' : null,
+        J_P: mbtiData.includes('J') ? 'J' : mbtiData.includes('P') ? 'P' : null,
+      });
+
+      const featuredMusicTags = IntroData.musicTags
+        .filter((tag) => tag.state === 'FEATURED')
+        .map((tag) => tag.name);
+      const featuredHobbyTags = IntroData.hobbyTags
+        .filter((tag) => tag.state === 'FEATURED')
+        .map((tag) => tag.name);
+
+      setSelectedMusicTag(featuredMusicTags.length ? featuredMusicTags : []);
+      setSelectedHobbyTag(featuredHobbyTags.length ? featuredHobbyTags : []);
+
+      if (IntroData.mbti === 'NONE') {
+        setValue('living', true);
+      }
+    }
+  }, [IntroData, setTextarea1, setTextarea2, setValue, setSelectedMBTI]);
+
+  const [mbtiString, setMbtiString] = useState<string>(IntroData?.mbti || '');
 
   const handleMBTIClick = (group: MBTIGroup, value: string) => {
     const newMBTI = {
@@ -52,35 +122,60 @@ const IntroducePage = () => {
 
   const isMBTIDisabled = watch('living');
 
-  const filledMbtiCount = isMBTIDisabled || mbtiString.length === 4 ? 1 : 0;
-  const filledTextAreaCount =
-    (textarea1.length >= 50 && textarea1.length <= 500 ? 1 : 0) +
-    (textarea2.length >= 50 && textarea2.length <= 500 ? 1 : 0);
-  const filledMusicAndHobbyCount = selectedMusicTag && selectedHobbyTag ? 1 : 0;
-
   const totalField = 4;
-  const filledFieldsCount = filledMbtiCount + filledMusicAndHobbyCount + filledTextAreaCount;
+
+  const handleTagClick = (
+    tag: string,
+    selectedTags: string[],
+    setSelectedTags: (tags: string[]) => void,
+  ) => {
+    if (selectedTags.includes(tag)) {
+      setSelectedTags(selectedTags.filter((t) => t !== tag));
+    } else {
+      setSelectedTags([tag]); // FEATURED 상태는 하나만 선택되도록 함
+    }
+  };
+
+  const handleMusicTagClick = (tag: string) => {
+    handleTagClick(tag, selectedMusicTag, setSelectedMusicTag);
+  };
+
+  const handleHobbyTagClick = (tag: string) => {
+    handleTagClick(tag, selectedHobbyTag, setSelectedHobbyTag);
+  };
 
   const onSubmit = (data: any) => {
     setTextarea1(data.textarea1);
     setTextarea2(data.textarea2);
-    const postData = {
-      mbtiString,
-      selectedMusicTag,
-      selectedHobbyTag,
-      textarea1: data.textarea1,
-      textarea2: data.textarea2,
+
+    const updatedMusicTags = IntroData?.musicTags.map((tag) => ({
+      ...tag,
+      state: selectedMusicTag.includes(tag.name)
+        ? ('FEATURED' as TagsState)
+        : ('STANDARD' as TagsState),
+    }));
+
+    const updatedHobbyTags = IntroData?.hobbyTags.map((tag) => ({
+      ...tag,
+      state: selectedHobbyTag.includes(tag.name)
+        ? ('FEATURED' as TagsState)
+        : ('STANDARD' as TagsState),
+    }));
+
+    const postData: UserIntroDTO = {
+      mbti: mbtiString || IntroData?.mbti || '',
+      musicTags: updatedMusicTags ?? [],
+      hobbyTags: updatedHobbyTags ?? [],
+      selfIntroduction: data.textarea1,
+      likeableMusicTaste: data.textarea2,
     };
+    console.log(updatedMusicTags);
     console.log(postData);
+    mutation.mutate(postData);
   };
 
-  const handleHighlightMusicTag = (tag: string) => {
-    setSelectedMusicTag([tag]);
-  };
-
-  const handleHighlightHobbyTag = (tag: string) => {
-    setSelectedHobbyTag([tag]);
-  };
+  if (error) return <div>Error loading intro data</div>;
+  if (!IntroData) return <div>Loading...</div>;
 
   return (
     <div className="text-white h-full flex flex-col items-center overflow-y-auto scrollbar-hide">
@@ -152,14 +247,17 @@ const IntroducePage = () => {
           <div className="mx-4">
             <span className="text-lg font-bold">음악</span>
             <div className="flex space-x-2 mt-2">
-              {selectedMusicTag.map((tag) => (
+              {IntroData.musicTags.map((tag) => (
                 <Button
-                  key={tag}
+                  key={tag.name}
                   variant="outline"
-                  className={`${selectedMusicTag[0] === tag ? 'bg-white text-black' : 'bg-[#1c1c1c]'} rounded-3xl`}
-                  onClick={() => handleHighlightMusicTag(tag)}
+                  className={`${
+                    selectedMusicTag.includes(tag.name) ? 'bg-white text-black' : 'bg-[#1c1c1c]'
+                  } rounded-3xl`}
+                  onClick={() => handleMusicTagClick(tag.name)}
+                  disabled={!selectedMusicTag.includes(tag.name) && selectedMusicTag.length > 0}
                 >
-                  {tag}
+                  {tag.name}
                 </Button>
               ))}
             </div>
@@ -168,14 +266,17 @@ const IntroducePage = () => {
           <div className="mx-4">
             <span className="text-lg font-bold">취미</span>
             <div className="flex space-x-2 mt-2">
-              {selectedHobbyTag.map((tag) => (
+              {IntroData.hobbyTags.map((tag) => (
                 <Button
-                  key={tag}
+                  key={tag.name}
                   variant="outline"
-                  className={`${selectedHobbyTag[0] === tag ? 'bg-white text-black' : 'bg-[#1c1c1c]'} rounded-3xl`}
-                  onClick={() => handleHighlightHobbyTag(tag)}
+                  className={`${
+                    selectedHobbyTag.includes(tag.name) ? 'bg-white text-black' : 'bg-[#1c1c1c]'
+                  } rounded-3xl`}
+                  onClick={() => handleHobbyTagClick(tag.name)}
+                  disabled={!selectedHobbyTag.includes(tag.name) && selectedHobbyTag.length > 0}
                 >
-                  {tag}
+                  {tag.name}
                 </Button>
               ))}
             </div>
@@ -236,7 +337,7 @@ const IntroducePage = () => {
             </div>
             <div className="flex justify-center w-full mt-4">
               <div className="bg-gray-700 w-auto text-white py-2 px-4 rounded-full">
-                {filledFieldsCount}/{totalField} 완료
+                1/{totalField} 완료
               </div>
             </div>
             <Button type="submit" className="w-full bg-white text-black mt-4">

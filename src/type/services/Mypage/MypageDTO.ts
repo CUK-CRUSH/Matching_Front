@@ -26,7 +26,7 @@ type MainDataDTO = {
   profileImageUrl: string;
   name: string;
   birthDate: string;
-  mbtiL: string;
+  mbti: string;
   infoCount: number;
   introCount: number;
   musicCount: number;
@@ -36,4 +36,36 @@ export type MainInfoDataDTO = {
   status: number;
   message: string;
   data: MainDataDTO;
+};
+
+/** Intro 페이지 데이터 타입 */
+export type TagsState = 'FEATURED' | 'STANDARD' | 'NONE';
+
+export type MusicTagDTO = {
+  name: string;
+  state: TagsState;
+};
+
+export type HobbyTagDTO = {
+  name: string;
+  state: TagsState;
+};
+
+export type UserIntroDTO = {
+  mbti: string | null;
+  musicTags: MusicTagDTO[];
+  hobbyTags: HobbyTagDTO[];
+  selfIntroduction: string | null;
+  likeableMusicTaste: string | null;
+};
+
+export type UserTagsDTO = {
+  musicTags: MusicTagDTO[];
+  hobbyTags: HobbyTagDTO[];
+};
+
+/** MusicTag 데이터 타입 */
+export type UserMusicTagDTO = {
+  musicTags: MusicTagDTO[];
+  hobbyTags: HobbyTagDTO[];
 };

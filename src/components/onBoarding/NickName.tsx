@@ -17,14 +17,14 @@ const NickNamePage = () => {
   } = useForm({
     mode: 'onChange',
     defaultValues: {
-      nickname: userData.nickname || '',
+      name: userData.name || '',
     },
   });
 
-  const nickname = watch('nickname');
+  const name = watch('name');
 
   const handleNext = () => {
-    setUserData('nickname', nickname);
+    setUserData('name', name);
     setCurrentPage('birth');
   };
   console.log(userData);
@@ -43,9 +43,9 @@ const NickNamePage = () => {
           <form onSubmit={handleSubmit(() => setCurrentPage('birth'))}>
             <Input
               type="text"
-              id="nickname"
+              id="name"
               placeholder="닉네임을 입력해주세요"
-              {...register('nickname', {
+              {...register('name', {
                 required: '닉네임은 필수 입력 사항입니다',
                 minLength: {
                   value: 4,
@@ -57,10 +57,10 @@ const NickNamePage = () => {
                 },
               })}
             />
-            {errors.nickname && (
+            {errors.name && (
               <p className="text-red-500 text-sm italic mt-1">
                 <ExclamationCircleOutlined />
-                {errors.nickname.message}
+                {errors.name.message}
               </p>
             )}
           </form>
@@ -68,10 +68,7 @@ const NickNamePage = () => {
       </div>
       <div className="flex">
         <ValidationPrevButton onStateChange={() => setCurrentPage('location')} />
-        <ValidationButton
-          onStateChange={handleNext}
-          buttonEnabled={isValid && nickname.length >= 4}
-        />
+        <ValidationButton onStateChange={handleNext} buttonEnabled={isValid && name.length >= 4} />
       </div>
     </div>
   );

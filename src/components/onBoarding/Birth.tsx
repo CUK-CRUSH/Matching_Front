@@ -10,13 +10,13 @@ import { useState } from 'react';
 const BirthPage = () => {
   const { setCurrentPage, setUserData, userData } = useOnboardingStore();
   const [selectedDate, setSelectedDate] = useState<any>(
-    userData.birth ? moment(userData.birth, 'YYYY년 MM월 DD일').toDate() : null,
+    userData.birthDate ? moment(userData.birthDate, 'YYYY년 MM월 DD일').toDate() : null,
   );
 
   const handleDateChange = (newDate: Date) => {
     const formattedDate = moment(newDate).format('YYYY년 MM월 DD일');
     setSelectedDate(newDate); // newDate는 Date 객체를 저장
-    setUserData('birth', formattedDate); // 문자열로 변환된 날짜를 저장
+    setUserData('birthDate', formattedDate); // 문자열로 변환된 날짜를 저장
   };
 
   return (

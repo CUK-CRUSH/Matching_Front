@@ -1,3 +1,5 @@
+import { LifeMusicItem } from '@/type/services/Music/MusicDTO';
+
 export type MBTIState = {
   E_I: string | null;
   N_S: string | null;
@@ -23,4 +25,7 @@ export type MyPageState = {
 
   textarea2: string;
   setTextarea2: (text: string) => void;
+
+  selectedMusic: LifeMusicItem[];
+  setSelectedMusic: (music: LifeMusicItem[]) => void;
 };

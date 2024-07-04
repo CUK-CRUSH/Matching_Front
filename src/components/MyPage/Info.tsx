@@ -22,6 +22,7 @@ import Cropper from 'react-easy-crop';
 import MatchingListHeader from '../layout/matchingListHeader';
 import { ProfilesInfoDTO, UserInfoDTO } from '@/type/services/Mypage/MypageDTO';
 import { useCookies } from 'react-cookie';
+import { useEffect } from 'react';
 
 const formSchema = z.object({
   nickname: z
@@ -92,11 +93,20 @@ const InfoPage = () => {
     croppedArea,
   } = useImageCrop(InfoData?.data.profileImageUrl || null, true);
 
+  useEffect(() => {
+    if (InfoData) {
+      form.reset({
+        nickname: InfoData.data.name,
+        oneLiner: InfoData.data.oneLineIntroduction,
+      });
+    }
+  }, [InfoData, form]);
+
   if (error) {
     return <div>error</div>;
   }
   if (!InfoData) {
-    return <div>No user data found</div>; // userData가 없을 때 처리
+    return <div>No user data found</div>;
   }
 
   return (

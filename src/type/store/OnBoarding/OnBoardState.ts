@@ -3,13 +3,13 @@ export type OnboardintState = {
   userData: {
     phoneNumber: string;
     verificationCode: string;
-    nickname: string;
+    name: string;
     kakaoId: string;
-    sex: string;
-    birth: string;
+    gender: string;
+    birthDate: string;
     location: [number, number];
     profileImage: string;
-    comment: string;
+    oneLineIntroduction: string;
   };
   userExist: boolean;
   isSubmitted: boolean;

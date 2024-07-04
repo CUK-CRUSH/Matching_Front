@@ -3,6 +3,8 @@ import { ValidationButtonDTO } from '@/type/validation/validation';
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import { useState } from 'react';
+import useOnboardingStore from '@/store/validationStore';
+import { postLogin } from '@/services/Login/LoginAPI';
 
 export default function ValidationButton({
   text = '다음',
@@ -13,7 +15,7 @@ export default function ValidationButton({
   userExists,
 }: ValidationButtonDTO) {
   const navigate = useNavigate();
-  // const { userData } = useOnboardingStore();
+  const { userData } = useOnboardingStore();
   const [, setCookie] = useCookies(['accessToken']);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -27,22 +29,22 @@ export default function ValidationButton({
         if (userExists) {
           try {
             setTimeout(async () => {
-              // const response: any = await postLogin(
-              //   userData.phoneNumber,
-              //   userData.verificationCode,
-              // );
+              const response: any = await postLogin(
+                userData.phoneNumber,
+                userData.verificationCode,
+              );
 
-              // setCookie('accessToken', response.data.accessToken, { path: '/' });
-              setCookie(
-                'accessToken',
-                'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzMCIsInR5cGUiOiJhY2Nlc3NfdG9rZW4iLCJpYXQiOjE3MTk0NzIxODcsImV4cCI6MTcyODExMjE4N30.sYBuQMorZuEB7g17Td257N8Ev1SE4Gpx7ly-NWUiZEg',
-                { path: '/' },
-              );
-              // localStorage.setItem('refreshToken', response.data.refreshToken);
-              localStorage.setItem(
-                'refreshToken',
-                'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzMCIsInR5cGUiOiJyZWZyZXNoX3Rva2VuIiwiaWF0IjoxNzE5NDcyMTg3LCJleHAiOjE3MTk0NzI3ODd9.qS0RD-8XyJPpPeu4b5ZCaeDQPBW12LFj1XBIGfCpMNU',
-              );
+              setCookie('accessToken', response.data.accessToken, { path: '/' });
+              // setCookie(
+              //   'accessToken',
+              //   'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzMCIsInR5cGUiOiJhY2Nlc3NfdG9rZW4iLCJpYXQiOjE3MTk0NzIxODcsImV4cCI6MTcyODExMjE4N30.sYBuQMorZuEB7g17Td257N8Ev1SE4Gpx7ly-NWUiZEg',
+              //   { path: '/' },
+              // );
+              localStorage.setItem('refreshToken', response.data.refreshToken);
+              // localStorage.setItem(
+              //   'refreshToken',
+              //   'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzMCIsInR5cGUiOiJyZWZyZXNoX3Rva2VuIiwiaWF0IjoxNzE5NDcyMTg3LCJleHAiOjE3MTk0NzI3ODd9.qS0RD-8XyJPpPeu4b5ZCaeDQPBW12LFj1XBIGfCpMNU',
+              // );
 
               navigate('/mypage');
               setIsLoading(false);

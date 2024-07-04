@@ -5,12 +5,10 @@ import ValidationText from '@/components/validation/validationText';
 import useOnboardingStore from '@/store/validationStore';
 import { useForm } from 'react-hook-form';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
-import { useNavigate } from 'react-router-dom';
 import ProgressBar from '@/utils/ProgressBar';
 import { postSignUp } from '@/services/Login/LoginAPI';
 
 const OneLinerPage = () => {
-  const navigate = useNavigate();
   const { setCurrentPage, userData, setUserData } = useOnboardingStore();
   const {
     register,
@@ -20,23 +18,23 @@ const OneLinerPage = () => {
   } = useForm({
     mode: 'onChange',
     defaultValues: {
-      comment: userData.comment || '',
+      oneLineIntroduction: userData.oneLineIntroduction || '',
     },
   });
 
-  const comment = watch('comment');
+  const oneLineIntroduction = watch('oneLineIntroduction');
 
   const handleNext = async () => {
     const updatedUserData = {
       ...userData,
-      comment: comment,
+      oneLineIntroduction: oneLineIntroduction,
     };
-    setUserData('comment', comment);
+    setUserData('oneLineIntroduction', oneLineIntroduction);
 
     try {
       console.log(updatedUserData);
       await postSignUp(updatedUserData);
-      navigate('/login');
+      location.replace('/login');
     } catch (error) {
       console.log(updatedUserData);
       console.error('Failed to submit data:', error);
@@ -59,9 +57,9 @@ const OneLinerPage = () => {
           <form onSubmit={handleSubmit(handleNext)}>
             <Input
               type="text"
-              id="comment"
+              id="oneLineIntroduction"
               placeholder="닉네임을 입력해주세요"
-              {...register('comment', {
+              {...register('oneLineIntroduction', {
                 required: '필수 입력 사항입니다',
 
                 maxLength: {
@@ -70,10 +68,10 @@ const OneLinerPage = () => {
                 },
               })}
             />
-            {errors.comment && (
+            {errors.oneLineIntroduction && (
               <p className="text-red-500 text-sm italic mt-1">
                 <ExclamationCircleOutlined />
-                {errors.comment.message}
+                {errors.oneLineIntroduction.message}
               </p>
             )}
           </form>
@@ -84,7 +82,7 @@ const OneLinerPage = () => {
         <ValidationButton
           text="완료"
           onStateChange={handleNext}
-          buttonEnabled={isValid && comment.length >= 4}
+          buttonEnabled={isValid && oneLineIntroduction.length >= 4}
         />
       </div>
     </div>
