@@ -12,10 +12,9 @@ import {
   UserMusicTagDTO,
 } from '@/type/services/Mypage/MypageDTO';
 import { getMusicTagsData, patchUserIntroData } from '@/services/Mypage/MypageAPI';
-import { getMBTIString } from '@/utils/transformMBTI';
 
 const TagsPage = () => {
-  const { setCurrentPage, selectedMBTI } = useMyPageStore();
+  const { setCurrentPage } = useMyPageStore();
   const [selectedMusicTags, setSelectedMusicTags] = useState<string[]>([]);
   const [selectedHobbyTags, setSelectedHobbyTags] = useState<string[]>([]);
   const [cookies] = useCookies(['accessToken']);
@@ -40,9 +39,6 @@ const TagsPage = () => {
       setCurrentPage('mypage');
     },
   });
-  useEffect(() => {
-    console.log('Current MBTI:', selectedMBTI); // MBTI 값을 확인
-  }, [selectedMBTI]);
 
   if (error) {
     return <div>Error loading tags</div>;
@@ -82,7 +78,7 @@ const TagsPage = () => {
       }
     });
   };
-  console.log(getMBTIString(selectedMBTI));
+
   const handleSaveTags = () => {
     if (MusicTagsData) {
       // 태그 상태 설정
@@ -108,7 +104,6 @@ const TagsPage = () => {
 
       // Call the mutation to update the tags
       const updatedIntroData: UserIntroDTO = {
-        // mbti: getMBTIString(selectedMBTI),
         mbti: null,
         musicTags: updatedMusicTags,
         hobbyTags: updatedHobbyTags,
