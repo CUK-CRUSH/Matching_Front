@@ -74,6 +74,8 @@ const MatchingPage = () => {
     // 이전 슬라이드 상태 초기화
     if (swiperIndex !== newIndex) {
       handleSetOpen(swiperIndex - 1, false);  // 이전 슬라이드 상태 초기화
+      handleSetOpen(swiperIndex + 1, false);  // 이전 슬라이드 상태 초기화
+      handleSetModalOpen(swiperIndex + 1, false);  // 이전 슬라이드 상태 초기화
       handleSetModalOpen(swiperIndex - 1, false)
     }
 

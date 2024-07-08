@@ -33,7 +33,7 @@ const ProfileCardSummary = ({ profileId, name, birthDate, mbti, oneLineIntroduct
   const currentBackground = useGetRandomBackgrounds({ backgrounds });
 
   console.log(`index : ${activeIndex} isLock: ${isLock} isOpen : ${isOpen} ,isModalOpen : ${isModalOpen}` )
-  const ProfileCardStyle = ` ${isLock ? `h-auto pt-[30px] my-[calc((100vh-200px-340px)/2)] pb-[20px] mx-[3%] ${currentBackground}`
+  const ProfileCardStyle = ` ${!isOpen ? `h-auto pt-[30px] my-[calc((100vh-200px-340px)/2)] pb-[20px] mx-[3%] ${currentBackground}`
                                : `h-[130vh]  my-[calc((100vh-200px]} pt-[80px]`}
                               rounded-[16px] scrollbar-hide overflow-scroll 
                              `;
