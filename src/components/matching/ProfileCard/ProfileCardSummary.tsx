@@ -52,6 +52,7 @@ const ProfileCardSummary = ({ profileId, name, birthDate, mbti, oneLineIntroduct
         activeIndex={activeIndex}
         profileId={profileId}
         isOpen={isOpen}
+        currentBackground={currentBackground}
       />}
       {/* Top */}
       {!isOpen &&

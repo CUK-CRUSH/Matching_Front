@@ -18,18 +18,9 @@ import Fold from '@/components/matching/Fold';
 import Divider from '@/components/common/Divider';
 import UserTaste from '@/components/matching/UserTaste';
 
-const ProfileCard = ({ profileId, name, birthDate, mbti,oneLineIntroduction,distance,lifeMusics,selfIntroduction, likeableMusicTaste,musicTags,hobbyTags,isOpen , setOpen }: CombinedProfileCardProps) => {
-  // 배경색 목록  
-  const backgrounds = [
-    'bg-background-grey',
-    'bg-background-yellow',
-    'bg-background-green',
-    'bg-background-kiwi',
-    'bg-background-purple',
-    'bg-background-pink',
-    'bg-background-sky',
-  ];
-  const currentBackground = useGetRandomBackgrounds({ backgrounds });
+const ProfileCard = ({ profileId, name, birthDate, mbti,oneLineIntroduction,distance,lifeMusics,selfIntroduction, likeableMusicTaste,musicTags,hobbyTags,
+  handleSetModalOpen,handleSetOpen,activeIndex,currentBackground,isOpen}: CombinedProfileCardProps) => {
+
 
   // 잠금 상태
   const [isLock, setLock] = useState<boolean>(true);
@@ -53,17 +44,13 @@ const ProfileCard = ({ profileId, name, birthDate, mbti,oneLineIntroduction,dist
 
         {/* Top */}
         <div className={`flex flex-row ml-6`}>
-          <ProfileImage setOpenModal={setOpenModal} setOpen={(value: boolean) => setOpen?.(profileId, value)}
-            isLock={isLock} />
+        <ProfileImage
+            handleSetModalOpen={(activeIndex:number | undefined, value: boolean) => handleSetModalOpen?.(activeIndex, value)}
+            handleSetOpen={(activeIndex:number | undefined,value: boolean) => handleSetOpen?.(activeIndex, value)}
+            isLock={isLock}
+            activeIndex={activeIndex}
+            />
 
-          {isOpenModal && <UnlockModal 
-            setLock={setLock} 
-            setOpen={(value: boolean) => setOpen?.(profileId, value)}
-            setOpenModal={setOpenModal} 
-            profileId={profileId}
-            isOpen={isOpen}
-            
-            />}
 
           {openMessage && <PostMessage />}
           <div className={`flex flex-col ml-[5%]`}>
@@ -114,7 +101,8 @@ const ProfileCard = ({ profileId, name, birthDate, mbti,oneLineIntroduction,dist
               value={likeableMusicTaste}
               testId="likeMusic" />
             <div className={` bg-yellow-250`}>
-              <Fold setOpen={(value: boolean) => setOpen?.(profileId, value)} />
+              <Fold         handleSetOpen={(activeIndex:number | undefined,value: boolean) => handleSetOpen?.(activeIndex, value)}
+ />
               <Divider />
             </div>
           </>

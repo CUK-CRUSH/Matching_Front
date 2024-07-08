@@ -6,7 +6,7 @@ import { toast } from "@/components/ui/use-toast"
 import { spendCoin } from "@/services/ProfileCard/ProfileCardApi";
 import ProfileCard from "@/components/matching/ProfileCard/ProfileCard";
 
-const UnlockModal = ({ setLock, handleSetOpen, handleSetModalOpen, profileId, isOpen, activeIndex }: UnlockModalProps) => {
+const UnlockModal = ({ setLock, handleSetOpen, handleSetModalOpen, profileId, isOpen, activeIndex,currentBackground }: UnlockModalProps) => {
   // 모달 열고닫기
   const unlockModalRef = useRef<HTMLDivElement>(null);
 
@@ -72,7 +72,8 @@ const UnlockModal = ({ setLock, handleSetOpen, handleSetModalOpen, profileId, is
         :
 
         <div className={`flex justify-center `}>
-          <ProfileCard profileId={profiles?.profileId} profileImageUrl={profiles?.profileImageUrl}
+          <ProfileCard 
+            currentBackground={currentBackground} profileId={profiles?.profileId} profileImageUrl={profiles?.profileImageUrl}
             name={profiles?.name} birthDate={profiles?.birthDate} mbti={profiles?.mbti}
             oneLineIntroduction={profiles?.oneLineIntroduction} distance={profiles?.distance}
             lifeMusics={profiles?.lifeMusics} selfIntroduction={profiles?.selfIntroduction}

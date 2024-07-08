@@ -23,7 +23,7 @@ export type UnlockModalProps = {
   profileId? : number;
   isOpen : boolean | undefined;
   activeIndex? : number;
-
+  currentBackground : string;
 };
 
 export type ContainerProps = {
@@ -84,6 +84,7 @@ export type ProfileCardProps = {
   isModalOpen? : boolean;
   isLock? : boolean;
   activeIndex? : number;
+  currentBackground? :string;
 }
 
 export type OpenProfileCardProps = {
