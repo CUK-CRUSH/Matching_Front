@@ -55,7 +55,7 @@ const ProfileCard = ({ profileId, name, birthDate, mbti,oneLineIntroduction,dist
           {openMessage && <PostMessage />}
           <div className={`flex flex-col ml-[5%]`}>
             <Name name={name} birthDate={birthDate} mbti={mbti} />
-            <Comment />
+            <Comment oneLineIntroduction={oneLineIntroduction} />
 
             {/* 음악취향 */}
             {/* <div className='flex flex-wrap mb-[5px]'>

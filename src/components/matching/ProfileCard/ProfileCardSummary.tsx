@@ -68,7 +68,7 @@ const ProfileCardSummary = ({ profileId, name, birthDate, mbti, tags,oneLineIntr
           {openMessage && <PostMessage />}
           <div className={`flex flex-col ml-[5%]`}>
             <Name name={name} birthDate={birthDate} mbti={mbti} />
-            <Comment />
+            <Comment oneLineIntroduction={oneLineIntroduction} />
 
             <div className='flex flex-wrap mb-[5px]'>
               {tags?.map((item) => (
@@ -78,7 +78,7 @@ const ProfileCardSummary = ({ profileId, name, birthDate, mbti, tags,oneLineIntr
           </div>
         </div>
       
-      <MusicCardContainer >
+      <MusicCardContainer>
         {lifeMusics?.map((item) => (
           <MusicCard title={item.title} artist={item.artist} isProilfeCard={true} />
         ))}

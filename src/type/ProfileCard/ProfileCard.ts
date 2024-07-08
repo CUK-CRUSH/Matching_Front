@@ -26,6 +26,11 @@ export type UnlockModalProps = {
   currentBackground : string;
 };
 
+export type OneLineIntroductionProps = {
+  oneLineIntroduction? : string;
+}
+
+
 export type ContainerProps = {
   children: React.ReactNode;
 }
@@ -64,7 +69,7 @@ export type ProfileCardProps = {
     name : string;
     state : string;
   }[];
-  
+
   musicTags?: {
     name : string;
     state : string;
