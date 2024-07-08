@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import ProfileImage from '@/components/matching/ProfileImage';
 import Name from '@/components/common/Name';
 import Comment from '@/components/matching/Comment';
@@ -6,18 +5,14 @@ import UnlockModal from '@/components/matching/UnlockModal';
 import Spread from '@/components/matching/Spread';
 import MusicCard from '@/components/common/MusicCard';
 import BlankMusicCard from '@/components/matching/BlankMusicCard';
-import CoupleMusic from '@/components/matching/CoupleMusic';
 import useProfileCardStore from '@/store/profileCardStore';
 import PostMessage from '@/components/matching/PostMessage';
 import useGetRandomBackgrounds from '@/hooks/useGetRandomBackgrounds/useGetRandomBackgrounds';
 import MusicCardContainer from '@/components/matching/MusicCardContainer';
 import { CombinedProfileCardProps } from '@/type/ProfileCard/ProfileCard';
 import Tag from '@/components/common/Tag';
-import Fold from '@/components/matching/Fold';
-import Divider from '@/components/common/Divider';
-import UserTaste from '@/components/matching/UserTaste';
 
-const ProfileCardSummary = ({ profileId, name, birthDate, mbti, tags,oneLineIntroduction, distance, lifeMusics, selfIntroduction, 
+const ProfileCardSummary = ({ profileId, name, birthDate, mbti, tags,oneLineIntroduction, distance, lifeMusics, 
    isOpen,isModalOpen,isLock,handleSetOpen ,handleSetModalOpen,activeIndex}: CombinedProfileCardProps) => {
 
   // 배경색 목록  
@@ -40,8 +35,6 @@ const ProfileCardSummary = ({ profileId, name, birthDate, mbti, tags,oneLineIntr
 
   // 메시지보내기 창 모달 오픈
   const { openMessage } = useProfileCardStore();
-    
-
   
   return (
     <div className={ProfileCardStyle}>
@@ -60,14 +53,14 @@ const ProfileCardSummary = ({ profileId, name, birthDate, mbti, tags,oneLineIntr
         <div className={`flex flex-row ml-6`}>
           <ProfileImage
             handleSetModalOpen={(activeIndex:number | undefined, value: boolean) => handleSetModalOpen?.(activeIndex, value)}
-            handleSetOpen={(activeIndex:number | undefined,value: boolean) => handleSetOpen?.(activeIndex, value)}
+            handleSetOpen={(activeIndex:number | undefined, value: boolean) => handleSetOpen?.(activeIndex, value)}
             isLock={isLock}
             activeIndex={activeIndex}
             />
 
           {openMessage && <PostMessage />}
           <div className={`flex flex-col ml-[5%]`}>
-            <Name name={name} birthDate={birthDate} mbti={mbti} />
+            <Name name={name} birthDate={birthDate} mbti={mbti} distance={distance} isProfileCard={true} />
             <Comment oneLineIntroduction={oneLineIntroduction} />
 
             <div className='flex flex-wrap mb-[5px]'>

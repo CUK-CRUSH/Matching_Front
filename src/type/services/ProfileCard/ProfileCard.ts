@@ -21,7 +21,7 @@ export type ProfileCardSummaryProps = {
   birthDate: string;
   mbti: string;
   oneLineIntroduction: string;
-  distance: string;
+  distance: number;
   profileImageUrl : string;
   lifeMusics: {
     musicId: number;

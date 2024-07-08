@@ -30,6 +30,10 @@ export type OneLineIntroductionProps = {
   oneLineIntroduction? : string;
 }
 
+export type DistanceProps = {
+  distance? : number;
+  isDark? : boolean;
+}
 
 export type ContainerProps = {
   children: React.ReactNode;
@@ -57,7 +61,7 @@ export type ProfileCardProps = {
   birthDate?: string;
   mbti?: string;
   oneLineIntroduction?: string;
-  distance?: string;
+  distance?: number;
   profileImageUrl? : string;
   lifeMusics?: {
     musicId: number;
