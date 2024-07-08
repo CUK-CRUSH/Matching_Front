@@ -1,22 +1,29 @@
 export type ProfileImageProps = {
-  setOpen: (value: boolean) => void;
-  setOpenModal : React.Dispatch<React.SetStateAction<boolean>>;
-  isLock : boolean;
+  handleSetOpen: (index: number | undefined, value: boolean) => void;
+  handleSetModalOpen: (index: number | undefined, value: boolean) => void;
+  isLock? : boolean;
+  activeIndex? : number;
 };
 
 export type SpreadProfileCardImageProps = {
-  setOpen: (value: boolean) => void;
-  setOpenModal : React.Dispatch<React.SetStateAction<boolean>>;
-  isLock : boolean;
+  handleSetOpen: (index: number | undefined, value: boolean) => void;
+  handleSetModalOpen: (index: number | undefined, value: boolean) => void;
+  isLock? : boolean;
+  activeIndex? : number;
 };
 export type FoldProfileCardImageProps = {
-  setOpen: (value: boolean) => void;
+  handleSetOpen: (index: number | undefined, value: boolean) => void;
+  activeIndex? : number;
+
 };
 export type UnlockModalProps = {
-  setLock: React.Dispatch<React.SetStateAction<boolean>>;
-  setOpen: (value: boolean) => void;
-  setOpenModal:  React.Dispatch<React.SetStateAction<boolean>>;
-  profileId : number;
+  setLock?: React.Dispatch<React.SetStateAction<boolean>>;
+  handleSetOpen: (index: number | undefined, value: boolean) => void;
+  handleSetModalOpen:  (index: number | undefined, value: boolean) => void;
+  profileId? : number;
+  isOpen : boolean | undefined;
+  activeIndex? : number;
+
 };
 
 export type ContainerProps = {
@@ -40,25 +47,20 @@ export type UserTasteProps = {
 }
 
 export type ProfileCardProps = {
-  profileId: number;
-  name: string;
-  birthDate: string;
-  mbti: string;
-  oneLineIntroduction: string;
-  distance: string;
-  profileImageUrl : string;
-  lifeMusics: {
+  profileId?: number;
+  name?: string;
+  birthDate?: string;
+  mbti?: string;
+  oneLineIntroduction?: string;
+  distance?: string;
+  profileImageUrl? : string;
+  lifeMusics?: {
     musicId: number;
     title: string;
     artist: string;
     url: string;
   }[];
-  // 딛혀있을때
-  tags?: {
-    name : string;
-    state : string;
-  }[];
-
+  
   musicTags?: {
     name : string;
     state : string;
@@ -78,13 +80,15 @@ export type ProfileCardProps = {
   }[]
   selfIntroduction? : string;
   likeableMusicTaste? : string;
-  
-
+  isOpen? : boolean;
+  isModalOpen? : boolean;
+  isLock? : boolean;
+  activeIndex? : number;
 }
 
 export type OpenProfileCardProps = {
-  isOpen ? : boolean;
-  setOpen : (index: number | undefined, value: boolean) => void;
+  handleSetOpen? : (index: number | undefined, value: boolean) => void;
+  handleSetModalOpen? : (index: number | undefined, value: boolean) => void;
 }
 
 export type CombinedProfileCardProps = ProfileCardProps & OpenProfileCardProps;

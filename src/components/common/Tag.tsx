@@ -1,7 +1,6 @@
 import { TagProps } from "@/type/MatchingList/MatchingList";
 
 const Tag = ({ name,state, isDark, isProfileCard }: TagProps) => {
-  console.log(state)
   return (
     <div className={`inline-block w-auto px-[9px] border-[1px]
                     ${isProfileCard ? 'h-[28px]' : 'h-[18px] '}

@@ -14,7 +14,8 @@ export type UserTasteProps = {
   testId: string;
 }
 
-export type ProfileCardProps = {
+// 목록조회 DTO
+export type ProfileCardSummaryProps = {
   profileId: number;
   name: string;
   birthDate: string;
@@ -29,11 +30,39 @@ export type ProfileCardProps = {
     url: string;
   }[];
   // 딛혀있을때
-  tags?: {
+  tags: {
     name : string;
     state : string;
   }[];
+}
 
+type DataSummaryType = {
+  profileCardSummaryResponses : ProfileCardSummaryProps[];
+  coin : number;
+}
+
+export type ProfileCardSummaryDTO = {
+  status: number;
+  message: string;
+  data: DataSummaryType
+}
+
+// 단일 조회 DTO
+export type ProfileCardProps = {
+  profileId?: number;
+  name?: string;
+  birthDate?: string;
+  mbti?: string;
+  oneLineIntroduction?: string;
+  distance?: string;
+  profileImageUrl? : string;
+  lifeMusics?: {
+    musicId: number;
+    title: string;
+    artist: string;
+    url: string;
+  }[];
+  
   musicTags?: {
     name : string;
     state : string;
@@ -55,9 +84,15 @@ export type ProfileCardProps = {
   likeableMusicTaste? : string;
 
 }
+type DataType = {
+  profileCardResponse : ProfileCardProps;
+  coin : number;
+}
 
+// 단일조회 dto
 export type ProfileCardDTO = {
   status: number;
   message: string;
-  data: ProfileCardProps[];
+  data: DataType
+  
 };

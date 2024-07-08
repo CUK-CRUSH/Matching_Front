@@ -18,8 +18,7 @@ import Fold from '@/components/matching/Fold';
 import Divider from '@/components/common/Divider';
 import UserTaste from '@/components/matching/UserTaste';
 
-const ProfileCard = ({ profileId, name, birthDate, mbti,oneLineIntroduction,distance,lifeMusics, tags,isOpen , setOpen }: CombinedProfileCardProps) => {
-  
+const ProfileCard = ({ profileId, name, birthDate, mbti,oneLineIntroduction,distance,lifeMusics,selfIntroduction, likeableMusicTaste,musicTags,hobbyTags,isOpen , setOpen }: CombinedProfileCardProps) => {
   // 배경색 목록  
   const backgrounds = [
     'bg-background-grey',
@@ -38,8 +37,8 @@ const ProfileCard = ({ profileId, name, birthDate, mbti,oneLineIntroduction,dist
   // 모달 오픈 상태
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
   // console.log(`isLock: ${isLock} isOpen : ${isOpen} ,isOpenModal : ${isOpenModal}` )
-  const ProfileCardStyle = ` ${isOpen ? 'h-auto mt-[80px] pb-[8px]' : 'h-auto my-[calc((100vh-200px-340px)/2)] pb-[20px]'}
-                             mx-[3%] rounded-[16px] ${currentBackground} 
+  const ProfileCardStyle = ` h-[auto]  pb-[8px]
+                             rounded-[16px] ${currentBackground} 
                              w-[calc(100%-6%)] pt-[30px] 
                              scrollbar-hide overflow-scroll 
                              `;
@@ -54,14 +53,15 @@ const ProfileCard = ({ profileId, name, birthDate, mbti,oneLineIntroduction,dist
 
         {/* Top */}
         <div className={`flex flex-row ml-6`}>
-          <ProfileImage setOpenModal={setOpenModal} setOpen={(value: boolean) => setOpen(profileId, value)}
+          <ProfileImage setOpenModal={setOpenModal} setOpen={(value: boolean) => setOpen?.(profileId, value)}
             isLock={isLock} />
 
           {isOpenModal && <UnlockModal 
             setLock={setLock} 
-            setOpen={(value: boolean) => setOpen(profileId, value)}
+            setOpen={(value: boolean) => setOpen?.(profileId, value)}
             setOpenModal={setOpenModal} 
             profileId={profileId}
+            isOpen={isOpen}
             
             />}
 
@@ -95,33 +95,30 @@ const ProfileCard = ({ profileId, name, birthDate, mbti,oneLineIntroduction,dist
               인생곡 TOP 3
             </p>
           }
-           {lifeMusics.map((item) => (
+           {lifeMusics?.map((item) => (
             <MusicCard title={item.title} artist={item.artist} isProilfeCard={true} />
           ))}
 
         </MusicCardContainer>
 
-        {!isOpen && <BlankMusicCard />}
-        {!isOpen && <Spread setOpenModal={setOpenModal} setOpen={(value: boolean) => setOpen(profileId, value)}
-          isLock={isLock} />}
-
-        {isOpen &&
+       
+        
           <>
             {/* <CoupleMusic song={couple.song} artist={couple.artist} /> */}
             <UserTaste 
               title="스스로를 소개해주세요"
-              // value={introduce}
+              value={selfIntroduction}
               testId="introduction" />
             <UserTaste 
               title="어떤 음악취향을 가진 상대에게 호감을 느끼나요 ?"
-              // value={likeMusic}
+              value={likeableMusicTaste}
               testId="likeMusic" />
             <div className={` bg-yellow-250`}>
-              <Fold setOpen={(value: boolean) => setOpen(profileId, value)} />
+              <Fold setOpen={(value: boolean) => setOpen?.(profileId, value)} />
               <Divider />
             </div>
           </>
-        }
+          
       </div>
       {isOpen && <SocialButtons />}
     </>
