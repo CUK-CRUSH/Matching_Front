@@ -60,6 +60,10 @@ export type ProfileCardProps = {
     artist: string;
     url: string;
   }[];
+  tags?: {
+    name : string;
+    state : string;
+  }[];
   
   musicTags?: {
     name : string;

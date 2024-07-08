@@ -17,7 +17,7 @@ import Fold from '@/components/matching/Fold';
 import Divider from '@/components/common/Divider';
 import UserTaste from '@/components/matching/UserTaste';
 
-const ProfileCardSummary = ({ profileId, name, birthDate, mbti, oneLineIntroduction, distance, lifeMusics, selfIntroduction, 
+const ProfileCardSummary = ({ profileId, name, birthDate, mbti, tags,oneLineIntroduction, distance, lifeMusics, selfIntroduction, 
    isOpen,isModalOpen,isLock,handleSetOpen ,handleSetModalOpen,activeIndex}: CombinedProfileCardProps) => {
 
   // 배경색 목록  
@@ -70,21 +70,15 @@ const ProfileCardSummary = ({ profileId, name, birthDate, mbti, oneLineIntroduct
             <Name name={name} birthDate={birthDate} mbti={mbti} />
             <Comment />
 
-            {/* <div className='flex flex-wrap mb-[5px]'>
+            <div className='flex flex-wrap mb-[5px]'>
               {tags?.map((item) => (
                 <Tag name={item.name} state={item.state} isProfileCard={true} />
               ))}
-            </div>  */}
-
+            </div> 
           </div>
         </div>
       
       <MusicCardContainer >
-        {!isOpen &&
-          <p data-testid='music' className={`text-[#2F2F2F] text-s ml-[6%] font-bold my-[8px]`}>
-            인생곡 TOP 3
-          </p>
-        }
         {lifeMusics?.map((item) => (
           <MusicCard title={item.title} artist={item.artist} isProilfeCard={true} />
         ))}
