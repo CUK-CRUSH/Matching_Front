@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import useMyPageStore from '@/store/myPageStore';
 import MatchingListHeader from '../../layout/matchingListHeader';
 import { useCookies } from 'react-cookie';
@@ -9,30 +10,38 @@ import {
 } from '@/type/services/Music/MusicDTO';
 import { getMusicTasteData, postMusicTasteData } from '@/services/Music/MusicAPI';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
+import MusicNote from '@/assets/Music/Note.svg';
+import MusicEdit from '@/assets/Music/MusicEdit.svg';
+import MusicDelete from '@/assets/Music/MusicDelete.svg';
 
 const MusicPage = () => {
-  const { setCurrentPage, selectedMusic, setSelectedMusic } = useMyPageStore();
+  const {
+    setCurrentPage,
+    selectedMusic,
+    setSelectedMusic,
+    setDeleteLifeMusics,
+    deleteLifeMusics,
+    setUpdateLifeMusics,
+    updateLifeMusics,
+  } = useMyPageStore();
   const [cookies] = useCookies(['accessToken']);
   const accessToken = cookies.accessToken;
 
   const queryClient = useQueryClient();
 
-  const [deleteLifeMusics, setDeleteLifeMusics] = useState<number[]>([]);
-  const [updateLifeMusics, setUpdateLifeMusics] = useState<LifeMusicItem[]>([]);
-
-  const { data: musicTasteData, isLoading: isFetching } = useQuery<MusicTasteDataDTO>({
+  const { data: musicTasteData } = useQuery<MusicTasteDataDTO>({
     queryKey: ['musicTasteData'],
     queryFn: () => getMusicTasteData(accessToken),
     staleTime: 1000 * 60 * 5,
   });
 
   useEffect(() => {
-    if (musicTasteData && selectedMusic.length === 0) {
+    if (musicTasteData && selectedMusic.length === 0 && deleteLifeMusics.length === 0) {
       setSelectedMusic(musicTasteData.lifeMusics);
     }
-  }, [musicTasteData, selectedMusic.length, setSelectedMusic]);
+  }, [musicTasteData, selectedMusic.length, deleteLifeMusics.length, setSelectedMusic]);
 
+  // 음악 데이터 저장 후 새로고침
   const mutation = useMutation({
     mutationFn: (musicTasteRequest: MusicTasteRequestDTO) =>
       postMusicTasteData(accessToken, musicTasteRequest),
@@ -50,24 +59,30 @@ const MusicPage = () => {
     },
   });
 
+  // 음악 추가 페이지 이동
   const handleAddMusicClick = () => {
     setCurrentPage('musicDetail');
   };
 
-  const handleRemoveMusicClick = (musicId: number | undefined) => {
-    if (musicId) {
-      setDeleteLifeMusics((prev) => [...prev, musicId]);
-    }
+  // 저장된 음악 삭제
+  const handleRemoveSavedMusicClick = (musicId: number) => {
+    setDeleteLifeMusics([...deleteLifeMusics, musicId]);
     const updatedMusic = selectedMusic.filter((item) => item.musicId !== musicId);
-
-    setSelectedMusic(updatedMusic);
+    setSelectedMusic([...updatedMusic]);
   };
 
+  // 미저장된 음악 삭제
+  const handleRemoveUnsavedMusicClick = (index: number) => {
+    const updatedMusic = selectedMusic.filter((_, i) => i !== index);
+    setSelectedMusic([...updatedMusic]);
+  };
+
+  // 수정하기
   const handleUpdateMusicClick = (music: LifeMusicItem) => {
-    setUpdateLifeMusics((prev) => [...prev, music]);
-    // setCurrentPage('musicDetail'); // 이걸로 수정 페이지로 이동하는 논리를 추가할 수 있습니다.
+    setUpdateLifeMusics([...updateLifeMusics, music]);
   };
 
+  // 데이터 저장(추가, 수정, 삭제)
   const handleSaveMusic = async () => {
     const createLifeMusics = selectedMusic.filter((item) => !item.musicId);
 
@@ -94,65 +109,97 @@ const MusicPage = () => {
           text="음악취향 설정"
           mypageText="My Page | 프로필 수정"
         />
-
+        {/* 선호 음악추가하기  */}
         <div className="mt-5">
           <span className="text-lg font-bold">나의 인생곡은? {selectedMusic.length}/3</span>
           {selectedMusic.length === 0 ? (
-            <div className="mt-5 flex justify-center">
-              <Button onClick={handleAddMusicClick} className="bg-gray-800 p-4 rounded">
-                <div className="flex items-center">
-                  <i className="material-icons">music_note</i>
+            <div className="mt-5  flex justify-center">
+              <Button
+                onClick={handleAddMusicClick}
+                variant={'noHover'}
+                className="bg-[#303030] w-11/12 p-10 rounded"
+              >
+                <div className="flex flex-col space-y-2 items-center justify-center">
+                  <img src={MusicNote} alt="MusicNote" />
                   <span>음악 추가하기</span>
                 </div>
               </Button>
             </div>
           ) : (
-            <div className="mt-5">
+            <div className="flex flex-col w-full text-m items-center justify-center mt-5">
               {selectedMusic.map((music, index) => (
                 <div
                   key={music.musicId || index}
-                  className="flex items-center justify-between mb-4 p-2 bg-gray-800 rounded"
+                  className="flex justify-between w-11/12 h-12 mb-4 bg-white text-black rounded"
                 >
-                  <span>
-                    {music.title} - {music.artist}
-                  </span>
-                  <div className="flex items-center">
+                  <div className="w-1/12 mx-2 flex items-center justify-center">
                     {music.musicId && (
-                      <Button
+                      <img
                         onClick={() => handleUpdateMusicClick(music)}
-                        className="bg-blue-500 p-2 rounded mx-1"
-                      >
-                        <i className="material-icons">edit</i>
-                      </Button>
+                        src={MusicEdit}
+                        alt="MusicEdit"
+                        className="cursor-pointer"
+                      />
                     )}
-                    <Button
-                      onClick={() => handleRemoveMusicClick(music.musicId)}
-                      className="bg-red-500 p-2 rounded"
-                    >
-                      <i className="material-icons">close</i>
-                    </Button>
+                  </div>
+                  <div className="w-7/12 mx-2 flex items-center justify-center overflow-hidden">
+                    <span className="truncate">{music.title}</span>
+                  </div>
+                  <div className="w-3/12 mx-2 flex items-center justify-center overflow-hidden">
+                    <span className="truncate">{music.artist}</span>
+                  </div>
+                  <div className="w-1/12 mx-2 flex items-center justify-center">
+                    {music.musicId ? (
+                      <img
+                        onClick={() => handleRemoveSavedMusicClick(music.musicId!)}
+                        src={MusicDelete}
+                        alt="MusicDelete"
+                        className="cursor-pointer"
+                      />
+                    ) : (
+                      <img
+                        onClick={() => handleRemoveUnsavedMusicClick(index)}
+                        src={MusicDelete}
+                        alt="MusicDelete"
+                        className="cursor-pointer"
+                      />
+                    )}
                   </div>
                 </div>
               ))}
-              {selectedMusic.length < 3 && (
-                <Button onClick={handleAddMusicClick} className="bg-gray-800 p-4 rounded w-full">
-                  <div className="flex items-center justify-center">
-                    <i className="material-icons">music_note</i>
-                    <span>음악 추가하기</span>
-                  </div>
-                </Button>
-              )}
+            </div>
+          )}
+
+          {selectedMusic.length < 3 && (
+            <div className="mt-5 flex justify-center">
+              <Button
+                onClick={handleAddMusicClick}
+                variant={'noHover'}
+                className="bg-[#303030] w-11/12 h-12 rounded"
+              >
+                <div className="flex flex-row space-x-2 items-center justify-center">
+                  <img src={MusicNote} alt="MusicNote" className="h-4 w-4" />
+                  <span>음악 추가하기</span>
+                </div>
+              </Button>
             </div>
           )}
         </div>
+        {/* Mood */}
+        <div>
+          <span className="text-lg font-bold">연인과 함께 듣고싶은 곡과,</span>
+          <span className="text-lg font-bold">그 음악을 들으면 떠오르는 이미지를 골라주세요.</span>
+        </div>
+        {/* 저장버튼 */}
+        <div>
+          <button
+            className="bg-blue-500 text-white py-2 px-4 rounded mt-5"
+            onClick={handleSaveMusic}
+          >
+            저장
+          </button>
+        </div>
       </div>
-      <button
-        className="bg-blue-500 text-white py-2 px-4 rounded"
-        onClick={handleSaveMusic}
-        // disabled={mutation.status}
-      >
-        저장
-      </button>
     </div>
   );
 };

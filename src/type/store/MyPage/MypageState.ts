@@ -28,4 +28,10 @@ export type MyPageState = {
 
   selectedMusic: LifeMusicItem[];
   setSelectedMusic: (music: LifeMusicItem[]) => void;
+
+  deleteLifeMusics: number[];
+  setDeleteLifeMusics: (musicIds: number[]) => void;
+
+  updateLifeMusics: LifeMusicItem[];
+  setUpdateLifeMusics: (musics: LifeMusicItem[]) => void;
 };

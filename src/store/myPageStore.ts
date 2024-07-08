@@ -22,6 +22,12 @@ export const useMyPageStore = create<MyPageState>((set) => ({
 
   selectedMusic: [],
   setSelectedMusic: (music) => set({ selectedMusic: music }),
+
+  deleteLifeMusics: [],
+  setDeleteLifeMusics: (musicIds) => set({ deleteLifeMusics: musicIds }),
+
+  updateLifeMusics: [],
+  setUpdateLifeMusics: (musics) => set({ updateLifeMusics: musics }),
 }));
 
 export default useMyPageStore;
