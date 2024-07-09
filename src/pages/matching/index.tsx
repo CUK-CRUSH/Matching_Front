@@ -1,5 +1,5 @@
 import Layout from "@/components/layout/layout";
-import ProfileCardSummary from "@/components/matching/ProfileCard/ProfileCardSummary";
+import ProfileCard from "@/components/matching/ProfileCard/ProfileCard";
 import Footer from '@/components/layout/footer';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -9,7 +9,6 @@ import 'swiper/swiper-bundle.css';
 import { useEffect, useState } from "react";
 import { ProfileCardSummaryProps } from "@/type/services/ProfileCard/ProfileCard";
 import { useQuery } from "@tanstack/react-query";
-import { ProfileCardSummaryDTO } from "@/type/services/ProfileCard/ProfileCard";
 import { getProfileCardData } from "@/services/ProfileCard/ProfileCardApi";
 
 const MatchingPage = () => {
@@ -101,7 +100,7 @@ const MatchingPage = () => {
             
             key={index}
             >
-            <ProfileCardSummary {...item}
+            <ProfileCard {...item}
             
             activeIndex={swiperIndex}
             handleSetOpen={handleSetOpen}
