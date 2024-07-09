@@ -39,7 +39,6 @@ const ProfileCard = ({ profileId,handleSetModalOpen, handleSetOpen, activeIndex,
     }, []);
   // 메시지보내기 창 모달 오픈
   const { openMessage } = useProfileCardStore();
-  console.log(isLock, activeIndex,isOpen)
   return (
 
     <div className='flex flex-col w-[calc(100%-6%)]'>
@@ -51,6 +50,7 @@ const ProfileCard = ({ profileId,handleSetModalOpen, handleSetOpen, activeIndex,
             handleSetModalOpen={(activeIndex: number | undefined, value: boolean) => handleSetModalOpen?.(activeIndex, value)}
             handleSetOpen={(activeIndex: number | undefined, value: boolean) => handleSetOpen?.(activeIndex, value)}
             activeIndex={activeIndex}
+            profileImageUrl={profiles?.profileImageUrl}
           />
 
 

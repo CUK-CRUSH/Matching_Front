@@ -3,6 +3,7 @@ export type ProfileImageProps = {
   handleSetModalOpen: (index: number | undefined, value: boolean) => void;
   isLock? : boolean;
   activeIndex? : number;
+  profileImageUrl? : string;
 };
 
 export type SpreadProfileCardImageProps = {
@@ -49,9 +50,11 @@ export type Music = {
   artist: string;
 }
 
-export type CoupleProps = {
-  song: string;
-  artist: string;
+export type MoodProps = {
+  title?: string;
+  artist?: string;
+  moodImageUrl? : string
+  isDeleteImage? : boolean;
 }
 
 export type UserTasteProps = {
@@ -93,9 +96,9 @@ export type ProfileCardProps = {
   mood? : {
     title : string;
     artist : string;
-    moodImage : string;
+    moodImageUrl : string;
     isDeleteImage : boolean;
-  }[]
+  }
   selfIntroduction? : string;
   likeableMusicTaste? : string;
   isOpen? : boolean;

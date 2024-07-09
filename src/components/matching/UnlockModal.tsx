@@ -4,10 +4,11 @@ import { Button } from '@/components/ui/button';
 import { ProfileCardProps, UnlockModalProps } from '@/type/ProfileCard/ProfileCard';
 import { spendCoin } from "@/services/ProfileCard/ProfileCardApi";
 import ProfileCard from "@/components/matching/ProfileCard/ProfileCard";
+import useProfileCardStore from '@/store/profileCardStore';
 
 const UnlockModal = ({ setLock, handleSetOpen, handleSetModalOpen,handleSetLockOpen, profileId, isOpen, isLock, activeIndex,currentBackground }: UnlockModalProps) => {
   
-  const [coin,setCoin] = useState<boolean>(false)
+  const { setAbleSpend } = useProfileCardStore();
 
   // 모달 열고닫기
   const unlockModalRef = useRef<HTMLDivElement>(null);
@@ -30,7 +31,7 @@ const UnlockModal = ({ setLock, handleSetOpen, handleSetModalOpen,handleSetLockO
     handleSetModalOpen(activeIndex, true)
     handleSetOpen(activeIndex, true)
     handleSetLockOpen(activeIndex, false)
-    setCoin(true)
+    setAbleSpend(true)
     // setOpenModal(false);
    
   };
@@ -63,17 +64,12 @@ const UnlockModal = ({ setLock, handleSetOpen, handleSetModalOpen,handleSetLockO
         :
 
         <div className={`flex justify-center `}>
-          <ProfileCard 
+          {/* <ProfileCard 
             coin={coin} profileId={profileId}
             isOpen={isOpen} isLock={isLock} activeIndex={activeIndex} handleSetModalOpen={handleSetModalOpen} handleSetOpen={handleSetOpen}
             currentBackground={currentBackground} 
             // 데이터
-            // profileId={profiles?.profileId} profileImageUrl={profiles?.profileImageUrl}
-            // name={profiles?.name} birthDate={profiles?.birthDate} mbti={profiles?.mbti}
-            // oneLineIntroduction={profiles?.oneLineIntroduction} distance={profiles?.distance}
-            // lifeMusics={profiles?.lifeMusics} selfIntroduction={profiles?.selfIntroduction}
-            // musicTags={profiles?.musicTags} hobbyTags={profiles?.hobbyTags} likeableMusicTaste={profiles?.likeableMusicTaste}
-          />
+          /> */}
         </div>
       }
     </>

@@ -77,9 +77,9 @@ export type ProfileCardProps = {
   mood? : {
     title : string;
     artist : string;
-    moodImage : string;
+    moodImageUrl : string;
     isDeleteImage : boolean;
-  }[]
+  }
   selfIntroduction? : string;
   likeableMusicTaste? : string;
 
