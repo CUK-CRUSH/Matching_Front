@@ -8,7 +8,15 @@ export type MBTIState = {
 };
 
 export type MyPageState = {
-  currentPage: 'mypage' | 'info' | 'introduce' | 'music' | 'musicDetail' | 'tags' | 'location';
+  currentPage:
+    | 'mypage'
+    | 'info'
+    | 'introduce'
+    | 'music'
+    | 'musicDetail'
+    | 'tags'
+    | 'location'
+    | 'mood';
   setCurrentPage: (page: MyPageState['currentPage']) => void;
 
   selectedMBTI: MBTIState;
@@ -34,4 +42,13 @@ export type MyPageState = {
 
   updateLifeMusics: LifeMusicItem[];
   setUpdateLifeMusics: (musics: LifeMusicItem[]) => void;
+
+  selectMusicMoodTitle: string;
+  setSelectMusicMoodTitle: (title: string) => void;
+
+  selectMusicMoodArtist: string;
+  setSelectMusicMoodArtist: (artist: string) => void;
+
+  selectMusicMoodImage: string | null;
+  setSelectMusicMoodImage: (image: string | null) => void;
 };

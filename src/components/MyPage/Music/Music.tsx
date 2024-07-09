@@ -13,6 +13,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import MusicNote from '@/assets/Music/Note.svg';
 import MusicEdit from '@/assets/Music/MusicEdit.svg';
 import MusicDelete from '@/assets/Music/MusicDelete.svg';
+import MusicMood from '@/assets/Music/MusicMood.svg';
 
 const MusicPage = () => {
   const {
@@ -54,6 +55,7 @@ const MusicPage = () => {
           setSelectedMusic(updatedMusicTasteData.lifeMusics);
         }
       });
+      queryClient.invalidateQueries({ queryKey: ['mainData'] });
       setDeleteLifeMusics([]);
       setUpdateLifeMusics([]);
     },
@@ -62,6 +64,11 @@ const MusicPage = () => {
   // 음악 추가 페이지 이동
   const handleAddMusicClick = () => {
     setCurrentPage('musicDetail');
+  };
+
+  // Mood 추가 페이지 이동
+  const handleAddMoodClick = () => {
+    setCurrentPage('mood');
   };
 
   // 저장된 음악 삭제
@@ -103,7 +110,7 @@ const MusicPage = () => {
 
   return (
     <div className="text-white h-full flex flex-col items-center pb-20">
-      <div className="w-full max-w-md mx-auto mt-5">
+      <div className="w-full max-w-md mx-auto mt-5 flex flex-col justify-stretch">
         <MatchingListHeader
           onStateChange={() => setCurrentPage('mypage')}
           text="음악취향 설정"
@@ -113,7 +120,7 @@ const MusicPage = () => {
         <div className="mt-5">
           <span className="text-lg font-bold">나의 인생곡은? {selectedMusic.length}/3</span>
           {selectedMusic.length === 0 ? (
-            <div className="mt-5  flex justify-center">
+            <div className="mt-5 flex justify-center">
               <Button
                 onClick={handleAddMusicClick}
                 variant={'noHover'}
@@ -126,74 +133,95 @@ const MusicPage = () => {
               </Button>
             </div>
           ) : (
-            <div className="flex flex-col w-full text-m items-center justify-center mt-5">
-              {selectedMusic.map((music, index) => (
-                <div
-                  key={music.musicId || index}
-                  className="flex justify-between w-11/12 h-12 mb-4 bg-white text-black rounded"
-                >
-                  <div className="w-1/12 mx-2 flex items-center justify-center">
-                    {music.musicId && (
-                      <img
-                        onClick={() => handleUpdateMusicClick(music)}
-                        src={MusicEdit}
-                        alt="MusicEdit"
-                        className="cursor-pointer"
-                      />
-                    )}
+            <>
+              <div className="flex flex-col w-full text-m items-center justify-center mt-5">
+                {selectedMusic.map((music, index) => (
+                  <div
+                    key={music.musicId || index}
+                    className="flex justify-between w-11/12 h-12 mb-4 bg-white text-black rounded"
+                  >
+                    <div className="w-1/12 mx-2 flex items-center justify-center">
+                      {music.musicId && (
+                        <img
+                          onClick={() => handleUpdateMusicClick(music)}
+                          src={MusicEdit}
+                          alt="MusicEdit"
+                          className="cursor-pointer"
+                        />
+                      )}
+                    </div>
+                    <div className="w-7/12 mx-2 flex items-center justify-center overflow-hidden">
+                      <span className="truncate">{music.title}</span>
+                    </div>
+                    <div className="w-3/12 mx-2 flex items-center justify-center overflow-hidden">
+                      <span className="truncate">{music.artist}</span>
+                    </div>
+                    <div className="w-1/12 mx-2 flex items-center justify-center">
+                      {music.musicId ? (
+                        <img
+                          onClick={() => handleRemoveSavedMusicClick(music.musicId!)}
+                          src={MusicDelete}
+                          alt="MusicDelete"
+                          className="cursor-pointer"
+                        />
+                      ) : (
+                        <img
+                          onClick={() => handleRemoveUnsavedMusicClick(index)}
+                          src={MusicDelete}
+                          alt="MusicDelete"
+                          className="cursor-pointer"
+                        />
+                      )}
+                    </div>
                   </div>
-                  <div className="w-7/12 mx-2 flex items-center justify-center overflow-hidden">
-                    <span className="truncate">{music.title}</span>
-                  </div>
-                  <div className="w-3/12 mx-2 flex items-center justify-center overflow-hidden">
-                    <span className="truncate">{music.artist}</span>
-                  </div>
-                  <div className="w-1/12 mx-2 flex items-center justify-center">
-                    {music.musicId ? (
-                      <img
-                        onClick={() => handleRemoveSavedMusicClick(music.musicId!)}
-                        src={MusicDelete}
-                        alt="MusicDelete"
-                        className="cursor-pointer"
-                      />
-                    ) : (
-                      <img
-                        onClick={() => handleRemoveUnsavedMusicClick(index)}
-                        src={MusicDelete}
-                        alt="MusicDelete"
-                        className="cursor-pointer"
-                      />
-                    )}
-                  </div>
+                ))}
+              </div>
+              {selectedMusic.length < 3 && (
+                <div className="mt-5 flex justify-center">
+                  <Button
+                    onClick={handleAddMusicClick}
+                    variant={'noHover'}
+                    className="bg-[#303030] w-11/12 h-12 rounded"
+                  >
+                    <div className="flex flex-row space-x-2 items-center justify-center">
+                      <img src={MusicNote} alt="MusicNote" className="h-4 w-4" />
+                      <span>음악 추가하기</span>
+                    </div>
+                  </Button>
                 </div>
-              ))}
-            </div>
-          )}
-
-          {selectedMusic.length < 3 && (
-            <div className="mt-5 flex justify-center">
-              <Button
-                onClick={handleAddMusicClick}
-                variant={'noHover'}
-                className="bg-[#303030] w-11/12 h-12 rounded"
-              >
-                <div className="flex flex-row space-x-2 items-center justify-center">
-                  <img src={MusicNote} alt="MusicNote" className="h-4 w-4" />
-                  <span>음악 추가하기</span>
-                </div>
-              </Button>
-            </div>
+              )}
+            </>
           )}
         </div>
+
         {/* Mood */}
         <div>
-          <span className="text-lg font-bold">연인과 함께 듣고싶은 곡과,</span>
-          <span className="text-lg font-bold">그 음악을 들으면 떠오르는 이미지를 골라주세요.</span>
+          <p className="text-lg font-bold">연인과 함께 듣고싶은 곡, 어울리는 이미지로</p>
+          <p className="text-lg font-bold">나의 mood를 설정해보세요</p>
+
+          <div className="mt-5">
+            <div className="mt-5 flex justify-center ">
+              <div onClick={handleAddMoodClick} className="h-40 w-full">
+                {musicTasteData?.mood.moodImageUrl ? (
+                  <img
+                    src={musicTasteData?.mood.moodImageUrl}
+                    alt="Selected"
+                    className="h-full w-full object-cover"
+                  />
+                ) : (
+                  <>
+                    <img src={MusicMood} alt="MusicMood" className="h-8 w-8" />
+                    <span>이미지 추가하기</span>
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
         </div>
         {/* 저장버튼 */}
-        <div>
+        <div className="flex justify-center items-center">
           <button
-            className="bg-blue-500 text-white py-2 px-4 rounded mt-5"
+            className=" bg-white text-black w-11/12 py-2 px-4 rounded mt-5"
             onClick={handleSaveMusic}
           >
             저장

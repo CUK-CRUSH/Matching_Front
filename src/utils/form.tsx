@@ -121,7 +121,7 @@ export const InputForm = () => {
           <div className="flex justify-center">
             <Button
               type="submit"
-              className={`w-full h-14 ${isSubmitted ? 'bg-[#a0a0a0] text-white pointer-events-none' : formState.isValid ? 'bg-[#ececec] text-black' : 'bg-[#a0a0a0] text-white pointer-events-none'}`}
+              className={`w-1/3 h-12 ${isSubmitted ? 'bg-[#a0a0a0] text-white pointer-events-none' : formState.isValid ? 'bg-[#252525] text-white' : 'bg-[#a0a0a0] text-white pointer-events-none'}`}
             >
               {isSubmitted ? '메시지 전송 성공' : '인증 메시지 전송'}
             </Button>
