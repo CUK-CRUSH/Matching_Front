@@ -12,8 +12,8 @@ import MusicCardContainer from '@/components/matching/MusicCardContainer';
 import { CombinedProfileCardProps } from '@/type/ProfileCard/ProfileCard';
 import Tag from '@/components/common/Tag';
 
-const ProfileCardSummary = ({ profileId, name, birthDate, mbti, tags,oneLineIntroduction, distance, lifeMusics, 
-   isOpen,isModalOpen,isLock,handleSetOpen ,handleSetModalOpen,activeIndex}: CombinedProfileCardProps) => {
+const ProfileCardSummary = ({ profileId, name, birthDate, mbti, tags, oneLineIntroduction, distance, lifeMusics,
+  isOpen, isModalOpen, isLock, handleSetOpen, handleSetModalOpen, handleSetLockOpen, activeIndex }: CombinedProfileCardProps) => {
 
   // 배경색 목록  
   const backgrounds = [
@@ -27,21 +27,22 @@ const ProfileCardSummary = ({ profileId, name, birthDate, mbti, tags,oneLineIntr
   ];
   const currentBackground = useGetRandomBackgrounds({ backgrounds });
 
-  console.log(`index : ${activeIndex} isLock: ${isLock} isOpen : ${isOpen} ,isModalOpen : ${isModalOpen}` )
+  console.log(`index : ${activeIndex} isLock: ${isLock} isOpen : ${isOpen} ,isModalOpen : ${isModalOpen}`)
   const ProfileCardStyle = ` ${!isOpen ? `h-auto pt-[30px] my-[calc((100vh-200px-340px)/2)] pb-[20px] mx-[3%] ${currentBackground}`
-                               : `h-[130vh]  my-[calc((100vh-200px]} pt-[80px]`}
+    : `h-[130vh]  my-[calc((100vh-200px]} pt-[80px]`}
                               rounded-[16px] scrollbar-hide overflow-scroll 
                              `;
 
   // 메시지보내기 창 모달 오픈
   const { openMessage } = useProfileCardStore();
-  
+
   return (
     <div className={ProfileCardStyle}>
       {isModalOpen && <UnlockModal
         // setLock={setLock}
-        handleSetModalOpen={(activeIndex:number | undefined, value: boolean) => handleSetModalOpen?.(activeIndex, value)}
-        handleSetOpen={(activeIndex:number | undefined,value: boolean) => handleSetOpen?.(activeIndex, value)}
+        handleSetModalOpen={(activeIndex: number | undefined, value: boolean) => handleSetModalOpen?.(activeIndex, value)}
+        handleSetOpen={(activeIndex: number | undefined, value: boolean) => handleSetOpen?.(activeIndex, value)}
+        handleSetLockOpen={(activeIndex: number | undefined, value: boolean) => handleSetLockOpen?.(activeIndex, value)}
         activeIndex={activeIndex}
         profileId={profileId}
         isOpen={isOpen}
@@ -49,46 +50,45 @@ const ProfileCardSummary = ({ profileId, name, birthDate, mbti, tags,oneLineIntr
       />}
       {/* Top */}
       {!isOpen &&
-      <>
-        <div className={`flex flex-row ml-6`}>
-          <ProfileImage
-            handleSetModalOpen={(activeIndex:number | undefined, value: boolean) => handleSetModalOpen?.(activeIndex, value)}
-            handleSetOpen={(activeIndex:number | undefined, value: boolean) => handleSetOpen?.(activeIndex, value)}
-            isLock={isLock}
-            activeIndex={activeIndex}
+        <>
+          <div className={`flex flex-row ml-6`}>
+            <ProfileImage
+              handleSetModalOpen={(activeIndex: number | undefined, value: boolean) => handleSetModalOpen?.(activeIndex, value)}
+              handleSetOpen={(activeIndex: number | undefined, value: boolean) => handleSetOpen?.(activeIndex, value)}
+              isLock={isLock}
+              activeIndex={activeIndex}
             />
 
-          {openMessage && <PostMessage />}
-          <div className={`flex flex-col ml-[5%]`}>
-            <Name name={name} birthDate={birthDate} mbti={mbti} distance={distance} isProfileCard={true} />
-            <Comment oneLineIntroduction={oneLineIntroduction} />
+            {openMessage && <PostMessage />}
+            <div className={`flex flex-col ml-[5%]`}>
+              <Name name={name} birthDate={birthDate} mbti={mbti} distance={distance} isProfileCard={true} />
+              <Comment oneLineIntroduction={oneLineIntroduction} />
 
-            <div className='flex flex-wrap mb-[5px]'>
-              {tags?.map((item) => (
-                <Tag name={item.name} state={item.state} isProfileCard={true} />
-              ))}
-            </div> 
+              <div className='flex flex-wrap mb-[5px]'>
+                {tags?.map((item) => (
+                  <Tag name={item.name} state={item.state} isProfileCard={true} />
+                ))}
+              </div>
+            </div>
           </div>
-        </div>
-      
-      <MusicCardContainer>
-        {lifeMusics?.map((item) => (
-          <MusicCard title={item.title} artist={item.artist} isProilfeCard={true} />
-        ))}
 
-      </MusicCardContainer>
+          <MusicCardContainer>
+            {lifeMusics?.map((item) => (
+              <MusicCard title={item.title} artist={item.artist} isProilfeCard={true} />
+            ))}
 
-      <BlankMusicCard />
-      <Spread 
-        handleSetModalOpen={(activeIndex:number | undefined,value: boolean) => handleSetModalOpen?.(activeIndex, value)}
-        handleSetOpen={(activeIndex:number | undefined,value: boolean) => handleSetOpen?.(activeIndex, value)}
-        isLock={isLock} 
-        activeIndex={activeIndex}
-        />
+          </MusicCardContainer>
+
+          <BlankMusicCard />
+          <Spread
+            handleSetModalOpen={(activeIndex: number | undefined, value: boolean) => handleSetModalOpen?.(activeIndex, value)}
+            handleSetOpen={(activeIndex: number | undefined, value: boolean) => handleSetOpen?.(activeIndex, value)}
+            isLock={isLock}
+            activeIndex={activeIndex}
+          />
 
         </>
-}
-
+      }
     </div>
   );
 }

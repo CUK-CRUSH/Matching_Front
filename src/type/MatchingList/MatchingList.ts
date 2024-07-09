@@ -42,7 +42,7 @@ export type TagProps = {
   state : string;
   isDark?: boolean;
   isProfileCard?: boolean;
-
+  mark?: boolean;
 }
 
 export type SocialButtonProps = {

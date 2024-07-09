@@ -9,10 +9,13 @@ export type SpreadProfileCardImageProps = {
   handleSetOpen: (index: number | undefined, value: boolean) => void;
   handleSetModalOpen: (index: number | undefined, value: boolean) => void;
   isLock? : boolean;
+  profileId? : number;
+
   activeIndex? : number;
 };
 export type FoldProfileCardImageProps = {
   handleSetOpen: (index: number | undefined, value: boolean) => void;
+  handleSetModalOpen: (index: number | undefined, value: boolean) => void;
   activeIndex? : number;
 
 };
@@ -20,8 +23,10 @@ export type UnlockModalProps = {
   setLock?: React.Dispatch<React.SetStateAction<boolean>>;
   handleSetOpen: (index: number | undefined, value: boolean) => void;
   handleSetModalOpen:  (index: number | undefined, value: boolean) => void;
+  handleSetLockOpen: (index: number | undefined, value: boolean) => void;
   profileId? : number;
-  isOpen : boolean | undefined;
+  isOpen? : boolean;
+  isLock? : boolean;
   activeIndex? : number;
   currentBackground : string;
 };
@@ -98,11 +103,15 @@ export type ProfileCardProps = {
   isLock? : boolean;
   activeIndex? : number;
   currentBackground? :string;
+
+  // 코인여부
+  coin? :boolean;
 }
 
 export type OpenProfileCardProps = {
   handleSetOpen? : (index: number | undefined, value: boolean) => void;
   handleSetModalOpen? : (index: number | undefined, value: boolean) => void;
+  handleSetLockOpen? : (index: number | undefined, value: boolean) => void;
 }
 
 export type CombinedProfileCardProps = ProfileCardProps & OpenProfileCardProps;

@@ -2,11 +2,13 @@ import { useRef, useEffect, useState } from 'react';
 import star from '@/assets/ProfileCard/stars.svg';
 import { Button } from '@/components/ui/button';
 import { ProfileCardProps, UnlockModalProps } from '@/type/ProfileCard/ProfileCard';
-import { toast } from "@/components/ui/use-toast"
 import { spendCoin } from "@/services/ProfileCard/ProfileCardApi";
 import ProfileCard from "@/components/matching/ProfileCard/ProfileCard";
 
-const UnlockModal = ({ setLock, handleSetOpen, handleSetModalOpen, profileId, isOpen, activeIndex,currentBackground }: UnlockModalProps) => {
+const UnlockModal = ({ setLock, handleSetOpen, handleSetModalOpen,handleSetLockOpen, profileId, isOpen, isLock, activeIndex,currentBackground }: UnlockModalProps) => {
+  
+  const [coin,setCoin] = useState<boolean>(false)
+
   // 모달 열고닫기
   const unlockModalRef = useRef<HTMLDivElement>(null);
 
@@ -24,24 +26,13 @@ const UnlockModal = ({ setLock, handleSetOpen, handleSetModalOpen, profileId, is
   }, [setLock]);
 
   // 확인버튼 클릭시 재화 2 소모
-  const [profiles, setProfiles] = useState<ProfileCardProps | undefined>();
   const openProfileCard = async () => {
     handleSetModalOpen(activeIndex, true)
     handleSetOpen(activeIndex, true)
+    handleSetLockOpen(activeIndex, false)
+    setCoin(true)
     // setOpenModal(false);
-    try {
-      const response = await spendCoin(profileId);
-      setProfiles(response?.data?.profileCardResponse)
-      console.log(profiles);
-
-      toast({
-        title: "잠금해제 완료!",
-        className: 'h-[40px] w-[90%] bg-[#252525] text-[#fff] fixed top-[60px] left-1/2 transform -translate-x-1/2 flex justify-center border-0 exceed:w-[358px]'
-      });
-    } catch (error) {
-      console.error('Error spending coin:', error);
-      // 에러 처리
-    }
+   
   };
   // onClick={() => setLock(prevState => !prevState)}
   return (
@@ -73,11 +64,15 @@ const UnlockModal = ({ setLock, handleSetOpen, handleSetModalOpen, profileId, is
 
         <div className={`flex justify-center `}>
           <ProfileCard 
-            currentBackground={currentBackground} profileId={profiles?.profileId} profileImageUrl={profiles?.profileImageUrl}
-            name={profiles?.name} birthDate={profiles?.birthDate} mbti={profiles?.mbti}
-            oneLineIntroduction={profiles?.oneLineIntroduction} distance={profiles?.distance}
-            lifeMusics={profiles?.lifeMusics} selfIntroduction={profiles?.selfIntroduction}
-            musicTags={profiles?.musicTags} hobbyTags={profiles?.hobbyTags} likeableMusicTaste={profiles?.likeableMusicTaste}
+            coin={coin} profileId={profileId}
+            isOpen={isOpen} isLock={isLock} activeIndex={activeIndex} handleSetModalOpen={handleSetModalOpen} handleSetOpen={handleSetOpen}
+            currentBackground={currentBackground} 
+            // 데이터
+            // profileId={profiles?.profileId} profileImageUrl={profiles?.profileImageUrl}
+            // name={profiles?.name} birthDate={profiles?.birthDate} mbti={profiles?.mbti}
+            // oneLineIntroduction={profiles?.oneLineIntroduction} distance={profiles?.distance}
+            // lifeMusics={profiles?.lifeMusics} selfIntroduction={profiles?.selfIntroduction}
+            // musicTags={profiles?.musicTags} hobbyTags={profiles?.hobbyTags} likeableMusicTaste={profiles?.likeableMusicTaste}
           />
         </div>
       }

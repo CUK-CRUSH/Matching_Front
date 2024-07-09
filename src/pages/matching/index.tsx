@@ -11,7 +11,6 @@ import { ProfileCardSummaryProps } from "@/type/services/ProfileCard/ProfileCard
 import { useQuery } from "@tanstack/react-query";
 import { ProfileCardSummaryDTO } from "@/type/services/ProfileCard/ProfileCard";
 import { getProfileCardData } from "@/services/ProfileCard/ProfileCardApi";
-import { useSwiper } from 'swiper/react';
 
 const MatchingPage = () => {
 
@@ -61,6 +60,15 @@ const MatchingPage = () => {
     );
   };
 
+  // 잠금해제
+  const handleSetLockOpen = (activeIndex: number | undefined, value: boolean) => {
+    setProfiles((prev) =>
+      prev?.map((profile: ProfileCardSummaryProps,index) =>
+        index === activeIndex ? { ...profile, isLock: value } : profile ,    
+      )
+    );
+  };
+
   if (error) {
     return <div>Error: {error.message}</div>;
   }
@@ -98,6 +106,7 @@ const MatchingPage = () => {
             activeIndex={swiperIndex}
             handleSetOpen={handleSetOpen}
             handleSetModalOpen={handleSetModalOpen}
+            handleSetLockOpen={handleSetLockOpen}
             />
           </SwiperSlide>
         ))}
