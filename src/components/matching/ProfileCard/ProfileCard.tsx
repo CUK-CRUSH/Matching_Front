@@ -16,15 +16,13 @@ import { getProfileCardDetailData, spendCoin } from '@/services/ProfileCard/Prof
 import { toast } from "@/components/ui/use-toast"
 import { ProfileCardProps, UnlockModalProps } from '@/type/ProfileCard/ProfileCard';
 
-const ProfileCard = ({ profileId,name, birthDate, mbti, oneLineIntroduction, distance, lifeMusics, selfIntroduction, likeableMusicTaste, musicTags, hobbyTags,
-  handleSetModalOpen, handleSetOpen, activeIndex, currentBackground, isOpen,isLock,coin }: CombinedProfileCardProps) => {
+const ProfileCard = ({ profileId,handleSetModalOpen, handleSetOpen, activeIndex, currentBackground, isOpen,isLock,coin }: CombinedProfileCardProps) => {
   
     const [profiles, setProfiles] = useState<ProfileCardProps | undefined>();
 
-
     useEffect(() => {
-      if(coin) {
-        spendCoin(profileId)
+        coin ? spendCoin(profileId) :  getProfileCardDetailData(profileId)
+
           .then((response) => {
             setProfiles(response?.data?.profileCardResponse);
             console.log(profiles);
@@ -38,22 +36,6 @@ const ProfileCard = ({ profileId,name, birthDate, mbti, oneLineIntroduction, dis
             console.error('Error spending coin:', error);
             // 에러 처리
           });
-      } else{
-        getProfileCardDetailData(profileId)
-        .then((response) => {
-          setProfiles(response?.data?.profileCardResponse);
-          console.log(profiles);
-  
-          toast({
-            title: "잠금해제 완료!",
-            className: 'h-[40px] w-[90%] bg-[#252525] text-[#fff] fixed top-[60px] left-1/2 transform -translate-x-1/2 flex justify-center border-0 exceed:w-[358px]'
-          });
-        })
-        .catch((error) => {
-          console.error('Error spending coin:', error);
-          // 에러 처리
-        });
-      }
     }, []);
   // 메시지보내기 창 모달 오픈
   const { openMessage } = useProfileCardStore();
