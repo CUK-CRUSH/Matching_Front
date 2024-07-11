@@ -54,7 +54,7 @@ export type ClickedMessagePopUpProps = {
   handleClick: () => void;
   currentBackground?: string;
   name: string;
-  age: string;
+  birthDate: string;
   mbti: string;
   tag: string;
   time: string;
