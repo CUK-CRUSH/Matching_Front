@@ -7,7 +7,7 @@ import cancel from "@/assets/MatchingList/cancel.svg";
 import blackProfile from "@/assets/MatchingList/blackProfile.svg";
 import Time from "@/components/common/Time";
 
-const ClickedMessagePopUp = ({ handleClick, currentBackground, name, birthDate, mbti, tag, time, isDark  }: ClickedMessagePopUpProps) => {
+const ClickedMessagePopUp = ({ handleClick, currentBackground, name, birthDate, mbti, time, isDark  }: ClickedMessagePopUpProps) => {
 
   // 버튼색 배열
   const backgrounds = [
