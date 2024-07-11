@@ -14,7 +14,8 @@ import { getProfileCardData } from "@/services/ProfileCard/ProfileCardApi";
 const MatchingPage = () => {
 
   // 프로필목록 조회
-  const [page] = useState(0);
+  const [page, setPage] = useState(0);
+  const [isLastPage, setIsLastPage] = useState(false);
   const [size] = useState(10);
   const [radius] = useState(999999);
 
@@ -25,22 +26,30 @@ const MatchingPage = () => {
     placeholderData: (previousData) => previousData,
   });
 
-  const [profiles, setProfiles] = useState<ProfileCardSummaryProps[] | undefined>(profileCardData?.data?.profileCardSummaryResponses?.map(profile => ({
-    ...profile,
-    isModalOpen: false,
-  })));
-
+  const [profiles, setProfiles] = useState<ProfileCardSummaryProps[] | undefined>();
+  
   useEffect(() => {
-    setProfiles(profileCardData?.data?.profileCardSummaryResponses?.map(profile => ({
-      ...profile,
-      isModalOpen: false,
-      isLock:true,
-      isOpen: false,
-    })));
-  }, [profileCardData]);
+    getProfileCardData(page, size, radius).then((response) => {
+      setProfiles((prevProfiles) => {
+        const newProfiles = response.data.profileCardSummaryResponses.map(profile => ({
+          ...profile,
+          isModalOpen: false,
+          isLock: true,
+          isOpen: false,
+        }));
+        return prevProfiles ? [...prevProfiles, ...newProfiles] : newProfiles;
+      });
+    });
+  }, [page, size, radius]);
+  
 
   const [swiperIndex, setSwiperIndex] = useState(0);
 
+  useEffect(() => {
+    if (!isLastPage && profiles?.length === page * size) {
+      setPage(page + 1);
+    }
+  }, [profiles,  size, isLastPage]);
   // 프로필카드 열기
   const handleSetOpen = (activeIndex: number | undefined, value: boolean) => {
     setProfiles((prev) =>
@@ -68,13 +77,8 @@ const MatchingPage = () => {
     );
   };
 
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
-
-  if (!profileCardData) {
-    return <div>Loading...</div>;
-  }
+  
+  // 슬라이드하면 이전 카드 접기
   const handleActiveIndexChange = (swiperCore : any) => {
     const newIndex = swiperCore.activeIndex;
 
@@ -88,7 +92,23 @@ const MatchingPage = () => {
 
     // 현재 슬라이드 상태 업데이트
     setSwiperIndex(newIndex);
+
+    // 스와이프시 페이징
+    if (profiles && newIndex === profiles?.length - 1 && !isLastPage) {
+      setIsLastPage(true);
+      // 새로운 데이터 불러오기
+      setPage(page + 1);
+    }
   };
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
+  if (!profileCardData) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <Layout backgroundColor={'#252525'}>
       <ProfileCardHeader />

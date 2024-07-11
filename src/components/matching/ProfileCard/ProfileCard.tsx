@@ -12,10 +12,9 @@ import MusicCardContainer from '@/components/matching/MusicCardContainer';
 import { CombinedProfileCardProps, ProfileCardProps } from '@/type/ProfileCard/ProfileCard';
 import Tag from '@/components/common/Tag';
 import { useEffect, useState } from 'react';
-import { getProfileCardDetailData, spendCoin } from '@/services/ProfileCard/ProfileCardApi';
+import { spendCoin } from '@/services/ProfileCard/ProfileCardApi';
 import { toast } from "@/components/ui/use-toast"
 import Fold from '../Fold';
-import { Divider } from '@mui/material';
 import UserTaste from '@/components/matching/UserTaste';
 import MoodMusic from '@/components/matching/MoodMusic';
 import SocialButtons from '../SocialButtons';
@@ -64,7 +63,6 @@ const ProfileCard = ({ profileId, name, birthDate, mbti, tags, oneLineIntroducti
         // 에러 처리
       });
   }, [isOpen]);
-  console.log(profiles)
 
   return (
     <>
