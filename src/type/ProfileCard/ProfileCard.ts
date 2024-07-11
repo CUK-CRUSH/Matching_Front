@@ -43,6 +43,7 @@ export type DistanceProps = {
 
 export type ContainerProps = {
   children: React.ReactNode;
+  isOpen?: boolean;
 }
 
 export type Music = {

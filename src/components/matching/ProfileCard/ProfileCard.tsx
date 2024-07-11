@@ -121,7 +121,12 @@ const ProfileCard = ({ profileId, name, birthDate, mbti, tags, oneLineIntroducti
           </div>
         </div>
 
-        <MusicCardContainer>
+        <MusicCardContainer isOpen={isOpen}>
+        {isOpen &&
+            <p data-testid='music' className={`text-[#2F2F2F] text-s ml-[6%] font-bold my-[8px]`}>
+              인생곡 TOP 3
+            </p>
+          }
           {lifeMusics?.map((item) => (
             <MusicCard title={item.title} artist={item.artist} isProilfeCard={true} />
           ))}

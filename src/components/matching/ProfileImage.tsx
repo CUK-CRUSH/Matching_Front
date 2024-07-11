@@ -3,7 +3,7 @@ import { ProfileImageProps } from '@/type/ProfileCard/ProfileCard';
 
 const ProfileImage = ({ handleSetOpen, handleSetModalOpen, isLock, activeIndex,profileImageUrl }: ProfileImageProps) => {
   
-  const profileImageStyle = profileImageUrl && isLock ? 
+  const profileImageStyle = profileImageUrl && !isLock ? 
   `absolute w-full h-full rounded-full object-cover` :
   `absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2`
 
