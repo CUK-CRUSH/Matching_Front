@@ -1,13 +1,10 @@
 import { ItemProps } from "@/type/MatchingList/MatchingList";
-import Name from "@/components/common/Name";
-import MusicCard from "@/components/common/MusicCard";
-import Tag from "@/components/common/Tag";
-import { useState } from "react";
-import ClickedMessagePopUp from "@/components/matchingList/ClickedMessagePopUp";
-import Time from "@/components/common/Time";
 
-const SendedItem = ({ name, age, mbti, tag, time, song, singer, type }: ItemProps) => {
-  const [isClicked, setIsClicked] = useState<boolean>(false);
+import { useState } from "react";
+// name, age, mbti, tag, time, song, singer,
+
+const SendedItem = ({  type }: ItemProps) => {
+  const [, setIsClicked] = useState<boolean>(false);
 
   const handleClick = () => {
     if (type === 'message') {
@@ -22,13 +19,13 @@ const SendedItem = ({ name, age, mbti, tag, time, song, singer, type }: ItemProp
       >
         <div className="flex justify-between px-[3%] text-s">
           <div className="flex items-center">
-            <Name name={name} age={age} mbti={mbti} isDark={true} />
-            <Tag tag={tag} isDark={true} />
+            {/* <Name name={name} age={age} mbti={mbti} isDark={true} />
+            <Tag tag={tag} isDark={true} /> */}
           </div>
-          <div><Time time={time} /></div>
+          {/* <div><Time time={time} /></div> */}
         </div>
 
-        <MusicCard song={song} artist={singer} isDark={true} />
+        {/* <MusicCard song={song} artist={singer} isDark={true} /> */}
         {/* 메시지 팝업 클릭했을때 */}
 
 
@@ -36,9 +33,9 @@ const SendedItem = ({ name, age, mbti, tag, time, song, singer, type }: ItemProp
         <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-[calc(100%-4%)] h-[1px] bg-[#191919]" />
 
       </div>
-      {isClicked && <ClickedMessagePopUp
+      {/* {isClicked && <ClickedMessagePopUp
         handleClick={handleClick}
-        name={name} age={age} mbti={mbti} tag={tag} time={time} isDark={true} />}
+        name={name} age={age} mbti={mbti} tag={tag} time={time} isDark={true} />} */}
     </>
   );
 };

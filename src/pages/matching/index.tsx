@@ -1,49 +1,135 @@
 import Layout from "@/components/layout/layout";
-import ProfileCard from "@/components/matching/ProfileCard";
+import ProfileCard from "@/components/matching/ProfileCard/ProfileCard";
 import Footer from '@/components/layout/footer';
-import { MOCK_PROFILECARD } from "@/fixture/ProfileCard";
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import ProfileCardHeader from '@/components/layout/profileCardheader';
 
 import 'swiper/swiper-bundle.css';
-import { useState } from "react";
-import { ProfileCardProps } from "@/type/ProfileCard/ProfileCard";
+import { useEffect, useState } from "react";
+import { ProfileCardSummaryProps } from "@/type/services/ProfileCard/ProfileCard";
+import { useQuery } from "@tanstack/react-query";
+import { getProfileCardData } from "@/services/ProfileCard/ProfileCardApi";
 
 const MatchingPage = () => {
-  // 각 프로필 카드의 열고 닫기 상태를 관리하는 배열
-  const [profiles, setProfiles] = useState<ProfileCardProps[]>(MOCK_PROFILECARD);
 
+  // 프로필목록 조회
+  const [page, setPage] = useState(0);
+  const [isLastPage, setIsLastPage] = useState(false);
+  const [size] = useState(10);
+  const [radius] = useState(999999);
+
+  const { data: profileCardData, error } = useQuery({
+    queryKey: ['profileCardData'],
+    queryFn: () => getProfileCardData(page, size, radius),
+    staleTime: 1000 * 60 * 5, // 5분
+    placeholderData: (previousData) => previousData,
+  });
+
+  const [profiles, setProfiles] = useState<ProfileCardSummaryProps[] | undefined>();
+  
+  useEffect(() => {
+    getProfileCardData(page, size, radius).then((response) => {
+      setProfiles((prevProfiles) => {
+        const newProfiles = response.data.profileCardSummaryResponses.map(profile => ({
+          ...profile,
+          isModalOpen: false,
+          isLock: true,
+          isOpen: false,
+        }));
+        return prevProfiles ? [...prevProfiles, ...newProfiles] : newProfiles;
+      });
+    });
+  }, [page, size, radius]);
+  
+
+  const [swiperIndex, setSwiperIndex] = useState(0);
+
+  useEffect(() => {
+    if (!isLastPage && profiles?.length === page * size) {
+      setPage(page + 1);
+    }
+  }, [profiles,  size, isLastPage]);
   // 프로필카드 열기
-  const handleSetOpen = (index: number | undefined, value: boolean) => {
-    setProfiles(prev =>
-      prev.map((profile, i) =>
-        i === index ? { ...profile, isOpen: value } : profile
+  const handleSetOpen = (activeIndex: number | undefined, value: boolean) => {
+    setProfiles((prev) =>
+      prev?.map((profile: ProfileCardSummaryProps,index) =>
+        index === activeIndex ? { ...profile, isOpen: value } : profile
       )
     );
   };
 
+  // 모달창 열기
+  const handleSetModalOpen = (activeIndex: number | undefined, value: boolean) => {
+    setProfiles((prev) =>
+      prev?.map((profile: ProfileCardSummaryProps,index) =>
+        index === activeIndex ? { ...profile, isModalOpen: value } : profile ,    
+      )
+    );
+  };
+
+  // 잠금해제
+  const handleSetLockOpen = (activeIndex: number | undefined, value: boolean) => {
+    setProfiles((prev) =>
+      prev?.map((profile: ProfileCardSummaryProps,index) =>
+        index === activeIndex ? { ...profile, isLock: value } : profile ,    
+      )
+    );
+  };
+
+  
+  // 슬라이드하면 이전 카드 접기
+  const handleActiveIndexChange = (swiperCore : any) => {
+    const newIndex = swiperCore.activeIndex;
+
+    // 이전 슬라이드 상태 초기화
+    if (swiperIndex !== newIndex) {
+      handleSetOpen(swiperIndex - 1, false);  // 이전 슬라이드 상태 초기화
+      handleSetOpen(swiperIndex + 1, false);  // 이전 슬라이드 상태 초기화
+      handleSetModalOpen(swiperIndex + 1, false);  // 이전 슬라이드 상태 초기화
+      handleSetModalOpen(swiperIndex - 1, false)
+    }
+
+    // 현재 슬라이드 상태 업데이트
+    setSwiperIndex(newIndex);
+
+    // 스와이프시 페이징
+    if (profiles && newIndex === profiles?.length - 1 && !isLastPage) {
+      setIsLastPage(true);
+      // 새로운 데이터 불러오기
+      setPage(page + 1);
+    }
+  };
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
+  if (!profileCardData) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <Layout backgroundColor={'#252525'}>
       <ProfileCardHeader />
-      <Swiper>
-        {
-          profiles.map((item, index) => (
-            <SwiperSlide
-              className={item.isOpen ? 'swiper-no-swiping' : ''}
-              key={index}
+      <Swiper  
+        onActiveIndexChange={handleActiveIndexChange}>
+       
+        {profiles?.map((item, index) => (
+          <SwiperSlide 
+            
+            key={index}
             >
-              <ProfileCard
-                {...item}
-                index={index}
-                isOpen={item.isOpen}
-                setOpen={handleSetOpen}
-              />
-            </SwiperSlide>
-          ))
-        }
+            <ProfileCard {...item}
+            
+            activeIndex={swiperIndex}
+            handleSetOpen={handleSetOpen}
+            handleSetModalOpen={handleSetModalOpen}
+            handleSetLockOpen={handleSetLockOpen}
+            />
+          </SwiperSlide>
+        ))}
       </Swiper>
-
       <Footer />
     </Layout>
   );

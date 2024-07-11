@@ -1,5 +1,4 @@
 import AutoResizeTextarea from "@/components/common/AutoResizeTextarea";
-import Tag from "@/components/common/Tag";
 import Name from "@/components/common/Name";
 import { ClickedMessagePopUpProps } from "@/type/MatchingList/MatchingList";
 import useFindBackgroundIndex from "@/hooks/useFindBackgroundIndex/useFindBackgroundIndex";
@@ -8,7 +7,7 @@ import cancel from "@/assets/MatchingList/cancel.svg";
 import blackProfile from "@/assets/MatchingList/blackProfile.svg";
 import Time from "@/components/common/Time";
 
-const ClickedMessagePopUp = ({ handleClick, currentBackground, name, age, mbti, tag, time, isDark  }: ClickedMessagePopUpProps) => {
+const ClickedMessagePopUp = ({ handleClick, currentBackground, name, birthDate, mbti, time, isDark  }: ClickedMessagePopUpProps) => {
 
   // 버튼색 배열
   const backgrounds = [
@@ -39,10 +38,10 @@ const ClickedMessagePopUp = ({ handleClick, currentBackground, name, age, mbti, 
       >
         <div className={`flex flex-col`}>
           <div className="px-4 flex items-center">
-            <Name name={name} age={age} mbti={mbti} isDark={isDark} />
+            <Name name={name} birthDate={birthDate} mbti={mbti} isDark={isDark} />
           </div>
           <div className="flex justify-between px-4 mt-2">
-            <Tag tag={tag} isDark={isDark} />
+            {/* <Tag tag={tag} isDark={isDark} /> */}
             <Time time={time} />
           </div>
         </div>

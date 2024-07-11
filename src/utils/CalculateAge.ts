@@ -6,7 +6,7 @@ const parseDateString = (dateString: string) => {
   return new Date(Number(year), Number(month) - 1, Number(day));
 };
 
-export const calculateAge = (birthDate: string | null) => {
+export const calculateAge = (birthDate: string | null | undefined) => {
   if (!birthDate) return '';
   const birth = parseDateString(birthDate);
   const today = new Date();

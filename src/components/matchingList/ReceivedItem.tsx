@@ -1,15 +1,12 @@
 import { ItemProps } from "@/type/MatchingList/MatchingList";
-import Name from "@/components/common/Name";
 import useGetRandomBackgrounds from "@/hooks/useGetRandomBackgrounds/useGetRandomBackgrounds";
-import MusicCard from "@/components/common/MusicCard";
-import Tag from "@/components/common/Tag";
+
 import { useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
-import ClickedMessagePopUp from "@/components/matchingList/ClickedMessagePopUp";
-import Time from "@/components/common/Time";
-
-const ReceivedItem = ({ name, age, mbti, tag, time, song, singer, type }: ItemProps) => {
-  const [isClicked, setIsClicked] = useState<boolean>(false);
+// import Time from "@/components/common/Time";
+// name, age, mbti, tag, time, song, singer,
+const ReceivedItem = ({  type }: ItemProps) => {
+  const [, setIsClicked] = useState<boolean>(false);
 
   const handleClick = () => {
     if (type === 'message') {
@@ -38,10 +35,10 @@ const ReceivedItem = ({ name, age, mbti, tag, time, song, singer, type }: ItemPr
       >
         <div className={`flex justify-between px-[3%] `}>
           <div className="flex items-center">
-            <Name name={name} age={age} mbti={mbti} />
-            <Tag tag={tag} />
+            {/* <Name name={name} age={age} mbti={mbti} />
+            <Tag tag={tag} /> */}
           </div>
-          <div><Time time={time} /></div>
+          {/* <div><Time time={time} /></div> */}
         </div>
         {type === 'message' ?
           <div className={`w-auto mx-2 mt-1 `}>
@@ -53,14 +50,16 @@ const ReceivedItem = ({ name, age, mbti, tag, time, song, singer, type }: ItemPr
             />
           </div>
           :
-          <MusicCard song={song} artist={singer} isDark={false} />}
+          <></>
+          // <MusicCard song={song} artist={singer} isDark={false} />
+          }
       </div>
 
       {/* 메시지 팝업 클릭했을때 */}
-      {isClicked && <ClickedMessagePopUp 
+      {/* {isClicked && <ClickedMessagePopUp 
                       handleClick={handleClick}
                       currentBackground={currentBackground} 
-                      name={name} age={age} mbti={mbti} tag={tag} time={time} />}
+                      name={name} age={age} mbti={mbti} tag={tag} time={time} />} */}
     </>
   );
 }

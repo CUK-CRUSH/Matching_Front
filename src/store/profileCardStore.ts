@@ -11,6 +11,9 @@ const useProfileCardStore = create<ProfileCardState>(
     // 메시지보내기 창 모달 오픈
     openMessage : false, 
     setOpenMessage : () => set((state: { openMessage: boolean; }) => ({ openMessage: !state.openMessage })),
+
+    ableSpend : false,
+    setAbleSpend : () => set((state: { ableSpend: boolean; }) => ({ ableSpend: !state.ableSpend })),
   }),
 );
 
