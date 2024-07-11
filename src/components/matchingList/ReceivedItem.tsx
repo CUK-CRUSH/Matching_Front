@@ -3,10 +3,10 @@ import useGetRandomBackgrounds from "@/hooks/useGetRandomBackgrounds/useGetRando
 
 import { useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
-import Time from "@/components/common/Time";
-
-const ReceivedItem = ({ name, age, mbti, tag, time, song, singer, type }: ItemProps) => {
-  const [isClicked, setIsClicked] = useState<boolean>(false);
+// import Time from "@/components/common/Time";
+// name, age, mbti, tag, time, song, singer,
+const ReceivedItem = ({  type }: ItemProps) => {
+  const [, setIsClicked] = useState<boolean>(false);
 
   const handleClick = () => {
     if (type === 'message') {
@@ -38,7 +38,7 @@ const ReceivedItem = ({ name, age, mbti, tag, time, song, singer, type }: ItemPr
             {/* <Name name={name} age={age} mbti={mbti} />
             <Tag tag={tag} /> */}
           </div>
-          <div><Time time={time} /></div>
+          {/* <div><Time time={time} /></div> */}
         </div>
         {type === 'message' ?
           <div className={`w-auto mx-2 mt-1 `}>

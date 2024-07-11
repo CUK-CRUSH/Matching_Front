@@ -1,10 +1,10 @@
 import { ItemProps } from "@/type/MatchingList/MatchingList";
 
 import { useState } from "react";
-import Time from "@/components/common/Time";
+// name, age, mbti, tag, time, song, singer,
 
-const SendedItem = ({ name, age, mbti, tag, time, song, singer, type }: ItemProps) => {
-  const [isClicked, setIsClicked] = useState<boolean>(false);
+const SendedItem = ({  type }: ItemProps) => {
+  const [, setIsClicked] = useState<boolean>(false);
 
   const handleClick = () => {
     if (type === 'message') {
@@ -22,7 +22,7 @@ const SendedItem = ({ name, age, mbti, tag, time, song, singer, type }: ItemProp
             {/* <Name name={name} age={age} mbti={mbti} isDark={true} />
             <Tag tag={tag} isDark={true} /> */}
           </div>
-          <div><Time time={time} /></div>
+          {/* <div><Time time={time} /></div> */}
         </div>
 
         {/* <MusicCard song={song} artist={singer} isDark={true} /> */}

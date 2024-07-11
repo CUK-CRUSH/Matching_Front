@@ -1,12 +1,11 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect } from 'react';
 import star from '@/assets/ProfileCard/stars.svg';
 import { Button } from '@/components/ui/button';
-import { ProfileCardProps, UnlockModalProps } from '@/type/ProfileCard/ProfileCard';
-import { spendCoin } from "@/services/ProfileCard/ProfileCardApi";
-import ProfileCard from "@/components/matching/ProfileCard/ProfileCard";
+import {  UnlockModalProps } from '@/type/ProfileCard/ProfileCard';
+
 import useProfileCardStore from '@/store/profileCardStore';
 
-const UnlockModal = ({ setLock, handleSetOpen, handleSetModalOpen,handleSetLockOpen, profileId, isOpen, isLock, activeIndex,currentBackground }: UnlockModalProps) => {
+const UnlockModal = ({ setLock, handleSetOpen, handleSetModalOpen,handleSetLockOpen, isOpen,  activeIndex }: UnlockModalProps) => {
   
   const { setAbleSpend } = useProfileCardStore();
 
