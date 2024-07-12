@@ -8,6 +8,8 @@ import { useEffect, useRef, useState } from "react";
 import { getOpenedProfileCard } from "@/services/OpenedProfileCard/OpenedProfileCardApi";
 import { useQuery } from "@tanstack/react-query";
 import { OpenedProfileCardDTO } from '@/type/services/OpenedProfileCard/OpenedProfileCard'
+import InfiniteDiv from "@/components/InfiniteDiv/InfiniteDiv";
+import { useInView } from 'react-intersection-observer';
 
 const OpenedProfileCard = () => {
   const outerContainerRef = useRef<HTMLDivElement | null>(null);
@@ -17,12 +19,14 @@ const OpenedProfileCard = () => {
       outerContainerRef,
       innerContainerRef,
       outerContainerBorderWidth: 1
-    } 
+    }
   );
   // 페에징
-  const [page, setPage] = useState(0);
-  const [isLastPage, setIsLastPage] = useState(false);
-  const [size] = useState(10);
+  const [page, setPage] = useState<number>(0);
+  const [isLastPage, setIsLastPage] = useState<boolean>(false);
+  const [size] = useState<number>(10);
+
+  const [view, inView] = useInView();
 
   // api 연결 !
   const { data: openedProfileCardData, error } = useQuery({
@@ -31,14 +35,34 @@ const OpenedProfileCard = () => {
     staleTime: 1000 * 60 * 5, // 5분
     placeholderData: (previousData) => previousData,
   });
-  
+
   const [profiles, setProfiles] = useState<OpenedProfileCardDTO["data"] | undefined>();
 
   useEffect(() => {
+    if (isLastPage) return;
+
     getOpenedProfileCard(page, size).then((response) => {
-      setProfiles(response?.data);
+      if (response?.data?.length < size) {
+        setIsLastPage(true);
+      }
+      setProfiles((prevProfiles) => {
+        const newProfiles = response.data;
+        return prevProfiles ? [...prevProfiles, ...newProfiles] : newProfiles;
+      });
     });
   }, [page, size]);
+
+  const loadMore = () => {
+    if (!isLastPage) {
+      setPage((prevPage) => prevPage + 1);
+    }
+  };
+  useEffect(() => {
+    if (inView && !isLastPage) {
+
+      loadMore();
+    }
+  }, [inView]);
 
   if (error) {
     return <div>Error: {error.message}</div>;
@@ -52,7 +76,7 @@ const OpenedProfileCard = () => {
     <Layout backgroundColor='#252525'>
       <main className="min-h-full h-auto bg-matching-list relative flex flex-col">
 
-        <MatchingListHeader text={'받은 메시지'} background={'#252525'} />
+        <MatchingListHeader text={'열어본 프로필'} background={'#252525'} />
         <div className="relative h-[calc(75vh)] overflow-y-scroll scrollbar-hide" ref={outerContainerRef} onScroll={calculateThumbY}>
           <ScrollBarThumb ref={thumbRef} height={thumbH} />
 
@@ -60,6 +84,7 @@ const OpenedProfileCard = () => {
             {profiles?.map((item, index) => (
               <ReceivedItem key={index} {...item} type={'heart'} />
             ))}
+          <InfiniteDiv view={view} />
 
           </ItemContainer>
         </div>

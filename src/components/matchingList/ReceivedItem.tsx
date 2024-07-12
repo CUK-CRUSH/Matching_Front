@@ -6,8 +6,8 @@ import { Textarea } from "@/components/ui/textarea";
 import Name from "../common/Name";
 import Tag from "../common/Tag";
 import MusicCard from "../common/MusicCard";
-import MoodMusic from "../matching/MoodMusic";
 // import Time from "@/components/common/Time";
+
 const ReceivedItem = ({ name, birthDate, mbti, tags, lifeMusic, type }: ItemProps) => {
   const [, setIsClicked] = useState<boolean>(false);
 
