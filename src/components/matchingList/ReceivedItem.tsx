@@ -29,7 +29,6 @@ const ReceivedItem = ({ name, birthDate, mbti, tags, lifeMusic, type }: ItemProp
   ];
 
   const currentBackground = useGetRandomBackgrounds({ backgrounds });
-  console.log(lifeMusic)
   return (
     <>
       <div
