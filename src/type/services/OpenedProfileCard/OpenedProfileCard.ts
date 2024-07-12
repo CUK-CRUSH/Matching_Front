@@ -24,5 +24,5 @@ export type OpenedProfileCardProps = {
   export type OpenedProfileCardDTO = {
     status: number;
     message: string;
-    data: OpenedProfileCardProps;
+    data: OpenedProfileCardProps[];
   }

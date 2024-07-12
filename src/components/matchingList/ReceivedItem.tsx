@@ -3,9 +3,12 @@ import useGetRandomBackgrounds from "@/hooks/useGetRandomBackgrounds/useGetRando
 
 import { useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
+import Name from "../common/Name";
+import Tag from "../common/Tag";
+import MusicCard from "../common/MusicCard";
+import MoodMusic from "../matching/MoodMusic";
 // import Time from "@/components/common/Time";
-// name, age, mbti, tag, time, song, singer,
-const ReceivedItem = ({  type }: ItemProps) => {
+const ReceivedItem = ({ name, birthDate, mbti, tags, lifeMusic, type }: ItemProps) => {
   const [, setIsClicked] = useState<boolean>(false);
 
   const handleClick = () => {
@@ -24,9 +27,9 @@ const ReceivedItem = ({  type }: ItemProps) => {
     'bg-background-small-pink',
     'bg-background-small-sky',
   ];
-  
+
   const currentBackground = useGetRandomBackgrounds({ backgrounds });
-  
+  console.log(lifeMusic)
   return (
     <>
       <div
@@ -35,8 +38,12 @@ const ReceivedItem = ({  type }: ItemProps) => {
       >
         <div className={`flex justify-between px-[3%] `}>
           <div className="flex items-center">
-            {/* <Name name={name} age={age} mbti={mbti} />
-            <Tag tag={tag} /> */}
+            <Name name={name} birthDate={birthDate} mbti={mbti} />
+            <div className='flex flex-wrap mb-[5px]'>
+              {tags?.map((item) => (
+                <Tag name={item.name} state={item.state} />
+              ))}
+            </div>
           </div>
           {/* <div><Time time={time} /></div> */}
         </div>
@@ -50,9 +57,11 @@ const ReceivedItem = ({  type }: ItemProps) => {
             />
           </div>
           :
-          <></>
-          // <MusicCard song={song} artist={singer} isDark={false} />
-          }
+          <>
+            <MusicCard title={lifeMusic?.title} artist={lifeMusic?.artist} />
+            
+          </>
+        }
       </div>
 
       {/* 메시지 팝업 클릭했을때 */}
