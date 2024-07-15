@@ -22,6 +22,21 @@ export const useMyPageStore = create<MyPageState>((set) => ({
 
   selectedMusic: [],
   setSelectedMusic: (music) => set({ selectedMusic: music }),
+
+  deleteLifeMusics: [],
+  setDeleteLifeMusics: (musicIds) => set({ deleteLifeMusics: musicIds }),
+
+  updateLifeMusics: [],
+  setUpdateLifeMusics: (musics) => set({ updateLifeMusics: musics }),
+
+  selectMusicMoodTitle: '',
+  setSelectMusicMoodTitle: (title) => set({ selectMusicMoodTitle: title }),
+
+  selectMusicMoodArtist: '',
+  setSelectMusicMoodArtist: (artist) => set({ selectMusicMoodArtist: artist }),
+
+  selectMusicMoodImage: null,
+  setSelectMusicMoodImage: (image: string | null) => set({ selectMusicMoodImage: image }),
 }));
 
 export default useMyPageStore;

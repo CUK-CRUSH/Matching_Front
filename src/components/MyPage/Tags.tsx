@@ -36,7 +36,7 @@ const TagsPage = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['MusicTagsData'] });
       queryClient.invalidateQueries({ queryKey: ['mainData'] });
-      setCurrentPage('mypage');
+      setCurrentPage('introduce');
     },
   });
 

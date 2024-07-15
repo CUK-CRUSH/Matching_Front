@@ -7,6 +7,7 @@ import MusicPage from '@/components/MyPage/Music/Music';
 import TagsPage from '@/components/MyPage/Tags';
 import ChangeLocationPage from '@/components/MyPage/Location/ChangeLocation';
 import MusicDetailPage from '@/components/MyPage/Music/MusicDetail';
+import MusicMoodPage from '@/components/MyPage/Music/MusicMood';
 
 const MyPage = () => {
   const { currentPage } = useMyPageStore();
@@ -27,6 +28,8 @@ const MyPage = () => {
         return <TagsPage />;
       case 'location':
         return <ChangeLocationPage />;
+      case 'mood':
+        return <MusicMoodPage />;
       default:
         return <MyPageMain />;
     }
