@@ -132,7 +132,7 @@ const IntroducePage = () => {
     if (selectedTags.includes(tag)) {
       setSelectedTags(selectedTags.filter((t) => t !== tag));
     } else {
-      setSelectedTags([tag]); // FEATURED 상태는 하나만 선택되도록 함
+      setSelectedTags([tag]);
     }
   };
 
@@ -169,8 +169,7 @@ const IntroducePage = () => {
       selfIntroduction: data.textarea1,
       likeableMusicTaste: data.textarea2,
     };
-    console.log(updatedMusicTags);
-    console.log(postData);
+
     mutation.mutate(postData);
   };
 
@@ -210,6 +209,12 @@ const IntroducePage = () => {
                         });
                         setMbtiString('NONE');
                       } else {
+                        setSelectedMBTI({
+                          E_I: null,
+                          N_S: null,
+                          F_T: null,
+                          J_P: null,
+                        });
                         setMbtiString('');
                       }
                     }}
@@ -246,7 +251,7 @@ const IntroducePage = () => {
 
           <div className="mx-4">
             <span className="text-lg font-bold">음악</span>
-            <div className="flex space-x-2 mt-2">
+            <div className="flex flex-wrap gap-2 mt-2">
               {IntroData.musicTags.map((tag) => (
                 <Button
                   key={tag.name}
@@ -265,7 +270,7 @@ const IntroducePage = () => {
 
           <div className="mx-4">
             <span className="text-lg font-bold">취미</span>
-            <div className="flex space-x-2 mt-2">
+            <div className="flex flex-wrap gap-2 mt-2">
               {IntroData.hobbyTags.map((tag) => (
                 <Button
                   key={tag.name}

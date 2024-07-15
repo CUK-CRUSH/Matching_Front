@@ -1,6 +1,6 @@
 import useMyPageStore from '@/store/myPageStore';
 import MatchingListHeader from '../layout/matchingListHeader';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from '../ui/button';
 import { useCookies } from 'react-cookie';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -35,10 +35,23 @@ const TagsPage = () => {
     mutationFn: (introData: UserIntroDTO) => patchUserIntroData(accessToken, introData),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['MusicTagsData'] });
-      queryClient.invalidateQueries({ queryKey: ['mainData'] });
+      queryClient.invalidateQueries({ queryKey: ['IntroData'] });
       setCurrentPage('introduce');
     },
   });
+
+  useEffect(() => {
+    if (MusicTagsData) {
+      const initialSelectedMusicTags = MusicTagsData.musicTags
+        .filter((tag) => tag.state === 'STANDARD' || tag.state === 'FEATURED')
+        .map((tag) => tag.name);
+      setSelectedMusicTags(initialSelectedMusicTags);
+      const initialSelectedHobbyTags = MusicTagsData.hobbyTags
+        .filter((tag) => tag.state === 'STANDARD' || tag.state === 'FEATURED')
+        .map((tag) => tag.name);
+      setSelectedHobbyTags(initialSelectedHobbyTags);
+    }
+  }, [MusicTagsData]);
 
   if (error) {
     return <div>Error loading tags</div>;
@@ -81,7 +94,6 @@ const TagsPage = () => {
 
   const handleSaveTags = () => {
     if (MusicTagsData) {
-      // 태그 상태 설정
       const updatedMusicTags: MusicTagDTO[] = MusicTagsData.musicTags.map((tag) => ({
         ...tag,
         state: selectedMusicTags.includes(tag.name)
@@ -99,16 +111,13 @@ const TagsPage = () => {
             ? 'FEATURED'
             : 'NONE',
       }));
-      console.log('Updated Music Tags:', updatedMusicTags);
-      console.log('Updated Hobby Tags:', updatedHobbyTags);
 
-      // Call the mutation to update the tags
       const updatedIntroData: UserIntroDTO = {
         mbti: null,
         musicTags: updatedMusicTags,
         hobbyTags: updatedHobbyTags,
-        selfIntroduction: null, // Provide appropriate values
-        likeableMusicTaste: null, // Provide appropriate values
+        selfIntroduction: null,
+        likeableMusicTaste: null,
       };
 
       mutation.mutate(updatedIntroData);
@@ -189,4 +198,5 @@ const TagsPage = () => {
     </div>
   );
 };
+
 export default TagsPage;
