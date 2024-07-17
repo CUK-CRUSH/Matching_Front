@@ -1,9 +1,12 @@
 import { ItemProps } from "@/type/MatchingList/MatchingList";
 
 import { useState } from "react";
-// name, age, mbti, tag, time, song, singer,
+import MusicCard from "../common/MusicCard";
+import Tag from "../common/Tag";
+import Name from "../common/Name";
 
-const SendedItem = ({  type }: ItemProps) => {
+
+const SendedItem = ({ name, birthDate, mbti, tags, lifeMusic, type }: ItemProps) => {
   const [, setIsClicked] = useState<boolean>(false);
 
   const handleClick = () => {
@@ -19,13 +22,17 @@ const SendedItem = ({  type }: ItemProps) => {
       >
         <div className="flex justify-between px-[3%] text-s">
           <div className="flex items-center">
-            {/* <Name name={name} age={age} mbti={mbti} isDark={true} />
-            <Tag tag={tag} isDark={true} /> */}
+          <Name name={name} birthDate={birthDate} mbti={mbti} isDark={true} />
+          <div className='flex flex-wrap mb-[5px]'>
+              {tags?.map((item) => (
+                <Tag name={item.name} state={item.state} isDark={true} />
+              ))}
+            </div>      
           </div>
           {/* <div><Time time={time} /></div> */}
         </div>
 
-        {/* <MusicCard song={song} artist={singer} isDark={true} /> */}
+        <MusicCard title={lifeMusic?.title} artist={lifeMusic?.artist} />
         {/* 메시지 팝업 클릭했을때 */}
 
 

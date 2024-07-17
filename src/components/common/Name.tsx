@@ -17,12 +17,16 @@ const Name = ({ name, birthDate, mbti, distance, isDark, isProfileCard }: NamePr
       <span className={fontStyle}>
         {calculateAge(birthDate)}
       </span>
-      <span className={fontStyle}>
-        |
-      </span>
-      <span className={fontStyle}>
-        {mbti}
-      </span>
+      {mbti !== 'NONE' &&
+        <>
+          <span className={fontStyle}>
+            |
+          </span>
+          <span className={fontStyle}>
+            {mbti}
+          </span>
+        </>
+      }
       {isProfileCard &&
         <>
           <span className={fontStyle}>

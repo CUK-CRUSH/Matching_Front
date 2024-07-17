@@ -3,21 +3,17 @@ import onMessage from "@/assets/ProfileCard/onMessage.svg";
 import offHeart from "@/assets/ProfileCard/offHeart.svg";
 import onHeart from "@/assets/ProfileCard/onHeart.svg";
 import useProfileCardStore from "@/store/profileCardStore";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { toast } from "@/components/ui/use-toast";
 import { likeProfile } from "@/services/ProfileCard/LikeProfileCard";
 import { SocialButtonsProps } from "@/type/ProfileCard/ProfileCard";
 import { useCookies } from "react-cookie";
 
 const SocialButtons = ({ profileId }: SocialButtonsProps) => {
-  console.log(profileId)
   const [cookies] = useCookies(['accessToken']);
   const accessToken = cookies.accessToken;
   const { openMessage, setOpenMessage } = useProfileCardStore();
-  console.log(import.meta.env.VITE_DUETT_TOKEN)
   const [isLike, setLike] = useState<boolean>(false);
-
-
 
   const handleLike = () => {
     likeProfile(import.meta.env.VITE_DUETT_TOKEN, profileId)
