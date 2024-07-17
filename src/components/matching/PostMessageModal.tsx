@@ -16,6 +16,7 @@ import { toast } from "@/components/ui/use-toast"
 import useProfileCardStore from "@/store/profileCardStore"
 import post from "@/assets/ProfileCard/post.svg"
 import closeButton from "@/assets/ProfileCard/closeButton.svg"
+import { postMessage } from "@/services/ProfileCard/MessageProfileCard"; // import postMessage 함수 추가
 
 const FormSchema = z.object({
   type: z.enum(["kakao", "phone"], {
@@ -27,20 +28,35 @@ const FormSchema = z.object({
   }).min(1, "메시지를 입력해야 합니다.")
 })
 
-const PostMessage = () => {
+const PostMessageModal = ({profileId} : PostMessageModalProps) => {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
+  });
 
-  })
+  const onSubmit = async (formData: z.infer<typeof FormSchema>) => {
+    try {
+      console.log(formData)
+      // postMessage 함수 호출하여 API에 데이터 전송
+      await postMessage(
+        import.meta.env.VITE_DUETT_TOKEN,
+        formData.type === "kakao" ? 1 : 0, // sendType
+        profileId, // receiverId 값은 어디서 받아오는지 확인 필요
+        formData.message // content
+      );
 
-  const onSubmit = () => {
-    toast({
-      title: "전송이 완료되었습니다.",
-      className:
-        'h-[40px] w-[90%] fixed top-[60px] left-1/2 transform -translate-x-1/2 flex justify-center rounded-[8px] exceed:w-[358px]',
-    })
-    setOpenMessage();
-  }
+      // 성공 메시지 토스트 출력
+      toast({
+        title: "전송이 완료되었습니다.",
+        className:
+          'h-[40px] w-[90%] fixed top-[60px] left-1/2 transform -translate-x-1/2 flex justify-center rounded-[8px] exceed:w-[358px]',
+      });
+
+      setOpenMessage(); // 모달 닫기
+    } catch (error) {
+      console.error('전송을 실패했습니다:', error);
+      // 실패 처리
+    }
+  };
   const onError = () => {
     toast({
       title: "오류 : 모든 필드를 올바르게 채워주세요",
@@ -126,4 +142,4 @@ const PostMessage = () => {
   )
 }
 
-export default PostMessage;
+export default PostMessageModal;
