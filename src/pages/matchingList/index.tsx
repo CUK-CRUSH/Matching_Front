@@ -12,35 +12,49 @@ import useMatchingListStateStore from '@/store/matchingListStore';
 import { useQuery } from '@tanstack/react-query';
 import { getLikedProfileCard } from '@/services/ProfileCard/LikeProfileCard';
 import { useEffect, useState } from 'react';
-import { ProfileCardSummaryProps } from '@/type/services/ProfileCard/ProfileCard';
-import { useInView } from 'react-intersection-observer';
 import { ItemProps } from '@/type/MatchingList/MatchingList';
+import { getMessageProfileCardData } from '@/services/ProfileCard/MessageProfileCard';
 
 const MatchingListPage = () => {
 
-  const { data: likedProfileCardData, error } = useQuery({
+  const { data: likedProfileCardData, error: likedProfileCardError } = useQuery({
     queryKey: ['profileCardData'],
-    queryFn: () => getLikedProfileCard(import.meta.env.VITE_DUETT_TOKEN,0),
-    staleTime: 1000 * 60 * 5, // 5분
+    queryFn: () => getLikedProfileCard(import.meta.env.VITE_DUETT_TOKEN, 0),
+    staleTime: 1000 * 60 * 5, // 5 minutes
     placeholderData: (previousData) => previousData,
   });
+  
+  const { data: sendedMessageProfileCardData, error: sendedMessageProfileCardError } = useQuery({
+    queryKey: ['sendedMessageProfileCardData'],
+    queryFn: () => getMessageProfileCardData(import.meta.env.VITE_DUETT_TOKEN, 0),
+    staleTime: 1000 * 60 * 5, // 5 minutes
+    placeholderData: (previousData) => previousData,
+  });
+  
 
   const {matchingListState} = useMatchingListStateStore();
   const [likedProfileCard, setLikedProfileCard] = useState<ItemProps[] | undefined>();
-  
+  const [sendedMessageProfileCard, setSendedMessageProfileCard] = useState<ItemProps[] | undefined>();
+
   useEffect(() => { 
     // 보낸 좋아요 불러오기
     getLikedProfileCard(import.meta.env.VITE_DUETT_TOKEN,0).then((response) => {
       setLikedProfileCard(response?.data);
     });
+
+    // 보낸 메시지 불러오기
+    // 보낸 좋아요 불러오기
+    getMessageProfileCardData(import.meta.env.VITE_DUETT_TOKEN,0).then((response) => {
+      setSendedMessageProfileCard(response?.data);
+    });
   }, []);
 
   
-  if (error) {
-    return <div>Error: {error.message}</div>;
+  if (likedProfileCardError && sendedMessageProfileCardError) {
+    return <div>Error: </div>;
   }
 
-  if (!likedProfileCardData) {
+  if (!likedProfileCardData && !sendedMessageProfileCardData) {
     return <div>Loading...</div>;
   }
 
@@ -89,7 +103,7 @@ const MatchingListPage = () => {
             <ExpandedButtons state='보낸 메시지' router='sendedMessage' />
             <Divider />
             <ItemContainer>
-              {MOCK_RECEIVE_HEARTS.slice(0, 3).map((item, index) => (
+              {sendedMessageProfileCard?.slice(0, 3).map((item, index) => (
                 <SendedItem key={index} {...item} />
               ))}
             </ItemContainer>

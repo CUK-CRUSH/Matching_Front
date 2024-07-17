@@ -1,7 +1,8 @@
 import { api } from '../client';
+import { ItemPropsDTO } from "@/type/services/LikeProfileCard/LikeProfileCard";
 
 
-// 코인을 사용해서 프로필카드 상세 단일 조회하기
+// 메시지 보내기
 export const postMessage = async (
   accessToken: string,
   sendType?: number,
@@ -29,3 +30,20 @@ export const postMessage = async (
   }
 };
 
+export const getMessageProfileCardData = async (
+  accessToken: string,
+  page: number,
+): Promise<ItemPropsDTO> => {
+  const url = `${import.meta.env.VITE_DUETT_API_URL}/api/v1/message/send/all?page=${page}`;
+  try {
+    const { data } = await api.get<ItemPropsDTO>(url, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+    return data;
+  } catch (error) {
+    console.error('에러내용:', error);
+    throw new Error('Failed to fetch user info data');
+  }
+};
