@@ -48,11 +48,10 @@ const ProfileCard = ({ profileId, name, birthDate, mbti, tags, oneLineIntroducti
   const { openMessage, ableSpend, setAbleSpend } = useProfileCardStore();
 
   useEffect(() => {
-    ableSpend && spendCoin(profileId)
+    ableSpend && spendCoin(import.meta.env.VITE_DUETT_TOKEN,profileId)
       .then((response) => {
         setProfiles(response?.data?.profileCardResponse);
         setAbleSpend(false)
-        console.log(profiles)
         toast({
           title: "잠금해제 완료!",
           className: 'h-[40px] w-[90%] bg-[#252525] text-[#fff] fixed top-[60px] left-1/2 transform -translate-x-1/2 flex justify-center border-0 exceed:w-[358px]'
@@ -164,7 +163,7 @@ const ProfileCard = ({ profileId, name, birthDate, mbti, tags, oneLineIntroducti
           </>
         }
       </div>
-      {isOpen && <SocialButtons />}
+      {isOpen && <SocialButtons profileId={profileId} />}
     </>
   );
 }

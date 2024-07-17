@@ -21,7 +21,7 @@ const MatchingPage = () => {
 
   const { data: profileCardData, error } = useQuery({
     queryKey: ['profileCardData'],
-    queryFn: () => getProfileCardData(page, size, radius),
+    queryFn: () => getProfileCardData(import.meta.env.VITE_DUETT_TOKEN,page, size, radius),
     staleTime: 1000 * 60 * 5, // 5분
     placeholderData: (previousData) => previousData,
   });
@@ -29,7 +29,7 @@ const MatchingPage = () => {
   const [profiles, setProfiles] = useState<ProfileCardSummaryProps[] | undefined>();
   
   useEffect(() => {
-    getProfileCardData(page, size, radius).then((response) => {
+    getProfileCardData(import.meta.env.VITE_DUETT_TOKEN,page, size, radius).then((response) => {
       setProfiles((prevProfiles) => {
         const newProfiles = response.data.profileCardSummaryResponses.map(profile => ({
           ...profile,

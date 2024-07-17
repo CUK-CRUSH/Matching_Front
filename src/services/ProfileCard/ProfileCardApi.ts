@@ -3,6 +3,7 @@ import { ProfileCardDTO,ProfileCardSummaryDTO } from "@/type/services/ProfileCar
 
 // 코인을 사용한 후 프로필카드 상세 단일 조회하기
 export const getProfileCardDetailData = async (
+  accessToken: string,
   profileId?: number,
   
 ): Promise<ProfileCardDTO> => {
@@ -10,7 +11,7 @@ export const getProfileCardDetailData = async (
   try {
     const { data } = await api.get<ProfileCardDTO>(url, {
       headers: {
-        Authorization: `Bearer ${import.meta.env.VITE_DUETT_TOKEN}`,
+        Authorization: `Bearer ${accessToken}`,
       },
     });
     return data;
@@ -22,6 +23,7 @@ export const getProfileCardDetailData = async (
 
 // 코인을 사용해서 프로필카드 상세 단일 조회하기
 export const spendCoin = async (
+  accessToken: string,
   profileId?: number,
   
 ): Promise<ProfileCardDTO> => {
@@ -29,7 +31,7 @@ export const spendCoin = async (
   try {
     const { data } = await api.get<ProfileCardDTO>(url, {
       headers: {
-        Authorization: `Bearer ${import.meta.env.VITE_DUETT_TOKEN}`,
+        Authorization: `Bearer ${accessToken}`,
       },
     });
     return data;
@@ -41,6 +43,7 @@ export const spendCoin = async (
 
 // 반경 내의 프로필카드 요약 목록 조회하기
 export const getProfileCardData = async (
+  accessToken: string,
   page: number,
   size: number,
   radius : number
@@ -49,7 +52,7 @@ export const getProfileCardData = async (
   try {
     const { data } = await api.get<ProfileCardSummaryDTO>(url, {
       headers: {
-        Authorization: `Bearer ${import.meta.env.VITE_DUETT_TOKEN}`,
+        Authorization: `Bearer ${accessToken}`,
       },
     });
     return data;

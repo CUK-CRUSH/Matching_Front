@@ -119,3 +119,9 @@ export type OpenProfileCardProps = {
 }
 
 export type CombinedProfileCardProps = ProfileCardProps & OpenProfileCardProps;
+
+// 좋아요
+
+export type SocialButtonsProps = {
+  profileId? : number
+}
