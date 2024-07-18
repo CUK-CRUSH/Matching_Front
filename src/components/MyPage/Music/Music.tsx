@@ -1,7 +1,6 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import useMyPageStore from '@/store/myPageStore';
 import MatchingListHeader from '../../layout/matchingListHeader';
-import { useCookies } from 'react-cookie';
 import { Button } from '@/components/ui/button';
 import {
   LifeMusicItem,
@@ -14,6 +13,9 @@ import MusicNote from '@/assets/Music/Note.svg';
 import MusicEdit from '@/assets/Music/MusicEdit.svg';
 import MusicDelete from '@/assets/Music/MusicDelete.svg';
 import MusicMood from '@/assets/Music/MusicMood.svg';
+import MusicMarker from '@/assets/Music/MusicMarker.svg';
+import CommonModal from '@/utils/CommonModal';
+import UseAccessToken from '@/hooks/useAccessToken';
 
 const MusicPage = () => {
   const {
@@ -23,10 +25,12 @@ const MusicPage = () => {
     setDeleteLifeMusics,
     deleteLifeMusics,
     setUpdateLifeMusics,
-    updateLifeMusics,
+    setCurrentMusic,
   } = useMyPageStore();
-  const [cookies] = useCookies(['accessToken']);
-  const accessToken = cookies.accessToken;
+  const accessToken = UseAccessToken();
+
+  const [open, setOpen] = useState<boolean>(false);
+  const [selectedMusicId, setSelectedMusicId] = useState<number | null>(null); // New state for selected music ID
 
   const queryClient = useQueryClient();
 
@@ -58,11 +62,13 @@ const MusicPage = () => {
       queryClient.invalidateQueries({ queryKey: ['mainData'] });
       setDeleteLifeMusics([]);
       setUpdateLifeMusics([]);
+      setCurrentPage('mypage');
     },
   });
 
   // 음악 추가 페이지 이동
   const handleAddMusicClick = () => {
+    setCurrentMusic(null);
     setCurrentPage('musicDetail');
   };
 
@@ -71,11 +77,17 @@ const MusicPage = () => {
     setCurrentPage('mood');
   };
 
+  const handleOpenDeleteModal = (musicId: number) => {
+    setSelectedMusicId(musicId);
+    setOpen(true);
+  };
+
   // 저장된 음악 삭제
   const handleRemoveSavedMusicClick = (musicId: number) => {
     setDeleteLifeMusics([...deleteLifeMusics, musicId]);
     const updatedMusic = selectedMusic.filter((item) => item.musicId !== musicId);
     setSelectedMusic([...updatedMusic]);
+    setOpen(false);
   };
 
   // 미저장된 음악 삭제
@@ -86,12 +98,16 @@ const MusicPage = () => {
 
   // 수정하기
   const handleUpdateMusicClick = (music: LifeMusicItem) => {
-    setUpdateLifeMusics([...updateLifeMusics, music]);
+    setCurrentMusic(music);
+    setCurrentPage('musicEdit');
   };
 
   // 데이터 저장(추가, 수정, 삭제)
   const handleSaveMusic = async () => {
     const createLifeMusics = selectedMusic.filter((item) => !item.musicId);
+    const updateLifeMusics = selectedMusic.filter(
+      (item) => item.musicId && !deleteLifeMusics.includes(item.musicId),
+    );
 
     const musicTasteRequest: MusicTasteRequestDTO = {
       createLifeMusics: createLifeMusics.length > 0 ? createLifeMusics : undefined,
@@ -138,9 +154,17 @@ const MusicPage = () => {
                 {selectedMusic.map((music, index) => (
                   <div
                     key={music.musicId || index}
-                    className="flex justify-between w-11/12 h-12 mb-4 bg-white text-black rounded"
+                    className="flex justify-between w-11/12 h-12 mb-4 bg-white text-black rounded relative"
                   >
-                    <div className="w-1/12 mx-2 flex items-center justify-center">
+                    <div className="w-1/12 mx-2 flex items-center justify-center relative">
+                      {!music.musicId && (
+                        <img
+                          src={MusicMarker}
+                          alt="MusicMarker"
+                          className="absolute top-1 left-0 transform -translate-y-1/2"
+                          style={{ width: '16px', height: '16px' }} // Adjust size as necessary
+                        />
+                      )}
                       {music.musicId && (
                         <img
                           onClick={() => handleUpdateMusicClick(music)}
@@ -158,12 +182,26 @@ const MusicPage = () => {
                     </div>
                     <div className="w-1/12 mx-2 flex items-center justify-center">
                       {music.musicId ? (
-                        <img
-                          onClick={() => handleRemoveSavedMusicClick(music.musicId!)}
-                          src={MusicDelete}
-                          alt="MusicDelete"
-                          className="cursor-pointer"
-                        />
+                        <>
+                          <img
+                            onClick={() => handleOpenDeleteModal(music.musicId!)} // Pass musicId here
+                            src={MusicDelete}
+                            alt="MusicDelete"
+                            className="cursor-pointer"
+                          />
+                          {open &&
+                            selectedMusicId === music.musicId && ( // Show modal only for the selected music item
+                              <CommonModal
+                                imageSrc={MusicMood}
+                                mainText="삭제 하시겠습니까?"
+                                subText="이후 복구되지 않습니다."
+                                cancelText="취소"
+                                confirmText="확인"
+                                onCancel={() => setOpen(false)}
+                                onConfirm={() => handleRemoveSavedMusicClick(music.musicId!)}
+                              />
+                            )}
+                        </>
                       ) : (
                         <img
                           onClick={() => handleRemoveUnsavedMusicClick(index)}
@@ -202,17 +240,17 @@ const MusicPage = () => {
           <div className="mt-5">
             <div className="mt-5 flex justify-center ">
               <div onClick={handleAddMoodClick} className="h-40 w-full">
-                {musicTasteData?.mood.moodImageUrl ? (
+                {musicTasteData?.mood?.moodImageUrl ? (
                   <img
-                    src={musicTasteData?.mood.moodImageUrl}
+                    src={musicTasteData.mood.moodImageUrl}
                     alt="Selected"
                     className="h-full w-full object-cover"
                   />
                 ) : (
-                  <>
+                  <div className="h-full w-full flex flex-col items-center justify-center bg-[#303030] rounded">
                     <img src={MusicMood} alt="MusicMood" className="h-8 w-8" />
                     <span>이미지 추가하기</span>
-                  </>
+                  </div>
                 )}
               </div>
             </div>

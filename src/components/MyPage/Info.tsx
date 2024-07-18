@@ -17,12 +17,11 @@ import {
 import { Input } from '@/components/ui/input';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useImageCrop } from '@/hooks/useImageCrop';
-import { Dialog, DialogActions, DialogContent, DialogTitle, Slider } from '@mui/material';
 import Cropper from 'react-easy-crop';
 import MatchingListHeader from '../layout/matchingListHeader';
 import { ProfilesInfoDTO, UserInfoDTO } from '@/type/services/Mypage/MypageDTO';
-import { useCookies } from 'react-cookie';
 import { useEffect } from 'react';
+import UseAccessToken from '@/hooks/useAccessToken';
 
 const formSchema = z.object({
   nickname: z
@@ -38,8 +37,9 @@ const formSchema = z.object({
 
 const InfoPage = () => {
   const { setCurrentPage } = useMyPageStore();
-  const [cookies] = useCookies(['accessToken']);
-  const accessToken = cookies.accessToken;
+
+  const accessToken = UseAccessToken();
+
   const queryClient = useQueryClient();
 
   const { data: InfoData, error } = useQuery<ProfilesInfoDTO>({
@@ -53,23 +53,33 @@ const InfoPage = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['InfoData'] });
       queryClient.invalidateQueries({ queryKey: ['mainData'] });
-      setCurrentPage('mypage'); // 페이지 이동을 성공 후로 이동
+      setCurrentPage('mypage');
     },
   });
+
+  const initialNickname = InfoData?.data.name || '';
+  const initialOneLiner = InfoData?.data.oneLineIntroduction || '';
 
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      nickname: InfoData?.data.name || '',
-      oneLiner: InfoData?.data.oneLineIntroduction || '',
+      nickname: initialNickname,
+      oneLiner: initialOneLiner,
     },
   });
 
+  const {
+    formState: { errors },
+  } = form;
+
   const onSubmit = (data: z.infer<typeof formSchema>) => {
+    const updatedName = data.nickname === initialNickname ? null : data.nickname;
+    const updatedOneLiner = data.oneLiner === initialOneLiner ? null : data.oneLiner;
+
     mutation.mutate({
       profileImage: compressedImage ?? undefined,
-      name: data.nickname,
-      oneLineIntroduction: data.oneLiner,
+      name: updatedName,
+      oneLineIntroduction: updatedOneLiner,
       isDeleteImage: true,
     });
   };
@@ -96,14 +106,14 @@ const InfoPage = () => {
   useEffect(() => {
     if (InfoData) {
       form.reset({
-        nickname: InfoData.data.name,
-        oneLiner: InfoData.data.oneLineIntroduction,
+        nickname: initialNickname,
+        oneLiner: initialOneLiner,
       });
     }
   }, [InfoData, form]);
 
   if (error) {
-    return <div>error</div>;
+    return <div>Error loading user data</div>;
   }
   if (!InfoData) {
     return <div>No user data found</div>;
@@ -166,7 +176,7 @@ const InfoPage = () => {
                 <FormField
                   control={form.control}
                   name="oneLiner"
-                  render={({ field }) => (
+                  render={({ field, fieldState }) => (
                     <FormItem>
                       <FormLabel>한줄소개</FormLabel>
                       <FormControl>
@@ -176,8 +186,15 @@ const InfoPage = () => {
                           {...field}
                         />
                       </FormControl>
-                      <FormDescription>최대 30자 까지 입력할 수 있어요</FormDescription>
+                      <FormDescription>최대 50자 까지 입력할 수 있어요</FormDescription>
                       <FormMessage />
+                      {fieldState.error && (
+                        <span className="text-red-500">
+                          {fieldState.error.type === 'minLength'
+                            ? '최소 50자 이상 입력해주세요'
+                            : '최대 50자 까지 입력할 수 있어요'}
+                        </span>
+                      )}
                     </FormItem>
                   )}
                 />
@@ -187,9 +204,9 @@ const InfoPage = () => {
 
                     <Button
                       type="submit"
-                      disabled={filledFieldsCount !== 2}
                       variant={'noHover'}
-                      className={`w-full bg-white text-l text-black mt-4 max-w-md rounded-lg mx-auto ${filledFieldsCount !== 5 && 'cursor-not-allowed'}`}
+                      className={`w-full bg-white text-l text-black mt-4 max-w-md rounded-lg mx-auto ${Object.keys(errors).length ? 'cursor-not-allowed opacity-50' : ''}`}
+                      disabled={Object.keys(errors).length > 0}
                     >
                       저장하기
                     </Button>
@@ -201,10 +218,17 @@ const InfoPage = () => {
         </div>
       </div>
 
-      <Dialog open={open} onClose={() => setOpen(false)} fullWidth fullScreen>
-        <DialogTitle>이미지 크롭</DialogTitle>
-        <DialogContent>
-          <div className="relative w-full h-full">
+      {open && (
+        <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black">
+          <div className="flex flex-row justify-between p-4 w-full max-w-[430px]">
+            <Button onClick={() => setOpen(false)} className="text-red-500">
+              취소
+            </Button>
+            <Button onClick={() => handleCropComplete(croppedArea)} className="text-green-500">
+              저장
+            </Button>
+          </div>
+          <div className="relative flex-grow w-full max-w-[430px] h-full">
             <Cropper
               image={imageSrc ?? undefined}
               crop={crop}
@@ -213,23 +237,14 @@ const InfoPage = () => {
               onCropChange={setCrop}
               onCropComplete={(_, croppedAreaPixels) => setCroppedArea(croppedAreaPixels)}
               onZoomChange={setZoom}
+              style={{
+                containerStyle: { height: '100%', width: '100%' },
+                cropAreaStyle: { border: '2px solid white' },
+              }}
             />
           </div>
-        </DialogContent>
-        <DialogActions>
-          <div className="flex flex-col w-full">
-            <Slider
-              value={zoom}
-              min={1}
-              max={3}
-              step={0.1}
-              aria-labelledby="Zoom"
-              onChange={(_, zoom) => setZoom(zoom as number)}
-            />
-            <Button onClick={() => handleCropComplete(croppedArea)}>확인</Button>
-          </div>
-        </DialogActions>
-      </Dialog>
+        </div>
+      )}
     </div>
   );
 };

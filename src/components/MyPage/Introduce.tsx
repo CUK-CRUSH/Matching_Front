@@ -8,10 +8,10 @@ import MatchingListHeader from '../layout/matchingListHeader';
 import { MBTIState } from '@/type/store/MyPage/MypageState';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getUserIntroData, patchUserIntroData } from '@/services/Mypage/MypageAPI';
-import { useCookies } from 'react-cookie';
 import { TagsState, UserIntroDTO } from '@/type/services/Mypage/MypageDTO';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import UseAccessToken from '@/hooks/useAccessToken';
 
 const mbtiOptions = ['E', 'N', 'F', 'J', 'I', 'S', 'T', 'P'];
 
@@ -44,8 +44,7 @@ const IntroducePage = () => {
   } = useMyPageStore();
 
   // access토큰
-  const [cookies] = useCookies(['accessToken']);
-  const accessToken = cookies.accessToken;
+  const accessToken = UseAccessToken();
 
   const queryClient = useQueryClient();
 
@@ -122,8 +121,6 @@ const IntroducePage = () => {
 
   const isMBTIDisabled = watch('living');
 
-  const totalField = 4;
-
   const handleTagClick = (
     tag: string,
     selectedTags: string[],
@@ -172,6 +169,24 @@ const IntroducePage = () => {
 
     mutation.mutate(postData);
   };
+
+  const mbtiComplete =
+    selectedMBTI.E_I !== null &&
+    selectedMBTI.N_S !== null &&
+    selectedMBTI.F_T !== null &&
+    selectedMBTI.J_P !== null;
+
+  const musicTagComplete = selectedMusicTag.length > 0;
+  const hobbyTagComplete = selectedHobbyTag.length > 0;
+
+  const textarea1Complete = watch('textarea1').length >= 50 && watch('textarea1').length <= 500;
+  const textarea2Complete = watch('textarea2').length >= 50 && watch('textarea2').length <= 500;
+
+  const filledFieldsCount =
+    (mbtiComplete || isMBTIDisabled ? 1 : 0) +
+    (musicTagComplete && hobbyTagComplete ? 1 : 0) +
+    (textarea1Complete ? 1 : 0) +
+    (textarea2Complete ? 1 : 0);
 
   if (error) return <div>Error loading intro data</div>;
   if (!IntroData) return <div>Loading...</div>;
@@ -342,7 +357,7 @@ const IntroducePage = () => {
             </div>
             <div className="flex justify-center w-full mt-4">
               <div className="bg-gray-700 w-auto text-white py-2 px-4 rounded-full">
-                1/{totalField} 완료
+                {filledFieldsCount}/4 완료
               </div>
             </div>
             <Button type="submit" className="w-full bg-white text-black mt-4">

@@ -8,7 +8,6 @@ import { Toaster } from '@/components/ui/toaster';
 import LoginPage from '@/pages/login';
 import ProfileCard from '@/pages/matching';
 import TermsPage from '@/pages/Terms';
-import OnBoardingpage from '@/pages/onBoarding';
 import MatchingListPage from '@/pages/matchingList';
 import ReceivedHeart from '@/pages/heart/receivedHeart';
 import SendedHeart from '@/pages/heart/sendedHeart';
@@ -16,13 +15,16 @@ import ReceivedMessage from '@/pages/message/receivedMessage';
 import SendedMessage from '@/pages/message/sendedMessage';
 import MyPage from '@/pages/Mypage';
 import OpenedProfileCard from '@/pages/OpenedProfileCard';
+import OnBoardingPage from '@/pages/onBoarding';
+import ProtectedRoute from './privateRouter';
+import PublicRoute from './publicRouter';
 import ViewProfileCard from './components/matchingList/ViewProfileCard';
 
 const pageRoutes = {
   main: '/',
   login: '/login',
   matching: '/matching',
-  openedProfileCard : '/matching/openedProfileCard',
+  openedProfileCard: '/matching/openedProfileCard',
   terms: '/terms',
   onBoarding: '/onboarding',
   matchingList: '/matchingList',
@@ -89,7 +91,7 @@ const router = createBrowserRouter([
   {
     element: <CommonLayout />,
     children: [
-      { path: pageRoutes.onBoarding, element: <OnBoardingpage />, errorElement: <ErrorPage /> },
+      { path: pageRoutes.onBoarding, element: <OnBoardingPage />, errorElement: <ErrorPage /> },
 
       { path: '*', element: <NotFoundPage /> },
     ],
@@ -115,6 +117,42 @@ const router = createBrowserRouter([
     children: [
       { path: pageRoutes.sendedHeart, element: <SendedHeart />, errorElement: <ErrorPage /> },
 
+      {
+        path: pageRoutes.main,
+        element: (
+          <PublicRoute>
+            <Home />
+          </PublicRoute>
+        ),
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: pageRoutes.login,
+        element: (
+          <PublicRoute>
+            <LoginPage />
+          </PublicRoute>
+        ),
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: pageRoutes.onBoarding,
+        element: (
+          <PublicRoute>
+            <OnBoardingPage />
+          </PublicRoute>
+        ),
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: pageRoutes.terms,
+        element: (
+          <PublicRoute>
+            <TermsPage />
+          </PublicRoute>
+        ),
+        errorElement: <ErrorPage />,
+      },
       { path: '*', element: <NotFoundPage /> },
     ],
   },
@@ -122,25 +160,77 @@ const router = createBrowserRouter([
     element: <CommonLayout />,
     children: [
       {
-        path: pageRoutes.receivedMessage,
-        element: <ReceivedMessage />,
+        path: pageRoutes.matching,
+        element: (
+          <ProtectedRoute>
+            <ProfileCard />
+          </ProtectedRoute>
+        ),
         errorElement: <ErrorPage />,
       },
-
-      { path: '*', element: <NotFoundPage /> },
-    ],
-  },
-  {
-    element: <CommonLayout />,
-    children: [
-      { path: pageRoutes.sendedMessage, element: <SendedMessage />, errorElement: <ErrorPage /> },
-      { path: '*', element: <NotFoundPage /> },
-    ],
-  },
-  {
-    element: <CommonLayout />,
-    children: [
-      { path: pageRoutes.myPage, element: <MyPage />, errorElement: <ErrorPage /> },
+      {
+        path: pageRoutes.openedProfileCard,
+        element: (
+          <ProtectedRoute>
+            <OpenedProfileCard />
+          </ProtectedRoute>
+        ),
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: pageRoutes.matchingList,
+        element: (
+          <ProtectedRoute>
+            <MatchingListPage />
+          </ProtectedRoute>
+        ),
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: pageRoutes.receivedHeart,
+        element: (
+          <ProtectedRoute>
+            <ReceivedHeart />
+          </ProtectedRoute>
+        ),
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: pageRoutes.sendedHeart,
+        element: (
+          <ProtectedRoute>
+            <SendedHeart />
+          </ProtectedRoute>
+        ),
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: pageRoutes.receivedMessage,
+        element: (
+          <ProtectedRoute>
+            <ReceivedMessage />
+          </ProtectedRoute>
+        ),
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: pageRoutes.sendedMessage,
+        element: (
+          <ProtectedRoute>
+            <SendedMessage />
+          </ProtectedRoute>
+        ),
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: pageRoutes.myPage,
+        element: (
+          <ProtectedRoute>
+            <MyPage />
+          </ProtectedRoute>
+        ),
+        errorElement: <ErrorPage />,
+      },
       { path: '*', element: <NotFoundPage /> },
     ],
   },

@@ -2,7 +2,6 @@ import useMyPageStore from '@/store/myPageStore';
 import MatchingListHeader from '../layout/matchingListHeader';
 import { useEffect, useState } from 'react';
 import { Button } from '../ui/button';
-import { useCookies } from 'react-cookie';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   HobbyTagDTO,
@@ -12,13 +11,14 @@ import {
   UserMusicTagDTO,
 } from '@/type/services/Mypage/MypageDTO';
 import { getMusicTagsData, patchUserIntroData } from '@/services/Mypage/MypageAPI';
+import UseAccessToken from '@/hooks/useAccessToken';
 
 const TagsPage = () => {
   const { setCurrentPage } = useMyPageStore();
   const [selectedMusicTags, setSelectedMusicTags] = useState<string[]>([]);
   const [selectedHobbyTags, setSelectedHobbyTags] = useState<string[]>([]);
-  const [cookies] = useCookies(['accessToken']);
-  const accessToken = cookies.accessToken;
+
+  const accessToken = UseAccessToken();
 
   const queryClient = useQueryClient();
 

@@ -1,17 +1,16 @@
 import useMyPageStore from '@/store/myPageStore';
 import MatchingListHeader from '../../layout/matchingListHeader';
-import { useCookies } from 'react-cookie';
 import { useForm } from 'react-hook-form';
 import { LifeMusicItem, MusicDTO, YoutubeMusicDataDTO } from '@/type/services/Music/MusicDTO';
 import { getYoutubeMusicData } from '@/services/Music/MusicAPI';
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { SearchOutlined } from '@ant-design/icons';
+import UseAccessToken from '@/hooks/useAccessToken';
 
 const MusicDetailPage = () => {
   const { setCurrentPage, selectedMusic, setSelectedMusic } = useMyPageStore();
-  const [cookies] = useCookies(['accessToken']);
-  const accessToken = cookies.accessToken;
+  const accessToken = UseAccessToken();
   const { register, handleSubmit, watch } = useForm<{ query: string }>();
   const query = watch('query');
   const [selectedItem, setSelectedItem] = useState<MusicDTO | null>(null);

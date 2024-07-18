@@ -16,7 +16,8 @@ export type MyPageState = {
     | 'musicDetail'
     | 'tags'
     | 'location'
-    | 'mood';
+    | 'mood'
+    | 'musicEdit';
   setCurrentPage: (page: MyPageState['currentPage']) => void;
 
   selectedMBTI: MBTIState;
@@ -39,6 +40,9 @@ export type MyPageState = {
 
   deleteLifeMusics: number[];
   setDeleteLifeMusics: (musicIds: number[]) => void;
+
+  currentMusic: LifeMusicItem | null;
+  setCurrentMusic: (music: LifeMusicItem | null) => void;
 
   updateLifeMusics: LifeMusicItem[];
   setUpdateLifeMusics: (musics: LifeMusicItem[]) => void;

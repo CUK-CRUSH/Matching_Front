@@ -6,14 +6,14 @@ import { useQuery } from '@tanstack/react-query';
 import { getMainData } from '@/services/Mypage/MypageAPI';
 import Footer from '@/components/layout/footer';
 import MatchingListHeader from '../layout/matchingListHeader';
-import { useCookies } from 'react-cookie';
 import { MainInfoDataDTO } from '@/type/services/Mypage/MypageDTO';
 import CircularProgressWithLabel from '@/utils/CircularProgressWithLabel ';
+import UseAccessToken from '@/hooks/useAccessToken';
 
 const MyPageMain = () => {
   const { setCurrentPage } = useMyPageStore();
-  const [cookies] = useCookies(['accessToken']);
-  const accessToken = cookies.accessToken;
+
+  const accessToken = UseAccessToken();
 
   const { data: mainData, error } = useQuery<MainInfoDataDTO>({
     queryKey: ['mainData'],
