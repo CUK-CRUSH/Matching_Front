@@ -6,8 +6,9 @@ import SendedItem from "@/components/matchingList/SendedItem";
 import { useEffect, useRef, useState } from "react";
 import useCustomScroll from "@/hooks/useCustomScrollBar/useCustomScrollBar";
 import { useQuery } from "@tanstack/react-query";
-import { ItemProps } from "@/type/MatchingList/MatchingList";
 import { getSendedMessageProfileCard } from "@/services/ProfileCard/MessageProfileCard";
+import { SendedMessageItemProps } from "@/type/services/LikeProfileCard/LikeProfileCard";
+import SendedMessageItem from "@/components/matchingList/SendedMessageItem";
 
 
 const SendedMessage = () => {
@@ -31,7 +32,7 @@ const SendedMessage = () => {
     placeholderData: (previousData) => previousData,
   });
 
-  const [sendedMessageProfileCard, setSendedMessageProfileCard] = useState<ItemProps[] | undefined>();
+  const [sendedMessageProfileCard, setSendedMessageProfileCard] = useState<SendedMessageItemProps[] | undefined>();
 
   useEffect(() => {
     if (isLastPage) return;
@@ -64,7 +65,7 @@ const SendedMessage = () => {
 
       <ItemContainer ref={innerContainerRef}>
       {sendedMessageProfileCard?.map((item, index) => (
-            <SendedItem key={index} {...item} type={'message'}/>
+            <SendedMessageItem key={index} {...item} />
           ))}
 
         </ItemContainer>

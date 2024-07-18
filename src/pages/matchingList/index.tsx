@@ -13,6 +13,8 @@ import { getReciveLikedProfileCard, getSendedLikedProfileCard } from '@/services
 import { useEffect, useState } from 'react';
 import { ItemProps } from '@/type/MatchingList/MatchingList';
 import { getSendedMessageProfileCard, getReciveMessageProfileCard } from '@/services/ProfileCard/MessageProfileCard';
+import { SendedMessageItemProps } from '@/type/services/LikeProfileCard/LikeProfileCard';
+import SendedMessageItem from '@/components/matchingList/SendedMessageItem';
 
 const MatchingListPage = () => {
 
@@ -47,8 +49,8 @@ const MatchingListPage = () => {
   const {matchingListState} = useMatchingListStateStore();
   const [receivedLikedProfileCard, setReceivedLikedProfileCard] = useState<ItemProps[] | undefined>();
   const [sendedLikedProfileCard, setSendedLikedProfileCard] = useState<ItemProps[] | undefined>();
-  const [receivedMessageProfileCard, setReceivedMessageProfileCard] = useState<ItemProps[] | undefined>();
-  const [sendedMessageProfileCard, setSendedMessageProfileCard] = useState<ItemProps[] | undefined>();
+  const [receivedMessageProfileCard, setReceivedMessageProfileCard] = useState<SendedMessageItemProps[] | undefined>();
+  const [sendedMessageProfileCard, setSendedMessageProfileCard] = useState<SendedMessageItemProps[] | undefined>();
 
   useEffect(() => { 
     // 받은 좋아요 불러오기
@@ -61,11 +63,11 @@ const MatchingListPage = () => {
       setSendedLikedProfileCard(response?.data);
     });
 
-    // 보낸 좋아요 불러오기
+    // 받은 메시지 불러오기
     getReciveMessageProfileCard(import.meta.env.VITE_DUETT_TOKEN,0).then((response) => {
       setReceivedMessageProfileCard(response?.data);
     });
-    
+
     // 보낸 메시지 불러오기
     getSendedMessageProfileCard(import.meta.env.VITE_DUETT_TOKEN,0).then((response) => {
       setSendedMessageProfileCard(response?.data);
@@ -127,7 +129,7 @@ const MatchingListPage = () => {
             <Divider />
             <ItemContainer>
               {sendedMessageProfileCard?.slice(0, 3).map((item, index) => (
-                <SendedItem key={index} {...item} />
+                <SendedMessageItem key={index} {...item} />
               ))}
             </ItemContainer>
           </>
