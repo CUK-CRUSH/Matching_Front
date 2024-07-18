@@ -15,11 +15,13 @@ import SendedHeart from '@/pages/heart/sendedHeart';
 import ReceivedMessage from '@/pages/message/receivedMessage';
 import SendedMessage from '@/pages/message/sendedMessage';
 import MyPage from '@/pages/Mypage';
+import OpenedProfileCard from '@/pages/OpenedProfileCard';
 
 const pageRoutes = {
   main: '/',
   login: '/login',
   matching: '/matching',
+  openedProfileCard : '/matching/openedProfileCard',
   terms: '/terms',
   onBoarding: '/onboarding',
   matchingList: '/matchingList',
@@ -62,6 +64,14 @@ const router = createBrowserRouter([
     element: <CommonLayout />,
     children: [
       { path: pageRoutes.matching, element: <ProfileCard />, errorElement: <ErrorPage /> },
+
+      { path: '*', element: <NotFoundPage /> },
+    ],
+  },
+  {
+    element: <CommonLayout />,
+    children: [
+      { path: pageRoutes.openedProfileCard, element: <OpenedProfileCard />, errorElement: <ErrorPage /> },
 
       { path: '*', element: <NotFoundPage /> },
     ],

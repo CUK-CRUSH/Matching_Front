@@ -77,6 +77,7 @@ export type TagProps = {
   isDark?: boolean;
   isProfileCard?: boolean;
   mark?: boolean;
+  isSmall?: boolean;
 }
 
 export type SocialButtonProps = {
