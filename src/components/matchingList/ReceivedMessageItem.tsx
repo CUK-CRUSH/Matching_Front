@@ -7,10 +7,11 @@ import Name from "../common/Name";
 import Tag from "../common/Tag";
 import MusicCard from "../common/MusicCard";
 import { MessageItemProps } from "@/type/services/LikeProfileCard/LikeProfileCard";
+import ClickedMessagePopUp from "./ClickedMessagePopUp";
 // import Time from "@/components/common/Time";
 
 const ReceivedMessageItem = ({ sender,content,messageDate }: MessageItemProps) => {
-  const [, setIsClicked] = useState<boolean>(false);
+  const [isClicked, setIsClicked] = useState<boolean>(false);
 
   const handleClick = () => {
     
@@ -60,10 +61,11 @@ const ReceivedMessageItem = ({ sender,content,messageDate }: MessageItemProps) =
       </div>
 
       {/* 메시지 팝업 클릭했을때 */}
-      {/* {isClicked && <ClickedMessagePopUp 
-                      handleClick={handleClick}
-                      currentBackground={currentBackground} 
-                      name={name} age={age} mbti={mbti} tag={tag} time={time} />} */}
+      {isClicked && <ClickedMessagePopUp
+        handleClick={handleClick}
+        name={sender?.name} birthDate={sender?.birthDate} mbti={sender?.mbti} tags={sender?.tags}  isDark={false}
+        content={content} profileId={sender?.profileId} currentBackground={currentBackground}
+        />}
     </>
   );
 }
