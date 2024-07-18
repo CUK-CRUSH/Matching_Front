@@ -8,6 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getReciveMessageProfileCard } from "@/services/ProfileCard/MessageProfileCard";
 import { MessageItemProps } from "@/type/services/LikeProfileCard/LikeProfileCard";
 import ReceivedMessageItem from "@/components/matchingList/ReceivedMessageItem";
+import { useCookies } from "react-cookie";
 
 const ReceivedMessage = () => {
   const outerContainerRef = useRef<HTMLDivElement | null>(null);
@@ -24,9 +25,12 @@ const ReceivedMessage = () => {
   const [isLastPage, setIsLastPage] = useState<boolean>(false);
   const [size] = useState<number>(10);
 
+  const [cookies] = useCookies(['accessToken']);
+  const accessToken = cookies.accessToken;
+  
   const { data: reciveMessageProfileCard, error } = useQuery({
     queryKey: ['recieveMessageProfileCardData'],
-    queryFn: () => getReciveMessageProfileCard(import.meta.env.VITE_DUETT_TOKEN,page),
+    queryFn: () => getReciveMessageProfileCard(accessToken,page),
     staleTime: 1000 * 60 * 5, // 5분
     placeholderData: (previousData) => previousData,
   });
@@ -36,7 +40,7 @@ const ReceivedMessage = () => {
   useEffect(() => {
     if (isLastPage) return;
 
-    getReciveMessageProfileCard(import.meta.env.VITE_DUETT_TOKEN,page).then((response) => {
+    getReciveMessageProfileCard(accessToken,page).then((response) => {
       if (response?.data?.length < size) {
         setIsLastPage(true);
       }

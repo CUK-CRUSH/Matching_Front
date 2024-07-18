@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { ProfileCardSummaryProps } from "@/type/services/ProfileCard/ProfileCard";
 import { useQuery } from "@tanstack/react-query";
 import { getProfileCardData } from "@/services/ProfileCard/ProfileCardApi";
+import { useCookies } from "react-cookie";
 
 const MatchingPage = () => {
 
@@ -19,9 +20,12 @@ const MatchingPage = () => {
   const [size] = useState(10);
   const [radius] = useState(999999);
 
+  const [cookies] = useCookies(['accessToken']);
+  const accessToken = cookies.accessToken;
+
   const { data: profileCardData, error } = useQuery({
     queryKey: ['profileCardData'],
-    queryFn: () => getProfileCardData(import.meta.env.VITE_DUETT_TOKEN,page, size, radius),
+    queryFn: () => getProfileCardData(accessToken, page,size, radius),
     staleTime: 1000 * 60 * 5, // 5분
     placeholderData: (previousData) => previousData,
   });

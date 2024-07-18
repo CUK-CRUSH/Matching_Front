@@ -18,12 +18,16 @@ import Fold from '../Fold';
 import UserTaste from '@/components/matching/UserTaste';
 import MoodMusic from '@/components/matching/MoodMusic';
 import SocialButtons from '../SocialButtons';
+import { useCookies } from 'react-cookie';
 
 const ProfileCard = ({ profileId, name, birthDate, mbti, tags, oneLineIntroduction, distance, lifeMusics,
   isOpen, isModalOpen, isLock, handleSetOpen, handleSetModalOpen, handleSetLockOpen, activeIndex }: CombinedProfileCardProps) => {
 
   // 프로필 데이터
   const [profiles, setProfiles] = useState<ProfileCardProps | undefined>();
+
+  const [cookies] = useCookies(['accessToken']);
+  const accessToken = cookies.accessToken;
 
   // 배경색 목록  
   const backgrounds = [
@@ -48,7 +52,7 @@ const ProfileCard = ({ profileId, name, birthDate, mbti, tags, oneLineIntroducti
   const { openMessage, ableSpend, setAbleSpend } = useProfileCardStore();
 
   useEffect(() => {
-    ableSpend && spendCoin(import.meta.env.VITE_DUETT_TOKEN,profileId)
+    ableSpend && spendCoin(accessToken,profileId)
       .then((response) => {
         setProfiles(response?.data?.profileCardResponse);
         setAbleSpend(false)

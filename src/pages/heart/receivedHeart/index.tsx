@@ -8,6 +8,7 @@ import useCustomScroll from "@/hooks/useCustomScrollBar/useCustomScrollBar";
 import { useQuery } from "@tanstack/react-query";
 import { getReciveLikedProfileCard } from "@/services/ProfileCard/LikeProfileCard";
 import { ItemProps } from "@/type/services/LikeProfileCard/LikeProfileCard";
+import { useCookies } from "react-cookie";
 
 const ReceivedHeart = () => {
   const outerContainerRef = useRef<HTMLDivElement | null>(null);
@@ -24,6 +25,9 @@ const ReceivedHeart = () => {
   const [isLastPage, setIsLastPage] = useState<boolean>(false);
   const [size] = useState<number>(10);
 
+  const [cookies] = useCookies(['accessToken']);
+  const accessToken = cookies.accessToken;
+  
   const { data: receivedLikedProfileCardData, error: receivedLikedProfileCardError } = useQuery({
     queryKey: ['receivedLikedProfileCardData'],
     queryFn: () => getReciveLikedProfileCard(import.meta.env.VITE_DUETT_TOKEN, 0),
@@ -36,7 +40,7 @@ const ReceivedHeart = () => {
   useEffect(() => {
     if (isLastPage) return;
 
-    getReciveLikedProfileCard(import.meta.env.VITE_DUETT_TOKEN,page).then((response) => {
+    getReciveLikedProfileCard(accessToken,page).then((response) => {
       if (response?.data?.length < size) {
         setIsLastPage(true);
       }

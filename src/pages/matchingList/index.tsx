@@ -16,19 +16,23 @@ import { getSendedMessageProfileCard, getReciveMessageProfileCard } from '@/serv
 import { MessageItemProps } from "@/type/services/LikeProfileCard/LikeProfileCard";
 import SendedMessageItem from '@/components/matchingList/SendedMessageItem';
 import ReceivedMessageItem from '@/components/matchingList/ReceivedMessageItem';
+import { useCookies } from 'react-cookie';
 
 const MatchingListPage = () => {
 
+  const [cookies] = useCookies(['accessToken']);
+  const accessToken = cookies.accessToken;
+  
   const { data: receivedLikedProfileCardData, error: receivedLikedProfileCardError } = useQuery({
     queryKey: ['receivedLikedProfileCardData'],
-    queryFn: () => getReciveLikedProfileCard(import.meta.env.VITE_DUETT_TOKEN, 0),
+    queryFn: () => getReciveLikedProfileCard(accessToken, 0),
     staleTime: 1000 * 60 * 5, // 5 minutes
     placeholderData: (previousData) => previousData,
   });
 
   const { data: sendedLikedProfileCardData, error: sendedLikedProfileCardError } = useQuery({
     queryKey: ['sendedLikedProfileCardData'],
-    queryFn: () => getSendedLikedProfileCard(import.meta.env.VITE_DUETT_TOKEN, 0),
+    queryFn: () => getSendedLikedProfileCard(accessToken, 0),
     staleTime: 1000 * 60 * 5, // 5 minutes
     placeholderData: (previousData) => previousData,
   });
@@ -36,7 +40,7 @@ const MatchingListPage = () => {
   // 보낸 메시지
   const { data: sendedMessageProfileCardData, error: sendedMessageProfileCardError } = useQuery({
     queryKey: ['sendedMessageProfileCardData'],
-    queryFn: () => getSendedMessageProfileCard(import.meta.env.VITE_DUETT_TOKEN, 0),
+    queryFn: () => getSendedMessageProfileCard(accessToken, 0),
     staleTime: 1000 * 60 * 5, // 5 minutes
     placeholderData: (previousData) => previousData,
   });
@@ -44,7 +48,7 @@ const MatchingListPage = () => {
   // 받은 메시지
   const { data: reciveMessageProfileCardData, error: reciveMessageProfileCardError } = useQuery({
     queryKey: ['recieveMessageProfileCardData'],
-    queryFn: () => getReciveMessageProfileCard(import.meta.env.VITE_DUETT_TOKEN, 0),
+    queryFn: () => getReciveMessageProfileCard(accessToken, 0),
     staleTime: 1000 * 60 * 5, // 5 minutes
     placeholderData: (previousData) => previousData,
   });
@@ -57,22 +61,22 @@ const MatchingListPage = () => {
 
   useEffect(() => { 
     // 받은 좋아요 불러오기
-    getReciveLikedProfileCard(import.meta.env.VITE_DUETT_TOKEN,0).then((response) => {
+    getReciveLikedProfileCard(accessToken,0).then((response) => {
       setReceivedLikedProfileCard(response?.data);
     });
 
     // 보낸 좋아요 불러오기
-    getSendedLikedProfileCard(import.meta.env.VITE_DUETT_TOKEN,0).then((response) => {
+    getSendedLikedProfileCard(accessToken,0).then((response) => {
       setSendedLikedProfileCard(response?.data);
     });
 
     // 받은 메시지 불러오기
-    getReciveMessageProfileCard(import.meta.env.VITE_DUETT_TOKEN,0).then((response) => {
+    getReciveMessageProfileCard(accessToken,0).then((response) => {
       setReceivedMessageProfileCard(response?.data);
     });
 
     // 보낸 메시지 불러오기
-    getSendedMessageProfileCard(import.meta.env.VITE_DUETT_TOKEN,0).then((response) => {
+    getSendedMessageProfileCard(accessToken,0).then((response) => {
       setSendedMessageProfileCard(response?.data);
     });
   }, []);

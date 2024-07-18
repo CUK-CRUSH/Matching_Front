@@ -1,16 +1,15 @@
-import { ItemProps } from "@/type/MatchingList/MatchingList";
 import useGetRandomBackgrounds from "@/hooks/useGetRandomBackgrounds/useGetRandomBackgrounds";
 
 import { useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import Name from "../common/Name";
 import Tag from "../common/Tag";
-import MusicCard from "../common/MusicCard";
 import { MessageItemProps } from "@/type/services/LikeProfileCard/LikeProfileCard";
 import ClickedMessagePopUp from "./ClickedMessagePopUp";
 // import Time from "@/components/common/Time";
 
 const ReceivedMessageItem = ({ sender,content,messageDate }: MessageItemProps) => {
+  console.log(messageDate)
   const [isClicked, setIsClicked] = useState<boolean>(false);
 
   const handleClick = () => {
