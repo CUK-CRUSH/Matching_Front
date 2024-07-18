@@ -16,7 +16,7 @@ import UnFilledModal from "@/components/matching/UnFilledModal";
 const MatchingPage = () => {
 
   // 프로필목록 조회
-  const [page, setPage] = useState(0);
+  const [page, ] = useState(0);
   const [isLastPage, setIsLastPage] = useState(false);
   const [size] = useState(10);
   const [radius] = useState(999999);
@@ -35,7 +35,7 @@ const MatchingPage = () => {
   
   useEffect(() => {
     if (isLastPage || page === 0){
-      setPage(page + 1);
+      // setPage(page + 1);
       setIsLastPage(false);
       getProfileCardData(accessToken,page, size, radius,true).then((response) => {
         sessionStorage.setItem('isProfileComplete',String(response?.data?.isProfileComplete))
@@ -107,11 +107,11 @@ const MatchingPage = () => {
     setSwiperIndex(newIndex);
     console.log(newIndex, profiles?.length)
     // 스와이프시 페이징
-    if (profiles && newIndex === profiles?.length - 1 && !isLastPage) {
-      console.log('trigger')
-      // 새로운 데이터 불러오기
-      setIsLastPage(true)
-    }
+    // if (profiles && newIndex === profiles?.length - 1 && !isLastPage) {
+    //   console.log('trigger')
+    //   // 새로운 데이터 불러오기
+    //   setIsLastPage(true)
+    // }
 
     if(sessionStorage.getItem('isProfileComplete') === 'false' && newIndex >= 3){
       setIsUnfilledModalOpen(true)
