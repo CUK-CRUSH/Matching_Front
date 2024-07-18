@@ -20,7 +20,7 @@ const SendedHeart = () => {
     }
   );
 
-  const [page, setPage] = useState<number>(0);
+  const [page, ] = useState<number>(0);
   const [isLastPage, setIsLastPage] = useState<boolean>(false);
   const [size] = useState<number>(10);
 
