@@ -24,7 +24,6 @@ const MusicPage = () => {
     setDeleteLifeMusics,
     deleteLifeMusics,
     setUpdateLifeMusics,
-    updateLifeMusics,
     setCurrentMusic,
   } = useMyPageStore();
   const [cookies] = useCookies(['accessToken']);
