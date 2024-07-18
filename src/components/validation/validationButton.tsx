@@ -5,6 +5,7 @@ import { useCookies } from 'react-cookie';
 import { useState } from 'react';
 import useOnboardingStore from '@/store/validationStore';
 import { postLogin } from '@/services/Login/LoginAPI';
+import Spinner from '@/utils/Spinner';
 
 export default function ValidationButton({
   text = '다음',
@@ -35,16 +36,7 @@ export default function ValidationButton({
               );
 
               setCookie('accessToken', response.data.accessToken, { path: '/' });
-              // setCookie(
-              //   'accessToken',
-              //   'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzMCIsInR5cGUiOiJhY2Nlc3NfdG9rZW4iLCJpYXQiOjE3MTk0NzIxODcsImV4cCI6MTcyODExMjE4N30.sYBuQMorZuEB7g17Td257N8Ev1SE4Gpx7ly-NWUiZEg',
-              //   { path: '/' },
-              // );
               localStorage.setItem('refreshToken', response.data.refreshToken);
-              // localStorage.setItem(
-              //   'refreshToken',
-              //   'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzMCIsInR5cGUiOiJyZWZyZXNoX3Rva2VuIiwiaWF0IjoxNzE5NDcyMTg3LCJleHAiOjE3MTk0NzI3ODd9.qS0RD-8XyJPpPeu4b5ZCaeDQPBW12LFj1XBIGfCpMNU',
-              // );
 
               navigate('/mypage');
               setIsLoading(false);
@@ -69,7 +61,7 @@ export default function ValidationButton({
   return (
     <div className="flex justify-center mb-5 mx-2 w-full">
       <Button variant={'noHover'} onClick={handleClick} className={buttonCSS}>
-        {isLoading ? 'Loading...' : text}
+        {isLoading ? <Spinner /> : text}
       </Button>
     </div>
   );

@@ -5,15 +5,16 @@ import { useImageCrop } from '@/hooks/useImageCrop';
 import { Dialog, DialogActions, DialogContent, DialogTitle, Slider } from '@mui/material';
 import Cropper from 'react-easy-crop';
 import { Button } from '@/components/ui/button';
-import { useCookies } from 'react-cookie';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getMusicTasteData, postUserMoodData } from '@/services/Music/MusicAPI';
 import { MoodDataDTO, MusicTasteDataDTO } from '@/type/services/Music/MusicDTO';
+import UseAccessToken from '@/hooks/useAccessToken';
 
 const MusicMoodPage = () => {
   const { setCurrentPage } = useMyPageStore();
-  const [cookies] = useCookies(['accessToken']);
-  const accessToken = cookies.accessToken;
+
+  const accessToken = UseAccessToken();
+
   const queryClient = useQueryClient();
 
   const { data: musicTasteData } = useQuery<MusicTasteDataDTO>({

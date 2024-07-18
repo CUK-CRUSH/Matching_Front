@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import useMyPageStore from '@/store/myPageStore';
 import MatchingListHeader from '../../layout/matchingListHeader';
-import { useCookies } from 'react-cookie';
 import { Button } from '@/components/ui/button';
 import {
   LifeMusicItem,
@@ -16,6 +15,7 @@ import MusicDelete from '@/assets/Music/MusicDelete.svg';
 import MusicMood from '@/assets/Music/MusicMood.svg';
 import MusicMarker from '@/assets/Music/MusicMarker.svg';
 import CommonModal from '@/utils/CommonModal';
+import UseAccessToken from '@/hooks/useAccessToken';
 
 const MusicPage = () => {
   const {
@@ -27,8 +27,7 @@ const MusicPage = () => {
     setUpdateLifeMusics,
     setCurrentMusic,
   } = useMyPageStore();
-  const [cookies] = useCookies(['accessToken']);
-  const accessToken = cookies.accessToken;
+  const accessToken = UseAccessToken();
 
   const [open, setOpen] = useState<boolean>(false);
   const [selectedMusicId, setSelectedMusicId] = useState<number | null>(null); // New state for selected music ID

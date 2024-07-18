@@ -7,6 +7,8 @@ import { useForm } from 'react-hook-form';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import ProgressBar from '@/utils/ProgressBar';
 import { postSignUp } from '@/services/Login/LoginAPI';
+import { useState } from 'react';
+import Spinner from '@/utils/Spinner';
 
 const OneLinerPage = () => {
   const { setCurrentPage, userData, setUserData } = useOnboardingStore();
@@ -23,6 +25,7 @@ const OneLinerPage = () => {
   });
 
   const oneLineIntroduction = watch('oneLineIntroduction');
+  const [loading, setLoading] = useState(false);
 
   const handleNext = async () => {
     const updatedUserData = {
@@ -31,17 +34,18 @@ const OneLinerPage = () => {
     };
     setUserData('oneLineIntroduction', oneLineIntroduction);
 
+    setLoading(true);
     try {
-      console.log(updatedUserData);
       await postSignUp(updatedUserData);
       location.replace('/login');
     } catch (error) {
-      console.log(updatedUserData);
       console.error('Failed to submit data:', error);
       alert('Failed to submit data');
+    } finally {
+      setLoading(false);
     }
   };
-  console.log(userData);
+
   return (
     <div className="flex flex-col justify-between h-screen">
       <div className="absolute w-full mt-2">
@@ -84,7 +88,8 @@ const OneLinerPage = () => {
           onStateChange={handleNext}
           buttonEnabled={isValid && oneLineIntroduction.length >= 4}
         />
-      </div>
+      </div>{' '}
+      {loading && <Spinner />}
     </div>
   );
 };
