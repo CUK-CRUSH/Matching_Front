@@ -46,9 +46,10 @@ export const getProfileCardData = async (
   accessToken: string,
   page: number,
   size: number,
-  radius : number
+  radius : number,
+  checkProfileComplete?: boolean
 ): Promise<ProfileCardSummaryDTO> => {
-  const url = `${import.meta.env.VITE_DUETT_API_URL}/api/v1/profiles/summary?page=${page}&size=${size}&radius=${radius}`;
+  const url = `${import.meta.env.VITE_DUETT_API_URL}/api/v1/profiles/summary?page=${page}&size=${size}&radius=${radius}&checkProfileComplete=${checkProfileComplete}`;
   try {
     const { data } = await api.get<ProfileCardSummaryDTO>(url, {
       headers: {

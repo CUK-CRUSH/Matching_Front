@@ -6,7 +6,7 @@ import { MessageItemProps } from "@/type/services/LikeProfileCard/LikeProfileCar
 import ClickedMessagePopUp from "./ClickedMessagePopUp";
 
 
-const SendedMessageItem = ({ senderId,receiver,content,senderName,messageDate }: MessageItemProps) => {
+const SendedMessageItem = ({ senderId,receiver,content }: MessageItemProps) => {
   console.log(senderId)
   const [isClicked, setIsClicked] = useState<boolean>(false);
 

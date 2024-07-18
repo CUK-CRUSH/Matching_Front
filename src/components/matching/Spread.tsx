@@ -1,12 +1,15 @@
 import doubleDown from '@/assets/ProfileCard/double-down.svg';
 import { SpreadProfileCardImageProps } from '@/type/ProfileCard/ProfileCard';
 
-const Spread = ({ handleSetModalOpen,handleSetOpen,isLock,activeIndex }: SpreadProfileCardImageProps) => {
+const Spread = ({ handleSetModalOpen,handleSetOpen,isLock,activeIndex,setIsUnfilledModalOpen }: SpreadProfileCardImageProps) => {
 
   return (
     <div className={`w-full flex justify-center items-center cursor-pointer`}          
     onClick={() => {
-      if (isLock) {
+      if (sessionStorage.getItem('isProfileComplete') === 'false') {
+        setIsUnfilledModalOpen?.(true)
+      }
+      else if (isLock) {
           handleSetModalOpen(activeIndex, true);
 
       } else {

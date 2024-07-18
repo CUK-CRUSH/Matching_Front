@@ -19,6 +19,7 @@ import UserTaste from '@/components/matching/UserTaste';
 import MoodMusic from '@/components/matching/MoodMusic';
 import SocialButtons from '../SocialButtons';
 import { useCookies } from 'react-cookie';
+import UnFilledModal from '../UnFilledModal';
 
 const ProfileCard = ({ profileId, name, birthDate, mbti, tags, oneLineIntroduction, distance, lifeMusics,
   isOpen, isModalOpen, isLock, handleSetOpen, handleSetModalOpen, handleSetLockOpen, activeIndex }: CombinedProfileCardProps) => {
@@ -67,6 +68,16 @@ const ProfileCard = ({ profileId, name, birthDate, mbti, tags, oneLineIntroducti
       });
   }, [isOpen]);
 
+
+  // 모달창
+  const [isUnfilledModalOpen,setIsUnfilledModalOpen] = useState<boolean>(false)
+  
+  useEffect(() =>{
+    if(isUnfilledModalOpen){
+     setIsUnfilledModalOpen(true)
+    }
+  },[isUnfilledModalOpen])
+
   return (
     <>
       <div className={ProfileCardStyle}>
@@ -80,12 +91,14 @@ const ProfileCard = ({ profileId, name, birthDate, mbti, tags, oneLineIntroducti
           isOpen={isOpen}
           currentBackground={currentBackground}
         />}
+        {isUnfilledModalOpen && <UnFilledModal setIsUnfilledModalOpen={setIsUnfilledModalOpen } /> }
         {/* Top */}
 
         <div className={`flex flex-row ml-6`}>
           <ProfileImage
             handleSetModalOpen={(activeIndex: number | undefined, value: boolean) => handleSetModalOpen?.(activeIndex, value)}
             handleSetOpen={(activeIndex: number | undefined, value: boolean) => handleSetOpen?.(activeIndex, value)}
+            setIsUnfilledModalOpen={setIsUnfilledModalOpen}
             isLock={isLock}
             activeIndex={activeIndex}
             profileImageUrl={profiles?.profileImageUrl}
@@ -139,6 +152,7 @@ const ProfileCard = ({ profileId, name, birthDate, mbti, tags, oneLineIntroducti
             <Spread
               handleSetModalOpen={(activeIndex: number | undefined, value: boolean) => handleSetModalOpen?.(activeIndex, value)}
               handleSetOpen={(activeIndex: number | undefined, value: boolean) => handleSetOpen?.(activeIndex, value)}
+              setIsUnfilledModalOpen={setIsUnfilledModalOpen}
               isLock={isLock}
               activeIndex={activeIndex}
             />

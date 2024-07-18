@@ -11,6 +11,7 @@ import { ProfileCardSummaryProps } from "@/type/services/ProfileCard/ProfileCard
 import { useQuery } from "@tanstack/react-query";
 import { getProfileCardData } from "@/services/ProfileCard/ProfileCardApi";
 import { useCookies } from "react-cookie";
+import UnFilledModal from "@/components/matching/UnFilledModal";
 
 const MatchingPage = () => {
 
@@ -25,7 +26,7 @@ const MatchingPage = () => {
 
   const { data: profileCardData, error } = useQuery({
     queryKey: ['profileCardData'],
-    queryFn: () => getProfileCardData(accessToken, page,size, radius),
+    queryFn: () => getProfileCardData(accessToken, page,size, radius,true),
     staleTime: 1000 * 60 * 5, // 5분
     placeholderData: (previousData) => previousData,
   });
@@ -36,7 +37,8 @@ const MatchingPage = () => {
     if (isLastPage || page === 0){
       setPage(page + 1);
       setIsLastPage(false);
-      getProfileCardData(import.meta.env.VITE_DUETT_TOKEN,page, size, radius).then((response) => {
+      getProfileCardData(accessToken,page, size, radius,true).then((response) => {
+        sessionStorage.setItem('isProfileComplete',String(response?.data?.isProfileComplete))
         // 프로필 데이터 추가
         setProfiles((prevProfiles) => {
           const newProfiles = response.data.profileCardSummaryResponses.map(profile => ({
@@ -48,7 +50,6 @@ const MatchingPage = () => {
           return prevProfiles ? [...prevProfiles, ...newProfiles] : newProfiles;
         });
         // 페이지 더하기
-        
       }
     );
     }
@@ -59,12 +60,9 @@ const MatchingPage = () => {
 
   const [swiperIndex, setSwiperIndex] = useState(0);
 
-  // useEffect(() => {
-  //   if (!isLastPage && profiles?.length === page * size) {
-  //     setPage(page + 1);
-  //     setIsLastPage(true);
-  //   }
-  // }, [profiles,  size]);
+  // 모달창
+  const [isUnfilledModalOpen,setIsUnfilledModalOpen] = useState<boolean>(false)
+  
   // 프로필카드 열기
   const handleSetOpen = (activeIndex: number | undefined, value: boolean) => {
     setProfiles((prev) =>
@@ -114,6 +112,10 @@ const MatchingPage = () => {
       // 새로운 데이터 불러오기
       setIsLastPage(true)
     }
+
+    if(sessionStorage.getItem('isProfileComplete') === 'false' && newIndex >= 3){
+      setIsUnfilledModalOpen(true)
+    }
   };
 
   if (error) {
@@ -127,6 +129,7 @@ const MatchingPage = () => {
   return (
     <Layout backgroundColor={'#252525'}>
       <ProfileCardHeader />
+      {isUnfilledModalOpen && <UnFilledModal setIsUnfilledModalOpen={setIsUnfilledModalOpen} />}
       <Swiper  
         onActiveIndexChange={handleActiveIndexChange}>
        
