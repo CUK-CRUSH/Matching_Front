@@ -29,27 +29,38 @@ const MatchingPage = () => {
   const [profiles, setProfiles] = useState<ProfileCardSummaryProps[] | undefined>();
   
   useEffect(() => {
-    getProfileCardData(import.meta.env.VITE_DUETT_TOKEN,page, size, radius).then((response) => {
-      setProfiles((prevProfiles) => {
-        const newProfiles = response.data.profileCardSummaryResponses.map(profile => ({
-          ...profile,
-          isModalOpen: false,
-          isLock: true,
-          isOpen: false,
-        }));
-        return prevProfiles ? [...prevProfiles, ...newProfiles] : newProfiles;
-      });
-    });
-  }, [page, size, radius]);
+    if (isLastPage || page === 0){
+      setPage(page + 1);
+      setIsLastPage(false);
+      getProfileCardData(page, size, radius).then((response) => {
+        // 프로필 데이터 추가
+        setProfiles((prevProfiles) => {
+          const newProfiles = response.data.profileCardSummaryResponses.map(profile => ({
+            ...profile,
+            isModalOpen: false,
+            isLock: true,
+            isOpen: false,
+          }));
+          return prevProfiles ? [...prevProfiles, ...newProfiles] : newProfiles;
+        });
+        // 페이지 더하기
+        
+      }
+    );
+    }
+    
+    
+  }, [page, size, radius , isLastPage]);
   
 
   const [swiperIndex, setSwiperIndex] = useState(0);
 
-  useEffect(() => {
-    if (!isLastPage && profiles?.length === page * size) {
-      setPage(page + 1);
-    }
-  }, [profiles,  size, isLastPage]);
+  // useEffect(() => {
+  //   if (!isLastPage && profiles?.length === page * size) {
+  //     setPage(page + 1);
+  //     setIsLastPage(true);
+  //   }
+  // }, [profiles,  size]);
   // 프로필카드 열기
   const handleSetOpen = (activeIndex: number | undefined, value: boolean) => {
     setProfiles((prev) =>
@@ -92,12 +103,12 @@ const MatchingPage = () => {
 
     // 현재 슬라이드 상태 업데이트
     setSwiperIndex(newIndex);
-
+    console.log(newIndex, profiles?.length)
     // 스와이프시 페이징
     if (profiles && newIndex === profiles?.length - 1 && !isLastPage) {
-      setIsLastPage(true);
+      console.log('trigger')
       // 새로운 데이터 불러오기
-      setPage(page + 1);
+      setIsLastPage(true)
     }
   };
 
