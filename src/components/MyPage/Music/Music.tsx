@@ -14,6 +14,7 @@ import MusicNote from '@/assets/Music/Note.svg';
 import MusicEdit from '@/assets/Music/MusicEdit.svg';
 import MusicDelete from '@/assets/Music/MusicDelete.svg';
 import MusicMood from '@/assets/Music/MusicMood.svg';
+import MusicMarker from '@/assets/Music/MusicMarker.svg';
 
 const MusicPage = () => {
   const {
@@ -23,7 +24,7 @@ const MusicPage = () => {
     setDeleteLifeMusics,
     deleteLifeMusics,
     setUpdateLifeMusics,
-    updateLifeMusics,
+    setCurrentMusic,
   } = useMyPageStore();
   const [cookies] = useCookies(['accessToken']);
   const accessToken = cookies.accessToken;
@@ -58,11 +59,13 @@ const MusicPage = () => {
       queryClient.invalidateQueries({ queryKey: ['mainData'] });
       setDeleteLifeMusics([]);
       setUpdateLifeMusics([]);
+      setCurrentPage('mypage');
     },
   });
 
   // 음악 추가 페이지 이동
   const handleAddMusicClick = () => {
+    setCurrentMusic(null);
     setCurrentPage('musicDetail');
   };
 
@@ -86,12 +89,16 @@ const MusicPage = () => {
 
   // 수정하기
   const handleUpdateMusicClick = (music: LifeMusicItem) => {
-    setUpdateLifeMusics([...updateLifeMusics, music]);
+    setCurrentMusic(music);
+    setCurrentPage('musicEdit');
   };
 
   // 데이터 저장(추가, 수정, 삭제)
   const handleSaveMusic = async () => {
     const createLifeMusics = selectedMusic.filter((item) => !item.musicId);
+    const updateLifeMusics = selectedMusic.filter(
+      (item) => item.musicId && !deleteLifeMusics.includes(item.musicId),
+    );
 
     const musicTasteRequest: MusicTasteRequestDTO = {
       createLifeMusics: createLifeMusics.length > 0 ? createLifeMusics : undefined,
@@ -138,9 +145,17 @@ const MusicPage = () => {
                 {selectedMusic.map((music, index) => (
                   <div
                     key={music.musicId || index}
-                    className="flex justify-between w-11/12 h-12 mb-4 bg-white text-black rounded"
+                    className="flex justify-between w-11/12 h-12 mb-4 bg-white text-black rounded relative"
                   >
-                    <div className="w-1/12 mx-2 flex items-center justify-center">
+                    <div className="w-1/12 mx-2 flex items-center justify-center relative">
+                      {!music.musicId && (
+                        <img
+                          src={MusicMarker}
+                          alt="MusicMarker"
+                          className="absolute top-1 left-0 transform -translate-y-1/2"
+                          style={{ width: '16px', height: '16px' }} // Adjust size as necessary
+                        />
+                      )}
                       {music.musicId && (
                         <img
                           onClick={() => handleUpdateMusicClick(music)}
@@ -202,17 +217,17 @@ const MusicPage = () => {
           <div className="mt-5">
             <div className="mt-5 flex justify-center ">
               <div onClick={handleAddMoodClick} className="h-40 w-full">
-                {musicTasteData?.mood.moodImageUrl ? (
+                {musicTasteData?.mood?.moodImageUrl ? (
                   <img
-                    src={musicTasteData?.mood.moodImageUrl}
+                    src={musicTasteData.mood.moodImageUrl}
                     alt="Selected"
                     className="h-full w-full object-cover"
                   />
                 ) : (
-                  <>
+                  <div className="h-full w-full flex flex-col items-center justify-center bg-[#303030] rounded">
                     <img src={MusicMood} alt="MusicMood" className="h-8 w-8" />
                     <span>이미지 추가하기</span>
-                  </>
+                  </div>
                 )}
               </div>
             </div>

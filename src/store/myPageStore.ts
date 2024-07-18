@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { MyPageState } from '@/type/store/MyPage/MypageState';
+import { LifeMusicItem } from '@/type/services/Music/MusicDTO';
 
 export const useMyPageStore = create<MyPageState>((set) => ({
   currentPage: 'mypage',
@@ -25,6 +26,9 @@ export const useMyPageStore = create<MyPageState>((set) => ({
 
   deleteLifeMusics: [],
   setDeleteLifeMusics: (musicIds) => set({ deleteLifeMusics: musicIds }),
+
+  currentMusic: null,
+  setCurrentMusic: (music: LifeMusicItem | null) => set({ currentMusic: music }),
 
   updateLifeMusics: [],
   setUpdateLifeMusics: (musics) => set({ updateLifeMusics: musics }),
