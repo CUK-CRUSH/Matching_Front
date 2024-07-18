@@ -1,8 +1,28 @@
 import { api } from '../client';
 import { ItemPropsDTO } from "@/type/services/LikeProfileCard/LikeProfileCard";
 
+// 받은 좋아요
+export const getReciveLikedProfileCard = async (
+  accessToken : string,
+  page?: number,
+): Promise<ItemPropsDTO> => {
+  const url = `${import.meta.env.VITE_DUETT_API_URL}/api/v1/profiles/liker?page=${page}`;
+  try {
+    const { data } = await api.get<ItemPropsDTO>(url, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+    return data;
+  } catch (error) {
+    console.error('에러내용:', error);
+    throw new Error('Failed to fetch user info data');
+  }
+};
 
-export const getLikedProfileCard = async (
+
+// 보낸 좋아요
+export const getSendedLikedProfileCard = async (
   accessToken : string,
   page?: number,
 ): Promise<ItemPropsDTO> => {

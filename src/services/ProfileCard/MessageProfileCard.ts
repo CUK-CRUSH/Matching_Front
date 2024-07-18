@@ -30,7 +30,25 @@ export const postMessage = async (
   }
 };
 
-export const getMessageProfileCardData = async (
+export const getReciveMessageProfileCard = async (
+  accessToken : string,
+  page?: number,
+): Promise<ItemPropsDTO> => {
+  const url = `${import.meta.env.VITE_DUETT_API_URL}api/v1/message/receive/all?page=${page}`;
+  try {
+    const { data } = await api.get<ItemPropsDTO>(url, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+    return data;
+  } catch (error) {
+    console.error('에러내용:', error);
+    throw new Error('Failed to fetch user info data');
+  }
+};
+
+export const getSendedMessageProfileCard = async (
   accessToken: string,
   page: number,
 ): Promise<ItemPropsDTO> => {

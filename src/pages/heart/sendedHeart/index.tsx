@@ -6,7 +6,7 @@ import SendedItem from "@/components/matchingList/SendedItem";
 import { useEffect, useRef, useState } from "react";
 import useCustomScroll from "@/hooks/useCustomScrollBar/useCustomScrollBar";
 import { useQuery } from "@tanstack/react-query";
-import { getLikedProfileCard } from "@/services/ProfileCard/LikeProfileCard";
+import { getSendedLikedProfileCard } from "@/services/ProfileCard/LikeProfileCard";
 import { ItemProps } from "@/type/MatchingList/MatchingList";
 
 const SendedHeart = () => {
@@ -26,7 +26,7 @@ const SendedHeart = () => {
 
   const { data: likedProfileCardData, error } = useQuery({
     queryKey: ['profileCardData'],
-    queryFn: () => getLikedProfileCard(import.meta.env.VITE_DUETT_TOKEN,page),
+    queryFn: () => getSendedLikedProfileCard(import.meta.env.VITE_DUETT_TOKEN,page),
     staleTime: 1000 * 60 * 5, // 5분
     placeholderData: (previousData) => previousData,
   });
@@ -36,7 +36,7 @@ const SendedHeart = () => {
   useEffect(() => {
     if (isLastPage) return;
 
-    getLikedProfileCard(import.meta.env.VITE_DUETT_TOKEN,page).then((response) => {
+    getSendedLikedProfileCard(import.meta.env.VITE_DUETT_TOKEN,page).then((response) => {
       if (response?.data?.length < size) {
         setIsLastPage(true);
       }

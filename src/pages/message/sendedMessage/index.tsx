@@ -2,13 +2,12 @@ import Layout from "@/components/layout/layout"
 import Footer from '@/components/layout/footer';
 import MatchingListHeader from "@/components/layout/matchingListHeader";
 import ItemContainer from "@/components/matchingList/ItemContainer";
-import { MOCK_RECEIVE_HEARTS } from "@/fixture/ReceiveHeart";
 import SendedItem from "@/components/matchingList/SendedItem";
 import { useEffect, useRef, useState } from "react";
 import useCustomScroll from "@/hooks/useCustomScrollBar/useCustomScrollBar";
 import { useQuery } from "@tanstack/react-query";
 import { ItemProps } from "@/type/MatchingList/MatchingList";
-import { getMessageProfileCardData } from "@/services/ProfileCard/MessageProfileCard";
+import { getSendedMessageProfileCard } from "@/services/ProfileCard/MessageProfileCard";
 
 
 const SendedMessage = () => {
@@ -21,13 +20,13 @@ const SendedMessage = () => {
       outerContainerBorderWidth: 1
     }
   );
-  const [page, setPage] = useState<number>(0);
+  const [page, ] = useState<number>(0);
   const [isLastPage, setIsLastPage] = useState<boolean>(false);
   const [size] = useState<number>(10);
 
   const { data: sendedMessageProfileCardData, error } = useQuery({
     queryKey: ['sendedMessageProfileCardData'],
-    queryFn: () => getMessageProfileCardData(import.meta.env.VITE_DUETT_TOKEN,page),
+    queryFn: () => getSendedMessageProfileCard(import.meta.env.VITE_DUETT_TOKEN,page),
     staleTime: 1000 * 60 * 5, // 5분
     placeholderData: (previousData) => previousData,
   });
@@ -37,7 +36,7 @@ const SendedMessage = () => {
   useEffect(() => {
     if (isLastPage) return;
 
-    getMessageProfileCardData(import.meta.env.VITE_DUETT_TOKEN,page).then((response) => {
+    getSendedMessageProfileCard(import.meta.env.VITE_DUETT_TOKEN,page).then((response) => {
       if (response?.data?.length < size) {
         setIsLastPage(true);
       }
