@@ -20,8 +20,8 @@ import { useImageCrop } from '@/hooks/useImageCrop';
 import Cropper from 'react-easy-crop';
 import MatchingListHeader from '../layout/matchingListHeader';
 import { ProfilesInfoDTO, UserInfoDTO } from '@/type/services/Mypage/MypageDTO';
-import { useCookies } from 'react-cookie';
 import { useEffect } from 'react';
+import UseAccessToken from '@/hooks/useAccessToken';
 
 const formSchema = z.object({
   nickname: z
@@ -37,8 +37,9 @@ const formSchema = z.object({
 
 const InfoPage = () => {
   const { setCurrentPage } = useMyPageStore();
-  const [cookies] = useCookies(['accessToken']);
-  const accessToken = cookies.accessToken;
+
+  const accessToken = UseAccessToken();
+
   const queryClient = useQueryClient();
 
   const { data: InfoData, error } = useQuery<ProfilesInfoDTO>({

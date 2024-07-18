@@ -8,10 +8,10 @@ import MatchingListHeader from '../layout/matchingListHeader';
 import { MBTIState } from '@/type/store/MyPage/MypageState';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getUserIntroData, patchUserIntroData } from '@/services/Mypage/MypageAPI';
-import { useCookies } from 'react-cookie';
 import { TagsState, UserIntroDTO } from '@/type/services/Mypage/MypageDTO';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import UseAccessToken from '@/hooks/useAccessToken';
 
 const mbtiOptions = ['E', 'N', 'F', 'J', 'I', 'S', 'T', 'P'];
 
@@ -44,8 +44,7 @@ const IntroducePage = () => {
   } = useMyPageStore();
 
   // access토큰
-  const [cookies] = useCookies(['accessToken']);
-  const accessToken = cookies.accessToken;
+  const accessToken = UseAccessToken();
 
   const queryClient = useQueryClient();
 
