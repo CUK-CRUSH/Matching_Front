@@ -1,4 +1,4 @@
-import { createBrowserRouter, Outlet } from 'react-router-dom';
+import { createBrowserRouter, Outlet, useNavigate } from 'react-router-dom';
 import RootErrorBoundary from '@/pages/common/components/RootErrorHandler';
 import RootSuspense from '@/pages/common/components/RootSuspense';
 import ErrorPage from '@/pages/error/components/ErrorPage';
@@ -16,12 +16,13 @@ import ReceivedMessage from '@/pages/message/receivedMessage';
 import SendedMessage from '@/pages/message/sendedMessage';
 import MyPage from '@/pages/Mypage';
 import OpenedProfileCard from '@/pages/OpenedProfileCard';
+import PrivateRoute from './privateRouter';
 
 const pageRoutes = {
   main: '/',
   login: '/login',
   matching: '/matching',
-  openedProfileCard : '/matching/openedProfileCard',
+  openedProfileCard: '/matching/openedProfileCard',
   terms: '/terms',
   onBoarding: '/onboarding',
   matchingList: '/matchingList',
@@ -45,7 +46,15 @@ const router = createBrowserRouter([
   {
     element: <CommonLayout />,
     children: [
-      { path: pageRoutes.main, element: <Home />, errorElement: <ErrorPage /> },
+      {
+        path: pageRoutes.main,
+        element: (
+          <PrivateRoute>
+            <Home />
+          </PrivateRoute>
+        ),
+        errorElement: <ErrorPage />,
+      },
 
       { path: '*', element: <NotFoundPage /> },
     ],
@@ -54,7 +63,15 @@ const router = createBrowserRouter([
   {
     element: <CommonLayout />,
     children: [
-      { path: pageRoutes.login, element: <LoginPage />, errorElement: <ErrorPage /> },
+      {
+        path: pageRoutes.login,
+        element: (
+          <PrivateRoute>
+            <LoginPage />
+          </PrivateRoute>
+        ),
+        errorElement: <ErrorPage />,
+      },
 
       { path: '*', element: <NotFoundPage /> },
     ],
@@ -71,7 +88,11 @@ const router = createBrowserRouter([
   {
     element: <CommonLayout />,
     children: [
-      { path: pageRoutes.openedProfileCard, element: <OpenedProfileCard />, errorElement: <ErrorPage /> },
+      {
+        path: pageRoutes.openedProfileCard,
+        element: <OpenedProfileCard />,
+        errorElement: <ErrorPage />,
+      },
 
       { path: '*', element: <NotFoundPage /> },
     ],
@@ -87,7 +108,15 @@ const router = createBrowserRouter([
   {
     element: <CommonLayout />,
     children: [
-      { path: pageRoutes.onBoarding, element: <OnBoardingpage />, errorElement: <ErrorPage /> },
+      {
+        path: pageRoutes.onBoarding,
+        element: (
+          <PrivateRoute>
+            <OnBoardingpage />
+          </PrivateRoute>
+        ),
+        errorElement: <ErrorPage />,
+      },
 
       { path: '*', element: <NotFoundPage /> },
     ],
