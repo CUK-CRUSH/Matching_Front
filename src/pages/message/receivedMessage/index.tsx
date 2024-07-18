@@ -2,12 +2,12 @@ import Layout from "@/components/layout/layout"
 import Footer from '@/components/layout/footer';
 import MatchingListHeader from "@/components/layout/matchingListHeader";
 import ItemContainer from "@/components/matchingList/ItemContainer";
-import ReceivedItem from "@/components/matchingList/ReceivedItem";
 import useCustomScroll from "@/hooks/useCustomScrollBar/useCustomScrollBar";
 import { useEffect, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getReciveMessageProfileCard } from "@/services/ProfileCard/MessageProfileCard";
-import { ItemProps } from "@/type/MatchingList/MatchingList";
+import { MessageItemProps } from "@/type/services/LikeProfileCard/LikeProfileCard";
+import ReceivedMessageItem from "@/components/matchingList/ReceivedMessageItem";
 
 const ReceivedMessage = () => {
   const outerContainerRef = useRef<HTMLDivElement | null>(null);
@@ -31,7 +31,7 @@ const ReceivedMessage = () => {
     placeholderData: (previousData) => previousData,
   });
 
-  const [recieveMessageProfileCardData, setRecieveMessageProfileCardData] = useState<ItemProps[] | undefined>();
+  const [recieveMessageProfileCardData, setRecieveMessageProfileCardData] = useState<MessageItemProps[] | undefined>();
 
   useEffect(() => {
     if (isLastPage) return;
@@ -65,7 +65,7 @@ const ReceivedMessage = () => {
 
         <ItemContainer ref={innerContainerRef}>
         {recieveMessageProfileCardData?.map((item, index) => (
-            <ReceivedItem key={index} {...item} type={'message'} />
+            <ReceivedMessageItem key={index} {...item} />
           ))}
 
         </ItemContainer>

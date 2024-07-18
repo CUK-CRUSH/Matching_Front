@@ -2,12 +2,11 @@ import Layout from "@/components/layout/layout"
 import Footer from '@/components/layout/footer';
 import MatchingListHeader from "@/components/layout/matchingListHeader";
 import ItemContainer from "@/components/matchingList/ItemContainer";
-import SendedItem from "@/components/matchingList/SendedItem";
 import { useEffect, useRef, useState } from "react";
 import useCustomScroll from "@/hooks/useCustomScrollBar/useCustomScrollBar";
 import { useQuery } from "@tanstack/react-query";
 import { getSendedMessageProfileCard } from "@/services/ProfileCard/MessageProfileCard";
-import { SendedMessageItemProps } from "@/type/services/LikeProfileCard/LikeProfileCard";
+import { MessageItemProps } from "@/type/services/LikeProfileCard/LikeProfileCard";
 import SendedMessageItem from "@/components/matchingList/SendedMessageItem";
 
 
@@ -32,7 +31,7 @@ const SendedMessage = () => {
     placeholderData: (previousData) => previousData,
   });
 
-  const [sendedMessageProfileCard, setSendedMessageProfileCard] = useState<SendedMessageItemProps[] | undefined>();
+  const [sendedMessageProfileCard, setSendedMessageProfileCard] = useState<MessageItemProps[] | undefined>();
 
   useEffect(() => {
     if (isLastPage) return;

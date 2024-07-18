@@ -4,11 +4,12 @@ import { useState } from "react";
 import MusicCard from "../common/MusicCard";
 import Tag from "../common/Tag";
 import Name from "../common/Name";
-import { SendedMessageItemProps } from "@/type/services/LikeProfileCard/LikeProfileCard";
+import { MessageItemProps } from "@/type/services/LikeProfileCard/LikeProfileCard";
+import ClickedMessagePopUp from "./ClickedMessagePopUp";
 
 
-const SendedMessageItem = ({ senderId,receiver,content,senderName,messageDate }: SendedMessageItemProps) => {
-  const [, setIsClicked] = useState<boolean>(false);
+const SendedMessageItem = ({ senderId,receiver,content,senderName,messageDate }: MessageItemProps) => {
+  const [isClicked, setIsClicked] = useState<boolean>(false);
 
   const handleClick = () => {
     if (true) {
@@ -43,7 +44,7 @@ const SendedMessageItem = ({ senderId,receiver,content,senderName,messageDate }:
       </div>
       {/* {isClicked && <ClickedMessagePopUp
         handleClick={handleClick}
-        name={name} age={age} mbti={mbti} tag={tag} time={time} isDark={true} />} */}
+        name={receiver?.name} birthDate={receiver?.birthDate} mbti={receiver?.mbti} tag={receiver?.tag} time={receiver?.time} isDark={true} />} */}
     </>
   );
 };

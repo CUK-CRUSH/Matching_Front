@@ -13,8 +13,9 @@ import { getReciveLikedProfileCard, getSendedLikedProfileCard } from '@/services
 import { useEffect, useState } from 'react';
 import { ItemProps } from '@/type/MatchingList/MatchingList';
 import { getSendedMessageProfileCard, getReciveMessageProfileCard } from '@/services/ProfileCard/MessageProfileCard';
-import { SendedMessageItemProps } from '@/type/services/LikeProfileCard/LikeProfileCard';
+import { MessageItemProps } from "@/type/services/LikeProfileCard/LikeProfileCard";
 import SendedMessageItem from '@/components/matchingList/SendedMessageItem';
+import ReceivedMessageItem from '@/components/matchingList/ReceivedMessageItem';
 
 const MatchingListPage = () => {
 
@@ -31,7 +32,8 @@ const MatchingListPage = () => {
     staleTime: 1000 * 60 * 5, // 5 minutes
     placeholderData: (previousData) => previousData,
   });
-  
+
+  // 보낸 메시지
   const { data: sendedMessageProfileCardData, error: sendedMessageProfileCardError } = useQuery({
     queryKey: ['sendedMessageProfileCardData'],
     queryFn: () => getSendedMessageProfileCard(import.meta.env.VITE_DUETT_TOKEN, 0),
@@ -39,7 +41,8 @@ const MatchingListPage = () => {
     placeholderData: (previousData) => previousData,
   });
   
-  const { data: reciveMessageProfileCard, error: reciveMessageProfileCardError } = useQuery({
+  // 받은 메시지
+  const { data: reciveMessageProfileCardData, error: reciveMessageProfileCardError } = useQuery({
     queryKey: ['recieveMessageProfileCardData'],
     queryFn: () => getReciveMessageProfileCard(import.meta.env.VITE_DUETT_TOKEN, 0),
     staleTime: 1000 * 60 * 5, // 5 minutes
@@ -49,8 +52,8 @@ const MatchingListPage = () => {
   const {matchingListState} = useMatchingListStateStore();
   const [receivedLikedProfileCard, setReceivedLikedProfileCard] = useState<ItemProps[] | undefined>();
   const [sendedLikedProfileCard, setSendedLikedProfileCard] = useState<ItemProps[] | undefined>();
-  const [receivedMessageProfileCard, setReceivedMessageProfileCard] = useState<SendedMessageItemProps[] | undefined>();
-  const [sendedMessageProfileCard, setSendedMessageProfileCard] = useState<SendedMessageItemProps[] | undefined>();
+  const [receivedMessageProfileCard, setReceivedMessageProfileCard] = useState<MessageItemProps[] | undefined>();
+  const [sendedMessageProfileCard, setSendedMessageProfileCard] = useState<MessageItemProps[] | undefined>();
 
   useEffect(() => { 
     // 받은 좋아요 불러오기
@@ -79,7 +82,7 @@ const MatchingListPage = () => {
     return <div>Error: </div>;
   }
 
-  if (receivedLikedProfileCardData && !sendedLikedProfileCardData && !sendedMessageProfileCardData && ! reciveMessageProfileCard) {
+  if (receivedLikedProfileCardData && !sendedLikedProfileCardData && !sendedMessageProfileCardData && ! reciveMessageProfileCardData) {
     return <div>Loading...</div>;
   }
 
@@ -120,7 +123,7 @@ const MatchingListPage = () => {
             <Divider />
             <ItemContainer>
               {receivedMessageProfileCard?.slice(0, 3).map((item, index) => (
-                <ReceivedItem key={index} {...item} type={matchingListState} />
+                <ReceivedMessageItem key={index} {...item} />
               ))}
 
             </ItemContainer>

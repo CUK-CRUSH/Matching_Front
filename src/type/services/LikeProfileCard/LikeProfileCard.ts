@@ -49,15 +49,16 @@ export type ItemPropsDTO = {
     data: ItemProps[]
   }
 
-export type SendedMessageItemProps = {
+export type MessageItemProps = {
     content?: string;
     messageDate?: string;
     receiver?: ItemProps;
+    sender?: ItemProps;
     senderId?: number;
     senderName?: string;
   }
   export type SendedMessageItemPropsDTO = {
     status: number;
     message: string;
-    data: SendedMessageItemProps[]
+    data: MessageItemProps[]
   }
