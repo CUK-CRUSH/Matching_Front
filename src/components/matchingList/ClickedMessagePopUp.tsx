@@ -6,8 +6,11 @@ import whiteProfile from "@/assets/MatchingList/whiteProfile.svg";
 import cancel from "@/assets/MatchingList/cancel.svg";
 import blackProfile from "@/assets/MatchingList/blackProfile.svg";
 import Time from "@/components/common/Time";
+import { useNavigate } from "react-router-dom";
 
-const ClickedMessagePopUp = ({ handleClick, currentBackground, name, birthDate, mbti, time, isDark  }: ClickedMessagePopUpProps) => {
+const ClickedMessagePopUp = ({ handleClick, currentBackground, name, birthDate, mbti, time, content,profileId,isDark  }: ClickedMessagePopUpProps) => {
+
+  const navigate = useNavigate();
 
   // 버튼색 배열
   const backgrounds = [
@@ -22,6 +25,11 @@ const ClickedMessagePopUp = ({ handleClick, currentBackground, name, birthDate, 
   // 현재 배경색과 맞는 버튼색을 찾는 custom Hooks
   const index = useFindBackgroundIndex(currentBackground, backgrounds);
 
+  // 프로필로 이동
+  const goToProfile = (e: React.MouseEvent<HTMLElement>) => {
+    navigate(`/matching/${profileId}`)
+    e.stopPropagation();
+  };
     return (
     <div onClick={handleClick}
       className="fixed top-0 left-0 w-full h-full inset-0 flex flex-col items-center justify-center bg-opacity-50 bg-black z-50">
@@ -42,12 +50,12 @@ const ClickedMessagePopUp = ({ handleClick, currentBackground, name, birthDate, 
           </div>
           <div className="flex justify-between px-4 mt-2">
             {/* <Tag tag={tag} isDark={isDark} /> */}
-            <Time time={time} />
+            {/* <Time time={time} /> */}
           </div>
         </div>
 
         <div className={`w-auto mx-2 mt-1`}>
-          <AutoResizeTextarea value={'메시지 보내기메시지 보내기메시지 보내기메시지'} isDark={isDark} />
+          <AutoResizeTextarea value={content} isDark={isDark} />
         </div>
 
       </div>
@@ -55,8 +63,12 @@ const ClickedMessagePopUp = ({ handleClick, currentBackground, name, birthDate, 
       {/* 프로필 */}
       <div className=" exceed:w-[400px] w-[80%] flex justify-end px-2">
 
-        <button className={`${isDark ? 'bg-[#474747]': backgrounds[index]} flex items-center justify-center w-[110px] h-[34px] text-s font-bold rounded-[8px]`}>
-          <span className={`mr-1 ${isDark && 'text-[#F8F8F8]'}`}>프로필</span>
+        <button
+          onClick={goToProfile} 
+          className={`${isDark ? 'bg-[#474747]': backgrounds[index]} flex items-center justify-center w-[110px] h-[34px] text-s font-bold rounded-[8px]`}>
+          <span 
+            
+            className={`mr-1 ${isDark && 'text-[#F8F8F8]'}`}>프로필</span>
           <img src={isDark ? blackProfile : whiteProfile} alt='profile' className="" />
         </button>
 

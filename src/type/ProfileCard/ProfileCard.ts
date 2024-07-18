@@ -1,6 +1,6 @@
 export type ProfileImageProps = {
-  handleSetOpen: (index: number | undefined, value: boolean) => void;
-  handleSetModalOpen: (index: number | undefined, value: boolean) => void;
+  handleSetOpen?: (index: number | undefined, value: boolean) => void;
+  handleSetModalOpen?: (index: number | undefined, value: boolean) => void;
   isLock? : boolean;
   activeIndex? : number;
   profileImageUrl? : string;
@@ -15,8 +15,8 @@ export type SpreadProfileCardImageProps = {
   activeIndex? : number;
 };
 export type FoldProfileCardImageProps = {
-  handleSetOpen: (index: number | undefined, value: boolean) => void;
-  handleSetModalOpen: (index: number | undefined, value: boolean) => void;
+  handleSetOpen?: (index: number | undefined, value: boolean) => void;
+  handleSetModalOpen?: (index: number | undefined, value: boolean) => void;
   activeIndex? : number;
 
 };

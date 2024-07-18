@@ -1,5 +1,3 @@
-import { ItemProps } from "@/type/MatchingList/MatchingList";
-
 import { useState } from "react";
 import MusicCard from "../common/MusicCard";
 import Tag from "../common/Tag";
@@ -9,14 +7,12 @@ import ClickedMessagePopUp from "./ClickedMessagePopUp";
 
 
 const SendedMessageItem = ({ senderId,receiver,content,senderName,messageDate }: MessageItemProps) => {
+  console.log(senderId)
   const [isClicked, setIsClicked] = useState<boolean>(false);
 
   const handleClick = () => {
-    if (true) {
       setIsClicked(prevState => !prevState);
-    }
   };
-
   return (
     <>
       <div className="relative h-auto mx-[2%] mb-[8px] pt-[12px] pb-[8px]"
@@ -42,9 +38,11 @@ const SendedMessageItem = ({ senderId,receiver,content,senderName,messageDate }:
         <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-[calc(100%-4%)] h-[1px] bg-[#191919]" />
 
       </div>
-      {/* {isClicked && <ClickedMessagePopUp
+      {isClicked && <ClickedMessagePopUp
         handleClick={handleClick}
-        name={receiver?.name} birthDate={receiver?.birthDate} mbti={receiver?.mbti} tag={receiver?.tag} time={receiver?.time} isDark={true} />} */}
+        name={receiver?.name} birthDate={receiver?.birthDate} mbti={receiver?.mbti} tags={receiver?.tags}  isDark={true}
+        content={content} profileId={receiver?.profileId}
+        />}
     </>
   );
 };

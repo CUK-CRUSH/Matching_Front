@@ -16,6 +16,7 @@ import ReceivedMessage from '@/pages/message/receivedMessage';
 import SendedMessage from '@/pages/message/sendedMessage';
 import MyPage from '@/pages/Mypage';
 import OpenedProfileCard from '@/pages/OpenedProfileCard';
+import ViewProfileCard from './components/matchingList/ViewProfileCard';
 
 const pageRoutes = {
   main: '/',
@@ -61,10 +62,11 @@ const router = createBrowserRouter([
   },
 
   {
+    path: "/matching",
     element: <CommonLayout />,
     children: [
-      { path: pageRoutes.matching, element: <ProfileCard />, errorElement: <ErrorPage /> },
-
+      { path: "", element: <ProfileCard />, errorElement: <ErrorPage /> },
+      { path: ":profileId", element: <ViewProfileCard />, errorElement: <ErrorPage /> },
       { path: '*', element: <NotFoundPage /> },
     ],
   },

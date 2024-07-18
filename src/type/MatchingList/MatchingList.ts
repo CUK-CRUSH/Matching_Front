@@ -88,10 +88,15 @@ export type SocialButtonProps = {
 export type ClickedMessagePopUpProps = {
   handleClick: () => void;
   currentBackground?: string;
-  name: string;
-  birthDate: string;
-  mbti: string;
-  tag: string;
-  time: string;
+  name?: string;
+  birthDate?: string;
+  mbti?: string;
+  tags?: {
+    name : string;
+    state : string;
+  }[];
+  time?: string;
+  content?: string;
+  profileId?: number;
   isDark?: boolean;
 }

@@ -14,10 +14,10 @@ const ProfileImage = ({ handleSetOpen, handleSetModalOpen, isLock, activeIndex,p
         alt='lock'
         onClick={() => {
           if (isLock) {
-            handleSetModalOpen(activeIndex, true);
+            handleSetModalOpen?.(activeIndex, true);
           } else {
-            handleSetOpen(activeIndex, true);
-            handleSetModalOpen(activeIndex, true);
+            handleSetOpen?.(activeIndex, true);
+            handleSetModalOpen?.(activeIndex, true);
           }
         }}
       />
