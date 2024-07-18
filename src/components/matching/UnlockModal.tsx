@@ -8,10 +8,8 @@ import useProfileCardStore from '@/store/profileCardStore';
 const UnlockModal = ({ setLock, handleSetOpen, handleSetModalOpen,handleSetLockOpen, isOpen,  activeIndex }: UnlockModalProps) => {
   
   const { setAbleSpend } = useProfileCardStore();
-
   // 모달 열고닫기
   const unlockModalRef = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (unlockModalRef.current && !unlockModalRef.current.contains(event.target as Node)) {
@@ -27,7 +25,6 @@ const UnlockModal = ({ setLock, handleSetOpen, handleSetModalOpen,handleSetLockO
 
   // 확인버튼 클릭시 재화 2 소모
   const openProfileCard = async () => {
-    handleSetModalOpen(activeIndex, true)
     handleSetOpen(activeIndex, true)
     handleSetLockOpen(activeIndex, false)
     setAbleSpend(true)
@@ -37,7 +34,7 @@ const UnlockModal = ({ setLock, handleSetOpen, handleSetModalOpen,handleSetLockO
   // onClick={() => setLock(prevState => !prevState)}
   return (
     <>
-      {!isOpen ?
+      {!isOpen &&
         <div className={`fixed inset-0 bg-[#000] bg-opacity-30 flex justify-center items-center`} >
 
           <div className={`w-[250px] h-auto relative p-12 bg-white rounded-lg flex flex-col justify-start items-center z-99`} ref={unlockModalRef} onClick={e => e.stopPropagation()} data-testid="unlockModalText">
@@ -59,16 +56,6 @@ const UnlockModal = ({ setLock, handleSetOpen, handleSetModalOpen,handleSetLockO
               </Button>
             </div>
           </div>
-        </div>
-        :
-
-        <div className={`flex justify-center `}>
-          {/* <ProfileCard 
-            coin={coin} profileId={profileId}
-            isOpen={isOpen} isLock={isLock} activeIndex={activeIndex} handleSetModalOpen={handleSetModalOpen} handleSetOpen={handleSetOpen}
-            currentBackground={currentBackground} 
-            // 데이터
-          /> */}
         </div>
       }
     </>

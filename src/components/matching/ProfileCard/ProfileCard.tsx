@@ -6,7 +6,7 @@ import Spread from '@/components/matching/Spread';
 import MusicCard from '@/components/common/MusicCard';
 import BlankMusicCard from '@/components/matching/BlankMusicCard';
 import useProfileCardStore from '@/store/profileCardStore';
-import PostMessage from '@/components/matching/PostMessage';
+import PostMessageModal from '@/components/matching/PostMessageModal';
 import useGetRandomBackgrounds from '@/hooks/useGetRandomBackgrounds/useGetRandomBackgrounds';
 import MusicCardContainer from '@/components/matching/MusicCardContainer';
 import { CombinedProfileCardProps, ProfileCardProps } from '@/type/ProfileCard/ProfileCard';
@@ -48,11 +48,10 @@ const ProfileCard = ({ profileId, name, birthDate, mbti, tags, oneLineIntroducti
   const { openMessage, ableSpend, setAbleSpend } = useProfileCardStore();
 
   useEffect(() => {
-    ableSpend && spendCoin(profileId)
+    ableSpend && spendCoin(import.meta.env.VITE_DUETT_TOKEN,profileId)
       .then((response) => {
         setProfiles(response?.data?.profileCardResponse);
         setAbleSpend(false)
-        console.log(profiles)
         toast({
           title: "잠금해제 완료!",
           className: 'h-[40px] w-[90%] bg-[#252525] text-[#fff] fixed top-[60px] left-1/2 transform -translate-x-1/2 flex justify-center border-0 exceed:w-[358px]'
@@ -88,7 +87,7 @@ const ProfileCard = ({ profileId, name, birthDate, mbti, tags, oneLineIntroducti
             profileImageUrl={profiles?.profileImageUrl}
           />
 
-          {openMessage && <PostMessage />}
+          {openMessage && <PostMessageModal profileId={profileId} />}
 
           <div className={`flex flex-col ml-[5%]`}>
             <Name name={name} birthDate={birthDate} mbti={mbti} distance={distance} isProfileCard={true} />
@@ -153,7 +152,7 @@ const ProfileCard = ({ profileId, name, birthDate, mbti, tags, oneLineIntroducti
               title="어떤 음악취향을 가진 상대에게 호감을 느끼나요 ?"
               value={profiles?.likeableMusicTaste}
               testId="likeMusic" />
-            <div className={` bg-yellow-250`}>
+            <div>
               <Fold
                 handleSetOpen={(activeIndex: number | undefined, value: boolean) => handleSetOpen?.(activeIndex, value)}
                 handleSetModalOpen={(activeIndex: number | undefined, value: boolean) => handleSetModalOpen?.(activeIndex, value)}
@@ -164,7 +163,7 @@ const ProfileCard = ({ profileId, name, birthDate, mbti, tags, oneLineIntroducti
           </>
         }
       </div>
-      {isOpen && <SocialButtons />}
+      {isOpen && <SocialButtons profileId={profileId} />}
     </>
   );
 }

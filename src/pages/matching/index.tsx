@@ -21,7 +21,7 @@ const MatchingPage = () => {
 
   const { data: profileCardData, error } = useQuery({
     queryKey: ['profileCardData'],
-    queryFn: () => getProfileCardData(page, size, radius),
+    queryFn: () => getProfileCardData(import.meta.env.VITE_DUETT_TOKEN,page, size, radius),
     staleTime: 1000 * 60 * 5, // 5분
     placeholderData: (previousData) => previousData,
   });
@@ -32,7 +32,7 @@ const MatchingPage = () => {
     if (isLastPage || page === 0){
       setPage(page + 1);
       setIsLastPage(false);
-      getProfileCardData(page, size, radius).then((response) => {
+      getProfileCardData(import.meta.env.VITE_DUETT_TOKEN,page, size, radius).then((response) => {
         // 프로필 데이터 추가
         setProfiles((prevProfiles) => {
           const newProfiles = response.data.profileCardSummaryResponses.map(profile => ({
