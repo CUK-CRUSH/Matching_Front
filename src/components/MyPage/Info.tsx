@@ -53,23 +53,29 @@ const InfoPage = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['InfoData'] });
       queryClient.invalidateQueries({ queryKey: ['mainData'] });
-      setCurrentPage('mypage'); // 페이지 이동을 성공 후로 이동
+      setCurrentPage('mypage');
     },
   });
+
+  const initialNickname = InfoData?.data.name || '';
+  const initialOneLiner = InfoData?.data.oneLineIntroduction || '';
 
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      nickname: InfoData?.data.name || '',
-      oneLiner: InfoData?.data.oneLineIntroduction || '',
+      nickname: initialNickname,
+      oneLiner: initialOneLiner,
     },
   });
 
   const onSubmit = (data: z.infer<typeof formSchema>) => {
+    const updatedName = data.nickname === initialNickname ? null : data.nickname;
+    const updatedOneLiner = data.oneLiner === initialOneLiner ? null : data.oneLiner;
+
     mutation.mutate({
       profileImage: compressedImage ?? undefined,
-      name: data.nickname,
-      oneLineIntroduction: data.oneLiner,
+      name: updatedName,
+      oneLineIntroduction: updatedOneLiner,
       isDeleteImage: true,
     });
   };
@@ -96,14 +102,14 @@ const InfoPage = () => {
   useEffect(() => {
     if (InfoData) {
       form.reset({
-        nickname: InfoData.data.name,
-        oneLiner: InfoData.data.oneLineIntroduction,
+        nickname: initialNickname,
+        oneLiner: initialOneLiner,
       });
     }
   }, [InfoData, form]);
 
   if (error) {
-    return <div>error</div>;
+    return <div>Error loading user data</div>;
   }
   if (!InfoData) {
     return <div>No user data found</div>;
@@ -187,9 +193,8 @@ const InfoPage = () => {
 
                     <Button
                       type="submit"
-                      disabled={filledFieldsCount !== 2}
                       variant={'noHover'}
-                      className={`w-full bg-white text-l text-black mt-4 max-w-md rounded-lg mx-auto ${filledFieldsCount !== 5 && 'cursor-not-allowed'}`}
+                      className={`w-full bg-white text-l text-black mt-4 max-w-md rounded-lg mx-auto `}
                     >
                       저장하기
                     </Button>

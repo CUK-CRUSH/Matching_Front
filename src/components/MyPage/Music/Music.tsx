@@ -58,6 +58,8 @@ const MusicPage = () => {
       queryClient.invalidateQueries({ queryKey: ['mainData'] });
       setDeleteLifeMusics([]);
       setUpdateLifeMusics([]);
+
+      setCurrentPage('mypage');
     },
   });
 
@@ -202,17 +204,17 @@ const MusicPage = () => {
           <div className="mt-5">
             <div className="mt-5 flex justify-center ">
               <div onClick={handleAddMoodClick} className="h-40 w-full">
-                {musicTasteData?.mood.moodImageUrl ? (
+                {musicTasteData?.mood?.moodImageUrl ? (
                   <img
-                    src={musicTasteData?.mood.moodImageUrl}
+                    src={musicTasteData.mood.moodImageUrl}
                     alt="Selected"
                     className="h-full w-full object-cover"
                   />
                 ) : (
-                  <>
+                  <div className="h-full w-full flex flex-col items-center justify-center bg-[#303030] rounded">
                     <img src={MusicMood} alt="MusicMood" className="h-8 w-8" />
                     <span>이미지 추가하기</span>
-                  </>
+                  </div>
                 )}
               </div>
             </div>

@@ -10,8 +10,8 @@ type InfoDataDTO = {
 
 export type UserInfoDTO = {
   profileImage?: string;
-  name?: string;
-  oneLineIntroduction?: string;
+  name?: string | null;
+  oneLineIntroduction?: string | null;
   isDeleteImage?: boolean;
 };
 
