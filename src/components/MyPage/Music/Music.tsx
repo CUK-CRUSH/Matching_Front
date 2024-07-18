@@ -14,6 +14,7 @@ import MusicNote from '@/assets/Music/Note.svg';
 import MusicEdit from '@/assets/Music/MusicEdit.svg';
 import MusicDelete from '@/assets/Music/MusicDelete.svg';
 import MusicMood from '@/assets/Music/MusicMood.svg';
+import MusicMarker from '@/assets/Music/MusicMarker.svg';
 
 const MusicPage = () => {
   const {
@@ -140,9 +141,17 @@ const MusicPage = () => {
                 {selectedMusic.map((music, index) => (
                   <div
                     key={music.musicId || index}
-                    className="flex justify-between w-11/12 h-12 mb-4 bg-white text-black rounded"
+                    className="flex justify-between w-11/12 h-12 mb-4 bg-white text-black rounded relative"
                   >
-                    <div className="w-1/12 mx-2 flex items-center justify-center">
+                    <div className="w-1/12 mx-2 flex items-center justify-center relative">
+                      {!music.musicId && (
+                        <img
+                          src={MusicMarker}
+                          alt="MusicMarker"
+                          className="absolute top-1 left-0 transform -translate-y-1/2"
+                          style={{ width: '16px', height: '16px' }} // Adjust size as necessary
+                        />
+                      )}
                       {music.musicId && (
                         <img
                           onClick={() => handleUpdateMusicClick(music)}
