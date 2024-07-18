@@ -18,20 +18,54 @@ export type ItemContainerProps = {
 }
 
 export type ItemProps = {
-  name: string;
-  age: string;
-  mbti: string;
-  tag: string;
-  time: string;
-  song: string;
-  singer: string;
-  type?: string;
+  profileId?: number;
+  name?: string;
+  birthDate?: string;
+  mbti?: string;
+  oneLineIntroduction?: string;
+  distance?: number;
+  profileImageUrl? : string;
+  lifeMusic?: {
+    musicId: number;
+    title: string;
+    artist: string;
+    url: string;
+  };
+  tags?: {
+    name : string;
+    state : string;
+  }[];
+
+  musicTags?: {
+    name : string;
+    state : string;
+  }[];
+
+  hobbyTags?: {
+    name : string;
+    state : string;
+  }[];
+  // 열린상태 
+
+  mood? : {
+    title : string;
+    artist : string;
+    moodImageUrl : string;
+    isDeleteImage : boolean;
+  }
+  selfIntroduction? : string;
+  likeableMusicTaste? : string;
+  isOpen? : boolean;
+  isModalOpen? : boolean;
+  isLock? : boolean;
+  activeIndex? : number;
+  type? : string;
 }
 
 export type MusciCardProps = {
   musicId?: number,
-  title: string;
-  artist: string;
+  title?: string;
+  artist?: string;
   url?: string,
   isDark?: boolean;
   isProilfeCard?: boolean;
@@ -43,6 +77,7 @@ export type TagProps = {
   isDark?: boolean;
   isProfileCard?: boolean;
   mark?: boolean;
+  isSmall?: boolean;
 }
 
 export type SocialButtonProps = {
