@@ -48,7 +48,7 @@ export type LifeMusicItem = {
 export type MoodItem = {
   title: string;
   artist: string;
-  moodImage: string;
+  moodImageUrl: string;
   isDeleteImage: boolean;
 };
 
@@ -56,4 +56,11 @@ export type MoodItem = {
 export type MusicTasteDataDTO = {
   lifeMusics: LifeMusicItem[];
   mood: MoodItem;
+};
+
+export type MoodDataDTO = {
+  title: string;
+  artist: string;
+  moodImage?: string;
+  isDeleteImage: boolean;
 };
