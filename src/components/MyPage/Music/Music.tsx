@@ -25,6 +25,7 @@ const MusicPage = () => {
     deleteLifeMusics,
     setUpdateLifeMusics,
     updateLifeMusics,
+    setCurrentMusic,
   } = useMyPageStore();
   const [cookies] = useCookies(['accessToken']);
   const accessToken = cookies.accessToken;
@@ -59,13 +60,13 @@ const MusicPage = () => {
       queryClient.invalidateQueries({ queryKey: ['mainData'] });
       setDeleteLifeMusics([]);
       setUpdateLifeMusics([]);
-
       setCurrentPage('mypage');
     },
   });
 
   // 음악 추가 페이지 이동
   const handleAddMusicClick = () => {
+    setCurrentMusic(null);
     setCurrentPage('musicDetail');
   };
 
@@ -89,12 +90,16 @@ const MusicPage = () => {
 
   // 수정하기
   const handleUpdateMusicClick = (music: LifeMusicItem) => {
-    setUpdateLifeMusics([...updateLifeMusics, music]);
+    setCurrentMusic(music);
+    setCurrentPage('musicEdit');
   };
 
   // 데이터 저장(추가, 수정, 삭제)
   const handleSaveMusic = async () => {
     const createLifeMusics = selectedMusic.filter((item) => !item.musicId);
+    const updateLifeMusics = selectedMusic.filter(
+      (item) => item.musicId && !deleteLifeMusics.includes(item.musicId),
+    );
 
     const musicTasteRequest: MusicTasteRequestDTO = {
       createLifeMusics: createLifeMusics.length > 0 ? createLifeMusics : undefined,
