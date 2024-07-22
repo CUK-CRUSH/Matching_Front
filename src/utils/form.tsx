@@ -121,12 +121,17 @@ export const InputForm = () => {
           <div className="flex justify-center">
             <Button
               type="submit"
-              className={`w-1/3 h-12 ${isSubmitted ? 'bg-[#a0a0a0] text-white pointer-events-none' : formState.isValid ? 'bg-[#252525] text-white' : 'bg-[#a0a0a0] text-white pointer-events-none'}`}
+              className={`w-1/3 h-12 ${isSubmitted ? 'bg-[#f3f3f3] text-[#c6c6c6]  pointer-events-none' : formState.isValid ? 'bg-[#252525] text-white' : 'bg-[#a0a0a0] text-white pointer-events-none'}`}
             >
               {isSubmitted ? '메시지 인증 완료' : '인증 메시지 전송'}
             </Button>
           </div>
-          <p>{isSubmitted ? "하단의 '다음'을 누르면 <br /> 다음단계로 이동합니다." : ''}</p>
+          <p
+            className="text-center text-[#c6c6c6]"
+            dangerouslySetInnerHTML={{
+              __html: isSubmitted ? "하단의 '다음'을 누르면 <br /> 다음단계로 이동합니다." : '',
+            }}
+          />
         </form>
       </Form>
     </div>
