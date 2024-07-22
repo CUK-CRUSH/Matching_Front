@@ -80,11 +80,11 @@ const KakaoIdPage = () => {
             {isDuplicate !== null && (
               <p className={`mt-2 ${isDuplicate ? 'text-red-500' : 'text-[#c6c6c6]'}`}>
                 {!isDuplicate ? (
-                  '사용 가능한 아이디입니다.'
+                  '사용 가능한 카카오ID입니다.'
                 ) : (
                   <span className="flex items-center">
                     <ExclamationCircleOutlined className="mr-1" />
-                    중복된 아이디입니다.
+                    중복된 카카오ID입니다.
                   </span>
                 )}
               </p>
