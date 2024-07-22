@@ -7,6 +7,7 @@ import { useState } from "react";
 import { toast } from "@/components/ui/use-toast";
 import { likeProfile } from "@/services/ProfileCard/LikeProfileCard";
 import { SocialButtonsProps } from "@/type/ProfileCard/ProfileCard";
+import { useCookies } from "react-cookie";
 // import { useCookies } from "react-cookie";
 
 const SocialButtons = ({ profileId }: SocialButtonsProps) => {
@@ -15,8 +16,11 @@ const SocialButtons = ({ profileId }: SocialButtonsProps) => {
   const { openMessage, setOpenMessage } = useProfileCardStore();
   const [isLike, setLike] = useState<boolean>(false);
 
+  const [cookies] = useCookies(['accessToken']);
+  const accessToken = cookies.accessToken;
+  
   const handleLike = () => {
-    likeProfile(import.meta.env.VITE_DUETT_TOKEN, profileId)
+    likeProfile(accessToken, profileId)
       .then(() => {
         setLike(!isLike);
         toast({

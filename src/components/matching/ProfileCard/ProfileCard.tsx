@@ -29,7 +29,7 @@ const ProfileCard = ({ profileId, name, birthDate, mbti, tags, oneLineIntroducti
 
   const [cookies] = useCookies(['accessToken']);
   const accessToken = cookies.accessToken;
-
+  
   // 배경색 목록  
   const backgrounds = [
     'bg-background-grey',
@@ -51,7 +51,7 @@ const ProfileCard = ({ profileId, name, birthDate, mbti, tags, oneLineIntroducti
 
   // 메시지보내기 창 모달 오픈
   const { openMessage, ableSpend, setAbleSpend } = useProfileCardStore();
-
+  
   useEffect(() => {
     ableSpend && spendCoin(accessToken,profileId)
       .then((response) => {
@@ -63,6 +63,9 @@ const ProfileCard = ({ profileId, name, birthDate, mbti, tags, oneLineIntroducti
         });
       })
       .catch((error) => {
+        alert(error.message)
+        setAbleSpend(false)
+
         console.error('Error spending coin:', error);
         // 에러 처리
       });
@@ -71,7 +74,7 @@ const ProfileCard = ({ profileId, name, birthDate, mbti, tags, oneLineIntroducti
 
   // 모달창
   const [isUnfilledModalOpen,setIsUnfilledModalOpen] = useState<boolean>(false)
-  
+
   useEffect(() =>{
     if(isUnfilledModalOpen){
      setIsUnfilledModalOpen(true)
@@ -90,6 +93,7 @@ const ProfileCard = ({ profileId, name, birthDate, mbti, tags, oneLineIntroducti
           profileId={profileId}
           isOpen={isOpen}
           currentBackground={currentBackground}
+          
         />}
         {isUnfilledModalOpen && <UnFilledModal setIsUnfilledModalOpen={setIsUnfilledModalOpen } /> }
         {/* Top */}

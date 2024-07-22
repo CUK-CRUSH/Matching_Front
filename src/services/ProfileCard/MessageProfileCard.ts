@@ -2,7 +2,8 @@ import { api } from '../client';
 import { SendedMessageItemPropsDTO } from "@/type/services/LikeProfileCard/LikeProfileCard";
 
 
-// 메시지 보내기
+// 메시지 보내기 
+// json 형식으로
 export const postMessage = async (
   accessToken: string,
   sendType?: number,
@@ -19,7 +20,7 @@ export const postMessage = async (
     }, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
-        'Content-Type': 'application/json',
+        // 'Content-Type': 'application/json',
       },
     });
 

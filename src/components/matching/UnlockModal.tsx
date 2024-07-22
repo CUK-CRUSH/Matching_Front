@@ -25,9 +25,9 @@ const UnlockModal = ({ setLock, handleSetOpen, handleSetModalOpen,handleSetLockO
 
   // 확인버튼 클릭시 재화 2 소모
   const openProfileCard = async () => {
-    handleSetOpen(activeIndex, true)
-    handleSetLockOpen(activeIndex, false)
-    setAbleSpend(true)
+      handleSetOpen(activeIndex, true)
+      handleSetLockOpen(activeIndex, false)
+      setAbleSpend(true)
     // setOpenModal(false);
    
   };

@@ -5,10 +5,9 @@ import useFindBackgroundIndex from "@/hooks/useFindBackgroundIndex/useFindBackgr
 import whiteProfile from "@/assets/MatchingList/whiteProfile.svg";
 import cancel from "@/assets/MatchingList/cancel.svg";
 import blackProfile from "@/assets/MatchingList/blackProfile.svg";
-import Time from "@/components/common/Time";
 import { useNavigate } from "react-router-dom";
 
-const ClickedMessagePopUp = ({ handleClick, currentBackground, name, birthDate, mbti, time, content,profileId,isDark  }: ClickedMessagePopUpProps) => {
+const ClickedMessagePopUp = ({ handleClick, currentBackground, name, birthDate, mbti,  content,profileId,isDark  }: ClickedMessagePopUpProps) => {
 
   const navigate = useNavigate();
 

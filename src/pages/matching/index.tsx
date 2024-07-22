@@ -22,8 +22,9 @@ const MatchingPage = () => {
   const [radius] = useState(999999);
 
   const [cookies] = useCookies(['accessToken']);
-  const accessToken = cookies.accessToken;
-
+  // const accessToken = cookies.accessToken;
+  const accessToken = import.meta.env.VITE_DUETT_TOKEN
+  
   const { data: profileCardData, error } = useQuery({
     queryKey: ['profileCardData'],
     queryFn: () => getProfileCardData(accessToken, page,size, radius,true),
