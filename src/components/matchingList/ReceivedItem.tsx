@@ -1,20 +1,18 @@
 import { ItemProps } from "@/type/MatchingList/MatchingList";
 import useGetRandomBackgrounds from "@/hooks/useGetRandomBackgrounds/useGetRandomBackgrounds";
-
-import { useState } from "react";
-import { Textarea } from "@/components/ui/textarea";
 import Name from "../common/Name";
 import Tag from "../common/Tag";
 import MusicCard from "../common/MusicCard";
+import { useNavigate } from "react-router-dom";
 // import Time from "@/components/common/Time";
 
-const ReceivedItem = ({ name, birthDate, mbti, tags, lifeMusic, type }: ItemProps) => {
-  const [, setIsClicked] = useState<boolean>(false);
+const ReceivedItem = ({ name, birthDate, mbti, tags, lifeMusic, profileId }: ItemProps) => {
 
-  const handleClick = () => {
-    if (type === 'message') {
-      setIsClicked(prevState => !prevState);
-    }
+  const navigate = useNavigate();
+
+  const goToProfile = (e: React.MouseEvent<HTMLElement>) => {
+    navigate(`/matching/${profileId}`)
+    e.stopPropagation();
   };
 
   // 배경색 목록
@@ -32,7 +30,7 @@ const ReceivedItem = ({ name, birthDate, mbti, tags, lifeMusic, type }: ItemProp
   return (
     <>
       <div
-        onClick={handleClick}
+        onClick={goToProfile}
         className={` h-auto mx-[2%] mb-[8px] pt-[12px] pb-[8px] ${currentBackground} rounded-[16px]`}
       >
         <div className={`flex justify-between px-[3%] `}>
@@ -46,28 +44,8 @@ const ReceivedItem = ({ name, birthDate, mbti, tags, lifeMusic, type }: ItemProp
           </div>
           {/* <div><Time time={time} /></div> */}
         </div>
-        {type === 'message' ?
-          <div className={`w-auto mx-2 mt-1 `}>
-            <Textarea
-              className="text-m text-[#2F2F2F] bg-[#fff] border-0 h-[80px] rounded-[12px]"
-              value={'메시지 보내기'}
-              placeholder="메시지보내기"
-              readOnly
-            />
-          </div>
-          :
-          <>
-            <MusicCard title={lifeMusic?.title} artist={lifeMusic?.artist} />
-            
-          </>
-        }
+        <MusicCard title={lifeMusic?.title} artist={lifeMusic?.artist} />
       </div>
-
-      {/* 메시지 팝업 클릭했을때 */}
-      {/* {isClicked && <ClickedMessagePopUp 
-                      handleClick={handleClick}
-                      currentBackground={currentBackground} 
-                      name={name} age={age} mbti={mbti} tag={tag} time={time} />} */}
     </>
   );
 }

@@ -1,10 +1,9 @@
 import { ItemProps } from "@/type/MatchingList/MatchingList";
 
-import MusicCard from "../common/MusicCard";
-import Tag from "../common/Tag";
-import Name from "../common/Name";
+import MusicCard from "@/components/common/MusicCard"
+import Tag from "@/components/common/Tag";
+import Name from "@/components/common/Name";
 import { useNavigate } from "react-router-dom";
-
 
 const SendedItem = ({ name, birthDate, mbti, tags, lifeMusic,profileId }: ItemProps) => {
 
@@ -40,9 +39,7 @@ const SendedItem = ({ name, birthDate, mbti, tags, lifeMusic,profileId }: ItemPr
         <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-[calc(100%-4%)] h-[1px] bg-[#191919]" />
 
       </div>
-      {/* {isClicked && <ClickedMessagePopUp
-        handleClick={handleClick}
-        name={name} age={age} mbti={mbti} tag={tag} time={time} isDark={true} />} */}
+    
     </>
   );
 };
