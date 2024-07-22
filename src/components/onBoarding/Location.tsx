@@ -68,13 +68,11 @@ const LocationPage = () => {
           </div>
         </div>
         {addressQuery.data && (
-          <div className="flex justify-center mt-80">
-            <div className="flex flex-row items-center gap-x-2">
-              <div className="flex flex-col justify-center items-center text-sm font-bold text-center text-[#858585]">
-                <ExclamationCircleOutlined className="mb-1" />
-                <p>탐색된 내 위치가 정확하지 꼭 확인해주세요</p>
-                <p>알맞지 않은 경우, 버튼을 다시 눌러 다시 탐색해주세요</p>
-              </div>
+          <div className="mt-4 flex justify-center">
+            <div className="flex flex-col items-center text-sm font-bold text-center text-[#858585]">
+              <ExclamationCircleOutlined className="mb-1" />
+              <p>탐색된 내 위치가 정확한지 꼭 확인해주세요.</p>
+              <p>알맞지 않은 경우, 버튼을 다시 눌러 다시 탐색해주세요.</p>
             </div>
           </div>
         )}
