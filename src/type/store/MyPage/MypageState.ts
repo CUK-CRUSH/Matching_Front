@@ -1,3 +1,5 @@
+import { LifeMusicItem } from '@/type/services/Music/MusicDTO';
+
 export type MBTIState = {
   E_I: string | null;
   N_S: string | null;
@@ -6,7 +8,16 @@ export type MBTIState = {
 };
 
 export type MyPageState = {
-  currentPage: 'mypage' | 'info' | 'introduce' | 'music' | 'tags' | 'location';
+  currentPage:
+    | 'mypage'
+    | 'info'
+    | 'introduce'
+    | 'music'
+    | 'musicDetail'
+    | 'tags'
+    | 'location'
+    | 'mood'
+    | 'musicEdit';
   setCurrentPage: (page: MyPageState['currentPage']) => void;
 
   selectedMBTI: MBTIState;
@@ -23,4 +34,25 @@ export type MyPageState = {
 
   textarea2: string;
   setTextarea2: (text: string) => void;
+
+  selectedMusic: LifeMusicItem[];
+  setSelectedMusic: (music: LifeMusicItem[]) => void;
+
+  deleteLifeMusics: number[];
+  setDeleteLifeMusics: (musicIds: number[]) => void;
+
+  currentMusic: LifeMusicItem | null;
+  setCurrentMusic: (music: LifeMusicItem | null) => void;
+
+  updateLifeMusics: LifeMusicItem[];
+  setUpdateLifeMusics: (musics: LifeMusicItem[]) => void;
+
+  selectMusicMoodTitle: string;
+  setSelectMusicMoodTitle: (title: string) => void;
+
+  selectMusicMoodArtist: string;
+  setSelectMusicMoodArtist: (artist: string) => void;
+
+  selectMusicMoodImage: string | null;
+  setSelectMusicMoodImage: (image: string | null) => void;
 };

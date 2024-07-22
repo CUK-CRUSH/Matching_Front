@@ -37,7 +37,7 @@ const ProfileImagePage = () => {
           '(얼굴이 명확하게 보이는 사진을 골라주세요)',
         ]}
       />
-      <div className="flex flex-col items-center mx-4">
+      <div className="flex flex-col items-center mx-4 mb-40">
         <label htmlFor="file-input" className="cursor-pointer">
           <div className="w-48 h-48 bg-[#303030] flex items-center justify-center rounded-3xl overflow-hidden">
             {compressedImage ? (

@@ -6,9 +6,13 @@ import useOnboardingStore from '@/store/validationStore';
 import { useForm } from 'react-hook-form';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import ProgressBar from '@/utils/ProgressBar';
+import { CheckDuplicateButton } from '../validation/CheckDuplicateButton';
+import { useEffect, useState } from 'react';
 
 const NickNamePage = () => {
   const { setCurrentPage, userData, setUserData } = useOnboardingStore();
+  const [isDuplicate, setIsDuplicate] = useState<boolean | null>(null);
+
   const {
     register,
     handleSubmit,
@@ -17,17 +21,21 @@ const NickNamePage = () => {
   } = useForm({
     mode: 'onChange',
     defaultValues: {
-      nickname: userData.nickname || '',
+      name: userData.name || '',
     },
   });
 
-  const nickname = watch('nickname');
+  const name = watch('name');
 
   const handleNext = () => {
-    setUserData('nickname', nickname);
+    setUserData('name', name);
     setCurrentPage('birth');
   };
-  console.log(userData);
+
+  useEffect(() => {
+    setIsDuplicate(null);
+  }, [name]);
+
   return (
     <div className="flex flex-col justify-between h-screen">
       <div className="absolute w-full mt-2">
@@ -40,27 +48,47 @@ const NickNamePage = () => {
         />
 
         <div className="mt-16 mx-4">
-          <form onSubmit={handleSubmit(() => setCurrentPage('birth'))}>
-            <Input
-              type="text"
-              id="nickname"
-              placeholder="닉네임을 입력해주세요"
-              {...register('nickname', {
-                required: '닉네임은 필수 입력 사항입니다',
-                minLength: {
-                  value: 4,
-                  message: '3자 이상 입력해주세요',
-                },
-                maxLength: {
-                  value: 15,
-                  message: '최대 15자까지만 입력할 수 있어요',
-                },
-              })}
-            />
-            {errors.nickname && (
-              <p className="text-red-500 text-sm italic mt-1">
-                <ExclamationCircleOutlined />
-                {errors.nickname.message}
+          <form onSubmit={handleSubmit(handleNext)}>
+            <div className="relative">
+              <Input
+                type="text"
+                id="name"
+                placeholder="닉네임을 입력해주세요"
+                {...register('name', {
+                  required: '닉네임은 필수 입력 사항입니다',
+                  minLength: {
+                    value: 3,
+                    message: '3자 이상 입력해주세요',
+                  },
+                  maxLength: {
+                    value: 15,
+                    message: '최대 15자까지만 입력할 수 있어요',
+                  },
+                })}
+              />
+              <CheckDuplicateButton
+                type="nickname"
+                value={name}
+                onResult={setIsDuplicate}
+                disabled={!name}
+              />
+            </div>
+            {errors.name && (
+              <p className="text-red-500 text-sm italic mt-1 flex items-center">
+                <ExclamationCircleOutlined className="mr-1" />
+                {errors.name.message}
+              </p>
+            )}
+            {isDuplicate !== null && (
+              <p className={`mt-2 ${isDuplicate ? 'text-red-500' : 'text-[#c6c6c6]'}`}>
+                {isDuplicate ? (
+                  <span className="flex items-center">
+                    <ExclamationCircleOutlined className="mr-1" />
+                    중복된 닉네임입니다.
+                  </span>
+                ) : (
+                  '사용 가능한 닉네임입니다.'
+                )}
               </p>
             )}
           </form>
@@ -70,7 +98,7 @@ const NickNamePage = () => {
         <ValidationPrevButton onStateChange={() => setCurrentPage('location')} />
         <ValidationButton
           onStateChange={handleNext}
-          buttonEnabled={isValid && nickname.length >= 4}
+          buttonEnabled={isValid && isDuplicate === false}
         />
       </div>
     </div>

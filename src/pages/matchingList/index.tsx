@@ -5,21 +5,98 @@ import ExpandedButtons from '@/components/matchingList/ExpandedButtons';
 import Divider from '@/components/common/Divider';
 import ItemContainer from '@/components/matchingList/ItemContainer';
 import ReceivedItem from '@/components/matchingList/ReceivedItem';
-import { MOCK_RECEIVE_HEARTS } from '@/fixture/ReceiveHeart';
 import SendedItem from '@/components/matchingList/SendedItem';
 import MatchingListHeader from '@/components/layout/matchingListHeader';
 import useMatchingListStateStore from '@/store/matchingListStore';
+import { useQuery } from '@tanstack/react-query';
+import { getReciveLikedProfileCard, getSendedLikedProfileCard } from '@/services/ProfileCard/LikeProfileCard';
+import { useEffect, useState } from 'react';
+import { ItemProps } from '@/type/MatchingList/MatchingList';
+import { getSendedMessageProfileCard, getReciveMessageProfileCard } from '@/services/ProfileCard/MessageProfileCard';
+import { MessageItemProps } from "@/type/services/LikeProfileCard/LikeProfileCard";
+import SendedMessageItem from '@/components/matchingList/SendedMessageItem';
+import ReceivedMessageItem from '@/components/matchingList/ReceivedMessageItem';
+import { useCookies } from 'react-cookie';
 
 const MatchingListPage = () => {
 
+  const [cookies] = useCookies(['accessToken']);
+  const accessToken = cookies.accessToken;
+  
+  const { data: receivedLikedProfileCardData, error: receivedLikedProfileCardError } = useQuery({
+    queryKey: ['receivedLikedProfileCardData'],
+    queryFn: () => getReciveLikedProfileCard(accessToken, 0),
+    staleTime: 1000 * 60 * 5, // 5 minutes
+    placeholderData: (previousData) => previousData,
+  });
+
+  const { data: sendedLikedProfileCardData, error: sendedLikedProfileCardError } = useQuery({
+    queryKey: ['sendedLikedProfileCardData'],
+    queryFn: () => getSendedLikedProfileCard(accessToken, 0),
+    staleTime: 1000 * 60 * 5, // 5 minutes
+    placeholderData: (previousData) => previousData,
+  });
+
+  // 보낸 메시지
+  const { data: sendedMessageProfileCardData, error: sendedMessageProfileCardError } = useQuery({
+    queryKey: ['sendedMessageProfileCardData'],
+    queryFn: () => getSendedMessageProfileCard(accessToken, 0),
+    staleTime: 1000 * 60 * 5, // 5 minutes
+    placeholderData: (previousData) => previousData,
+  });
+  
+  // 받은 메시지
+  const { data: reciveMessageProfileCardData, error: reciveMessageProfileCardError } = useQuery({
+    queryKey: ['recieveMessageProfileCardData'],
+    queryFn: () => getReciveMessageProfileCard(accessToken, 0),
+    staleTime: 1000 * 60 * 5, // 5 minutes
+    placeholderData: (previousData) => previousData,
+  });
+
   const {matchingListState} = useMatchingListStateStore();
+  const [receivedLikedProfileCard, setReceivedLikedProfileCard] = useState<ItemProps[] | undefined>();
+  const [sendedLikedProfileCard, setSendedLikedProfileCard] = useState<ItemProps[] | undefined>();
+  const [receivedMessageProfileCard, setReceivedMessageProfileCard] = useState<MessageItemProps[] | undefined>();
+  const [sendedMessageProfileCard, setSendedMessageProfileCard] = useState<MessageItemProps[] | undefined>();
+
+  useEffect(() => { 
+    // 받은 좋아요 불러오기
+    getReciveLikedProfileCard(accessToken,0).then((response) => {
+      setReceivedLikedProfileCard(response?.data);
+    });
+
+    // 보낸 좋아요 불러오기
+    getSendedLikedProfileCard(accessToken,0).then((response) => {
+      setSendedLikedProfileCard(response?.data);
+    });
+
+    // 받은 메시지 불러오기
+    getReciveMessageProfileCard(accessToken,0).then((response) => {
+      setReceivedMessageProfileCard(response?.data);
+    });
+
+    // 보낸 메시지 불러오기
+    getSendedMessageProfileCard(accessToken,0).then((response) => {
+      setSendedMessageProfileCard(response?.data);
+    });
+  }, []);
+
+  
+  if (receivedLikedProfileCardError && sendedLikedProfileCardError && sendedMessageProfileCardError && reciveMessageProfileCardError) {
+    return <div>Error: </div>;
+  }
+
+  if (receivedLikedProfileCardData && !sendedLikedProfileCardData && !sendedMessageProfileCardData && ! reciveMessageProfileCardData) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <Layout backgroundColor='#2C2C2C'>
 
-      <div className="h-auto mt-[11vh] bg-matching-list relative flex flex-col rounded-t-[28px] pb-[130px]">
+      <div className="h-auto bg-matching-list relative flex flex-col rounded-t-[28px] pb-[130px]">
         <MatchingListHeader text={'matchingList'} background={'#2C2C2C'} router={'matching'} />
 
-        <SocialButtons  />
+        <SocialButtons />
 
         {matchingListState === 'heart' &&
           <>
@@ -27,7 +104,7 @@ const MatchingListPage = () => {
             <ExpandedButtons state='받은 하트' router='receivedHeart' />
             <Divider />
             <ItemContainer>
-              {MOCK_RECEIVE_HEARTS.slice(0, 4).map((item, index) => (
+              {receivedLikedProfileCard?.slice(0, 4).map((item, index) => (
                 <ReceivedItem key={index} {...item} />
               ))}
 
@@ -36,7 +113,7 @@ const MatchingListPage = () => {
             <ExpandedButtons state='보낸 하트' router='sendedHeart' />
             <Divider />
             <ItemContainer>
-              {MOCK_RECEIVE_HEARTS.slice(0, 3).map((item, index) => (
+              {sendedLikedProfileCard?.slice(0, 3).map((item, index) => (
                 <SendedItem key={index} {...item} />
               ))}
             </ItemContainer>
@@ -49,8 +126,8 @@ const MatchingListPage = () => {
             <ExpandedButtons state='받은 메시지' router='receivedMessage' />
             <Divider />
             <ItemContainer>
-              {MOCK_RECEIVE_HEARTS.slice(0, 3).map((item, index) => (
-                <ReceivedItem key={index} {...item} type={matchingListState} />
+              {receivedMessageProfileCard?.slice(0, 3).map((item, index) => (
+                <ReceivedMessageItem key={index} {...item} />
               ))}
 
             </ItemContainer>
@@ -58,8 +135,8 @@ const MatchingListPage = () => {
             <ExpandedButtons state='보낸 메시지' router='sendedMessage' />
             <Divider />
             <ItemContainer>
-              {MOCK_RECEIVE_HEARTS.slice(0, 3).map((item, index) => (
-                <SendedItem key={index} {...item} />
+              {sendedMessageProfileCard?.slice(0, 3).map((item, index) => (
+                <SendedMessageItem key={index} {...item} />
               ))}
             </ItemContainer>
           </>

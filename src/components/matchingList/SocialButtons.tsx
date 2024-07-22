@@ -6,9 +6,9 @@ const SocialButtons = () => {
   
   const {matchingListState, toggleMatchingListState} = useMatchingListStateStore();
 
-  const selectStyle = `absolute -top-[46px] bg-[#252525] text-white w-[52px] h-[50px] flex p-4 rounded-t-[28px]`;
+  const selectStyle = `absolute top-[30px] bg-[#252525] text-white w-[52px] h-[50px] flex p-4 rounded-t-[28px]`;
   const selectImgStyle = `flex justify-center items-center`;
-  const unSelectStyle = `absolute -top-[40px] bg-[#252525] opacity-70 text-white w-[52px] h-[44px]  flex p-4  rounded-t-[28px]`;
+  const unSelectStyle = `absolute top-[30px] bg-[#252525] opacity-70 text-white w-[52px] h-[44px]  flex p-4  rounded-t-[28px]`;
   const unSelectImgStyle = `flex justify-center items-center`;
 
   return (

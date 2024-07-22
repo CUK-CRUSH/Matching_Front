@@ -41,7 +41,6 @@ export const InputForm = () => {
   });
 
   const { formState, handleSubmit, control } = methods;
-
   const onSubmit = async (data: z.infer<typeof FormSchema>) => {
     try {
       const authenticationCode = await getAuthenticationCode(data.pin);
@@ -55,22 +54,18 @@ export const InputForm = () => {
 
         // 핸드폰 기종에 따라 분기
         const userAgent = navigator.userAgent.toLowerCase();
+        let bodyPrefix = '?body=';
 
-        if (userAgent.indexOf('android') > -1) {
-          const smsUrl = `sms:${import.meta.env.VITE_DUETT_EMAIL}?body=${encodeURIComponent(authenticationCode?.data?.code)}`;
-          window.location.href = smsUrl;
-        } else if (
+        if (
           userAgent.indexOf('iphone') > -1 ||
           userAgent.indexOf('ipad') > -1 ||
           userAgent.indexOf('ipod') > -1
         ) {
-          const smsUrl = `sms:${import.meta.env.VITE_DUETT_EMAIL}&body=${encodeURIComponent(authenticationCode?.data?.code)}`;
-          window.location.href = smsUrl;
-        } else {
-          const smsUrl = `sms:${import.meta.env.VITE_DUETT_EMAIL}?body=${encodeURIComponent(authenticationCode?.data?.code)}`;
-
-          window.location.href = smsUrl;
+          bodyPrefix = '&body=';
         }
+
+        const smsUrl = `sms:${import.meta.env.VITE_DUETT_EMAIL}${bodyPrefix}${encodeURIComponent(authenticationCode?.data?.code)}`;
+        window.location.href = smsUrl;
 
         toast({
           title: '인증 메시지가 전송되었습니다.',
@@ -126,11 +121,12 @@ export const InputForm = () => {
           <div className="flex justify-center">
             <Button
               type="submit"
-              className={`w-full h-14 ${isSubmitted ? 'bg-[#a0a0a0] text-white pointer-events-none' : formState.isValid ? 'bg-[#ececec] text-black' : 'bg-[#a0a0a0] text-white pointer-events-none'}`}
+              className={`w-1/3 h-12 ${isSubmitted ? 'bg-[#a0a0a0] text-white pointer-events-none' : formState.isValid ? 'bg-[#252525] text-white' : 'bg-[#a0a0a0] text-white pointer-events-none'}`}
             >
-              {isSubmitted ? '메시지 전송 성공' : '인증 메시지 전송'}
+              {isSubmitted ? '메시지 인증 완료' : '인증 메시지 전송'}
             </Button>
           </div>
+          <p>{isSubmitted ? "하단의 '다음'을 누르면 <br /> 다음단계로 이동합니다." : ''}</p>
         </form>
       </Form>
     </div>

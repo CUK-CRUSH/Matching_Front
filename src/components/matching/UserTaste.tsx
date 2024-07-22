@@ -2,7 +2,7 @@ import { Textarea } from "@/components/ui/textarea";
 
 interface UserTasteProps {
   title: string;
-  value: string;
+  value?: string;
   testId: string;
 }
 

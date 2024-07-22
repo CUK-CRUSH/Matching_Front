@@ -1,10 +1,10 @@
 export type matchingListHeaderProps = {
-  text : string;
-  background? : string;
-  router? : string;
-  mypageText? : string;
-  onStateChange? : () => void;
-  marginTop? : string;
+  text?: string;
+  background?: string;
+  router?: string;
+  mypageText?: string;
+  onStateChange?: () => void;
+  marginTop?: string;
 }
 
 export type ExpandedButtonsProps = {
@@ -14,45 +14,89 @@ export type ExpandedButtonsProps = {
 
 export type ItemContainerProps = {
   children: React.ReactNode;
+  ref: React.MutableRefObject<HTMLDivElement | null>;
 }
 
 export type ItemProps = {
-  name: string;
-  age: string;
-  mbti: string;
-  tag: string;
-  time: string;
-  song: string;
-  singer: string;
-  type? :string;
+  profileId?: number;
+  name?: string;
+  birthDate?: string;
+  mbti?: string;
+  oneLineIntroduction?: string;
+  distance?: number;
+  profileImageUrl? : string;
+  lifeMusic?: {
+    musicId: number;
+    title: string;
+    artist: string;
+    url: string;
+  };
+  tags?: {
+    name : string;
+    state : string;
+  }[];
+
+  musicTags?: {
+    name : string;
+    state : string;
+  }[];
+
+  hobbyTags?: {
+    name : string;
+    state : string;
+  }[];
+  // 열린상태 
+
+  mood? : {
+    title : string;
+    artist : string;
+    moodImageUrl : string;
+    isDeleteImage : boolean;
+  }
+  selfIntroduction? : string;
+  likeableMusicTaste? : string;
+  isOpen? : boolean;
+  isModalOpen? : boolean;
+  isLock? : boolean;
+  activeIndex? : number;
+  type? : string;
 }
 
 export type MusciCardProps = {
-  song: string;
-  artist: string;
+  musicId?: number,
+  title?: string;
+  artist?: string;
+  url?: string,
   isDark?: boolean;
-  isProilfeCard? : boolean;
+  isProilfeCard?: boolean;
 }
 
 export type TagProps = {
-  tag: string;
+  name: string;
+  state : string;
   isDark?: boolean;
-  isProfileCard? : boolean;
-
+  isProfileCard?: boolean;
+  mark?: boolean;
+  isSmall?: boolean;
 }
 
 export type SocialButtonProps = {
-  onSelectedToggle : (selectedValue: string) => void;
-  selected : string;
+  onSelectedToggle: (selectedValue: string) => void;
+  selected: string;
 }
 
-export type ClickedMessagePopUpProps = { 
-  isClicked : boolean;
-  handleClick : () => void;
-  currentBackground : string;
-  name: string;
-  age: string;
-  mbti: string;
-  tag: string;
-  time: string;
+export type ClickedMessagePopUpProps = {
+  handleClick: () => void;
+  currentBackground?: string;
+  name?: string;
+  birthDate?: string;
+  mbti?: string;
+  tags?: {
+    name : string;
+    state : string;
+  }[];
+  time?: string;
+  content?: string;
+  profileId?: number;
+  isDark?: boolean;
 }
