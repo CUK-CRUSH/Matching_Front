@@ -18,6 +18,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 import Layout from '../layout/layout';
 import Footer from '../layout/footer';
+import { useCookies } from 'react-cookie';
 
 const ViewProfileCard = () => {
   const { profileId } = useParams<{ profileId: string }>();
@@ -55,9 +56,12 @@ const ViewProfileCard = () => {
     placeholderData: (previousData) => previousData,
   });
 
+  const [cookies] = useCookies(['accessToken']);
+  const accessToken = cookies.accessToken;
+
   useEffect(() => {
       
-      getProfileCardDetailData(import.meta.env.VITE_DUETT_TOKEN,Number(profileId)).then((response) => {
+      getProfileCardDetailData(accessToken,Number(profileId)).then((response) => {
         // 프로필 데이터 추가
         setProfiles(response?.data?.profileCardResponse);
       }
