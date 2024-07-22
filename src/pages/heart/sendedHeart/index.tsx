@@ -11,6 +11,7 @@ import { ItemProps } from "@/type/MatchingList/MatchingList";
 import { useCookies } from "react-cookie";
 
 const SendedHeart = () => {
+  // 스크롤바
   const outerContainerRef = useRef<HTMLDivElement | null>(null);
   const innerContainerRef = useRef<HTMLDivElement | null>(null);
   const { ScrollBarThumb, calculateThumbY, thumbH, thumbRef } = useCustomScroll(

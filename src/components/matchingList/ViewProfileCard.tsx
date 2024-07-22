@@ -51,14 +51,14 @@ const ViewProfileCard = () => {
   //  단일조회하기 profileId 를 통해
   const { data: getProfileCardData, error } = useQuery({
     queryKey: ['recieveMessageProfileCardData'],
-    queryFn: () => getProfileCardDetailData(import.meta.env.VITE_DUETT_TOKEN,Number(profileId)),
+    queryFn: () => getProfileCardDetailData(accessToken,Number(profileId)),
     staleTime: 1000 * 60 * 5, // 5분
     placeholderData: (previousData) => previousData,
   });
 
   const [cookies] = useCookies(['accessToken']);
   const accessToken = cookies.accessToken;
-
+  console.log(accessToken);
   useEffect(() => {
       
       getProfileCardDetailData(accessToken,Number(profileId)).then((response) => {
