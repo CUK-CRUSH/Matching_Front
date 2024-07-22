@@ -1,4 +1,4 @@
 export type AutoResizeTextareaProps = {
-    value: string;
+    value?: string;
     isDark?: boolean;
   }

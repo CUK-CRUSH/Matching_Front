@@ -1,7 +1,7 @@
 import lock from '@/assets/ProfileCard/lock.svg';
 import { ProfileImageProps } from '@/type/ProfileCard/ProfileCard';
 
-const ProfileImage = ({ handleSetOpen, handleSetModalOpen, isLock, activeIndex,profileImageUrl }: ProfileImageProps) => {
+const ProfileImage = ({ handleSetOpen, handleSetModalOpen, isLock, activeIndex,profileImageUrl,setIsUnfilledModalOpen }: ProfileImageProps) => {
   
   const profileImageStyle = profileImageUrl && !isLock ? 
   `absolute w-full h-full rounded-full object-cover` :
@@ -13,11 +13,15 @@ const ProfileImage = ({ handleSetOpen, handleSetModalOpen, isLock, activeIndex,p
         src={profileImageUrl ? profileImageUrl : lock}
         alt='lock'
         onClick={() => {
-          if (isLock) {
-            handleSetModalOpen(activeIndex, true);
+          if (sessionStorage.getItem('isProfileComplete') === 'false') {
+            setIsUnfilledModalOpen?.(true)
+          }
+          else if (isLock) {
+              handleSetModalOpen?.(activeIndex, true);
+    
           } else {
-            handleSetOpen(activeIndex, true);
-            handleSetModalOpen(activeIndex, true);
+              handleSetOpen?.(activeIndex, true);
+              handleSetModalOpen?.(activeIndex, true);
           }
         }}
       />

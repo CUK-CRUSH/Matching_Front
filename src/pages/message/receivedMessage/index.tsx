@@ -2,12 +2,13 @@ import Layout from "@/components/layout/layout"
 import Footer from '@/components/layout/footer';
 import MatchingListHeader from "@/components/layout/matchingListHeader";
 import ItemContainer from "@/components/matchingList/ItemContainer";
-import ReceivedItem from "@/components/matchingList/ReceivedItem";
 import useCustomScroll from "@/hooks/useCustomScrollBar/useCustomScrollBar";
 import { useEffect, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getReciveMessageProfileCard } from "@/services/ProfileCard/MessageProfileCard";
-import { ItemProps } from "@/type/MatchingList/MatchingList";
+import { MessageItemProps } from "@/type/services/LikeProfileCard/LikeProfileCard";
+import ReceivedMessageItem from "@/components/matchingList/ReceivedMessageItem";
+import { useCookies } from "react-cookie";
 
 const ReceivedMessage = () => {
   const outerContainerRef = useRef<HTMLDivElement | null>(null);
@@ -24,19 +25,22 @@ const ReceivedMessage = () => {
   const [isLastPage, setIsLastPage] = useState<boolean>(false);
   const [size] = useState<number>(10);
 
+  const [cookies] = useCookies(['accessToken']);
+  const accessToken = cookies.accessToken;
+  
   const { data: reciveMessageProfileCard, error } = useQuery({
     queryKey: ['recieveMessageProfileCardData'],
-    queryFn: () => getReciveMessageProfileCard(import.meta.env.VITE_DUETT_TOKEN,page),
+    queryFn: () => getReciveMessageProfileCard(accessToken,page),
     staleTime: 1000 * 60 * 5, // 5분
     placeholderData: (previousData) => previousData,
   });
 
-  const [recieveMessageProfileCardData, setRecieveMessageProfileCardData] = useState<ItemProps[] | undefined>();
+  const [recieveMessageProfileCardData, setRecieveMessageProfileCardData] = useState<MessageItemProps[] | undefined>();
 
   useEffect(() => {
     if (isLastPage) return;
 
-    getReciveMessageProfileCard(import.meta.env.VITE_DUETT_TOKEN,page).then((response) => {
+    getReciveMessageProfileCard(accessToken,page).then((response) => {
       if (response?.data?.length < size) {
         setIsLastPage(true);
       }
@@ -65,7 +69,7 @@ const ReceivedMessage = () => {
 
         <ItemContainer ref={innerContainerRef}>
         {recieveMessageProfileCardData?.map((item, index) => (
-            <ReceivedItem key={index} {...item} type={'message'} />
+            <ReceivedMessageItem key={index} {...item} />
           ))}
 
         </ItemContainer>

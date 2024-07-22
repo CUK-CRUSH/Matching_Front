@@ -17,6 +17,7 @@ import useProfileCardStore from "@/store/profileCardStore"
 import post from "@/assets/ProfileCard/post.svg"
 import closeButton from "@/assets/ProfileCard/closeButton.svg"
 import { postMessage } from "@/services/ProfileCard/MessageProfileCard"; // import postMessage 함수 추가
+import { useCookies } from "react-cookie"
 
 const FormSchema = z.object({
   type: z.enum(["kakao", "phone"], {
@@ -33,12 +34,14 @@ const PostMessageModal = ({profileId} : PostMessageModalProps) => {
     resolver: zodResolver(FormSchema),
   });
 
+  const [cookies] = useCookies(['accessToken']);
+  const accessToken = cookies.accessToken;
+  
   const onSubmit = async (formData: z.infer<typeof FormSchema>) => {
     try {
-      console.log(formData)
       // postMessage 함수 호출하여 API에 데이터 전송
       await postMessage(
-        import.meta.env.VITE_DUETT_TOKEN,
+        accessToken,
         formData.type === "kakao" ? 1 : 0, // sendType
         profileId, // receiverId 값은 어디서 받아오는지 확인 필요
         formData.message // content

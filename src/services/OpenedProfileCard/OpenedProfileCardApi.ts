@@ -3,6 +3,7 @@ import { OpenedProfileCardDTO } from '@/type/services/OpenedProfileCard/OpenedPr
 
 // 코인을 사용해서 프로필카드 상세 단일 조회하기
 export const getOpenedProfileCard = async (
+  accessToken: string,
   page?: number,
   size?: number,
 
@@ -12,7 +13,7 @@ export const getOpenedProfileCard = async (
   try {
     const { data } = await api.get<OpenedProfileCardDTO>(url, {
       headers: {
-        Authorization: `Bearer ${import.meta.env.VITE_DUETT_TOKEN}`,
+        Authorization: `Bearer ${accessToken}`,
       },
     });
     return data;

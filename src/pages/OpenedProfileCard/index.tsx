@@ -10,6 +10,7 @@ import { useQuery } from "@tanstack/react-query";
 import { OpenedProfileCardDTO } from '@/type/services/OpenedProfileCard/OpenedProfileCard'
 import InfiniteDiv from "@/components/InfiniteDiv/InfiniteDiv";
 import { useInView } from 'react-intersection-observer';
+import { useCookies } from "react-cookie";
 
 const OpenedProfileCard = () => {
   const outerContainerRef = useRef<HTMLDivElement | null>(null);
@@ -28,10 +29,13 @@ const OpenedProfileCard = () => {
 
   const [view, inView] = useInView();
 
+  const [cookies] = useCookies(['accessToken']);
+  const accessToken = cookies.accessToken;
+  
   // api 연결 !
   const { data: openedProfileCardData, error } = useQuery({
     queryKey: ['profileCardData'],
-    queryFn: () => getOpenedProfileCard(page, size),
+    queryFn: () => getOpenedProfileCard(accessToken,page, size),
     staleTime: 1000 * 60 * 5, // 5분
     placeholderData: (previousData) => previousData,
   });
@@ -41,7 +45,7 @@ const OpenedProfileCard = () => {
   useEffect(() => {
     if (isLastPage) return;
 
-    getOpenedProfileCard(page, size).then((response) => {
+    getOpenedProfileCard(accessToken,page, size).then((response) => {
       if (response?.data?.length < size) {
         setIsLastPage(true);
       }

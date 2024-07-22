@@ -38,7 +38,7 @@ export type ProfileCardSummaryProps = {
 
 type DataSummaryType = {
   profileCardSummaryResponses : ProfileCardSummaryProps[];
-  isLastPage : boolean;
+  isProfileComplete? : boolean;
   coin : number;
 }
 

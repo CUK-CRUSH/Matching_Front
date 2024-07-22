@@ -1,8 +1,9 @@
 import { api } from '../client';
-import { ItemPropsDTO } from "@/type/services/LikeProfileCard/LikeProfileCard";
+import { SendedMessageItemPropsDTO } from "@/type/services/LikeProfileCard/LikeProfileCard";
 
 
-// 메시지 보내기
+// 메시지 보내기 
+// json 형식으로
 export const postMessage = async (
   accessToken: string,
   sendType?: number,
@@ -19,7 +20,7 @@ export const postMessage = async (
     }, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
-        'Content-Type': 'application/json',
+        // 'Content-Type': 'application/json',
       },
     });
 
@@ -33,10 +34,10 @@ export const postMessage = async (
 export const getReciveMessageProfileCard = async (
   accessToken : string,
   page?: number,
-): Promise<ItemPropsDTO> => {
-  const url = `${import.meta.env.VITE_DUETT_API_URL}api/v1/message/receive/all?page=${page}`;
+): Promise<SendedMessageItemPropsDTO> => {
+  const url = `${import.meta.env.VITE_DUETT_API_URL}/api/v1/message/receive/all?page=${page}`;
   try {
-    const { data } = await api.get<ItemPropsDTO>(url, {
+    const { data } = await api.get<SendedMessageItemPropsDTO>(url, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
@@ -48,17 +49,19 @@ export const getReciveMessageProfileCard = async (
   }
 };
 
+// 발신메시지
 export const getSendedMessageProfileCard = async (
   accessToken: string,
   page: number,
-): Promise<ItemPropsDTO> => {
+): Promise<SendedMessageItemPropsDTO> => {
   const url = `${import.meta.env.VITE_DUETT_API_URL}/api/v1/message/send/all?page=${page}`;
   try {
-    const { data } = await api.get<ItemPropsDTO>(url, {
+    const { data } = await api.get<SendedMessageItemPropsDTO>(url, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
     });
+    console.log(data)
     return data;
   } catch (error) {
     console.error('에러내용:', error);

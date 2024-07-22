@@ -18,6 +18,8 @@ import Fold from '../Fold';
 import UserTaste from '@/components/matching/UserTaste';
 import MoodMusic from '@/components/matching/MoodMusic';
 import SocialButtons from '../SocialButtons';
+import { useCookies } from 'react-cookie';
+import UnFilledModal from '../UnFilledModal';
 
 const ProfileCard = ({ profileId, name, birthDate, mbti, tags, oneLineIntroduction, distance, lifeMusics,
   isOpen, isModalOpen, isLock, handleSetOpen, handleSetModalOpen, handleSetLockOpen, activeIndex }: CombinedProfileCardProps) => {
@@ -25,6 +27,9 @@ const ProfileCard = ({ profileId, name, birthDate, mbti, tags, oneLineIntroducti
   // 프로필 데이터
   const [profiles, setProfiles] = useState<ProfileCardProps | undefined>();
 
+  const [cookies] = useCookies(['accessToken']);
+  const accessToken = cookies.accessToken;
+  
   // 배경색 목록  
   const backgrounds = [
     'bg-background-grey',
@@ -46,9 +51,9 @@ const ProfileCard = ({ profileId, name, birthDate, mbti, tags, oneLineIntroducti
 
   // 메시지보내기 창 모달 오픈
   const { openMessage, ableSpend, setAbleSpend } = useProfileCardStore();
-
+  
   useEffect(() => {
-    ableSpend && spendCoin(import.meta.env.VITE_DUETT_TOKEN,profileId)
+    ableSpend && spendCoin(accessToken,profileId)
       .then((response) => {
         setProfiles(response?.data?.profileCardResponse);
         setAbleSpend(false)
@@ -58,10 +63,23 @@ const ProfileCard = ({ profileId, name, birthDate, mbti, tags, oneLineIntroducti
         });
       })
       .catch((error) => {
+        alert(error.message)
+        setAbleSpend(false)
+
         console.error('Error spending coin:', error);
         // 에러 처리
       });
   }, [isOpen]);
+
+
+  // 모달창
+  const [isUnfilledModalOpen,setIsUnfilledModalOpen] = useState<boolean>(false)
+
+  useEffect(() =>{
+    if(isUnfilledModalOpen){
+     setIsUnfilledModalOpen(true)
+    }
+  },[isUnfilledModalOpen])
 
   return (
     <>
@@ -75,13 +93,16 @@ const ProfileCard = ({ profileId, name, birthDate, mbti, tags, oneLineIntroducti
           profileId={profileId}
           isOpen={isOpen}
           currentBackground={currentBackground}
+          
         />}
+        {isUnfilledModalOpen && <UnFilledModal setIsUnfilledModalOpen={setIsUnfilledModalOpen } /> }
         {/* Top */}
 
         <div className={`flex flex-row ml-6`}>
           <ProfileImage
             handleSetModalOpen={(activeIndex: number | undefined, value: boolean) => handleSetModalOpen?.(activeIndex, value)}
             handleSetOpen={(activeIndex: number | undefined, value: boolean) => handleSetOpen?.(activeIndex, value)}
+            setIsUnfilledModalOpen={setIsUnfilledModalOpen}
             isLock={isLock}
             activeIndex={activeIndex}
             profileImageUrl={profiles?.profileImageUrl}
@@ -135,6 +156,7 @@ const ProfileCard = ({ profileId, name, birthDate, mbti, tags, oneLineIntroducti
             <Spread
               handleSetModalOpen={(activeIndex: number | undefined, value: boolean) => handleSetModalOpen?.(activeIndex, value)}
               handleSetOpen={(activeIndex: number | undefined, value: boolean) => handleSetOpen?.(activeIndex, value)}
+              setIsUnfilledModalOpen={setIsUnfilledModalOpen}
               isLock={isLock}
               activeIndex={activeIndex}
             />

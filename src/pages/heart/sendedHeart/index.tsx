@@ -8,8 +8,10 @@ import useCustomScroll from "@/hooks/useCustomScrollBar/useCustomScrollBar";
 import { useQuery } from "@tanstack/react-query";
 import { getSendedLikedProfileCard } from "@/services/ProfileCard/LikeProfileCard";
 import { ItemProps } from "@/type/MatchingList/MatchingList";
+import { useCookies } from "react-cookie";
 
 const SendedHeart = () => {
+  // 스크롤바
   const outerContainerRef = useRef<HTMLDivElement | null>(null);
   const innerContainerRef = useRef<HTMLDivElement | null>(null);
   const { ScrollBarThumb, calculateThumbY, thumbH, thumbRef } = useCustomScroll(
@@ -24,9 +26,12 @@ const SendedHeart = () => {
   const [isLastPage, setIsLastPage] = useState<boolean>(false);
   const [size] = useState<number>(10);
 
+  const [cookies] = useCookies(['accessToken']);
+  const accessToken = cookies.accessToken;
+  
   const { data: likedProfileCardData, error } = useQuery({
     queryKey: ['profileCardData'],
-    queryFn: () => getSendedLikedProfileCard(import.meta.env.VITE_DUETT_TOKEN,page),
+    queryFn: () => getSendedLikedProfileCard(accessToken,page),
     staleTime: 1000 * 60 * 5, // 5분
     placeholderData: (previousData) => previousData,
   });
@@ -36,7 +41,7 @@ const SendedHeart = () => {
   useEffect(() => {
     if (isLastPage) return;
 
-    getSendedLikedProfileCard(import.meta.env.VITE_DUETT_TOKEN,page).then((response) => {
+    getSendedLikedProfileCard(accessToken,page).then((response) => {
       if (response?.data?.length < size) {
         setIsLastPage(true);
       }

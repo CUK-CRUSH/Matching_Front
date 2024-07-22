@@ -1,6 +1,7 @@
 export type ProfileImageProps = {
-  handleSetOpen: (index: number | undefined, value: boolean) => void;
-  handleSetModalOpen: (index: number | undefined, value: boolean) => void;
+  handleSetOpen?: (index: number | undefined, value: boolean) => void;
+  handleSetModalOpen?: (index: number | undefined, value: boolean) => void;
+  setIsUnfilledModalOpen?: (value : boolean) => void;
   isLock? : boolean;
   activeIndex? : number;
   profileImageUrl? : string;
@@ -9,14 +10,15 @@ export type ProfileImageProps = {
 export type SpreadProfileCardImageProps = {
   handleSetOpen: (index: number | undefined, value: boolean) => void;
   handleSetModalOpen: (index: number | undefined, value: boolean) => void;
+  setIsUnfilledModalOpen?: (value : boolean) => void;
   isLock? : boolean;
   profileId? : number;
 
   activeIndex? : number;
 };
 export type FoldProfileCardImageProps = {
-  handleSetOpen: (index: number | undefined, value: boolean) => void;
-  handleSetModalOpen: (index: number | undefined, value: boolean) => void;
+  handleSetOpen?: (index: number | undefined, value: boolean) => void;
+  handleSetModalOpen?: (index: number | undefined, value: boolean) => void;
   activeIndex? : number;
 
 };
@@ -30,6 +32,15 @@ export type UnlockModalProps = {
   isLock? : boolean;
   activeIndex? : number;
   currentBackground : string;
+};
+
+export type UnFilledModalProps = {
+  
+  setIsUnfilledModalOpen:  (value: boolean) => void;
+  profileId? : number;
+
+  activeIndex? : number;
+  currentBackground? : string;
 };
 
 export type OneLineIntroductionProps = {

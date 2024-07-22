@@ -10,18 +10,23 @@ import { useEffect, useState } from "react";
 import { ProfileCardSummaryProps } from "@/type/services/ProfileCard/ProfileCard";
 import { useQuery } from "@tanstack/react-query";
 import { getProfileCardData } from "@/services/ProfileCard/ProfileCardApi";
+import { useCookies } from "react-cookie";
+import UnFilledModal from "@/components/matching/UnFilledModal";
 
 const MatchingPage = () => {
 
   // 프로필목록 조회
-  const [page, setPage] = useState(0);
+  const [page, ] = useState(0);
   const [isLastPage, setIsLastPage] = useState(false);
   const [size] = useState(10);
   const [radius] = useState(999999);
 
+  const [cookies] = useCookies(['accessToken']);
+  const accessToken = cookies.accessToken;
+  
   const { data: profileCardData, error } = useQuery({
     queryKey: ['profileCardData'],
-    queryFn: () => getProfileCardData(import.meta.env.VITE_DUETT_TOKEN,page, size, radius),
+    queryFn: () => getProfileCardData(accessToken, page,size, radius,true),
     staleTime: 1000 * 60 * 5, // 5분
     placeholderData: (previousData) => previousData,
   });
@@ -30,9 +35,10 @@ const MatchingPage = () => {
   
   useEffect(() => {
     if (isLastPage || page === 0){
-      setPage(page + 1);
+      // setPage(page + 1);
       setIsLastPage(false);
-      getProfileCardData(import.meta.env.VITE_DUETT_TOKEN,page, size, radius).then((response) => {
+      getProfileCardData(accessToken,page, size, radius,true).then((response) => {
+        sessionStorage.setItem('isProfileComplete',String(response?.data?.isProfileComplete))
         // 프로필 데이터 추가
         setProfiles((prevProfiles) => {
           const newProfiles = response.data.profileCardSummaryResponses.map(profile => ({
@@ -44,7 +50,6 @@ const MatchingPage = () => {
           return prevProfiles ? [...prevProfiles, ...newProfiles] : newProfiles;
         });
         // 페이지 더하기
-        
       }
     );
     }
@@ -55,12 +60,9 @@ const MatchingPage = () => {
 
   const [swiperIndex, setSwiperIndex] = useState(0);
 
-  // useEffect(() => {
-  //   if (!isLastPage && profiles?.length === page * size) {
-  //     setPage(page + 1);
-  //     setIsLastPage(true);
-  //   }
-  // }, [profiles,  size]);
+  // 모달창
+  const [isUnfilledModalOpen,setIsUnfilledModalOpen] = useState<boolean>(false)
+  
   // 프로필카드 열기
   const handleSetOpen = (activeIndex: number | undefined, value: boolean) => {
     setProfiles((prev) =>
@@ -105,10 +107,14 @@ const MatchingPage = () => {
     setSwiperIndex(newIndex);
     console.log(newIndex, profiles?.length)
     // 스와이프시 페이징
-    if (profiles && newIndex === profiles?.length - 1 && !isLastPage) {
-      console.log('trigger')
-      // 새로운 데이터 불러오기
-      setIsLastPage(true)
+    // if (profiles && newIndex === profiles?.length - 1 && !isLastPage) {
+    //   console.log('trigger')
+    //   // 새로운 데이터 불러오기
+    //   setIsLastPage(true)
+    // }
+
+    if(sessionStorage.getItem('isProfileComplete') === 'false' && newIndex >= 3){
+      setIsUnfilledModalOpen(true)
     }
   };
 
@@ -123,6 +129,7 @@ const MatchingPage = () => {
   return (
     <Layout backgroundColor={'#252525'}>
       <ProfileCardHeader />
+      {isUnfilledModalOpen && <UnFilledModal setIsUnfilledModalOpen={setIsUnfilledModalOpen} />}
       <Swiper  
         onActiveIndexChange={handleActiveIndexChange}>
        

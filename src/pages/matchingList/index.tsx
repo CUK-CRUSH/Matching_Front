@@ -13,33 +13,42 @@ import { getReciveLikedProfileCard, getSendedLikedProfileCard } from '@/services
 import { useEffect, useState } from 'react';
 import { ItemProps } from '@/type/MatchingList/MatchingList';
 import { getSendedMessageProfileCard, getReciveMessageProfileCard } from '@/services/ProfileCard/MessageProfileCard';
+import { MessageItemProps } from "@/type/services/LikeProfileCard/LikeProfileCard";
+import SendedMessageItem from '@/components/matchingList/SendedMessageItem';
+import ReceivedMessageItem from '@/components/matchingList/ReceivedMessageItem';
+import { useCookies } from 'react-cookie';
 
 const MatchingListPage = () => {
 
+  const [cookies] = useCookies(['accessToken']);
+  const accessToken = cookies.accessToken;
+  
   const { data: receivedLikedProfileCardData, error: receivedLikedProfileCardError } = useQuery({
     queryKey: ['receivedLikedProfileCardData'],
-    queryFn: () => getReciveLikedProfileCard(import.meta.env.VITE_DUETT_TOKEN, 0),
+    queryFn: () => getReciveLikedProfileCard(accessToken, 0),
     staleTime: 1000 * 60 * 5, // 5 minutes
     placeholderData: (previousData) => previousData,
   });
 
   const { data: sendedLikedProfileCardData, error: sendedLikedProfileCardError } = useQuery({
     queryKey: ['sendedLikedProfileCardData'],
-    queryFn: () => getSendedLikedProfileCard(import.meta.env.VITE_DUETT_TOKEN, 0),
+    queryFn: () => getSendedLikedProfileCard(accessToken, 0),
     staleTime: 1000 * 60 * 5, // 5 minutes
     placeholderData: (previousData) => previousData,
   });
-  
+
+  // 보낸 메시지
   const { data: sendedMessageProfileCardData, error: sendedMessageProfileCardError } = useQuery({
     queryKey: ['sendedMessageProfileCardData'],
-    queryFn: () => getSendedMessageProfileCard(import.meta.env.VITE_DUETT_TOKEN, 0),
+    queryFn: () => getSendedMessageProfileCard(accessToken, 0),
     staleTime: 1000 * 60 * 5, // 5 minutes
     placeholderData: (previousData) => previousData,
   });
   
-  const { data: reciveMessageProfileCard, error: reciveMessageProfileCardError } = useQuery({
+  // 받은 메시지
+  const { data: reciveMessageProfileCardData, error: reciveMessageProfileCardError } = useQuery({
     queryKey: ['recieveMessageProfileCardData'],
-    queryFn: () => getReciveMessageProfileCard(import.meta.env.VITE_DUETT_TOKEN, 0),
+    queryFn: () => getReciveMessageProfileCard(accessToken, 0),
     staleTime: 1000 * 60 * 5, // 5 minutes
     placeholderData: (previousData) => previousData,
   });
@@ -47,27 +56,27 @@ const MatchingListPage = () => {
   const {matchingListState} = useMatchingListStateStore();
   const [receivedLikedProfileCard, setReceivedLikedProfileCard] = useState<ItemProps[] | undefined>();
   const [sendedLikedProfileCard, setSendedLikedProfileCard] = useState<ItemProps[] | undefined>();
-  const [receivedMessageProfileCard, setReceivedMessageProfileCard] = useState<ItemProps[] | undefined>();
-  const [sendedMessageProfileCard, setSendedMessageProfileCard] = useState<ItemProps[] | undefined>();
+  const [receivedMessageProfileCard, setReceivedMessageProfileCard] = useState<MessageItemProps[] | undefined>();
+  const [sendedMessageProfileCard, setSendedMessageProfileCard] = useState<MessageItemProps[] | undefined>();
 
   useEffect(() => { 
     // 받은 좋아요 불러오기
-    getReciveLikedProfileCard(import.meta.env.VITE_DUETT_TOKEN,0).then((response) => {
+    getReciveLikedProfileCard(accessToken,0).then((response) => {
       setReceivedLikedProfileCard(response?.data);
     });
 
     // 보낸 좋아요 불러오기
-    getSendedLikedProfileCard(import.meta.env.VITE_DUETT_TOKEN,0).then((response) => {
+    getSendedLikedProfileCard(accessToken,0).then((response) => {
       setSendedLikedProfileCard(response?.data);
     });
 
-    // 보낸 좋아요 불러오기
-    getReciveMessageProfileCard(import.meta.env.VITE_DUETT_TOKEN,0).then((response) => {
+    // 받은 메시지 불러오기
+    getReciveMessageProfileCard(accessToken,0).then((response) => {
       setReceivedMessageProfileCard(response?.data);
     });
-    
+
     // 보낸 메시지 불러오기
-    getSendedMessageProfileCard(import.meta.env.VITE_DUETT_TOKEN,0).then((response) => {
+    getSendedMessageProfileCard(accessToken,0).then((response) => {
       setSendedMessageProfileCard(response?.data);
     });
   }, []);
@@ -77,7 +86,7 @@ const MatchingListPage = () => {
     return <div>Error: </div>;
   }
 
-  if (receivedLikedProfileCardData && !sendedLikedProfileCardData && !sendedMessageProfileCardData && ! reciveMessageProfileCard) {
+  if (receivedLikedProfileCardData && !sendedLikedProfileCardData && !sendedMessageProfileCardData && ! reciveMessageProfileCardData) {
     return <div>Loading...</div>;
   }
 
@@ -118,7 +127,7 @@ const MatchingListPage = () => {
             <Divider />
             <ItemContainer>
               {receivedMessageProfileCard?.slice(0, 3).map((item, index) => (
-                <ReceivedItem key={index} {...item} type={matchingListState} />
+                <ReceivedMessageItem key={index} {...item} />
               ))}
 
             </ItemContainer>
@@ -127,7 +136,7 @@ const MatchingListPage = () => {
             <Divider />
             <ItemContainer>
               {sendedMessageProfileCard?.slice(0, 3).map((item, index) => (
-                <SendedItem key={index} {...item} />
+                <SendedMessageItem key={index} {...item} />
               ))}
             </ItemContainer>
           </>
