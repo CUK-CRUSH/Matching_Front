@@ -60,6 +60,7 @@ export type ItemProps = {
   isLock? : boolean;
   activeIndex? : number;
   type? : string;
+  likeDate : string;
 }
 
 export type MusciCardProps = {
