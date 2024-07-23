@@ -12,20 +12,15 @@ import { TagsState, UserIntroDTO } from '@/type/services/Mypage/MypageDTO';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import UseAccessToken from '@/hooks/useAccessToken';
+import { CaretRightOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 
 const mbtiOptions = ['E', 'N', 'F', 'J', 'I', 'S', 'T', 'P'];
 
 type MBTIGroup = 'E_I' | 'N_S' | 'F_T' | 'J_P';
 
 const formSchema = z.object({
-  textarea1: z
-    .string()
-    .min(50, { message: '최소 50자 이상 입력해주세요' })
-    .max(500, { message: '최대 500자 까지 입력할 수 있어요' }),
-  textarea2: z
-    .string()
-    .min(50, { message: '최소 50자 이상 입력해주세요' })
-    .max(500, { message: '최대 500자 까지 입력할 수 있어요' }),
+  textarea1: z.string().optional(),
+  textarea2: z.string().optional(),
 });
 
 const IntroducePage = () => {
@@ -142,8 +137,10 @@ const IntroducePage = () => {
   };
 
   const onSubmit = (data: any) => {
-    setTextarea1(data.textarea1);
-    setTextarea2(data.textarea2);
+    const selfIntroduction =
+      data.textarea1.length >= 50 && data.textarea1.length <= 500 ? data.textarea1 : null;
+    const likeableMusicTaste =
+      data.textarea2.length >= 50 && data.textarea2.length <= 500 ? data.textarea2 : null;
 
     const updatedMusicTags = IntroData?.musicTags.map((tag) => ({
       ...tag,
@@ -160,11 +157,11 @@ const IntroducePage = () => {
     }));
 
     const postData: UserIntroDTO = {
-      mbti: mbtiString || IntroData?.mbti || '',
+      mbti: mbtiString || IntroData?.mbti || null,
       musicTags: updatedMusicTags ?? [],
       hobbyTags: updatedHobbyTags ?? [],
-      selfIntroduction: data.textarea1,
-      likeableMusicTaste: data.textarea2,
+      selfIntroduction: selfIntroduction,
+      likeableMusicTaste: likeableMusicTaste,
     };
 
     mutation.mutate(postData);
@@ -246,7 +243,7 @@ const IntroducePage = () => {
                 <Button
                   key={type}
                   variant="outline"
-                  className={`flex items-center justify-center h-20 w-full 
+                  className={`flex items-center justify-center h-32 w-full 
           ${index < 4 ? 'rounded-t-2xl' : 'rounded-b-2xl'}
           ${selectedMBTI[group] === type ? 'bg-white text-black' : 'bg-2B2B2B text-white'}
           ${isMBTIDisabled ? 'bg-2B2B2B text-gray-600' : ''}`}
@@ -261,7 +258,10 @@ const IntroducePage = () => {
 
           <div className="flex items-center justify-between">
             <span className="text-lg font-bold">태그</span>
-            <button onClick={() => setCurrentPage('tags')}>태그 수정하기</button>
+            <button onClick={() => setCurrentPage('tags')}>
+              태그 수정하기
+              <CaretRightOutlined />
+            </button>
           </div>
 
           <div className="mx-4">
@@ -300,35 +300,43 @@ const IntroducePage = () => {
                 </Button>
               ))}
             </div>
+            <div className="mt-4 flex items-center">
+              <ExclamationCircleOutlined className="mb-1 mr-2" />
+              <div className="flex flex-col items-start text-sm font-bold text-[#858585]">
+                <p>강조하고싶은 대표 태그를,</p>
+                <p>카테고리(음악/취미)당 1개씩 눌러 선택해주세요.</p>
+              </div>
+            </div>
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col space-y-4">
-            <div>
+            <span className="text-[#858585]">1문 N답: 길게 적는 내 소개글</span>
+            <div className="mx-4">
               <span className="text-lg font-bold">Q. 스스로에 대해 이야기해주세요.</span>
               <Controller
                 name="textarea1"
                 control={control}
                 defaultValue={textarea1}
-                rules={{ minLength: 50, maxLength: 500 }}
-                render={({ field, fieldState }) => (
+                render={({ field }) => (
                   <>
+                    <div className="text-right text-[#858585]">{field.value.length} / 500</div>
                     <Textarea
                       placeholder="내용을 입력해주세요"
                       {...field}
                       className="bg-[#1c1c1c] border border-gray-600 text-white w-full h-32 resize-none"
                     />
-                    {fieldState.error && (
-                      <span className="text-red-500">
-                        {fieldState.error.type === 'minLength'
-                          ? '최소 50자 이상 입력해주세요'
-                          : '최대 500자 까지 입력할 수 있어요'}
-                      </span>
+
+                    {field.value.length < 50 && (
+                      <span className="text-red-500">50자 이상을 채워주세요</span>
+                    )}
+                    {field.value.length > 500 && (
+                      <span className="text-red-500">500자 미만으로 채워주세요</span>
                     )}
                   </>
                 )}
               />
             </div>
-            <div>
+            <div className="mx-4">
               <span className="text-lg font-bold">
                 Q. 어떤 음악취향을 가진 상대에게 호감을 느끼나요?
               </span>
@@ -336,31 +344,35 @@ const IntroducePage = () => {
                 name="textarea2"
                 control={control}
                 defaultValue={textarea2}
-                rules={{ minLength: 50, maxLength: 500 }}
-                render={({ field, fieldState }) => (
+                render={({ field }) => (
                   <>
+                    <div className="text-right text-[#858585]">{field.value.length} / 500</div>
                     <Textarea
                       placeholder="내용을 입력해주세요"
                       {...field}
                       className="bg-[#1c1c1c] border border-gray-600 text-white w-full h-32 resize-none"
                     />
-                    {fieldState.error && (
-                      <span className="text-red-500">
-                        {fieldState.error.type === 'minLength'
-                          ? '최소 50자 이상 입력해주세요'
-                          : '최대 500자 까지 입력할 수 있어요'}
-                      </span>
+
+                    {field.value.length < 50 && (
+                      <span className="text-red-500">50자 이상을 채워주세요</span>
+                    )}
+                    {field.value.length > 500 && (
+                      <span className="text-red-500">500자 미만으로 채워주세요</span>
                     )}
                   </>
                 )}
               />
             </div>
             <div className="flex justify-center w-full mt-4">
-              <div className="bg-gray-700 w-auto text-white py-2 px-4 rounded-full">
+              <div className=" w-auto text-white py-2 px-4 rounded-full">
                 {filledFieldsCount}/4 완료
               </div>
             </div>
-            <Button type="submit" className="w-full bg-white text-black mt-4">
+            <Button
+              variant={'noHover'}
+              type="submit"
+              className="w-full bg-white text-black mt-4 rounded-3xl"
+            >
               저장하기
             </Button>
           </form>

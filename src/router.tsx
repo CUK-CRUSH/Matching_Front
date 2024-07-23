@@ -48,75 +48,6 @@ const router = createBrowserRouter([
   {
     element: <CommonLayout />,
     children: [
-      { path: pageRoutes.main, element: <Home />, errorElement: <ErrorPage /> },
-
-      { path: '*', element: <NotFoundPage /> },
-    ],
-  },
-
-  {
-    element: <CommonLayout />,
-    children: [
-      { path: pageRoutes.login, element: <LoginPage />, errorElement: <ErrorPage /> },
-
-      { path: '*', element: <NotFoundPage /> },
-    ],
-  },
-
-  {
-    path: "/matching",
-    element: <CommonLayout />,
-    children: [
-      { path: "", element: <ProfileCard />, errorElement: <ErrorPage /> },
-      { path: ":profileId", element: <ViewProfileCard />, errorElement: <ErrorPage /> },
-      { path: '*', element: <NotFoundPage /> },
-    ],
-  },
-  {
-    element: <CommonLayout />,
-    children: [
-      { path: pageRoutes.openedProfileCard, element: <OpenedProfileCard />, errorElement: <ErrorPage /> },
-
-      { path: '*', element: <NotFoundPage /> },
-    ],
-  },
-  {
-    element: <CommonLayout />,
-    children: [
-      { path: pageRoutes.terms, element: <TermsPage />, errorElement: <ErrorPage /> },
-
-      { path: '*', element: <NotFoundPage /> },
-    ],
-  },
-  {
-    element: <CommonLayout />,
-    children: [
-      { path: pageRoutes.onBoarding, element: <OnBoardingPage />, errorElement: <ErrorPage /> },
-
-      { path: '*', element: <NotFoundPage /> },
-    ],
-  },
-  {
-    element: <CommonLayout />,
-    children: [
-      { path: pageRoutes.matchingList, element: <MatchingListPage />, errorElement: <ErrorPage /> },
-
-      { path: '*', element: <NotFoundPage /> },
-    ],
-  },
-  {
-    element: <CommonLayout />,
-    children: [
-      { path: pageRoutes.receivedHeart, element: <ReceivedHeart />, errorElement: <ErrorPage /> },
-
-      { path: '*', element: <NotFoundPage /> },
-    ],
-  },
-  {
-    element: <CommonLayout />,
-    children: [
-      { path: pageRoutes.sendedHeart, element: <SendedHeart />, errorElement: <ErrorPage /> },
-
       {
         path: pageRoutes.main,
         element: (
@@ -160,12 +91,23 @@ const router = createBrowserRouter([
     element: <CommonLayout />,
     children: [
       {
-        path: pageRoutes.matching,
+        path: '/matching',
         element: (
           <ProtectedRoute>
             <ProfileCard />
           </ProtectedRoute>
         ),
+
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: '/matching/:profileId',
+        element: (
+          <ProtectedRoute>
+            <ViewProfileCard />
+          </ProtectedRoute>
+        ),
+
         errorElement: <ErrorPage />,
       },
       {

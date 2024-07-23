@@ -41,7 +41,7 @@ const ChangeLocationPage = () => {
             descriptionTexts={[
               '현재의 위치를 기반으로',
               '내 거주지 정보가 수정됩니다.',
-              '오른쪽 벝능르 눌러 주소를 검색합니다.',
+              '오른쪽 버튼을 눌러 주소를 검색합니다.',
             ]}
             titleTextColor="#ffffff"
           />
