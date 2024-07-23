@@ -103,6 +103,10 @@ const TagsPage = () => {
   };
 
   const handleSaveTags = () => {
+    if (selectedMusicTags.length < 3 || selectedHobbyTags.length < 3) {
+      return;
+    }
+
     if (MusicTagsData && IntroData) {
       const updatedMusicTags: MusicTagDTO[] = MusicTagsData.musicTags.map((tag) => ({
         ...tag,
@@ -140,73 +144,99 @@ const TagsPage = () => {
 
   return (
     <div className="text-white h-full flex flex-col items-center overflow-y-auto scrollbar-hide">
-      <div className="w-full max-w-md mx-auto flex flex-col h-full">
-        <MatchingListHeader text="태그 설정" onStateChange={() => setCurrentPage('introduce')} />
-
-        <div className="flex flex-col p-4 space-y-4">
-          <div className="flex flex-col">
-            <span className="text-lg font-bold">음악 태그 (최대 3개)</span>
-            <div className="flex flex-wrap gap-2 mt-2">
-              {availableMusicTags
-                .slice(0, showAllMusicTags ? availableMusicTags.length : 15)
-                .map((tag) => (
-                  <Button
-                    key={tag}
-                    variant="outline"
-                    className={`${
-                      selectedMusicTags.includes(tag) ? 'bg-white text-black' : 'bg-[#1c1c1c]'
-                    } rounded-3xl`}
-                    onClick={() => handleMusicTagClick(tag)}
-                    disabled={!selectedMusicTags.includes(tag) && selectedMusicTags.length >= 3}
-                  >
-                    {tag}
-                  </Button>
-                ))}
-            </div>
-            {availableMusicTags.length > 15 && (
-              <Button
-                className="mt-2 bg-white text-black"
-                onClick={() => setShowAllMusicTags(!showAllMusicTags)}
-              >
-                {showAllMusicTags ? '접기' : '더보기'}
-              </Button>
-            )}
+      <div className="w-full max-w-[400px] mx-auto flex  h-full">
+        <MatchingListHeader onStateChange={() => setCurrentPage('introduce')} />
+        <div>
+          <div className="mt-24 space-y-2">
+            <p className="flex-grow-0 flex-shrink-0 text-2xl font-bold text-left text-[#f9f9f9]">
+              <span className="flex-grow-0 flex-shrink-0 text-2xl font-bold text-left text-[#f9f9f9]">
+                나를 표현하는
+              </span>
+              <br />
+              <span className="flex-grow-0 flex-shrink-0 text-2xl font-bold text-left text-[#f9f9f9]">
+                태그를 골라주세요
+              </span>
+            </p>
+            <p className="flex-grow-0 flex-shrink-0 text-base font-medium text-left text-[#f8f8f8]">
+              카테고리(음악/취미)당 3개씩 눌러 선택해주세요
+            </p>
           </div>
-
-          <div className="flex flex-col">
-            <span className="text-lg font-bold">취미 태그 (최대 3개)</span>
-            <div className="flex flex-wrap gap-2 mt-2">
-              {availableHobbyTags
-                .slice(0, showAllHobbyTags ? availableHobbyTags.length : 13)
-                .map((tag) => (
-                  <Button
-                    key={tag}
-                    variant="outline"
-                    className={`${
-                      selectedHobbyTags.includes(tag) ? 'bg-white text-black' : 'bg-[#1c1c1c]'
-                    } rounded-3xl`}
-                    onClick={() => handleHobbyTagClick(tag)}
-                    disabled={!selectedHobbyTags.includes(tag) && selectedHobbyTags.length >= 3}
-                  >
-                    {tag}
-                  </Button>
-                ))}
+          <div className="flex flex-col p-4 space-y-4">
+            <div className="flex flex-col">
+              <span className="text-lg font-bold">음악</span>
+              <div className="flex flex-wrap gap-2 mt-2">
+                {availableMusicTags
+                  .slice(0, showAllMusicTags ? availableMusicTags.length : 15)
+                  .map((tag) => (
+                    <Button
+                      key={tag}
+                      variant="outline"
+                      className={`${
+                        selectedMusicTags.includes(tag) ? 'bg-white text-black' : 'bg-[#1c1c1c]'
+                      } rounded-3xl`}
+                      onClick={() => handleMusicTagClick(tag)}
+                      disabled={!selectedMusicTags.includes(tag) && selectedMusicTags.length >= 3}
+                    >
+                      {tag}
+                    </Button>
+                  ))}
+              </div>
+              {availableMusicTags.length > 15 && (
+                <Button
+                  className="mt-2 bg-[#303030] text-white rounded-3xl"
+                  onClick={() => setShowAllMusicTags(!showAllMusicTags)}
+                  variant={'noHover'}
+                >
+                  {showAllMusicTags ? '접기' : '더보기 +'}
+                </Button>
+              )}
+              {selectedMusicTags.length < 3 && (
+                <p className="text-red-500 mt-2">❗ 태그 3개를 선택해주세요</p>
+              )}
             </div>
-            {availableHobbyTags.length > 13 && (
-              <Button
-                className="mt-2 bg-white text-black"
-                onClick={() => setShowAllHobbyTags(!showAllHobbyTags)}
-              >
-                {showAllHobbyTags ? '접기' : '더보기'}
-              </Button>
-            )}
-          </div>
 
-          <Button className="mt-4 bg-white text-black" onClick={handleSaveTags}>
-            저장하기
-          </Button>
+            <div className="flex flex-col">
+              <span className="text-lg font-bold">취미</span>
+              <div className="flex flex-wrap gap-2 mt-2">
+                {availableHobbyTags
+                  .slice(0, showAllHobbyTags ? availableHobbyTags.length : 13)
+                  .map((tag) => (
+                    <Button
+                      key={tag}
+                      variant="outline"
+                      className={`${
+                        selectedHobbyTags.includes(tag) ? 'bg-white text-black' : 'bg-[#1c1c1c]'
+                      } rounded-3xl`}
+                      onClick={() => handleHobbyTagClick(tag)}
+                      disabled={!selectedHobbyTags.includes(tag) && selectedHobbyTags.length >= 3}
+                    >
+                      {tag}
+                    </Button>
+                  ))}
+              </div>
+              {availableHobbyTags.length > 13 && (
+                <Button
+                  className="mt-2 bg-[#303030] text-white rounded-3xl"
+                  onClick={() => setShowAllHobbyTags(!showAllHobbyTags)}
+                  variant={'noHover'}
+                >
+                  {showAllHobbyTags ? '접기' : '더보기 +'}
+                </Button>
+              )}
+              {selectedHobbyTags.length < 3 && (
+                <p className="text-red-500 mt-2">❗ 태그 3개를 선택해주세요</p>
+              )}
+            </div>
+          </div>
         </div>
       </div>
+      <Button
+        className="mt-4 bg-[#303030] text-white rounded-3xl w-auto px-20 py-7 mb-2"
+        onClick={handleSaveTags}
+        variant={'noHover'}
+      >
+        완료
+      </Button>
     </div>
   );
 };
