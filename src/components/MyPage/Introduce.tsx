@@ -12,7 +12,7 @@ import { TagsState, UserIntroDTO } from '@/type/services/Mypage/MypageDTO';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import UseAccessToken from '@/hooks/useAccessToken';
-import { ExclamationCircleOutlined } from '@ant-design/icons';
+import { CaretRightOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 
 const mbtiOptions = ['E', 'N', 'F', 'J', 'I', 'S', 'T', 'P'];
 
@@ -243,7 +243,7 @@ const IntroducePage = () => {
                 <Button
                   key={type}
                   variant="outline"
-                  className={`flex items-center justify-center h-20 w-full 
+                  className={`flex items-center justify-center h-32 w-full 
           ${index < 4 ? 'rounded-t-2xl' : 'rounded-b-2xl'}
           ${selectedMBTI[group] === type ? 'bg-white text-black' : 'bg-2B2B2B text-white'}
           ${isMBTIDisabled ? 'bg-2B2B2B text-gray-600' : ''}`}
@@ -258,7 +258,10 @@ const IntroducePage = () => {
 
           <div className="flex items-center justify-between">
             <span className="text-lg font-bold">태그</span>
-            <button onClick={() => setCurrentPage('tags')}>태그 수정하기</button>
+            <button onClick={() => setCurrentPage('tags')}>
+              태그 수정하기
+              <CaretRightOutlined />
+            </button>
           </div>
 
           <div className="mx-4">
