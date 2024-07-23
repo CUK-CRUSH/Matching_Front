@@ -1,7 +1,10 @@
-const FormatTimeAgo = (dateString : string) : string => {
-  console.log(dateString);
+const FormatTimeAgo = (date? : string) : string => {
+  
+  // 날짜까 없으면 빈칸 리턴
+  if(!date) return '';
+
   const currentDate = new Date();
-  const targetDate = new Date(dateString);
+  const targetDate = new Date(String(date));
 
   const timeDiff = currentDate.getTime() - targetDate.getTime();
 

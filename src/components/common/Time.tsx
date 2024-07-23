@@ -1,10 +1,10 @@
 import { TimeProps } from "@/type/Common/Time";
 import FormatTimeAgo from "@/utils/FormatTimeAgo";
 
-const Time = ({ messageDate }: TimeProps) => {
+const Time = ({ date }: TimeProps) => {
   return (
     <p className={`text-s text-[#858585] `}>
-      {FormatTimeAgo(messageDate)}
+      {FormatTimeAgo(date)}
     </p>
   )
 }

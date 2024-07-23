@@ -29,7 +29,7 @@ const SendedItem = ({ name, birthDate, mbti, tags,  lifeMusic,profileId,likeDate
               ))}
             </div>      
           </div>
-          <div><Time messageDate={likeDate} /></div>
+          <div><Time date={likeDate} /></div>
         </div>
 
         <MusicCard title={lifeMusic?.title} artist={lifeMusic?.artist} />

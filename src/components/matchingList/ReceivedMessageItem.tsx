@@ -46,7 +46,7 @@ const ReceivedMessageItem = ({ sender,content,messageDate }: MessageItemProps) =
               ))}
             </div>
           </div>
-          <div><Time messageDate={messageDate} /></div>
+          <div><Time date={messageDate} /></div>
         </div>
         
           <div className={`w-auto mx-2 mt-1 `}>

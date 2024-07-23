@@ -105,7 +105,7 @@ const OpenedProfileCard = () => {
 
           <ItemContainer ref={innerContainerRef}>
             {profiles?.map((item, index) => (
-              <ReceivedItem key={index} {...item} type={'heart'} />
+              <ReceivedItem key={index} {...item}  />
             ))}
           <InfiniteDiv view={view} />
 

@@ -27,7 +27,7 @@ const SendedMessageItem = ({ receiver,content,messageDate }: MessageItemProps) =
               ))}
             </div>      
           </div>
-          <div><Time messageDate={messageDate} /></div>
+          <div><Time date={messageDate} /></div>
         </div>
 
         <MusicCard title={receiver?.lifeMusic?.title} artist={receiver?.  lifeMusic?.artist} />

@@ -1,3 +1,3 @@
 export type TimeProps = {
-    messageDate: string;
+    date?: string;
 }
