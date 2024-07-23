@@ -123,9 +123,10 @@ export const InputForm = () => {
               type="submit"
               className={`w-1/3 h-12 ${isSubmitted ? 'bg-[#a0a0a0] text-white pointer-events-none' : formState.isValid ? 'bg-[#252525] text-white' : 'bg-[#a0a0a0] text-white pointer-events-none'}`}
             >
-              {isSubmitted ? '메시지 전송 성공' : '인증 메시지 전송'}
+              {isSubmitted ? '메시지 인증 완료' : '인증 메시지 전송'}
             </Button>
           </div>
+          <p>{isSubmitted ? "하단의 '다음'을 누르면 <br /> 다음단계로 이동합니다." : ''}</p>
         </form>
       </Form>
     </div>

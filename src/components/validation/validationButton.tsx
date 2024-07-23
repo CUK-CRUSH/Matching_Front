@@ -29,20 +29,16 @@ export default function ValidationButton({
       } else if (navigation) {
         if (userExists) {
           try {
-            setTimeout(async () => {
-              const response: any = await postLogin(
-                userData.phoneNumber,
-                userData.verificationCode,
-              );
+            const response: any = await postLogin(userData.phoneNumber, userData.verificationCode);
 
-              setCookie('accessToken', response.data.accessToken, { path: '/' });
-              localStorage.setItem('refreshToken', response.data.refreshToken);
+            setCookie('accessToken', response.data.accessToken, { path: '/' });
+            localStorage.setItem('refreshToken', response.data.refreshToken);
 
-              navigate('/mypage');
-              setIsLoading(false);
-            }, 3000); // 3-second delay
-          } catch (error) {
+            navigate('/mypage');
+          } catch (error: any) {
             console.error('로그인 실패', error);
+            alert('로그인 실패: ' + error.message);
+          } finally {
             setIsLoading(false);
           }
         } else {
