@@ -18,14 +18,8 @@ const mbtiOptions = ['E', 'N', 'F', 'J', 'I', 'S', 'T', 'P'];
 type MBTIGroup = 'E_I' | 'N_S' | 'F_T' | 'J_P';
 
 const formSchema = z.object({
-  textarea1: z
-    .string()
-    .min(50, { message: '최소 50자 이상 입력해주세요' })
-    .max(500, { message: '최대 500자 까지 입력할 수 있어요' }),
-  textarea2: z
-    .string()
-    .min(50, { message: '최소 50자 이상 입력해주세요' })
-    .max(500, { message: '최대 500자 까지 입력할 수 있어요' }),
+  textarea1: z.string().optional(),
+  textarea2: z.string().optional(),
 });
 
 const IntroducePage = () => {
@@ -142,8 +136,10 @@ const IntroducePage = () => {
   };
 
   const onSubmit = (data: any) => {
-    setTextarea1(data.textarea1);
-    setTextarea2(data.textarea2);
+    const selfIntroduction =
+      data.textarea1.length >= 50 && data.textarea1.length <= 500 ? data.textarea1 : null;
+    const likeableMusicTaste =
+      data.textarea2.length >= 50 && data.textarea2.length <= 500 ? data.textarea2 : null;
 
     const updatedMusicTags = IntroData?.musicTags.map((tag) => ({
       ...tag,
@@ -160,11 +156,11 @@ const IntroducePage = () => {
     }));
 
     const postData: UserIntroDTO = {
-      mbti: mbtiString || IntroData?.mbti || '',
+      mbti: mbtiString || IntroData?.mbti || null,
       musicTags: updatedMusicTags ?? [],
       hobbyTags: updatedHobbyTags ?? [],
-      selfIntroduction: data.textarea1,
-      likeableMusicTaste: data.textarea2,
+      selfIntroduction: selfIntroduction,
+      likeableMusicTaste: likeableMusicTaste,
     };
 
     mutation.mutate(postData);
@@ -309,7 +305,7 @@ const IntroducePage = () => {
                 name="textarea1"
                 control={control}
                 defaultValue={textarea1}
-                rules={{ minLength: 50, maxLength: 500 }}
+                // rules={{ minLength: 50, maxLength: 500 }}
                 render={({ field, fieldState }) => (
                   <>
                     <Textarea
@@ -317,12 +313,11 @@ const IntroducePage = () => {
                       {...field}
                       className="bg-[#1c1c1c] border border-gray-600 text-white w-full h-32 resize-none"
                     />
-                    {fieldState.error && (
-                      <span className="text-red-500">
-                        {fieldState.error.type === 'minLength'
-                          ? '최소 50자 이상 입력해주세요'
-                          : '최대 500자 까지 입력할 수 있어요'}
-                      </span>
+                    {field.value.length < 50 && (
+                      <span className="text-red-500">50자 이상을 채워주세요</span>
+                    )}
+                    {field.value.length > 500 && (
+                      <span className="text-red-500">500자 미만으로 채워주세요</span>
                     )}
                   </>
                 )}
@@ -336,7 +331,7 @@ const IntroducePage = () => {
                 name="textarea2"
                 control={control}
                 defaultValue={textarea2}
-                rules={{ minLength: 50, maxLength: 500 }}
+                // rules={{ minLength: 50, maxLength: 500 }}
                 render={({ field, fieldState }) => (
                   <>
                     <Textarea
@@ -344,12 +339,11 @@ const IntroducePage = () => {
                       {...field}
                       className="bg-[#1c1c1c] border border-gray-600 text-white w-full h-32 resize-none"
                     />
-                    {fieldState.error && (
-                      <span className="text-red-500">
-                        {fieldState.error.type === 'minLength'
-                          ? '최소 50자 이상 입력해주세요'
-                          : '최대 500자 까지 입력할 수 있어요'}
-                      </span>
+                    {field.value.length < 50 && (
+                      <span className="text-red-500">50자 이상을 채워주세요</span>
+                    )}
+                    {field.value.length > 500 && (
+                      <span className="text-red-500">500자 미만으로 채워주세요</span>
                     )}
                   </>
                 )}

@@ -10,11 +10,15 @@ import {
   UserIntroDTO,
   UserMusicTagDTO,
 } from '@/type/services/Mypage/MypageDTO';
-import { getMusicTagsData, patchUserIntroData } from '@/services/Mypage/MypageAPI';
+import {
+  getMusicTagsData,
+  getUserIntroData,
+  patchUserIntroData,
+} from '@/services/Mypage/MypageAPI';
 import UseAccessToken from '@/hooks/useAccessToken';
 
 const TagsPage = () => {
-  const { setCurrentPage } = useMyPageStore();
+  const { setCurrentPage, selectedMBTI, textarea1, textarea2 } = useMyPageStore();
   const [selectedMusicTags, setSelectedMusicTags] = useState<string[]>([]);
   const [selectedHobbyTags, setSelectedHobbyTags] = useState<string[]>([]);
 
@@ -28,6 +32,12 @@ const TagsPage = () => {
   const { data: MusicTagsData, error } = useQuery<UserMusicTagDTO>({
     queryKey: ['MusicTagsData'],
     queryFn: () => getMusicTagsData(accessToken),
+    staleTime: 1000 * 60 * 5,
+  });
+
+  const { data: IntroData } = useQuery<UserIntroDTO>({
+    queryKey: ['IntroData'],
+    queryFn: () => getUserIntroData(accessToken),
     staleTime: 1000 * 60 * 5,
   });
 
@@ -93,7 +103,7 @@ const TagsPage = () => {
   };
 
   const handleSaveTags = () => {
-    if (MusicTagsData) {
+    if (MusicTagsData && IntroData) {
       const updatedMusicTags: MusicTagDTO[] = MusicTagsData.musicTags.map((tag) => ({
         ...tag,
         state: selectedMusicTags.includes(tag.name)
@@ -113,16 +123,18 @@ const TagsPage = () => {
       }));
 
       const updatedIntroData: UserIntroDTO = {
-        mbti: null,
+        mbti:
+          `${selectedMBTI.E_I || ''}${selectedMBTI.N_S || ''}${selectedMBTI.F_T || ''}${selectedMBTI.J_P || ''}` ||
+          null,
         musicTags: updatedMusicTags,
         hobbyTags: updatedHobbyTags,
-        selfIntroduction: null,
-        likeableMusicTaste: null,
+        selfIntroduction: textarea1 || null,
+        likeableMusicTaste: textarea2 || null,
       };
 
       mutation.mutate(updatedIntroData);
     } else {
-      console.error('MusicTagsData is undefined');
+      console.error('MusicTagsData or IntroData is undefined');
     }
   };
 
