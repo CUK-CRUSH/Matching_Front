@@ -18,6 +18,7 @@ import post from "@/assets/ProfileCard/post.svg"
 import closeButton from "@/assets/ProfileCard/closeButton.svg"
 import { postMessage } from "@/services/ProfileCard/MessageProfileCard"; // import postMessage 함수 추가
 import { useCookies } from "react-cookie"
+import { useState } from "react"
 
 const FormSchema = z.object({
   type: z.enum(["kakao", "phone"], {
@@ -27,16 +28,26 @@ const FormSchema = z.object({
   message: z.string({
     required_error: "메시지를 입력해야 합니다.",
   }).min(1, "메시지를 입력해야 합니다.")
+    .max(200,"최대 200자까지 입력가능합니다.")
 })
 
 const PostMessageModal = ({profileId} : PostMessageModalProps) => {
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
 
+
+  const [textLength, setTextLength] = useState<number>(0);
+
+  const checkTextLength = (data: any) => {
+    setTextLength(data.length)
+  };
+
   const [cookies] = useCookies(['accessToken']);
   const accessToken = cookies.accessToken;
   
+
   const onSubmit = async (formData: z.infer<typeof FormSchema>) => {
     try {
       // postMessage 함수 호출하여 API에 데이터 전송
@@ -122,12 +133,13 @@ const PostMessageModal = ({profileId} : PostMessageModalProps) => {
           <FormField
                   control={form.control}
                   name="message"
-                  render={() => (
+                  render={({ field }) => (
                     <FormItem>
                       <FormLabel className={`text-[0.75rem] text-[#2F2F2F] font-semibold`}>메시지 내용</FormLabel>
 
                       <Textarea
                         {...form.register("message")} // 'register' 함수를 사용하여 'message' 필드를 등록합니다.
+                        onKeyUp={() => checkTextLength(field.value)}
                         data-testid="message"
                         className="block w-full border-0 bg-[#F1F1F1] rounded-md shadow-sm h-[130px]"
                       />
@@ -135,6 +147,7 @@ const PostMessageModal = ({profileId} : PostMessageModalProps) => {
                   )}
                 />
           <div className="text-right">
+          {textLength} / 200
             <button type="submit">
               <img src={post} alt='post' />
             </button>
