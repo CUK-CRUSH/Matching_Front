@@ -24,7 +24,7 @@ const OpenedProfileCard = () => {
   );
 
   
-  const [isScrolling, setIsScrolling] = useState(false);
+  const [isScrolling, ] = useState(false);
   
   const handleScroll = () => {
     console.log("scrolling");
@@ -98,7 +98,7 @@ const OpenedProfileCard = () => {
   return (
     <Layout backgroundColor='#252525'>
       <main className="min-h-full h-auto bg-matching-list relative flex flex-col">
-
+    
         <MatchingListHeader text={'열어본 프로필'} background={'#252525'} />
         <div className="relative h-[calc(75vh)] overflow-y-scroll scrollbar-hide" ref={outerContainerRef} onScroll={calculateThumbY}>
           {isScrolling && <ScrollBarThumb ref={thumbRef} height={thumbH} />}

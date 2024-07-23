@@ -4,10 +4,9 @@ import Name from "@/components/common/Name";
 import Tag from "@/components/common/Tag";
 import MusicCard from "@/components/common/MusicCard";
 import { useNavigate } from "react-router-dom";
-import Time from "@/components/common/Time";
 // import Time from "@/components/common/Time";
 
-const ReceivedItem = ({ name, birthDate, mbti, tags, messageDate, lifeMusic, profileId }: ItemProps) => {
+const ReceivedItem = ({ name, birthDate, mbti, tags,  lifeMusic, profileId }: ItemProps) => {
 
   const navigate = useNavigate();
 
@@ -43,7 +42,7 @@ const ReceivedItem = ({ name, birthDate, mbti, tags, messageDate, lifeMusic, pro
               ))}
             </div>
           </div>
-          <div><Time messageDate={messageDate} /></div>
+          {/* <div><Time messageDate={messageDate} /></div> */}
         </div>
         <MusicCard title={lifeMusic?.title} artist={lifeMusic?.artist} />
       </div>

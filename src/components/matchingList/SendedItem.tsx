@@ -4,7 +4,6 @@ import MusicCard from "@/components/common/MusicCard"
 import Tag from "@/components/common/Tag";
 import Name from "@/components/common/Name";
 import { useNavigate } from "react-router-dom";
-import Time from "../common/Time";
 
 const SendedItem = ({ name, birthDate, mbti, tags,  lifeMusic,profileId }: ItemProps) => {
   
