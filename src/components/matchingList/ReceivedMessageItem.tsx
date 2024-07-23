@@ -6,6 +6,7 @@ import Name from "../common/Name";
 import Tag from "../common/Tag";
 import { MessageItemProps } from "@/type/services/LikeProfileCard/LikeProfileCard";
 import ClickedMessagePopUp from "./ClickedMessagePopUp";
+import Time from "../common/Time";
 // import Time from "@/components/common/Time";
 
 const ReceivedMessageItem = ({ sender,content,messageDate }: MessageItemProps) => {
@@ -45,7 +46,7 @@ const ReceivedMessageItem = ({ sender,content,messageDate }: MessageItemProps) =
               ))}
             </div>
           </div>
-          {/* <div><Time time={time} /></div> */}
+          <div><Time messageDate={messageDate} /></div>
         </div>
         
           <div className={`w-auto mx-2 mt-1 `}>

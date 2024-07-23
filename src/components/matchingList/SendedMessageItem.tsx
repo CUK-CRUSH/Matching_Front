@@ -4,9 +4,10 @@ import Tag from "../common/Tag";
 import Name from "../common/Name";
 import { MessageItemProps } from "@/type/services/LikeProfileCard/LikeProfileCard";
 import ClickedMessagePopUp from "./ClickedMessagePopUp";
+import Time from "../common/Time";
 
 
-const SendedMessageItem = ({ receiver,content }: MessageItemProps) => {
+const SendedMessageItem = ({ receiver,content,messageDate }: MessageItemProps) => {
   const [isClicked, setIsClicked] = useState<boolean>(false);
 
   const handleClick = () => {
@@ -26,7 +27,7 @@ const SendedMessageItem = ({ receiver,content }: MessageItemProps) => {
               ))}
             </div>      
           </div>
-          {/* <div><Time time={time} /></div> */}
+          <div><Time messageDate={messageDate} /></div>
         </div>
 
         <MusicCard title={receiver?.lifeMusic?.title} artist={receiver?.  lifeMusic?.artist} />

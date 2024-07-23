@@ -51,7 +51,7 @@ export type ItemPropsDTO = {
 
 export type MessageItemProps = {
     content?: string;
-    messageDate?: string;
+    messageDate: string;
     receiver?: ItemProps;
     sender?: ItemProps;
     senderId?: number;

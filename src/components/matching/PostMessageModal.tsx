@@ -147,7 +147,7 @@ const PostMessageModal = ({profileId} : PostMessageModalProps) => {
                   )}
                 />
           <div className="text-right">
-          {textLength} / 200
+            {textLength} / 200
             <button type="submit">
               <img src={post} alt='post' />
             </button>

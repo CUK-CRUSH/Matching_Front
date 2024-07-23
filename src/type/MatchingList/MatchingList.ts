@@ -95,7 +95,7 @@ export type ClickedMessagePopUpProps = {
     name : string;
     state : string;
   }[];
-  time?: string;
+  messageDate?: string;
   content?: string;
   profileId?: number;
   isDark?: boolean;
