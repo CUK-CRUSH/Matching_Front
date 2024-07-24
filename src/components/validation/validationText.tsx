@@ -9,7 +9,7 @@ export default function ValidationText({
     <div>
       <div className={`ml-2 mt-32 font-bold text-[${titleTextColor}]`}>
         {titleTexts.map((title) => (
-          <h2 key={title} className="text-xl font-extrabold mb-2">
+          <h2 key={title} className="text-xxl font-extrabold mb-2">
             {title}
           </h2>
         ))}

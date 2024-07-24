@@ -51,11 +51,11 @@ export default function ValidationButton({
 
   const buttonCSS =
     buttonEnabled && !isLoading
-      ? `w-full h-14 ${rounded ? 'rounded-r-3xl' : ''}`
+      ? `w-full h-14 ${rounded ? 'rounded-r-3xl' : ''} bg-validateButton`
       : `w-full h-14 bg-[#ececec] text-[#a0a0a0] pointer-events-none ${rounded ? 'rounded-r-3xl' : ''}`;
 
   return (
-    <div className="flex justify-center mb-5 mx-2 w-full">
+    <div className="flex justify-center mb-5 mx-4 w-full">
       <Button variant={'noHover'} onClick={handleClick} className={buttonCSS}>
         {isLoading ? <Spinner /> : text}
       </Button>

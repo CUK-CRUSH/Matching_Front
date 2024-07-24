@@ -7,7 +7,7 @@ const TermsCheckBox = ({ id, label, checked, onChange, required = false }: Terms
       <Checkbox id={id} checked={checked} onCheckedChange={onChange} />
       <label
         htmlFor={id}
-        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+        className="text-sm text-text_dary_soft font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
       >
         {label} {required}
       </label>
