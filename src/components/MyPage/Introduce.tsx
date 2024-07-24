@@ -116,24 +116,12 @@ const IntroducePage = () => {
 
   const isMBTIDisabled = watch('living');
 
-  const handleTagClick = (
-    tag: string,
-    selectedTags: string[],
-    setSelectedTags: (tags: string[]) => void,
-  ) => {
-    if (selectedTags.includes(tag)) {
-      setSelectedTags(selectedTags.filter((t) => t !== tag));
-    } else {
-      setSelectedTags([tag]);
-    }
-  };
-
   const handleMusicTagClick = (tag: string) => {
-    handleTagClick(tag, selectedMusicTag, setSelectedMusicTag);
+    setSelectedMusicTag([tag]);
   };
 
   const handleHobbyTagClick = (tag: string) => {
-    handleTagClick(tag, selectedHobbyTag, setSelectedHobbyTag);
+    setSelectedHobbyTag([tag]);
   };
 
   const onSubmit = (data: any) => {
@@ -239,9 +227,9 @@ const IntroducePage = () => {
                   key={type}
                   variant="outline"
                   className={`flex items-center justify-center h-32 w-full 
-          ${index < 4 ? 'rounded-t-2xl' : 'rounded-b-2xl'}
-          ${selectedMBTI[group] === type ? 'bg-white text-black' : 'bg-2B2B2B text-white'}
-          ${isMBTIDisabled ? 'bg-2B2B2B text-gray-600' : ''}`}
+                    ${index < 4 ? 'rounded-t-2xl' : 'rounded-b-2xl'}
+                    ${selectedMBTI[group] === type ? 'bg-white text-black' : 'bg-2B2B2B text-white'}
+                    ${isMBTIDisabled ? 'bg-2B2B2B text-gray-600' : ''}`}
                   onClick={() => handleMBTIClick(group, type)}
                   disabled={isMBTIDisabled}
                 >
@@ -270,7 +258,6 @@ const IntroducePage = () => {
                     selectedMusicTag.includes(tag.name) ? 'bg-white text-black' : 'bg-[#1c1c1c]'
                   } rounded-3xl`}
                   onClick={() => handleMusicTagClick(tag.name)}
-                  disabled={!selectedMusicTag.includes(tag.name) && selectedMusicTag.length > 0}
                 >
                   {tag.name}
                 </Button>
@@ -289,7 +276,6 @@ const IntroducePage = () => {
                     selectedHobbyTag.includes(tag.name) ? 'bg-white text-black' : 'bg-[#1c1c1c]'
                   } rounded-3xl`}
                   onClick={() => handleHobbyTagClick(tag.name)}
-                  disabled={!selectedHobbyTag.includes(tag.name) && selectedHobbyTag.length > 0}
                 >
                   {tag.name}
                 </Button>
