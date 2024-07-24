@@ -60,6 +60,7 @@ export type ItemProps = {
   isLock? : boolean;
   activeIndex? : number;
   type? : string;
+  likeDate? : string;
 }
 
 export type MusciCardProps = {
@@ -95,7 +96,6 @@ export type ClickedMessagePopUpProps = {
     name : string;
     state : string;
   }[];
-  time?: string;
   content?: string;
   profileId?: number;
   isDark?: boolean;

@@ -1,12 +1,12 @@
 import { ItemProps } from "@/type/MatchingList/MatchingList";
 import useGetRandomBackgrounds from "@/hooks/useGetRandomBackgrounds/useGetRandomBackgrounds";
-import Name from "../common/Name";
-import Tag from "../common/Tag";
-import MusicCard from "../common/MusicCard";
+import Name from "@/components/common/Name";
+import Tag from "@/components/common/Tag";
+import MusicCard from "@/components/common/MusicCard";
 import { useNavigate } from "react-router-dom";
-// import Time from "@/components/common/Time";
+import Time from "@/components/common/Time";
 
-const ReceivedItem = ({ name, birthDate, mbti, tags, lifeMusic, profileId }: ItemProps) => {
+const ReceivedItem = ({ name, birthDate, mbti, tags, lifeMusic, profileId, likeDate }: ItemProps) => {
 
   const navigate = useNavigate();
 
@@ -42,7 +42,9 @@ const ReceivedItem = ({ name, birthDate, mbti, tags, lifeMusic, profileId }: Ite
               ))}
             </div>
           </div>
-          {/* <div><Time time={time} /></div> */}
+          {likeDate &&
+            <div><Time date={likeDate} /></div>
+          }
         </div>
         <MusicCard title={lifeMusic?.title} artist={lifeMusic?.artist} />
       </div>
