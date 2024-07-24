@@ -137,11 +137,6 @@ const IntroducePage = () => {
   };
 
   const onSubmit = (data: any) => {
-    const selfIntroduction =
-      data.textarea1.length >= 50 && data.textarea1.length <= 500 ? data.textarea1 : null;
-    const likeableMusicTaste =
-      data.textarea2.length >= 50 && data.textarea2.length <= 500 ? data.textarea2 : null;
-
     const updatedMusicTags = IntroData?.musicTags.map((tag) => ({
       ...tag,
       state: selectedMusicTag.includes(tag.name)
@@ -160,8 +155,8 @@ const IntroducePage = () => {
       mbti: mbtiString || IntroData?.mbti || null,
       musicTags: updatedMusicTags ?? [],
       hobbyTags: updatedHobbyTags ?? [],
-      selfIntroduction: selfIntroduction,
-      likeableMusicTaste: likeableMusicTaste,
+      selfIntroduction: data.textarea1,
+      likeableMusicTaste: data.textarea2,
     };
 
     mutation.mutate(postData);
