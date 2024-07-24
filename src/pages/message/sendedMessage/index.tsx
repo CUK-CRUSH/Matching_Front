@@ -59,7 +59,7 @@ const SendedMessage = () => {
     return <div>Loading...</div>;
   }
   return (
-    <Layout backgroundColor='#252525'>
+    <Layout backgroundColor='#252525'>  
       <main className="min-h-full h-auto bg-matching-list relative flex flex-col">
       <MatchingListHeader text={'보낸 메시지'} background={'#252525'} />
 

@@ -12,7 +12,7 @@ export default function useCustomScrollBar({
   const thumbRef = useRef<HTMLDivElement | null>(null);
 
     // 스크롤바 thumb의 높이를 상태로 관리
-  const [thumbH, setThumbHeight] = useState(0);
+  const [thumbH, setThumbHeight] = useState<number>(0);
 
   useEffect(() => {
     let intervalId: NodeJS.Timeout | undefined;
@@ -26,7 +26,7 @@ export default function useCustomScrollBar({
       const { clientHeight: outerH } = outerContainerRef.current;
       const { clientHeight: innerH } = innerContainerRef.current;
       if (innerH <= outerH) return;
-      setThumbHeight(outerH ** 1.9   / innerH);
+      setThumbHeight(outerH ** 1.8   / innerH);
       thumbRef.current.style.transform = `translateY(${outerContainerBorderWidth}px)`;
   
       if (intervalId) {
@@ -86,9 +86,10 @@ export default function useCustomScrollBar({
     <div
       ref={ref}
       style={{ height: `${height}px` }}
-      className="absolute cursor-pointer rounded-sm bg-yellow-300  w-1.5 right-1 top-3 z-10"
+      className="absolute rounded-sm bg-[#474747]  w-1 right-1 top-3 z-10"
     />
   ));
+  console.log(outerContainerRef, innerContainerRef)
 
   // 커스텀 훅에서 반환할 값들
   return {
