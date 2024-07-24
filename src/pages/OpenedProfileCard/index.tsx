@@ -22,7 +22,26 @@ const OpenedProfileCard = () => {
       outerContainerBorderWidth: 1
     }
   );
-  // 페에징
+
+  
+  const [isScrolling, ] = useState(false);
+  
+  const handleScroll = () => {
+    console.log("scrolling");
+  };
+
+  useEffect(() => {    
+    const timer = setInterval(() => {
+      window.addEventListener("scroll", handleScroll);
+    }, 100);
+    return () => {
+      clearInterval(timer);
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+
+  // 페이징
   const [page, setPage] = useState<number>(0);
   const [isLastPage, setIsLastPage] = useState<boolean>(false);
   const [size] = useState<number>(10);
@@ -79,14 +98,14 @@ const OpenedProfileCard = () => {
   return (
     <Layout backgroundColor='#252525'>
       <main className="min-h-full h-auto bg-matching-list relative flex flex-col">
-
+    
         <MatchingListHeader text={'열어본 프로필'} background={'#252525'} />
         <div className="relative h-[calc(75vh)] overflow-y-scroll scrollbar-hide" ref={outerContainerRef} onScroll={calculateThumbY}>
-          <ScrollBarThumb ref={thumbRef} height={thumbH} />
+          {isScrolling && <ScrollBarThumb ref={thumbRef} height={thumbH} />}
 
           <ItemContainer ref={innerContainerRef}>
             {profiles?.map((item, index) => (
-              <ReceivedItem key={index} {...item} type={'heart'} />
+              <ReceivedItem key={index} {...item}  />
             ))}
           <InfiniteDiv view={view} />
 

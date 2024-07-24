@@ -19,6 +19,7 @@ export type OpenedProfileCardProps = {
       name : string;
       state : string;
     }[];
+    liketime:string;
   }
   
   export type OpenedProfileCardDTO = {

@@ -6,8 +6,9 @@ import whiteProfile from "@/assets/MatchingList/whiteProfile.svg";
 import cancel from "@/assets/MatchingList/cancel.svg";
 import blackProfile from "@/assets/MatchingList/blackProfile.svg";
 import { useNavigate } from "react-router-dom";
+import Tag from "../common/Tag";
 
-const ClickedMessagePopUp = ({ handleClick, currentBackground, name, birthDate, mbti,  content,profileId,isDark  }: ClickedMessagePopUpProps) => {
+const ClickedMessagePopUp = ({ handleClick, currentBackground, name, birthDate, mbti, content,tags, profileId, isDark }: ClickedMessagePopUpProps) => {
 
   const navigate = useNavigate();
 
@@ -29,7 +30,8 @@ const ClickedMessagePopUp = ({ handleClick, currentBackground, name, birthDate, 
     navigate(`/matching/${profileId}`)
     e.stopPropagation();
   };
-    return (
+
+  return (
     <div onClick={handleClick}
       className="fixed top-0 left-0 w-full h-full inset-0 flex flex-col items-center justify-center bg-opacity-50 bg-black z-50">
 
@@ -41,21 +43,29 @@ const ClickedMessagePopUp = ({ handleClick, currentBackground, name, birthDate, 
       {/* 메시지 내용 */}
       <div
         onClick={(e: React.MouseEvent<HTMLDivElement, MouseEvent>) => e.stopPropagation()}
-        className={`exceed:w-[400px] w-[80%] mx-[2%] mb-[8px] pt-[12px] pb-[8px] ${isDark ? 'bg-[#141414] border-[#858585] border': currentBackground} rounded-[16px]`}
+        className={`exceed:w-[400px] w-[80%] mx-[2%] mb-[8px] pt-[12px] pb-[8px]
+                   ${isDark ? 'bg-[#141414] border-[#858585] border' : currentBackground} rounded-[16px]`}
       >
-        <div className={`flex flex-col`}>
+        <div className={`flex flex-col mb-2`}>
           <div className="px-4 flex items-center">
             <Name name={name} birthDate={birthDate} mbti={mbti} isDark={isDark} />
           </div>
-          <div className="flex justify-between px-4 mt-2">
-            {/* <Tag tag={tag} isDark={isDark} /> */}
+          <div className="flex justify-between px-4">
+            <div className="flex">
+              {tags?.map((item) => (
+                <Tag name={item.name} state={item.state} isDark={true} />
+              ))}
+            </div>
             {/* <Time time={time} /> */}
           </div>
         </div>
 
-        <div className={`w-auto mx-2 mt-1`}>
-          <AutoResizeTextarea value={content} isDark={isDark} />
-        </div>
+        {/* <div className="relative h-auto overflow-y-scroll scrollbar-hide" ref={outerContainerRef} onScroll={calculateThumbY}> */}
+        {/* <ScrollBarThumb ref={thumbRef} height={thumbH} /> */}
+          <div className={`h-auto mt-[12px] mb-[26px]`}>
+            <AutoResizeTextarea value={content} isDark={isDark} />
+          </div>
+        {/* </div> */}
 
       </div>
 
@@ -63,10 +73,10 @@ const ClickedMessagePopUp = ({ handleClick, currentBackground, name, birthDate, 
       <div className=" exceed:w-[400px] w-[80%] flex justify-end px-2">
 
         <button
-          onClick={goToProfile} 
-          className={`${isDark ? 'bg-[#474747]': backgrounds[index]} flex items-center justify-center w-[110px] h-[34px] text-s font-bold rounded-[8px]`}>
-          <span 
-            
+          onClick={goToProfile}
+          className={`${isDark ? 'bg-[#474747]' : backgrounds[index]} flex items-center justify-center w-[110px] h-[34px] text-s font-bold rounded-[8px]`}>
+          <span
+
             className={`mr-1 ${isDark && 'text-[#F8F8F8]'}`}>프로필</span>
           <img src={isDark ? blackProfile : whiteProfile} alt='profile' className="" />
         </button>
