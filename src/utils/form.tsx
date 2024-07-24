@@ -6,7 +6,8 @@ import { z } from 'zod';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
 import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp';
-import { toast } from '@/components/ui/use-toast';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { getAuthenticationCode, getExistMember } from '@/services/Login/LoginAPI';
 import useOnboardingStore from '@/store/validationStore';
 
@@ -67,9 +68,7 @@ export const InputForm = () => {
         const smsUrl = `sms:${import.meta.env.VITE_DUETT_EMAIL}${bodyPrefix}${encodeURIComponent(authenticationCode?.data?.code)}`;
         window.location.href = smsUrl;
 
-        toast({
-          title: '인증 메시지가 전송되었습니다.',
-        });
+        toast.success('인증 메시지가 전송되었습니다.');
 
         setIsSubmitted(true);
       } else {
@@ -77,10 +76,9 @@ export const InputForm = () => {
       }
     } catch (error) {
       console.error(error);
-      toast({
-        title: `인증 에러: ${error}`,
-        description: '인증 메시지 전송에 실패했습니다. 다시 시도해주세요.',
-      });
+      toast.error(
+        `인증 에러: ${(error as Error).message}. 인증 메시지 전송에 실패했습니다. 다시 시도해주세요.`,
+      );
     }
   };
 
@@ -126,7 +124,9 @@ export const InputForm = () => {
               {isSubmitted ? '메시지 인증 완료' : '인증 메시지 전송'}
             </Button>
           </div>
-          <p>{isSubmitted ? "하단의 '다음'을 누르면 <br /> 다음단계로 이동합니다." : ''}</p>
+          <p className="whitespace-pre-line">
+            {isSubmitted ? "하단의 '다음'을 누르면 \n 다음단계로 이동합니다." : ''}
+          </p>
         </form>
       </Form>
     </div>

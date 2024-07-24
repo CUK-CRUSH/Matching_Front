@@ -20,7 +20,9 @@ module.exports = {
     extend: {
       colors: {
         // 메시지 팝업 프로필 버튼 배경색
-
+        validateButton: '#252525',
+        local_gray_1: '#c6c6c6',
+        text_dary_soft: '#474747',
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
@@ -54,8 +56,11 @@ module.exports = {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
         },
+        // 공용 색 지정
       },
       backgroundImage: {
+        // login, onboard, terms 색상
+
         // 프로필카드 배경색
         'background-white': 'linear-gradient(to top, #FFFCFC 100%)',
         'background-grey': 'linear-gradient(to top, #FFFCFC 0%, #979797 34%,  #F0F0F0 87%)',
