@@ -22,6 +22,7 @@ import MatchingListHeader from '../layout/matchingListHeader';
 import { ProfilesInfoDTO, UserInfoDTO } from '@/type/services/Mypage/MypageDTO';
 import { useEffect } from 'react';
 import UseAccessToken from '@/hooks/useAccessToken';
+import CameraIcon from '@/assets/Icon/CameraIcon.svg';
 
 const formSchema = z.object({
   nickname: z
@@ -132,11 +133,16 @@ const InfoPage = () => {
             <Avatar className="w-32 h-32 rounded-lg relative">
               <AvatarImage src={compressedImage ?? InfoData.data.profileImageUrl ?? undefined} />
               <AvatarFallback>CN</AvatarFallback>
-              <input
-                type="file"
-                onChange={handleImageChange}
-                className="absolute inset-0 opacity-0 cursor-pointer"
-              />
+
+              <div className="absolute z-40 bottom-0 right-0 bg-white rounded-full p-2 flex items-center justify-center cursor-pointer">
+                <img src={CameraIcon} alt="camera" className="z-10" />
+                <input
+                  type="file"
+                  onChange={handleImageChange}
+                  className="absolute inset-0 opacity-0 cursor-pointer"
+                  style={{ zIndex: 20 }}
+                />
+              </div>
             </Avatar>
           </div>
           <div className="flex flex-col items-center mt-4 w-full px-4">
@@ -160,18 +166,24 @@ const InfoPage = () => {
                   )}
                 />
                 <div className="flex flex-col w-full items-start space-y-4">
-                  <Button
-                    disabled
-                    className="w-auto inline-flex items-center justify-center bg-gray-600 cursor-not-allowed"
-                  >
-                    {InfoData?.data.birthDate || '생년월일'}
-                  </Button>
-                  <Button
-                    disabled
-                    className="w-auto inline-flex items-center justify-center bg-gray-600 cursor-not-allowed"
-                  >
-                    {InfoData?.data.gender || '성별'}
-                  </Button>
+                  <div className="flex flex-col space-y-1">
+                    <span>생년월일</span>
+                    <Button
+                      disabled
+                      className="w-auto inline-flex bg-transparent border-[0.1rem] items-center justify-center cursor-not-allowed"
+                    >
+                      {InfoData?.data.birthDate || '생년월일'}
+                    </Button>
+                  </div>
+                  <div className="flex flex-col space-y-1">
+                    <span>성별</span>
+                    <Button
+                      disabled
+                      className="w-auto inline-flex bg-transparent border-[0.1rem] items-center justify-center cursor-not-allowed"
+                    >
+                      {InfoData?.data.gender || '성별'}
+                    </Button>
+                  </div>
                 </div>
                 <FormField
                   control={form.control}
@@ -205,7 +217,7 @@ const InfoPage = () => {
                     <Button
                       type="submit"
                       variant={'noHover'}
-                      className={`w-full bg-white text-l text-black mt-4 max-w-md rounded-lg mx-auto ${Object.keys(errors).length ? 'cursor-not-allowed opacity-50' : ''}`}
+                      className={`w-full bg-white text-l text-black mt-4 max-w-md rounded-3xl mx-auto ${Object.keys(errors).length ? 'cursor-not-allowed opacity-50' : ''}`}
                       disabled={Object.keys(errors).length > 0}
                     >
                       저장하기
@@ -219,7 +231,7 @@ const InfoPage = () => {
       </div>
 
       {open && (
-        <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black">
+        <div className="fixed inset-0 z-40 flex flex-col items-center justify-center bg-black">
           <div className="flex flex-row justify-between p-4 w-full max-w-[430px]">
             <Button onClick={() => setOpen(false)} className="text-red-500">
               취소

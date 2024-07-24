@@ -133,137 +133,139 @@ const MusicPage = () => {
           mypageText="My Page | 프로필 수정"
         />
         {/* 선호 음악추가하기  */}
-        <div className="mt-5">
-          <span className="text-lg font-bold">나의 인생곡은? {selectedMusic.length}/3</span>
-          {selectedMusic.length === 0 ? (
-            <div className="mt-5 flex justify-center">
-              <Button
-                onClick={handleAddMusicClick}
-                variant={'noHover'}
-                className="bg-[#303030] w-11/12 p-10 rounded"
-              >
-                <div className="flex flex-col space-y-2 items-center justify-center">
-                  <img src={MusicNote} alt="MusicNote" />
-                  <span>음악 추가하기</span>
-                </div>
-              </Button>
-            </div>
-          ) : (
-            <>
-              <div className="flex flex-col w-full text-m items-center justify-center mt-5">
-                {selectedMusic.map((music, index) => (
-                  <div
-                    key={music.musicId || index}
-                    className="flex justify-between w-11/12 h-12 mb-4 bg-white text-black rounded relative"
-                  >
-                    <div className="w-1/12 mx-2 flex items-center justify-center relative">
-                      {!music.musicId && (
-                        <img
-                          src={MusicMarker}
-                          alt="MusicMarker"
-                          className="absolute top-1 left-0 transform -translate-y-1/2"
-                          style={{ width: '16px', height: '16px' }} // Adjust size as necessary
-                        />
-                      )}
-                      {music.musicId && (
-                        <img
-                          onClick={() => handleUpdateMusicClick(music)}
-                          src={MusicEdit}
-                          alt="MusicEdit"
-                          className="cursor-pointer"
-                        />
-                      )}
-                    </div>
-                    <div className="w-7/12 mx-2 flex items-center justify-center overflow-hidden">
-                      <span className="truncate">{music.title}</span>
-                    </div>
-                    <div className="w-3/12 mx-2 flex items-center justify-center overflow-hidden">
-                      <span className="truncate">{music.artist}</span>
-                    </div>
-                    <div className="w-1/12 mx-2 flex items-center justify-center">
-                      {music.musicId ? (
-                        <>
+        <div className="mx-4">
+          <div className="mt-5">
+            <span className="text-lg font-bold">나의 인생곡은? {selectedMusic.length}/3</span>
+            {selectedMusic.length === 0 ? (
+              <div className="mt-5 flex justify-center">
+                <Button
+                  onClick={handleAddMusicClick}
+                  variant={'noHover'}
+                  className="bg-[#303030] w-11/12 p-10 rounded"
+                >
+                  <div className="flex flex-col space-y-2 items-center justify-center">
+                    <img src={MusicNote} alt="MusicNote" />
+                    <span>음악 추가하기</span>
+                  </div>
+                </Button>
+              </div>
+            ) : (
+              <>
+                <div className="flex flex-col w-full text-m items-center justify-center mt-5">
+                  {selectedMusic.map((music, index) => (
+                    <div
+                      key={music.musicId || index}
+                      className="flex justify-between w-11/12 h-12 mb-4 bg-white text-black rounded relative"
+                    >
+                      <div className="w-1/12 mx-2 flex items-center justify-center relative">
+                        {!music.musicId && (
                           <img
-                            onClick={() => handleOpenDeleteModal(music.musicId!)} // Pass musicId here
+                            src={MusicMarker}
+                            alt="MusicMarker"
+                            className="absolute top-1 left-0 transform -translate-y-1/2"
+                            style={{ width: '16px', height: '16px' }} // Adjust size as necessary
+                          />
+                        )}
+                        {music.musicId && (
+                          <img
+                            onClick={() => handleUpdateMusicClick(music)}
+                            src={MusicEdit}
+                            alt="MusicEdit"
+                            className="cursor-pointer"
+                          />
+                        )}
+                      </div>
+                      <div className="w-7/12 mx-2 flex items-center justify-center overflow-hidden">
+                        <span className="truncate">{music.title}</span>
+                      </div>
+                      <div className="w-3/12 mx-2 flex items-center justify-center overflow-hidden">
+                        <span className="truncate">{music.artist}</span>
+                      </div>
+                      <div className="w-1/12 mx-2 flex items-center justify-center">
+                        {music.musicId ? (
+                          <>
+                            <img
+                              onClick={() => handleOpenDeleteModal(music.musicId!)} // Pass musicId here
+                              src={MusicDelete}
+                              alt="MusicDelete"
+                              className="cursor-pointer"
+                            />
+                            {open &&
+                              selectedMusicId === music.musicId && ( // Show modal only for the selected music item
+                                <CommonModal
+                                  imageSrc={MusicMood}
+                                  mainText="삭제 하시겠습니까?"
+                                  subText="이후 복구되지 않습니다."
+                                  cancelText="취소"
+                                  confirmText="확인"
+                                  onCancel={() => setOpen(false)}
+                                  onConfirm={() => handleRemoveSavedMusicClick(music.musicId!)}
+                                />
+                              )}
+                          </>
+                        ) : (
+                          <img
+                            onClick={() => handleRemoveUnsavedMusicClick(index)}
                             src={MusicDelete}
                             alt="MusicDelete"
                             className="cursor-pointer"
                           />
-                          {open &&
-                            selectedMusicId === music.musicId && ( // Show modal only for the selected music item
-                              <CommonModal
-                                imageSrc={MusicMood}
-                                mainText="삭제 하시겠습니까?"
-                                subText="이후 복구되지 않습니다."
-                                cancelText="취소"
-                                confirmText="확인"
-                                onCancel={() => setOpen(false)}
-                                onConfirm={() => handleRemoveSavedMusicClick(music.musicId!)}
-                              />
-                            )}
-                        </>
-                      ) : (
-                        <img
-                          onClick={() => handleRemoveUnsavedMusicClick(index)}
-                          src={MusicDelete}
-                          alt="MusicDelete"
-                          className="cursor-pointer"
-                        />
-                      )}
+                        )}
+                      </div>
                     </div>
-                  </div>
-                ))}
-              </div>
-              {selectedMusic.length < 3 && (
-                <div className="mt-5 flex justify-center">
-                  <Button
-                    onClick={handleAddMusicClick}
-                    variant={'noHover'}
-                    className="bg-[#303030] w-11/12 h-12 rounded"
-                  >
-                    <div className="flex flex-row space-x-2 items-center justify-center">
-                      <img src={MusicNote} alt="MusicNote" className="h-4 w-4" />
-                      <span>음악 추가하기</span>
-                    </div>
-                  </Button>
+                  ))}
                 </div>
-              )}
-            </>
-          )}
-        </div>
-
-        {/* Mood */}
-        <div>
-          <p className="text-lg font-bold">연인과 함께 듣고싶은 곡, 어울리는 이미지로</p>
-          <p className="text-lg font-bold">나의 mood를 설정해보세요</p>
-
-          <div className="mt-5">
-            <div className="mt-5 flex justify-center ">
-              <div onClick={handleAddMoodClick} className="h-40 w-full">
-                {musicTasteData?.mood?.moodImageUrl ? (
-                  <img
-                    src={musicTasteData.mood.moodImageUrl}
-                    alt="Selected"
-                    className="h-full w-full object-cover"
-                  />
-                ) : (
-                  <div className="h-full w-full flex flex-col items-center justify-center bg-[#303030] rounded">
-                    <img src={MusicMood} alt="MusicMood" className="h-8 w-8" />
-                    <span>이미지 추가하기</span>
+                {selectedMusic.length < 3 && (
+                  <div className="mt-5 flex justify-center">
+                    <Button
+                      onClick={handleAddMusicClick}
+                      variant={'noHover'}
+                      className="bg-[#303030] w-11/12 h-12 rounded"
+                    >
+                      <div className="flex flex-row space-x-2 items-center justify-center">
+                        <img src={MusicNote} alt="MusicNote" className="h-4 w-4" />
+                        <span>음악 추가하기</span>
+                      </div>
+                    </Button>
                   </div>
                 )}
+              </>
+            )}
+          </div>
+
+          {/* Mood */}
+          <div className="mt-5">
+            <p className="text-lg font-bold">연인과 함께 듣고싶은 곡, 어울리는 이미지로</p>
+            <p className="text-lg font-bold">나의 mood를 설정해보세요</p>
+
+            <div className="mt-5">
+              <div className="mt-5 flex justify-center ">
+                <div onClick={handleAddMoodClick} className="h-40 w-full">
+                  {musicTasteData?.mood?.moodImageUrl ? (
+                    <img
+                      src={musicTasteData.mood.moodImageUrl}
+                      alt="Selected"
+                      className="h-full w-full object-cover"
+                    />
+                  ) : (
+                    <div className="h-full w-full flex flex-col items-center justify-center bg-[#303030] rounded">
+                      <img src={MusicMood} alt="MusicMood" className="h-8 w-8" />
+                      <span>이미지 추가하기</span>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        {/* 저장버튼 */}
-        <div className="flex justify-center items-center">
-          <button
-            className=" bg-white text-black w-11/12 py-2 px-4 rounded mt-5"
-            onClick={handleSaveMusic}
-          >
-            저장
-          </button>
+          {/* 저장버튼 */}
+          <div className="flex justify-center items-center">
+            <button
+              className=" bg-white text-black w-11/12 py-2 px-4 rounded mt-5"
+              onClick={handleSaveMusic}
+            >
+              저장
+            </button>
+          </div>
         </div>
       </div>
     </div>

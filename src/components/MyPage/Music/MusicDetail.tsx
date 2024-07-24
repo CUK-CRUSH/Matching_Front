@@ -55,12 +55,12 @@ const MusicDetailPage = () => {
 
   return (
     <div className="text-white h-full flex flex-col items-center pb-20">
-      <div className="w-full max-w-md mx-auto mt-5">
+      <div className="w-full h-full max-w-md mx-auto mt-5">
         <MatchingListHeader
           onStateChange={() => setCurrentPage('music')}
           mypageText="My Page | 프로필 수정"
         />
-        <div className="relative mx-4">
+        <div className="flex h-full flex-col content-around relative mx-4">
           <form onSubmit={handleSubmit(onSubmit)} className="flex items-center mt-4 relative">
             <input
               type="text"
@@ -95,39 +95,50 @@ const MusicDetailPage = () => {
           )}
 
           {selectedItem && (
-            <div className="flex flex-col justify-between h-full mt-4">
-              <div className="flex-grow">
-                <div className="flex flex-col items-center">
-                  <div className="w-full max-w-md">
-                    <label className="mb-2 block text-lg">제목</label>
-                    <input
-                      type="text"
-                      value={selectedItem.title}
-                      onChange={(e) => setSelectedItem({ ...selectedItem, title: e.target.value })}
-                      className="p-2 rounded-lg bg-black text-white w-full"
-                    />
-                    <label className="mt-4 mb-2 block text-lg">아티스트</label>
-                    <input
-                      type="text"
-                      value={selectedItem.channelTitle}
-                      onChange={(e) =>
-                        setSelectedItem({ ...selectedItem, channelTitle: e.target.value })
-                      }
-                      className="p-2 rounded-lg bg-black text-white w-full"
-                    />
+            <>
+              <div className="flex flex-col h-auto mt-4">
+                <div className="flex-grow">
+                  <div className="flex flex-col items-center">
+                    <div className="w-full max-w-md">
+                      <div className="flex flex-col mb-4">
+                        <label className="mb-2 block text-lg">제목</label>
+                        <input
+                          type="text"
+                          value={selectedItem.title}
+                          onChange={(e) =>
+                            setSelectedItem({ ...selectedItem, title: e.target.value })
+                          }
+                          className="p-2 rounded-lg bg-black text-white w-full"
+                          placeholder="곡 명을 입력해주세요"
+                        />
+                      </div>
+                      <div className="flex flex-col">
+                        <label className="mb-2 block text-lg">아티스트</label>
+                        <input
+                          type="text"
+                          value={selectedItem.channelTitle}
+                          onChange={(e) =>
+                            setSelectedItem({ ...selectedItem, channelTitle: e.target.value })
+                          }
+                          className="p-2 rounded-lg bg-black text-white w-full"
+                          placeholder="아티스트명을 입력해주세요"
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-              <div className="flex justify-center">
+
+              <div className="flex justify-center mt-4">
                 <button
                   type="button"
                   onClick={handleComplete}
-                  className="p-2 rounded-lg bg-[#303030] text-white max-w-32 w-full"
+                  className="p-2 rounded-lg bg-[#303030] text-white max-w-md w-full"
                 >
                   완료
                 </button>
               </div>
-            </div>
+            </>
           )}
         </div>
       </div>
