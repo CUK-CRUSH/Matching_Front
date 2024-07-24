@@ -116,12 +116,24 @@ const IntroducePage = () => {
 
   const isMBTIDisabled = watch('living');
 
+  const handleTagClick = (
+    tag: string,
+    selectedTags: string[],
+    setSelectedTags: (tags: string[]) => void,
+  ) => {
+    if (selectedTags.includes(tag)) {
+      setSelectedTags([]); // 클릭된 태그가 이미 FEATURED 상태라면 상태를 해제
+    } else {
+      setSelectedTags([tag]); // 클릭된 태그가 FEATURED 상태가 아니라면 FEATURED로 설정
+    }
+  };
+
   const handleMusicTagClick = (tag: string) => {
-    setSelectedMusicTag([tag]);
+    handleTagClick(tag, selectedMusicTag, setSelectedMusicTag);
   };
 
   const handleHobbyTagClick = (tag: string) => {
-    setSelectedHobbyTag([tag]);
+    handleTagClick(tag, selectedHobbyTag, setSelectedHobbyTag);
   };
 
   const onSubmit = (data: any) => {
