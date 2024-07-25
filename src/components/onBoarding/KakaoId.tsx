@@ -13,7 +13,7 @@ import { useForm, Controller } from 'react-hook-form';
 const KakaoIdPage = () => {
   const { setCurrentPage, setUserData, userData } = useOnboardingStore();
 
-  const { control, watch, setValue } = useForm({
+  const { control, watch } = useForm({
     mode: 'onChange',
     defaultValues: {
       kakaoId: userData.kakaoId || '',
