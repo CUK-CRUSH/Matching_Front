@@ -1,7 +1,7 @@
 import ProfileImage from '@/components/matching/ProfileImage';
 import Name from '@/components/common/Name';
 import Comment from '@/components/matching/Comment';
-import UnlockModal from '@/components/matching/UnlockModal';
+import UnlockModal from '@/components/matching/Modal/UnlockModal';
 import Spread from '@/components/matching/Spread';
 import MusicCard from '@/components/common/MusicCard';
 import BlankMusicCard from '@/components/matching/BlankMusicCard';
@@ -19,9 +19,9 @@ import UserTaste from '@/components/matching/UserTaste';
 import MoodMusic from '@/components/matching/MoodMusic';
 import SocialButtons from '../SocialButtons';
 import { useCookies } from 'react-cookie';
-import UnFilledModal from '../UnFilledModal';
+import UnFilledModal from '@/components/matching/Modal/UnFilledModal'
 
-const ProfileCard = ({ profileId, name, birthDate, mbti, tags, oneLineIntroduction, distance, lifeMusics,
+const ProfileCard = ({ profileId, memberId, name, birthDate, mbti, tags, oneLineIntroduction, distance, lifeMusics,
   isOpen, isModalOpen, isLock, handleSetOpen, handleSetModalOpen, handleSetLockOpen, activeIndex }: CombinedProfileCardProps) => {
 
   // 프로필 데이터
@@ -63,7 +63,9 @@ const ProfileCard = ({ profileId, name, birthDate, mbti, tags, oneLineIntroducti
         });
       })
       .catch((error) => {
-        alert(error.message)
+        // 에러 메시지
+        alert(error.message);
+        handleSetOpen?.(profileId, false)
         setAbleSpend(false)
 
         console.error('Error spending coin:', error);
@@ -71,10 +73,10 @@ const ProfileCard = ({ profileId, name, birthDate, mbti, tags, oneLineIntroducti
       });
   }, [isOpen]);
 
-
-  // 모달창
+  // 데이터를 채우라는 닥달 모달창
   const [isUnfilledModalOpen,setIsUnfilledModalOpen] = useState<boolean>(false)
 
+  // 넘기면서 뛰우기 위해서
   useEffect(() =>{
     if(isUnfilledModalOpen){
      setIsUnfilledModalOpen(true)
@@ -93,9 +95,11 @@ const ProfileCard = ({ profileId, name, birthDate, mbti, tags, oneLineIntroducti
           profileId={profileId}
           isOpen={isOpen}
           currentBackground={currentBackground}
-          
         />}
-        {isUnfilledModalOpen && <UnFilledModal setIsUnfilledModalOpen={setIsUnfilledModalOpen } /> }
+
+        {isUnfilledModalOpen && <UnFilledModal
+             setIsUnfilledModalOpen={setIsUnfilledModalOpen } /> }
+
         {/* Top */}
 
         <div className={`flex flex-row ml-6`}>
@@ -108,7 +112,7 @@ const ProfileCard = ({ profileId, name, birthDate, mbti, tags, oneLineIntroducti
             profileImageUrl={profiles?.profileImageUrl}
           />
 
-          {openMessage && <PostMessageModal profileId={profileId} />}
+          {openMessage && <PostMessageModal memberId={memberId} />}
 
           <div className={`flex flex-col ml-[5%]`}>
             <Name name={name} birthDate={birthDate} mbti={mbti} distance={distance} isProfileCard={true} />
@@ -134,7 +138,6 @@ const ProfileCard = ({ profileId, name, birthDate, mbti, tags, oneLineIntroducti
                   ))}
                 </div>
               </>
-
             }
           </div>
         </div>
@@ -146,7 +149,7 @@ const ProfileCard = ({ profileId, name, birthDate, mbti, tags, oneLineIntroducti
             </p>
           }
           {lifeMusics?.map((item) => (
-            <MusicCard title={item.title} artist={item.artist} isProilfeCard={true} />
+            <MusicCard title={item.title} artist={item.artist} url={item.url} isOpen={isOpen} isProilfeCard={true} />
           ))}
 
         </MusicCardContainer>

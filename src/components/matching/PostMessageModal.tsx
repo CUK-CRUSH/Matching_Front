@@ -31,7 +31,7 @@ const FormSchema = z.object({
     .max(200,"최대 200자까지 입력가능합니다.")
 })
 
-const PostMessageModal = ({profileId} : PostMessageModalProps) => {
+const PostMessageModal = ({ memberId} : PostMessageModalProps) => {
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -54,7 +54,7 @@ const PostMessageModal = ({profileId} : PostMessageModalProps) => {
       await postMessage(
         accessToken,
         formData.type === "kakao" ? 1 : 0, // sendType
-        profileId, // receiverId 값은 어디서 받아오는지 확인 필요
+        memberId, // receiverId 값은 어디서 받아오는지 확인 필요
         formData.message // content
       );
 
