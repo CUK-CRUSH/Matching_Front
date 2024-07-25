@@ -11,7 +11,7 @@ import { ProfileCardSummaryProps } from "@/type/services/ProfileCard/ProfileCard
 import { useQuery } from "@tanstack/react-query";
 import { getProfileCardData } from "@/services/ProfileCard/ProfileCardApi";
 import { useCookies } from "react-cookie";
-import UnFilledModal from "@/components/matching/UnFilledModal";
+import UnFilledModal from "@/components/matching/Modal/UnFilledModal";
 
 const MatchingPage = () => {
 

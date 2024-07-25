@@ -1,7 +1,7 @@
 import ProfileImage from '@/components/matching/ProfileImage';
 import Name from '@/components/common/Name';
 import Comment from '@/components/matching/Comment';
-import UnlockModal from '@/components/matching/UnlockModal';
+import UnlockModal from '@/components/matching/Modal/UnlockModal';
 import Spread from '@/components/matching/Spread';
 import MusicCard from '@/components/common/MusicCard';
 import BlankMusicCard from '@/components/matching/BlankMusicCard';
@@ -19,7 +19,7 @@ import UserTaste from '@/components/matching/UserTaste';
 import MoodMusic from '@/components/matching/MoodMusic';
 import SocialButtons from '../SocialButtons';
 import { useCookies } from 'react-cookie';
-import UnFilledModal from '../UnFilledModal';
+import UnFilledModal from '@/components/matching/Modal/UnFilledModal'
 
 const ProfileCard = ({ profileId, name, birthDate, mbti, tags, oneLineIntroduction, distance, lifeMusics,
   isOpen, isModalOpen, isLock, handleSetOpen, handleSetModalOpen, handleSetLockOpen, activeIndex }: CombinedProfileCardProps) => {
