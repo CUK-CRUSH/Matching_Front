@@ -156,7 +156,7 @@ const InfoPage = () => {
                       <FormLabel>닉네임</FormLabel>
                       <FormControl>
                         <Input
-                          className="bg-black"
+                          className="bg-black border-none"
                           placeholder="닉네임을 입력해주세요"
                           {...field}
                         />
@@ -193,7 +193,7 @@ const InfoPage = () => {
                       <FormLabel>한줄소개</FormLabel>
                       <FormControl>
                         <Input
-                          className="bg-black"
+                          className="bg-black border-none"
                           placeholder="한줄소개를 입력해주세요"
                           {...field}
                         />

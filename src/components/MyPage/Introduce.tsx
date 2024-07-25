@@ -1,6 +1,5 @@
 import useMyPageStore from '@/store/myPageStore';
 import { Button } from '@/components/ui/button';
-import { Switch } from '@/components/ui/switch';
 import { useForm, Controller } from 'react-hook-form';
 import { useEffect, useState } from 'react';
 import { Textarea } from '../ui/textarea';
@@ -13,6 +12,7 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import UseAccessToken from '@/hooks/useAccessToken';
 import { CaretRightOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+import { Checkbox } from '../ui/checkbox';
 
 const mbtiOptions = ['E', 'N', 'F', 'J', 'I', 'S', 'T', 'P'];
 
@@ -122,9 +122,9 @@ const IntroducePage = () => {
     setSelectedTags: (tags: string[]) => void,
   ) => {
     if (selectedTags.includes(tag)) {
-      setSelectedTags(selectedTags.filter((t) => t !== tag));
+      setSelectedTags([]); // 클릭된 태그가 이미 FEATURED 상태라면 상태를 해제
     } else {
-      setSelectedTags([tag]);
+      setSelectedTags([tag]); // 클릭된 태그가 FEATURED 상태가 아니라면 FEATURED로 설정
     }
   };
 
@@ -200,11 +200,11 @@ const IntroducePage = () => {
               control={control}
               defaultValue={false}
               render={({ field }) => (
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-1">
                   <span className="text-sm">생략하기</span>
-                  <Switch
-                    checked={field.value}
-                    onCheckedChange={(value) => {
+                  <Checkbox
+                    checked={field.value as boolean}
+                    onCheckedChange={(value: boolean) => {
                       field.onChange(value);
                       setValue('living', value);
                       if (value) {
@@ -239,9 +239,9 @@ const IntroducePage = () => {
                   key={type}
                   variant="outline"
                   className={`flex items-center justify-center h-32 w-full 
-          ${index < 4 ? 'rounded-t-2xl' : 'rounded-b-2xl'}
-          ${selectedMBTI[group] === type ? 'bg-white text-black' : 'bg-2B2B2B text-white'}
-          ${isMBTIDisabled ? 'bg-2B2B2B text-gray-600' : ''}`}
+                    ${index < 4 ? 'rounded-t-2xl' : 'rounded-b-2xl'}
+                    ${selectedMBTI[group] === type ? 'bg-white text-black' : 'bg-2B2B2B text-white'}
+                    ${isMBTIDisabled ? 'bg-2B2B2B text-gray-600' : ''}`}
                   onClick={() => handleMBTIClick(group, type)}
                   disabled={isMBTIDisabled}
                 >
@@ -270,7 +270,6 @@ const IntroducePage = () => {
                     selectedMusicTag.includes(tag.name) ? 'bg-white text-black' : 'bg-[#1c1c1c]'
                   } rounded-3xl`}
                   onClick={() => handleMusicTagClick(tag.name)}
-                  disabled={!selectedMusicTag.includes(tag.name) && selectedMusicTag.length > 0}
                 >
                   {tag.name}
                 </Button>
@@ -289,7 +288,6 @@ const IntroducePage = () => {
                     selectedHobbyTag.includes(tag.name) ? 'bg-white text-black' : 'bg-[#1c1c1c]'
                   } rounded-3xl`}
                   onClick={() => handleHobbyTagClick(tag.name)}
-                  disabled={!selectedHobbyTag.includes(tag.name) && selectedHobbyTag.length > 0}
                 >
                   {tag.name}
                 </Button>
@@ -307,14 +305,16 @@ const IntroducePage = () => {
           <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col space-y-4">
             <span className="text-[#858585]">1문 N답: 길게 적는 내 소개글</span>
             <div className="mx-4">
-              <span className="text-lg font-bold">Q. 스스로에 대해 이야기해주세요.</span>
               <Controller
                 name="textarea1"
                 control={control}
                 defaultValue={textarea1}
                 render={({ field }) => (
                   <>
-                    <div className="text-right text-[#858585]">{field.value.length} / 500</div>
+                    <div className="flex flex-row justify-between mb-1">
+                      <p className="text-lg font-bold">Q. 스스로에 대해 이야기해주세요.</p>
+                      <p className="text-right text-[#858585]">{field.value.length} / 500</p>
+                    </div>
                     <Textarea
                       placeholder="내용을 입력해주세요"
                       {...field}
@@ -332,16 +332,21 @@ const IntroducePage = () => {
               />
             </div>
             <div className="mx-4">
-              <span className="text-lg font-bold">
-                Q. 어떤 음악취향을 가진 상대에게 호감을 느끼나요?
-              </span>
               <Controller
                 name="textarea2"
                 control={control}
                 defaultValue={textarea2}
                 render={({ field }) => (
                   <>
-                    <div className="text-right text-[#858585]">{field.value.length} / 500</div>
+                    <div className="flex flex-row justify-between mb-1">
+                      <p className="text-lg font-bold flex-grow">
+                        Q. 어떤 음악취향을 가진 상대에게 호감을 느끼나요?
+                      </p>
+                      <p className="text-right text-[#858585] whitespace-nowrap ml-2">
+                        {field.value.length} / 500
+                      </p>
+                    </div>
+
                     <Textarea
                       placeholder="내용을 입력해주세요"
                       {...field}
