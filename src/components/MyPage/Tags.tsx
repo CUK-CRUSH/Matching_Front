@@ -144,10 +144,10 @@ const TagsPage = () => {
 
   return (
     <div className="text-white h-full flex flex-col items-center overflow-y-auto scrollbar-hide">
-      <div className="w-full max-w-[400px] mx-auto flex  h-full">
+      <div className="w-full max-w-md mx-auto flex flex-col h-full">
         <MatchingListHeader onStateChange={() => setCurrentPage('introduce')} />
-        <div>
-          <div className="mt-24 space-y-2">
+        <div className="mb-10 mx-2 flex flex-col">
+          <div className="mt- space-y-2">
             <p className="flex-grow-0 flex-shrink-0 text-2xl font-bold text-left text-[#f9f9f9]">
               <span className="flex-grow-0 flex-shrink-0 text-2xl font-bold text-left text-[#f9f9f9]">
                 나를 표현하는
@@ -228,15 +228,17 @@ const TagsPage = () => {
               )}
             </div>
           </div>
+          <div className="flex items-center justify-center">
+            <Button
+              className="my-4 bg-[#303030] text-white rounded-3xl w-auto px-20 py-7 mb-2"
+              onClick={handleSaveTags}
+              variant={'noHover'}
+            >
+              완료
+            </Button>
+          </div>
         </div>
       </div>
-      <Button
-        className="mt-4 bg-[#303030] text-white rounded-3xl w-auto px-20 py-7 mb-2"
-        onClick={handleSaveTags}
-        variant={'noHover'}
-      >
-        완료
-      </Button>
     </div>
   );
 };

@@ -41,7 +41,7 @@ export const CheckDuplicateButton = ({
   console.log('exist' + onResult);
   return (
     <button
-      className={`absolute w-16 h-7 right-2 top-1/4 transform bg-white text-[#858585] text-s rounded px-2 py-1 ${disabled ? 'cursor-not-allowed' : ''}`}
+      className={`absolute w-16 h-7 mt-3 right-2 top-1/4 transform bg-white text-[#858585] text-s rounded px-2 py-1 ${disabled ? 'cursor-not-allowed' : ''}`}
       onClick={handleClick}
       disabled={isLoading || disabled}
     >

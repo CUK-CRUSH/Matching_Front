@@ -43,6 +43,9 @@ export type UnFilledModalProps = {
   currentBackground? : string;
 };
 
+export type YouTubeModalProps = {
+  url?: string;
+}
 export type OneLineIntroductionProps = {
   oneLineIntroduction? : string;
 }
@@ -77,6 +80,7 @@ export type UserTasteProps = {
 
 export type ProfileCardProps = {
   profileId?: number;
+  memberId?: number;
   name?: string;
   birthDate?: string;
   mbti?: string;

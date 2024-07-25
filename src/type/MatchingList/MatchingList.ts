@@ -69,6 +69,7 @@ export type MusciCardProps = {
   artist?: string;
   url?: string,
   isDark?: boolean;
+  isOpen?: boolean;
   isProilfeCard?: boolean;
 }
 

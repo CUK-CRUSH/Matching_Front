@@ -11,8 +11,7 @@ import { useCookies } from "react-cookie";
 // import { useCookies } from "react-cookie";
 
 const SocialButtons = ({ profileId }: SocialButtonsProps) => {
-  // const [cookies] = useCookies(['accessToken']);
-  // const accessToken = cookies.accessToken;
+
   const { openMessage, setOpenMessage } = useProfileCardStore();
   const [isLike, setLike] = useState<boolean>(false);
 

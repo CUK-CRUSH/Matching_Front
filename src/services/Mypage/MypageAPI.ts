@@ -7,6 +7,7 @@ import {
 } from '@/type/services/Mypage/MypageDTO';
 import { api } from '../client';
 import { Base64ToBlob } from '@/utils/Base64ToBlob';
+import axios from 'axios';
 
 // Main 페이지 데이터 가져오기(Home)
 export const getMainData = async (accessToken: string): Promise<MainInfoDataDTO> => {
@@ -122,5 +123,34 @@ export const getMusicTagsData = async (accessToken: string): Promise<UserMusicTa
   } catch (error) {
     console.error('에러내용:', error);
     throw new Error('Failed to fetch user info data');
+  }
+};
+
+// 프로필 위치 수정하기
+export const patchUserLocationData = async (location: [number, number], accessToken: string) => {
+  const url = `${import.meta.env.VITE_DUETT_API_URL}/api/v1/profiles/location`;
+  try {
+    const { data } = await api.put(
+      url,
+      { location },
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      },
+    );
+    return data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      // Handle Axios error
+      console.error(
+        'Error during patchUserLocationData:',
+        error.response ? error.response.data : error.message,
+      );
+    } else {
+      // Handle unexpected errors
+      console.error('Unexpected error during patchUserLocationData:', error);
+    }
+    throw error;
   }
 };

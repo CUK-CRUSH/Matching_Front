@@ -1,3 +1,3 @@
 type PostMessageModalProps = {
-  profileId?: number
+  memberId?: number;
 }
