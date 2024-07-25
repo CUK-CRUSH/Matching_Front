@@ -9,6 +9,7 @@ import ChangeLocationPage from '@/components/MyPage/Location/ChangeLocation';
 import MusicDetailPage from '@/components/MyPage/Music/MusicDetail';
 import MusicMoodPage from '@/components/MyPage/Music/MusicMood';
 import MusicEditPage from '@/components/MyPage/Music/MusicEdit';
+import SignOutPage from '@/components/MyPage/SignOut/Signout';
 
 const MyPage = () => {
   const { currentPage } = useMyPageStore();
@@ -33,6 +34,8 @@ const MyPage = () => {
         return <MusicMoodPage />;
       case 'musicEdit':
         return <MusicEditPage />;
+      case 'signout':
+        return <SignOutPage />;
       default:
         return <MyPageMain />;
     }

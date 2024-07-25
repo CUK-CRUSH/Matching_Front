@@ -30,6 +30,7 @@ type MainDataDTO = {
   infoCount: number;
   introCount: number;
   musicCount: number;
+  unlockCount: number;
 };
 
 export type MainInfoDataDTO = {

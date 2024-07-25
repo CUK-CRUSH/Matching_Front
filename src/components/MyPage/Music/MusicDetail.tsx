@@ -42,7 +42,7 @@ const MusicDetailPage = () => {
       const newMusic: LifeMusicItem = {
         title: selectedItem.title,
         artist: selectedItem.channelTitle,
-        url: selectedItem.thumbnail.url,
+        url: selectedItem.id,
       };
       setSelectedMusic([...selectedMusic, newMusic]);
       setCurrentPage('music');

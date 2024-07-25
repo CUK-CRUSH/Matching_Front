@@ -10,12 +10,13 @@ import { MainInfoDataDTO } from '@/type/services/Mypage/MypageDTO';
 import CircularProgressWithLabel from '@/utils/CircularProgressWithLabel ';
 import UseAccessToken from '@/hooks/useAccessToken';
 import Unlock from '@/assets/ProfileCard/Unlock.svg';
+import useDecodedJWT from '@/hooks/useDecodedToken';
 
 const MyPageMain = () => {
   const { setCurrentPage } = useMyPageStore();
 
   const accessToken = UseAccessToken();
-
+  console.log(useDecodedJWT(accessToken));
   const {
     data: mainData,
     error,
@@ -27,12 +28,8 @@ const MyPageMain = () => {
     placeholderData: (previousData) => previousData,
   });
 
-  // 각 페이지 별로 완료한 항목 수
-  const infoCount = mainData?.data.infoCount === 2 ? 1 : 0;
-  const introCount = mainData?.data.introCount === 4 ? 1 : 0;
-  const musicCount = mainData?.data.musicCount === 2 ? 1 : 0;
+  const unlockFullCount = mainData?.data.unlockCount;
 
-  const unlockFullCount = infoCount + introCount + musicCount;
   //
   if (isLoading) {
     return <div>Loading...</div>; // 로딩 상태 처리
@@ -133,7 +130,12 @@ const MyPageMain = () => {
           <div className="flex flex-col mt-8 w-full px-4">
             <h3 className="text-lg font-bold text-gray-300">회원관리</h3>
             <button className="mt-2 text-left text-white pl-4">로그아웃</button>
-            <button className="mt-2 text-left text-white pl-4">회원 탈퇴</button>
+            <button
+              onClick={() => setCurrentPage('signout')}
+              className="mt-2 text-left text-white pl-4"
+            >
+              회원 탈퇴
+            </button>
           </div>
         </div>
       </div>
