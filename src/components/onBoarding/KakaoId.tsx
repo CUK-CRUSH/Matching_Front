@@ -13,7 +13,7 @@ import { useForm, Controller } from 'react-hook-form';
 const KakaoIdPage = () => {
   const { setCurrentPage, setUserData, userData } = useOnboardingStore();
 
-  const { control, watch } = useForm({
+  const { control, watch, setValue } = useForm({
     mode: 'onChange',
     defaultValues: {
       kakaoId: userData.kakaoId || '',
@@ -71,12 +71,14 @@ const KakaoIdPage = () => {
                 />
               )}
             />
+
             <CheckDuplicateButton
               type="kakao"
               value={kakaoId}
               onResult={setIsDuplicate}
               disabled={!kakaoId}
             />
+
             {isDuplicate !== null && (
               <p className={`mt-2 ${isDuplicate ? 'text-red-500' : 'text-[#c6c6c6]'}`}>
                 {!isDuplicate ? (
@@ -101,6 +103,7 @@ const KakaoIdPage = () => {
                   id="kakaoIdConfirm"
                   placeholder="입력한 동일 ID를 한번 더 입력해주세요"
                   {...field}
+                  disabled={isDuplicate !== false}
                 />
               )}
             />

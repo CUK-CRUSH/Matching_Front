@@ -42,16 +42,23 @@ const OneLinerPage = () => {
     setLoading(true);
     try {
       const response: any = await postSignUp(updatedUserData);
-
-      setCookie('accessToken', response.data.accessToken, { path: '/' });
-      localStorage.setItem('refreshToken', response.data.refreshToken);
-
-      navigate('/mypage');
+      console.log(response);
+      if (
+        response.data.token &&
+        response.data.token.accessToken &&
+        response.data.token.refreshToken
+      ) {
+        setCookie('accessToken', response.data.token.accessToken, { path: '/' });
+        localStorage.setItem('refreshToken', response.data.token.refreshToken);
+        navigate('/mypage');
+      } else {
+        throw new Error('Invalid response data');
+      }
     } catch (error) {
       console.error('Failed to submit data:', error);
       alert('Failed to submit data');
     } finally {
-      setLoading(false);
+      setLoading(false); // Ensure this is always called regardless of success or error
     }
   };
 
@@ -71,7 +78,7 @@ const OneLinerPage = () => {
             <Input
               type="text"
               id="oneLineIntroduction"
-              placeholder="닉네임을 입력해주세요"
+              placeholder="한줄소개를 입력해주세요"
               {...register('oneLineIntroduction', {
                 required: '필수 입력 사항입니다',
 
