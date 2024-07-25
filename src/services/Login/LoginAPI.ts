@@ -1,4 +1,8 @@
-import { AuthenticationCodeResponse, ExistMemberResponse } from '@/type/services/Login/Login';
+import {
+  AuthenticationCodeResponse,
+  ExistMemberResponse,
+  ReissueResponseData,
+} from '@/type/services/Login/Login';
 import { api } from '../client';
 import { OnboardintState } from '@/type/store/OnBoarding/OnBoardState';
 import axios from 'axios';
@@ -93,5 +97,21 @@ export const postLogin = async (phoneNumber: string, verificationCode: string) =
       console.error('Unexpected error during postSignUp:', error);
     }
     throw error;
+  }
+};
+
+// 리프레시 재발급
+export const reIssueToken = async (accessToken: string): Promise<ReissueResponseData> => {
+  const url = `${import.meta.env.VITE_DUETT_API_URL}/api/v1/authentication/reissue`;
+  try {
+    const { data } = await api.get<ReissueResponseData>(url, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+    return data;
+  } catch (error) {
+    console.error('에러내용:', error);
+    throw new Error('Failed to fetch user info data');
   }
 };

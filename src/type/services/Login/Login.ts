@@ -22,3 +22,8 @@ export type LoginResponse = {
     refreshToken: string;
   };
 };
+
+export type ReissueResponseData = {
+  accessToken: string;
+  refreshToken: string;
+};
