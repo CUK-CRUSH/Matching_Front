@@ -71,10 +71,10 @@ const ProfileCard = ({ profileId, name, birthDate, mbti, tags, oneLineIntroducti
       });
   }, [isOpen]);
 
-
-  // 모달창
+  // 데이터를 채우라는 닥달 모달창
   const [isUnfilledModalOpen,setIsUnfilledModalOpen] = useState<boolean>(false)
 
+  // 넘기면서 뛰우기 위해서
   useEffect(() =>{
     if(isUnfilledModalOpen){
      setIsUnfilledModalOpen(true)
@@ -93,9 +93,11 @@ const ProfileCard = ({ profileId, name, birthDate, mbti, tags, oneLineIntroducti
           profileId={profileId}
           isOpen={isOpen}
           currentBackground={currentBackground}
-          
         />}
-        {isUnfilledModalOpen && <UnFilledModal setIsUnfilledModalOpen={setIsUnfilledModalOpen } /> }
+
+        {isUnfilledModalOpen && <UnFilledModal
+             setIsUnfilledModalOpen={setIsUnfilledModalOpen } /> }
+
         {/* Top */}
 
         <div className={`flex flex-row ml-6`}>
@@ -146,7 +148,7 @@ const ProfileCard = ({ profileId, name, birthDate, mbti, tags, oneLineIntroducti
             </p>
           }
           {lifeMusics?.map((item) => (
-            <MusicCard title={item.title} artist={item.artist} isProilfeCard={true} />
+            <MusicCard title={item.title} artist={item.artist} url={item.url} isOpen={isOpen} isProilfeCard={true} />
           ))}
 
         </MusicCardContainer>

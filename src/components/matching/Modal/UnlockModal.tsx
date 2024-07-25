@@ -31,7 +31,6 @@ const UnlockModal = ({ setLock, handleSetOpen, handleSetModalOpen,handleSetLockO
     // setOpenModal(false);
    
   };
-  // onClick={() => setLock(prevState => !prevState)}
   return (
     <>
       {!isOpen &&

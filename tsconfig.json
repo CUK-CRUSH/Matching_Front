@@ -31,6 +31,6 @@
       "vite-plugin-svgr/client"
     ]
   },
-  "include": ["src", "src/svg.d.ts"],
+  "include": ["src", "src/svg.d.ts",],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
