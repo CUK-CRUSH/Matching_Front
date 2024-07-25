@@ -105,13 +105,6 @@ const MatchingPage = () => {
 
     // 현재 슬라이드 상태 업데이트
     setSwiperIndex(newIndex);
-    console.log(newIndex, profiles?.length)
-    // 스와이프시 페이징
-    // if (profiles && newIndex === profiles?.length - 1 && !isLastPage) {
-    //   console.log('trigger')
-    //   // 새로운 데이터 불러오기
-    //   setIsLastPage(true)
-    // }
 
     if(sessionStorage.getItem('isProfileComplete') === 'false' && newIndex >= 3){
       setIsUnfilledModalOpen(true)
@@ -131,7 +124,8 @@ const MatchingPage = () => {
       <ProfileCardHeader />
       {isUnfilledModalOpen && <UnFilledModal setIsUnfilledModalOpen={setIsUnfilledModalOpen} />}
       <Swiper  
-        onActiveIndexChange={handleActiveIndexChange}>
+        onActiveIndexChange={handleActiveIndexChange}
+        >
           
         {profiles?.map((item, index) => (
           <SwiperSlide 

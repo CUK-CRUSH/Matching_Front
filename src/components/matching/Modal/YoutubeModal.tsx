@@ -13,7 +13,7 @@ const YoutubeModal = ({url} : YouTubeModalProps) => {
   }
   
   return (
-    <div className={`fixed inset-0 bg-[#000] bg-opacity-30 `} >
+    <div className={`fixed inset-0 bg-[#000] bg-opacity-30 z-10`} >
 
       <div
         className={`w-full h-auto relative rounded-lg flex flex-col justify-start items-center z-99`}

@@ -80,6 +80,7 @@ export type UserTasteProps = {
 
 export type ProfileCardProps = {
   profileId?: number;
+  memberId?: number;
   name?: string;
   birthDate?: string;
   mbti?: string;
