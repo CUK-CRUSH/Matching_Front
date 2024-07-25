@@ -9,6 +9,8 @@ import ProgressBar from '@/utils/ProgressBar';
 import { postSignUp } from '@/services/Login/LoginAPI';
 import { useState } from 'react';
 import Spinner from '@/utils/Spinner';
+import { useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 
 const OneLinerPage = () => {
   const { setCurrentPage, userData, setUserData } = useOnboardingStore();
@@ -27,6 +29,9 @@ const OneLinerPage = () => {
   const oneLineIntroduction = watch('oneLineIntroduction');
   const [loading, setLoading] = useState(false);
 
+  const [, setCookie] = useCookies(['accessToken']);
+  const navigate = useNavigate();
+
   const handleNext = async () => {
     const updatedUserData = {
       ...userData,
@@ -36,8 +41,12 @@ const OneLinerPage = () => {
 
     setLoading(true);
     try {
-      await postSignUp(updatedUserData);
-      location.replace('/login');
+      const response: any = await postSignUp(updatedUserData);
+
+      setCookie('accessToken', response.data.accessToken, { path: '/' });
+      localStorage.setItem('refreshToken', response.data.refreshToken);
+
+      navigate('/mypage');
     } catch (error) {
       console.error('Failed to submit data:', error);
       alert('Failed to submit data');

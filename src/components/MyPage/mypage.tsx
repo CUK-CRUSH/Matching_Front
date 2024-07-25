@@ -133,7 +133,12 @@ const MyPageMain = () => {
           <div className="flex flex-col mt-8 w-full px-4">
             <h3 className="text-lg font-bold text-gray-300">회원관리</h3>
             <button className="mt-2 text-left text-white pl-4">로그아웃</button>
-            <button className="mt-2 text-left text-white pl-4">회원 탈퇴</button>
+            <button
+              onClick={() => setCurrentPage('signout')}
+              className="mt-2 text-left text-white pl-4"
+            >
+              회원 탈퇴
+            </button>
           </div>
         </div>
       </div>
