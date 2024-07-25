@@ -34,7 +34,7 @@ const UnlockModal = ({ setLock, handleSetOpen, handleSetModalOpen,handleSetLockO
   return (
     <>
       {!isOpen &&
-        <div className={`fixed inset-0 bg-[#000] bg-opacity-30 flex justify-center items-center`} >
+        <div className={`fixed inset-0 bg-[#000] bg-opacity-30 flex justify-center items-center z-10`} >
 
           <div className={`w-[250px] h-auto relative p-12 bg-white rounded-lg flex flex-col justify-start items-center z-99`} ref={unlockModalRef} onClick={e => e.stopPropagation()} data-testid="unlockModalText">
 

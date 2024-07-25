@@ -132,7 +132,7 @@ const MatchingPage = () => {
       {isUnfilledModalOpen && <UnFilledModal setIsUnfilledModalOpen={setIsUnfilledModalOpen} />}
       <Swiper  
         onActiveIndexChange={handleActiveIndexChange}>
-       
+          
         {profiles?.map((item, index) => (
           <SwiperSlide 
             
