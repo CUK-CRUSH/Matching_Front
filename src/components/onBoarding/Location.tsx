@@ -67,7 +67,7 @@ const LocationPage = () => {
             </div>
           </div>
         </div>
-        {/* {addressQuery.data && (
+        {addressQuery.data && (
           <div className="mt-4 flex justify-center">
             <div className="flex flex-col items-center text-sm font-bold text-center text-[#858585]">
               <ExclamationCircleOutlined className="mb-1" />
@@ -75,7 +75,7 @@ const LocationPage = () => {
               <p>알맞지 않은 경우, 버튼을 다시 눌러 다시 탐색해주세요.</p>
             </div>
           </div>
-        )} */}
+        )}
         {/* 현재 위치정보를 제대로 불러왔을떄만 넘어가도록 한다. */}
         <div className="flex">
           <ValidationPrevButton onStateChange={() => setCurrentPage('sex')} />

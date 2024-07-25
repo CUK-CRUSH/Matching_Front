@@ -28,12 +28,8 @@ const MyPageMain = () => {
     placeholderData: (previousData) => previousData,
   });
 
-  // 각 페이지 별로 완료한 항목 수
-  const infoCount = mainData?.data.infoCount === 2 ? 1 : 0;
-  const introCount = mainData?.data.introCount === 4 ? 1 : 0;
-  const musicCount = mainData?.data.musicCount === 2 ? 1 : 0;
+  const unlockFullCount = mainData?.data.unlockCount;
 
-  const unlockFullCount = infoCount + introCount + musicCount;
   //
   if (isLoading) {
     return <div>Loading...</div>; // 로딩 상태 처리
