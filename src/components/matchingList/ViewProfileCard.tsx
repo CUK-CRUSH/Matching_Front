@@ -58,7 +58,7 @@ const ViewProfileCard = () => {
 
   const [cookies] = useCookies(['accessToken']);
   const accessToken = cookies.accessToken;
-  console.log(accessToken);
+  
   useEffect(() => {
       
       getProfileCardDetailData(accessToken,Number(profileId)).then((response) => {
@@ -87,7 +87,7 @@ const ViewProfileCard = () => {
             profileImageUrl={profiles?.profileImageUrl}
           />
 
-          {openMessage && <PostMessageModal profileId={Number(profileId)} />}
+          {openMessage && <PostMessageModal memberId={Number(profiles?.memberId)} />}
 
           <div className={`flex flex-col ml-[5%]`}>
             <Name name={profiles?.name} birthDate={profiles?.birthDate} mbti={profiles?.mbti} distance={profiles?.distance} isProfileCard={true} />
