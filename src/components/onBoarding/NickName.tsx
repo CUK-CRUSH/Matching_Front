@@ -71,24 +71,13 @@ const NickNamePage = () => {
                 value={name}
                 onResult={setIsDuplicate}
                 disabled={!name}
+                top="top-2"
               />
             </div>
-            {errors.name && (
-              <p className="text-red-500 text-sm italic mt-1 flex items-center">
-                <ExclamationCircleOutlined className="mr-1" />
-                {errors.name.message}
-              </p>
-            )}
+            {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>}
             {isDuplicate !== null && (
-              <p className={`mt-2 ${isDuplicate ? 'text-red-500' : 'text-[#c6c6c6]'}`}>
-                {isDuplicate ? (
-                  <span className="flex items-center">
-                    <ExclamationCircleOutlined className="mr-1" />
-                    중복된 닉네임입니다.
-                  </span>
-                ) : (
-                  '사용 가능한 닉네임입니다.'
-                )}
+              <p className={`mt-2 ${isDuplicate ? 'text-red-500' : 'text-green-500'}`}>
+                {isDuplicate ? '중복된 닉네임입니다.' : '사용 가능한 닉네임입니다.'}
               </p>
             )}
           </form>

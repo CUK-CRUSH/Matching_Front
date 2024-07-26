@@ -59,7 +59,7 @@ const TermsPage = () => {
       <div className="absolute left-[10%] top-12 transform -translate-x-1/2 flex items-center justify-center mt-10">
         <img src={BlurLogo} alt="BlurLogo" className="self-center w-16" />
       </div>
-      <ValidationText titleTexts={['이용약관 및 개인정보 처리방침']} />
+      <ValidationText titleTexts={['이용약관 및 개인정보 처리방침']} marginTop="8rem" />
       <div className="border-b font-bold py-4">
         <TermsCheckBox
           id="all"

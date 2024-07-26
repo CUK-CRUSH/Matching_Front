@@ -9,6 +9,7 @@ type CheckDuplicateButtonProps = {
   value: string;
   onResult: (exists: boolean) => void;
   disabled: boolean;
+  top?: string;
 };
 
 export const CheckDuplicateButton = ({
@@ -16,6 +17,7 @@ export const CheckDuplicateButton = ({
   value,
   onResult,
   disabled,
+  top = 'top-6',
 }: CheckDuplicateButtonProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState<string | null>(null);
@@ -41,7 +43,7 @@ export const CheckDuplicateButton = ({
   console.log('exist' + onResult);
   return (
     <button
-      className={`absolute w-16 h-7 mt-3 right-2 top-1/4 transform bg-white text-[#858585] text-s rounded px-2 py-1 ${disabled ? 'cursor-not-allowed' : ''}`}
+      className={`absolute right-2 ${top} transform bg-white text-[#858585] text-sm rounded px-2 py-1 ${disabled ? 'cursor-not-allowed' : ''}`}
       onClick={handleClick}
       disabled={isLoading || disabled}
     >
