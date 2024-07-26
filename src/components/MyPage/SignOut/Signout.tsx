@@ -5,16 +5,16 @@ import ValidationText from '@/components/validation/validationText';
 import UseAccessToken from '@/hooks/useAccessToken';
 import { postWithdrawal } from '@/services/Mypage/MypageAPI';
 import useMyPageStore from '@/store/myPageStore';
+import CommonModal from '@/utils/CommonModal';
 import { useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { Controller, useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 const SignOutPage = () => {
   const { setCurrentPage } = useMyPageStore();
   const accessToken = UseAccessToken();
-  const navigate = useNavigate();
+
   const { control, handleSubmit, watch } = useForm({
     defaultValues: {
       reason: '',
@@ -22,6 +22,7 @@ const SignOutPage = () => {
   });
   const [, , removeCookie] = useCookies(['accessToken']);
   const [loading, setLoading] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const onSubmit = async (data: { reason: string }) => {
     setLoading(true);
@@ -40,6 +41,7 @@ const SignOutPage = () => {
       toast.error('계정 삭제에 실패했습니다. 다시 시도해주세요.');
     } finally {
       setLoading(false);
+      setIsModalOpen(false);
     }
   };
 
@@ -60,6 +62,7 @@ const SignOutPage = () => {
             '기존의 계정 정보는 즉시 삭제되어',
             '이후에는 복구할 수 없어요.',
           ]}
+          marginTop="2rem"
         />
         <div className="mt-8 mx-4">
           <div className="grid w-full max-w-sm items-center gap-1.5">
@@ -80,13 +83,23 @@ const SignOutPage = () => {
       </div>
       <div className="w-full max-w-md mx-auto p-4">
         <Button
-          onClick={handleSubmit(onSubmit)}
+          onClick={() => setIsModalOpen(true)}
           variant={'noHover'}
           className={`w-full text-l rounded-3xl mx-auto ${isButtonEnabled ? 'bg-white text-black' : 'bg-gray-500 text-gray-300 cursor-not-allowed'}`}
           disabled={!isButtonEnabled || loading}
         >
           {loading ? '처리 중...' : 'Duett 계정 삭제하기'}
         </Button>
+        {isModalOpen && (
+          <CommonModal
+            mainText="계정을 삭제하시겠습니까?"
+            subText="계정 삭제시, 이전의 모든 데이터는 복구할 수 없게 됩니다"
+            cancelText="취소"
+            confirmText="확인"
+            onCancel={() => setIsModalOpen(false)} // 모달 닫기
+            onConfirm={handleSubmit(onSubmit)} // 삭제 진행
+          />
+        )}
       </div>
     </div>
   );

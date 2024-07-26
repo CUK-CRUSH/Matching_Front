@@ -13,6 +13,7 @@ import MusicNote from '@/assets/Music/Note.svg';
 import MusicEdit from '@/assets/Music/MusicEdit.svg';
 import MusicDelete from '@/assets/Music/MusicDelete.svg';
 import MusicMood from '@/assets/Music/MusicMood.svg';
+import TrashCan from '@/assets/Icon/TrashCan.svg';
 import MusicMarker from '@/assets/Music/MusicMarker.svg';
 import CommonModal from '@/utils/CommonModal';
 import UseAccessToken from '@/hooks/useAccessToken';
@@ -193,7 +194,7 @@ const MusicPage = () => {
                             {open &&
                               selectedMusicId === music.musicId && ( // Show modal only for the selected music item
                                 <CommonModal
-                                  imageSrc={MusicMood}
+                                  imageSrc={TrashCan}
                                   mainText="삭제 하시겠습니까?"
                                   subText="이후 복구되지 않습니다."
                                   cancelText="취소"
