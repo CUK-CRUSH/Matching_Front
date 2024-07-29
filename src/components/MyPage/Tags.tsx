@@ -230,9 +230,10 @@ const TagsPage = () => {
           </div>
           <div className="flex items-center justify-center">
             <Button
-              className="my-4 bg-[#303030] text-white rounded-3xl w-auto px-20 py-7 mb-2"
+              className={`my-4 bg-[#303030] text-white rounded-3xl w-auto px-20 py-7 mb-2 ${selectedMusicTags.length >= 3 && selectedHobbyTags.length >= 3 ? '' : 'cursor-not-allowed opacity-50'}`}
               onClick={handleSaveTags}
               variant={'noHover'}
+              disabled={selectedMusicTags.length < 3 || selectedHobbyTags.length < 3} // 비활성화 상태 설정
             >
               완료
             </Button>

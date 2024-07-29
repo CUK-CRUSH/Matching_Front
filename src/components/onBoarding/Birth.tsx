@@ -6,6 +6,7 @@ import CustomCalendar from '@/utils/Calendar';
 import ProgressBar from '@/utils/ProgressBar';
 import moment from 'moment';
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 
 const BirthPage = () => {
   const { setCurrentPage, setUserData, userData } = useOnboardingStore();
@@ -18,7 +19,15 @@ const BirthPage = () => {
     setSelectedDate(newDate); // newDate는 Date 객체를 저장
     setUserData('birthDate', formattedDate); // 문자열로 변환된 날짜를 저장
   };
-
+  const isOver19 = selectedDate && moment().diff(selectedDate, 'years') >= 19;
+  console.log(isOver19);
+  const handleNext = () => {
+    if (isOver19) {
+      setCurrentPage('oneLiner');
+    } else {
+      toast.error('만 19세 이상만 가입할 수 있습니다.');
+    }
+  };
   return (
     <div className="flex flex-col justify-between h-screen">
       <div className="absolute w-full mt-2">
@@ -35,8 +44,8 @@ const BirthPage = () => {
         <ValidationPrevButton onStateChange={() => setCurrentPage('nickname')} />
 
         <ValidationButton
-          onStateChange={() => setCurrentPage('oneLiner')}
-          buttonEnabled={selectedDate !== null}
+          onStateChange={handleNext}
+          buttonEnabled={selectedDate !== null && isOver19}
         />
       </div>
     </div>

@@ -56,11 +56,12 @@ const ChangeLocationPage = () => {
           onStateChange={() => setCurrentPage('mypage')}
           mypageText="My Page | 프로필 수정"
         />
-        <div>
+        <div className="mx-2">
           <ValidationText
             titleTexts={['현재의 위치를 기반으로', '내 거주지 정보가 수정됩니다.']}
             descriptionTexts={['오른쪽 버튼을 눌러 주소를 검색합니다.']}
             titleTextColor="#ffffff"
+            marginTop="2rem"
           />
           <div className="mt-16 mx-4">
             <div className="grid w-full max-w-sm items-center gap-1.5">
@@ -70,7 +71,7 @@ const ChangeLocationPage = () => {
                   id="address"
                   placeholder="주소를 자동으로 불러옵니다."
                   {...register('address')}
-                  className="h-11 bg-black text-white"
+                  className="h-11 bg-black text-white border-none"
                   readOnly
                 />
                 <div className="flex items-center justify-center ml-2">
@@ -80,7 +81,7 @@ const ChangeLocationPage = () => {
                       addressQuery.refetch();
                     }}
                   >
-                    <img src={LocationButton} alt="locationButton" className="h-11" />
+                    <img src={LocationButton} alt="locationButton" className="h-13" />
                   </button>
                 </div>
               </div>
@@ -91,10 +92,10 @@ const ChangeLocationPage = () => {
       <div className="w-full max-w-md mx-auto p-4">
         <Button
           onClick={handleSubmit(onSubmit)}
-          className="w-full bg-white text-l text-black rounded-3xl"
+          className="w-full bg-white text-l text-black rounded-3xl my-2 py-2"
           variant={'noHover'}
         >
-          저장
+          저장하기
         </Button>
       </div>
     </div>

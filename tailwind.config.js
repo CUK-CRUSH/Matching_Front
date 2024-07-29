@@ -21,9 +21,11 @@ module.exports = {
       colors: {
         // 메시지 팝업 프로필 버튼 배경색
         validateButton: '#252525',
+        local_gray_0: '#f2f2f2',
         local_gray_1: '#c6c6c6',
         local_gray_2: '#858585',
         text_dary_soft: '#474747',
+
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
