@@ -194,7 +194,7 @@ const IntroducePage = () => {
 
         <div className="flex flex-col p-4 space-y-4">
           <div className="flex items-center justify-between">
-            <span className="text-lg font-bold">MBTI</span>
+            <span className="text-l text-local_gray_2 font-bold">MBTI</span>
             <Controller
               name="living"
               control={control}
@@ -251,8 +251,8 @@ const IntroducePage = () => {
             })}
           </div>
 
-          <div className="flex items-center justify-between">
-            <span className="text-lg font-bold">태그</span>
+          <div className="flex items-center justify-between text-local_gray_2">
+            <span className="text-l font-bold">태그</span>
             <button onClick={() => setCurrentPage('tags')}>
               태그 수정하기
               <CaretRightOutlined />
@@ -260,7 +260,7 @@ const IntroducePage = () => {
           </div>
 
           <div className="mx-4">
-            <span className="text-lg font-bold">음악</span>
+            <span className="text-l font-bold">음악</span>
             <div className="flex flex-wrap gap-2 mt-2">
               {IntroData.musicTags.map((tag) => (
                 <Button
@@ -293,7 +293,7 @@ const IntroducePage = () => {
                 </Button>
               ))}
             </div>
-            <div className="mt-4 flex items-center">
+            <div className="mt-4 flex items-center mb-10">
               <ExclamationCircleOutlined className="mb-1 mr-2" />
               <div className="flex flex-col items-start text-sm font-bold text-[#858585]">
                 <p>강조하고싶은 대표 태그를,</p>
@@ -312,7 +312,7 @@ const IntroducePage = () => {
                 render={({ field }) => (
                   <>
                     <div className="flex flex-row justify-between mb-1">
-                      <p className="text-lg font-bold">Q. 스스로에 대해 이야기해주세요.</p>
+                      <p className="text-l font-bold">Q. 스스로에 대해 이야기해주세요.</p>
                       <p className="text-right text-[#858585]">{field.value.length} / 500</p>
                     </div>
                     <Textarea
@@ -339,7 +339,7 @@ const IntroducePage = () => {
                 render={({ field }) => (
                   <>
                     <div className="flex flex-row justify-between mb-1">
-                      <p className="text-lg font-bold flex-grow">
+                      <p className="text-l font-bold flex-grow">
                         Q. 어떤 음악취향을 가진 상대에게 호감을 느끼나요?
                       </p>
                       <p className="text-right text-[#858585] whitespace-nowrap ml-2">
@@ -364,7 +364,7 @@ const IntroducePage = () => {
               />
             </div>
             <div className="flex justify-center w-full mt-4">
-              <div className=" w-auto text-white py-2 px-4 rounded-full">
+              <div className="w-auto text-l text-local_gray_2 py-2 px-4 rounded-full">
                 {filledFieldsCount}/4 완료
               </div>
             </div>

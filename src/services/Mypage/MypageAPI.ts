@@ -154,3 +154,26 @@ export const patchUserLocationData = async (location: [number, number], accessTo
     throw error;
   }
 };
+
+// 회원 탈퇴 하기
+export const postWithdrawal = async (accessToken: string, reason: string): Promise<void> => {
+  const url = `${import.meta.env.VITE_DUETT_API_URL}/api/v1/withdrawal`;
+
+  try {
+    const response = await api.post(
+      url,
+      { reason },
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'application/json',
+        },
+      },
+    );
+
+    console.log('Response:', response.data);
+  } catch (error) {
+    console.error('Error posting music taste data:', error);
+    throw new Error('Failed to post music taste data');
+  }
+};

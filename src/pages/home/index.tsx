@@ -8,7 +8,7 @@ export default function Home() {
         <img src={Logo} alt="logo" className="self-center" />
       </div>
       <div className="flex">
-        <ValidationButton rounded={false} navigation="/terms" text="시작" />
+        <ValidationButton rounded={false} navigation="/terms" text="시작하기" />
       </div>
     </div>
   );

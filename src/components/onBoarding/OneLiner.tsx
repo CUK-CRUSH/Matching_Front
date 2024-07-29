@@ -11,6 +11,7 @@ import { useState } from 'react';
 import Spinner from '@/utils/Spinner';
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
+import { toast } from 'react-toastify';
 
 const OneLinerPage = () => {
   const { setCurrentPage, userData, setUserData } = useOnboardingStore();
@@ -39,27 +40,35 @@ const OneLinerPage = () => {
     };
     setUserData('oneLineIntroduction', oneLineIntroduction);
 
+    // UpdatedUserData를 콘솔에 출력하여 확인
+    console.log('Updated User Data:', updatedUserData);
+
     setLoading(true);
-    try {
-      const response: any = await postSignUp(updatedUserData);
-      console.log(response);
-      if (
-        response.data.token &&
-        response.data.token.accessToken &&
-        response.data.token.refreshToken
-      ) {
+    setTimeout(async () => {
+      try {
+        const response: any = await postSignUp(updatedUserData);
+
+        // if (
+        //   !response.data ||
+        //   !response.data.token ||
+        //   !response.data.token.accessToken ||
+        //   !response.data.token.refreshToken
+        // ) {
+        //   throw new Error('Invalid response data');
+        // }
+
         setCookie('accessToken', response.data.token.accessToken, { path: '/' });
         localStorage.setItem('refreshToken', response.data.token.refreshToken);
+
         navigate('/mypage');
-      } else {
-        throw new Error('Invalid response data');
+      } catch (error: any) {
+        console.error('로그인 실패', error);
+        toast.error('로그인 실패: ' + error.message);
+        navigate('/login');
+      } finally {
+        setLoading(false);
       }
-    } catch (error) {
-      console.error('Failed to submit data:', error);
-      alert('Failed to submit data');
-    } finally {
-      setLoading(false); // Ensure this is always called regardless of success or error
-    }
+    }, 3000);
   };
 
   return (
