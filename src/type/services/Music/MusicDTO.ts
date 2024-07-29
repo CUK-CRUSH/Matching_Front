@@ -1,6 +1,6 @@
 // Type definitions for individual music items
 export type MusicDTO = {
-  id: string;
+  videoId: string;
   title: string;
   thumbnail: {
     url: string;

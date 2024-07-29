@@ -41,7 +41,7 @@ export const InputForm = () => {
     },
   });
 
-  const { formState, handleSubmit, control } = methods;
+  const { handleSubmit, control } = methods;
   const onSubmit = async (data: z.infer<typeof FormSchema>) => {
     try {
       const authenticationCode = await getAuthenticationCode(data.pin);

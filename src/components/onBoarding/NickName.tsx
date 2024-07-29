@@ -4,7 +4,6 @@ import ValidationPrevButton from '@/components/validation/validationPrevButton';
 import ValidationText from '@/components/validation/validationText';
 import useOnboardingStore from '@/store/validationStore';
 import { useForm } from 'react-hook-form';
-import { ExclamationCircleOutlined } from '@ant-design/icons';
 import ProgressBar from '@/utils/ProgressBar';
 import { CheckDuplicateButton } from '../validation/CheckDuplicateButton';
 import { useEffect, useState } from 'react';
