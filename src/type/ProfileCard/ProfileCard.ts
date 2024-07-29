@@ -117,6 +117,7 @@ export type ProfileCardProps = {
   }
   selfIntroduction? : string;
   likeableMusicTaste? : string;
+  likeState? : boolean;
   isOpen? : boolean;
   isModalOpen? : boolean;
   isLock? : boolean;
@@ -139,4 +140,5 @@ export type CombinedProfileCardProps = ProfileCardProps & OpenProfileCardProps;
 
 export type SocialButtonsProps = {
   profileId? : number
+  likeState? : boolean
 }

@@ -83,6 +83,7 @@ export type ProfileCardProps = {
   }
   selfIntroduction? : string;
   likeableMusicTaste? : string;
+  likeState? : boolean;
 
 }
 type DataType = {

@@ -188,7 +188,7 @@ const ProfileCard = ({ profileId, memberId, name, birthDate, mbti, tags, oneLine
           </>
         }
       </div>
-      {isOpen && <SocialButtons profileId={profileId} />}
+      {isOpen && <SocialButtons profileId={profileId} likeState={profiles?.likeState} />}
     </>
   );
 }

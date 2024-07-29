@@ -144,7 +144,7 @@ const ViewProfileCard = () => {
         </>
 
       </div>
-      <SocialButtons profileId={Number(profileId)} />
+      <SocialButtons profileId={Number(profileId)} likeState={profiles?.likeState}/>
       <Footer />
 
     </Layout>
