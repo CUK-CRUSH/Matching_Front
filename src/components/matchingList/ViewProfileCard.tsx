@@ -1,5 +1,5 @@
 import ProfileImage from '@/components/matching/ProfileImage';
-import Name from '@/components/common/Name';
+import Name from '@/components/common/Name'
 import Comment from '@/components/matching/Comment';
 import MusicCard from '@/components/common/MusicCard';
 import useProfileCardStore from '@/store/profileCardStore';
@@ -22,7 +22,7 @@ import { useCookies } from 'react-cookie';
 
 const ViewProfileCard = () => {
   const { profileId } = useParams<{ profileId: string }>();
-  console.log(profileId)
+  
   // 프로필 데이터
   const [profiles, setProfiles] = useState<ProfileCardProps | undefined>();
 

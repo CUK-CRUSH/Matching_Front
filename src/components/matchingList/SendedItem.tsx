@@ -2,7 +2,7 @@ import { ItemProps } from "@/type/MatchingList/MatchingList";
 
 import MusicCard from "@/components/common/MusicCard"
 import Tag from "@/components/common/Tag";
-import Name from "@/components/common/Name";
+import Name from "@/components/common/Name"
 import { useNavigate } from "react-router-dom";
 import Time from "../common/Time";
 

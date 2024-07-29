@@ -1,5 +1,5 @@
 import ProfileImage from '@/components/matching/ProfileImage';
-import Name from '@/components/common/Name';
+import Name from "@/components/common/Name"
 import Comment from '@/components/matching/Comment';
 import UnlockModal from '@/components/matching/Modal/UnlockModal';
 import Spread from '@/components/matching/Spread';

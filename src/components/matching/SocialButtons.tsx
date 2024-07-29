@@ -8,7 +8,6 @@ import { toast } from "@/components/ui/use-toast";
 import { likeProfile } from "@/services/ProfileCard/LikeProfileCard";
 import { SocialButtonsProps } from "@/type/ProfileCard/ProfileCard";
 import { useCookies } from "react-cookie";
-// import { useCookies } from "react-cookie";
 
 const SocialButtons = ({ profileId }: SocialButtonsProps) => {
 
