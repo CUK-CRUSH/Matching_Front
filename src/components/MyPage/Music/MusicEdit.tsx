@@ -49,7 +49,7 @@ const MusicEditPage = () => {
       );
     } else {
       // Create new music
-      const newMusic: LifeMusicItem = { ...data, url: 'musicUrl' }; // Add the URL or other necessary fields
+      const newMusic: LifeMusicItem = { ...data, videoId: 'musicUrl' }; // Add the URL or other necessary fields
       setSelectedMusic([...selectedMusic, newMusic]);
     }
     setCurrentPage('music'); // Navigate back to the music list page
