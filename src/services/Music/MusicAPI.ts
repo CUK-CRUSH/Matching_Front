@@ -79,7 +79,7 @@ export const postUserMoodData = async (accessToken: string, moodData: MoodDataDT
     formData.append('moodImage', blob, 'moodImage.jpg');
   }
 
-  formData.append('isDeleteImage', String(moodData.isDeleteImage));
+  // formData.append('isDeleteImage', String(moodData.isDeleteImage));
 
   try {
     const response = await api.post(url, formData, {

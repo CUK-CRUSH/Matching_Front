@@ -16,7 +16,7 @@ const MyPageMain = () => {
   const { setCurrentPage } = useMyPageStore();
 
   const accessToken = UseAccessToken();
-  console.log(useDecodedJWT(accessToken));
+
   const {
     data: mainData,
     error,
