@@ -3,7 +3,7 @@ export type MusicDTO = {
   videoId: string;
   title: string;
   thumbnail: {
-    url: string;
+    videoId: string;
     width: number;
     height: number;
   };
@@ -21,8 +21,8 @@ export type YoutubeMusicDataDTO = {
 export type MusicItem = {
   musicId?: number;
   title: string;
-  artist: string;
-  url: string;
+  artist: string; 
+  videoId: string;
 };
 
 // Type definition for the request body

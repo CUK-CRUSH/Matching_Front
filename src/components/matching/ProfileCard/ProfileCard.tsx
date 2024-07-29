@@ -11,7 +11,7 @@ import useGetRandomBackgrounds from '@/hooks/useGetRandomBackgrounds/useGetRando
 import MusicCardContainer from '@/components/matching/MusicCardContainer';
 import { CombinedProfileCardProps, ProfileCardProps } from '@/type/ProfileCard/ProfileCard';
 import Tag from '@/components/common/Tag';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { spendCoin } from '@/services/ProfileCard/ProfileCardApi';
 import { toast } from "@/components/ui/use-toast"
 import Fold from '../Fold';
@@ -19,17 +19,18 @@ import UserTaste from '@/components/matching/UserTaste';
 import MoodMusic from '@/components/matching/MoodMusic';
 import SocialButtons from '../SocialButtons';
 import { useCookies } from 'react-cookie';
-import UnFilledModal from '@/components/matching/Modal/UnFilledModal'
 
 const ProfileCard = ({ profileId, memberId, name, birthDate, mbti, tags, oneLineIntroduction, distance, lifeMusics,
-  isOpen, isModalOpen, isLock, handleSetOpen, handleSetModalOpen, handleSetLockOpen, activeIndex }: CombinedProfileCardProps) => {
+  isOpen, isModalOpen, isLock, handleSetOpen, handleSetModalOpen, handleSetLockOpen, activeIndex
+  ,setIsUnfilledModalOpen
+}: CombinedProfileCardProps) => {
 
   // 프로필 데이터
   const [profiles, setProfiles] = useState<ProfileCardProps | undefined>();
 
   const [cookies] = useCookies(['accessToken']);
   const accessToken = cookies.accessToken;
-  
+
   // 배경색 목록  
   const backgrounds = [
     'bg-background-grey',
@@ -43,17 +44,18 @@ const ProfileCard = ({ profileId, memberId, name, birthDate, mbti, tags, oneLine
   const currentBackground = useGetRandomBackgrounds({ backgrounds });
 
   // console.log(`index : ${activeIndex} isLock: ${isLock} isOpen : ${isOpen} ,isModalOpen : ${isModalOpen}`)
-  const ProfileCardStyle = ` ${!isOpen ? 'h-auto my-[calc((100vh-200px-340px)/2)] pb-[20px]' : 'h-auto rounded-[16px] pt-[30px] mt-[80px]'}
-                             mx-[3%] rounded-[16px] ${currentBackground} 
-                             w-[calc(100%-6%)] pt-[30px] 
-                             scrollbar-hide overflow-scroll 
-                             `;
+  const ProfileCardStyle = ` ${!isOpen ? 'h-auto my-[calc((100vh-200px-320px)/2)] pb-[20px] '
+                            : 'h-auto rounded-[16px] mt-[80px]'}
+                            mx-[3%] rounded-[16px] ${currentBackground} 
+                            w-[calc(100%-6%)] pt-[30px] 
+                            scrollbar-hide overflow-scroll 
+                            `;
 
   // 메시지보내기 창 모달 오픈
   const { openMessage, ableSpend, setAbleSpend } = useProfileCardStore();
-  
+
   useEffect(() => {
-    ableSpend && spendCoin(accessToken,profileId)
+    ableSpend && spendCoin(accessToken, profileId)
       .then((response) => {
         setProfiles(response?.data?.profileCardResponse);
         setAbleSpend(false)
@@ -74,18 +76,35 @@ const ProfileCard = ({ profileId, memberId, name, birthDate, mbti, tags, oneLine
   }, [isOpen]);
 
   // 데이터를 채우라는 닥달 모달창
-  const [isUnfilledModalOpen,setIsUnfilledModalOpen] = useState<boolean>(false)
+  // const [isUnfilledModalOpen, setIsUnfilledModalOpen] = useState<boolean>(false)
 
-  // 넘기면서 뛰우기 위해서
-  useEffect(() =>{
-    if(isUnfilledModalOpen){
-     setIsUnfilledModalOpen(true)
+  // 유튜브 모달창
+  const [isYoutubeModalOpen, setIsYoutubeModalOpen] = useState<boolean>(false)
+
+  const isYouTubeModalOpenRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (isYouTubeModalOpenRef.current) {
+      if (isYoutubeModalOpen) {
+        // isYouTubeModalOpenRef.current.style.height = '70vh'
+        isYouTubeModalOpenRef.current.style.marginTop = '-300px'
+        // isYouTubeModalOpenRef.current.style.margin = '0px'
+        // isYouTubeModalOpenRef.current.style.overflow = 'hidden'
+      }
+      else {
+        // isYouTubeModalOpenRef.current.style.height = '';
+        // isYouTubeModalOpenRef.current.style.padding = ''
+        // isYouTubeModalOpenRef.current.style.margin = ''
+        isYouTubeModalOpenRef.current.style.marginTop = ''
+
+      }
     }
-  },[isUnfilledModalOpen])
+  }, [isYoutubeModalOpen]);
+
 
   return (
     <>
-      <div className={ProfileCardStyle}>
+      <div className={ProfileCardStyle} ref={isYouTubeModalOpenRef}>
         {isModalOpen && <UnlockModal
           // setLock={setLock}
           handleSetModalOpen={(activeIndex: number | undefined, value: boolean) => handleSetModalOpen?.(activeIndex, value)}
@@ -96,9 +115,6 @@ const ProfileCard = ({ profileId, memberId, name, birthDate, mbti, tags, oneLine
           isOpen={isOpen}
           currentBackground={currentBackground}
         />}
-
-        {isUnfilledModalOpen && <UnFilledModal
-             setIsUnfilledModalOpen={setIsUnfilledModalOpen } /> }
 
         {/* Top */}
 
@@ -143,13 +159,15 @@ const ProfileCard = ({ profileId, memberId, name, birthDate, mbti, tags, oneLine
         </div>
 
         <MusicCardContainer isOpen={isOpen}>
-        {isOpen &&
+          {isOpen &&
             <p data-testid='music' className={`text-[#2F2F2F] text-s ml-[6%] font-bold my-[8px]`}>
               인생곡 TOP 3
             </p>
           }
           {lifeMusics?.map((item) => (
-            <MusicCard title={item.title} artist={item.artist} url={item.url} isOpen={isOpen} isProilfeCard={true} />
+            <MusicCard title={item.title} artist={item.artist} videoId={item.videoId}
+              isOpen={isOpen} isProilfeCard={true}
+              isYoutubeModalOpen={isYoutubeModalOpen} setIsYoutubeModalOpen={setIsYoutubeModalOpen} />
           ))}
 
         </MusicCardContainer>

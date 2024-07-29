@@ -27,7 +27,7 @@ export type ProfileCardSummaryProps = {
     musicId: number;
     title: string;
     artist: string;
-    url: string;
+    videoId: string;
   }[];
   // 딛혀있을때
   tags: {
@@ -61,7 +61,7 @@ export type ProfileCardProps = {
     musicId: number;
     title: string;
     artist: string;
-    url: string;
+    videoId: string;
   }[];
   
   musicTags?: {
