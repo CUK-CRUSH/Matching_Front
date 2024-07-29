@@ -1,5 +1,5 @@
 import Cropper from 'react-easy-crop';
-import { Button } from '@mui/material';
+
 import ValidationButton from '@/components/validation/validationButton';
 import ValidationPrevButton from '@/components/validation/validationPrevButton';
 import ValidationText from '@/components/validation/validationText';
@@ -7,6 +7,7 @@ import useOnboardingStore from '@/store/validationStore';
 import InnerImage from '@/assets/InnerImage.png';
 import ProgressBar from '@/utils/ProgressBar';
 import { useImageCrop } from '@/hooks/useImageCrop';
+import { Button } from '../ui/button';
 
 const ProfileImagePage = () => {
   const { setCurrentPage, userData } = useOnboardingStore();
@@ -65,10 +66,13 @@ const ProfileImagePage = () => {
       {open && (
         <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black">
           <div className="flex flex-row justify-between p-4 w-full max-w-[430px]">
-            <Button onClick={() => setOpen(false)} className="text-red-500">
+            <Button onClick={() => setOpen(false)} className="text-red-500 bg-transparent">
               취소
             </Button>
-            <Button onClick={() => handleCropComplete(croppedArea)} className="text-green-500">
+            <Button
+              onClick={() => handleCropComplete(croppedArea)}
+              className="text-white bg-transparent"
+            >
               저장
             </Button>
           </div>
