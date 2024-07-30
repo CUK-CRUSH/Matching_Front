@@ -9,7 +9,7 @@ import useGetRandomBackgrounds from '@/hooks/useGetRandomBackgrounds/useGetRando
 import MusicCardContainer from '@/components/matching/MusicCardContainer';
 import { CombinedProfileCardProps, ProfileCardProps } from '@/type/ProfileCard/ProfileCard';
 import Tag from '@/components/common/Tag';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { spendCoin } from '@/services/ProfileCard/ProfileCardApi';
 import { toast } from "@/components/ui/use-toast"
 import Fold from '../Fold';
@@ -18,11 +18,10 @@ import MoodMusic from '@/components/matching/MoodMusic';
 import SocialButtons from '../SocialButtons';
 import { useCookies } from 'react-cookie';
 
-const ProfileCard = ({ profileId, memberId, name, birthDate, mbti, tags, oneLineIntroduction, distance, lifeMusics,
-  isOpen, isLock, handleSetOpen, handleSetModalOpen, handleSetLockOpen, activeIndex 
-  ,setIsUnfilledModalOpen, setIsUnlockModalOpen, isUnlockModalOpen
+const ProfileCard = ({ profileId, name, birthDate, mbti, tags, oneLineIntroduction, distance, lifeMusics,
+  isOpen, isLock, handleSetOpen, handleSetModalOpen, activeIndex 
+  ,setIsUnfilledModalOpen, setIsUnlockModalOpen, setIsYoutubeModalOpen, isUnlockModalOpen
 }: CombinedProfileCardProps) => {
-  console.log(memberId)
   // 프로필 데이터
   const [profiles, setProfiles] = useState<ProfileCardProps | undefined>();
 
@@ -79,11 +78,10 @@ const ProfileCard = ({ profileId, memberId, name, birthDate, mbti, tags, oneLine
       }
   }, [ableSpend]);
 
-  const isYouTubeModalOpenRef = useRef<HTMLDivElement>(null);
 
   return (
     <>
-      <div className={ProfileCardStyle} ref={isYouTubeModalOpenRef}>
+      <div className={ProfileCardStyle} >
         {/* Top */}
 
         <div className={`flex flex-row ml-6`}>
@@ -133,7 +131,7 @@ const ProfileCard = ({ profileId, memberId, name, birthDate, mbti, tags, oneLine
           }
           {lifeMusics?.map((item) => (
             <MusicCard title={item.title} artist={item.artist} videoId={item.videoId}
-              isOpen={isOpen} isProilfeCard={true}
+              isOpen={isOpen} isProilfeCard={true} setIsYoutubeModalOpen={setIsYoutubeModalOpen}
               />
           ))}
 

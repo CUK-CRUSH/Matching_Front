@@ -1,7 +1,7 @@
 import lock from '@/assets/ProfileCard/lock.svg';
 import { ProfileImageProps } from '@/type/ProfileCard/ProfileCard';
 
-const ProfileImage = ({ handleSetOpen, handleSetModalOpen, isLock, activeIndex,profileImageUrl,
+const ProfileImage = ({ handleSetOpen, isLock, activeIndex,profileImageUrl,
                         setIsUnfilledModalOpen, setIsUnlockModalOpen }: ProfileImageProps) => {
   
   const profileImageStyle = profileImageUrl && !isLock ? 

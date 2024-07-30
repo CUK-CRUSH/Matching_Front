@@ -5,8 +5,8 @@ import { UnlockModalProps } from '@/type/ProfileCard/ProfileCard';
 
 import useProfileCardStore from '@/store/profileCardStore';
 
-const UnlockModal = ({ setLock, handleSetOpen, handleSetLockOpen, setIsUnlockModalOpen, isOpen, activeIndex }: UnlockModalProps) => {
-  console.log(activeIndex )
+const UnlockModal = ({ setLock, setIsUnlockModalOpen, isOpen, activeIndex }: UnlockModalProps) => {
+
   const { setAbleSpend, setIndex } = useProfileCardStore();
   // 모달 열고닫기
   const unlockModalRef = useRef<HTMLDivElement>(null);

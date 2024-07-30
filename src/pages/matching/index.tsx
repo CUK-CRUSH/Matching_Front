@@ -15,10 +15,13 @@ import UnFilledModal from "@/components/matching/Modal/UnFilledModal";
 import UnlockModal from "@/components/matching/Modal/UnlockModal";
 import PostMessageModal from '@/components/matching/PostMessageModal';
 import useProfileCardStore from "@/store/profileCardStore";
+import YoutubeModal from "@/components/matching/Modal/YoutubeModal";
+
+
 
 const MatchingPage = () => {
 
-  const { openMessage , memberId} = useProfileCardStore();
+  const { openMessage, videoId } = useProfileCardStore();
 
   // 프로필목록 조회
   const [page, ] = useState(0);
@@ -68,6 +71,9 @@ const MatchingPage = () => {
   
   // 오픈 모달창
   const [isUnlockModalOpen,setIsUnlockModalOpen] = useState<boolean>(false) 
+
+  // 유튜브 모달창
+  const [isYoutubeModalOpen,setIsYoutubeModalOpen] = useState<boolean>(false)
 
   // 오픈상태 
 
@@ -127,13 +133,15 @@ const MatchingPage = () => {
   if (!profileCardData) {
     return <div>Loading...</div>;
   }
-
+  console.log(videoId, isYoutubeModalOpen)
   return (
     <Layout backgroundColor={'#252525'}>
       <ProfileCardHeader />
 
       {isUnfilledModalOpen && <UnFilledModal setIsUnfilledModalOpen={setIsUnfilledModalOpen} />}
       {isUnlockModalOpen && <UnlockModal setIsUnlockModalOpen={setIsUnlockModalOpen} handleSetModalOpen={handleSetModalOpen} activeIndex={profiles?.[swiperIndex].profileId}/>}
+      {isYoutubeModalOpen && <YoutubeModal videoId={videoId} setIsYoutubeModalOpen={setIsYoutubeModalOpen} />}
+
       {openMessage && <PostMessageModal />}
 
       <Swiper  
@@ -153,6 +161,7 @@ const MatchingPage = () => {
               handleSetLockOpen={handleSetLockOpen}
               setIsUnfilledModalOpen={setIsUnfilledModalOpen}
               setIsUnlockModalOpen={setIsUnlockModalOpen}
+              setIsYoutubeModalOpen={setIsYoutubeModalOpen}
               isUnlockModalOpen={isUnlockModalOpen}
             />
           </SwiperSlide>

@@ -48,6 +48,7 @@ export type UnFilledModalProps = {
 
 export type YouTubeModalProps = {
   videoId?: string;
+  setIsYoutubeModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 export type OneLineIntroductionProps = {
   oneLineIntroduction? : string;
@@ -138,7 +139,7 @@ export type OpenProfileCardProps = {
   handleSetLockOpen? : (index: number | undefined, value: boolean) => void;
   setIsUnfilledModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   setIsUnlockModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
-
+  setIsYoutubeModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   isUnlockModalOpen?: boolean;
 }
 

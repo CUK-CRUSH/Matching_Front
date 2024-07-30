@@ -18,6 +18,10 @@ const useProfileCardStore = create<ProfileCardState>((set) => ({
 
     memberId: undefined,
     setMemberId: (newIndex: number | undefined) => set((state) => ({ ...state, memberId: newIndex })), // 상태 유지
+
+    videoId: '', // 초기값을 빈 문자열로 설정
+    setVideoId: (newIndex?: string) => set((state) => ({ ...state, videoId: newIndex })), // 상태 유지
+    
 }));
 
 export default useProfileCardStore;
