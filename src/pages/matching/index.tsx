@@ -12,6 +12,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getProfileCardData } from "@/services/ProfileCard/ProfileCardApi";
 import { useCookies } from "react-cookie";
 import UnFilledModal from "@/components/matching/Modal/UnFilledModal";
+import UnlockModal from "@/components/matching/Modal/UnlockModal";
 
 const MatchingPage = () => {
 
@@ -60,9 +61,12 @@ const MatchingPage = () => {
 
   const [swiperIndex, setSwiperIndex] = useState(0);
 
-  // 모달창
+  // 닥달 모달창
   const [isUnfilledModalOpen,setIsUnfilledModalOpen] = useState<boolean>(false)
   
+  // 오픈 모달창
+  const [isUnlockModalOpen,setIsUnlockModalOpen] = useState<boolean>(false) 
+
   // 프로필카드 열기
   const handleSetOpen = (activeIndex: number | undefined, value: boolean) => {
     setProfiles((prev) =>
@@ -123,8 +127,10 @@ const MatchingPage = () => {
   return (
     <Layout backgroundColor={'#252525'}>
       <ProfileCardHeader />
-      {isUnfilledModalOpen && <UnFilledModal setIsUnfilledModalOpen={setIsUnfilledModalOpen} />}
       
+      {isUnfilledModalOpen && <UnFilledModal setIsUnfilledModalOpen={setIsUnfilledModalOpen} />}
+      {isUnlockModalOpen && <UnlockModal setIsUnlockModalOpen={setIsUnlockModalOpen} />}
+
       <Swiper  
         onActiveIndexChange={handleActiveIndexChange}
         >
@@ -141,6 +147,7 @@ const MatchingPage = () => {
               handleSetModalOpen={handleSetModalOpen}
               handleSetLockOpen={handleSetLockOpen}
               setIsUnfilledModalOpen={setIsUnfilledModalOpen}
+              setIsUnlockModalOpen={setIsUnlockModalOpen}
             />
           </SwiperSlide>
         ))}

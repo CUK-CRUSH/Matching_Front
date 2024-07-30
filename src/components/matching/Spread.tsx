@@ -1,7 +1,7 @@
 import doubleDown from '@/assets/ProfileCard/double-down.svg';
 import { SpreadProfileCardImageProps } from '@/type/ProfileCard/ProfileCard';
 
-const Spread = ({ handleSetModalOpen,handleSetOpen,isLock,activeIndex,setIsUnfilledModalOpen }: SpreadProfileCardImageProps) => {
+const Spread = ({ handleSetModalOpen,handleSetOpen,isLock,activeIndex,setIsUnfilledModalOpen,setIsUnlockModalOpen }: SpreadProfileCardImageProps) => {
 
   return (
     <div className={`w-full flex justify-center items-center cursor-pointer`}          
@@ -10,11 +10,11 @@ const Spread = ({ handleSetModalOpen,handleSetOpen,isLock,activeIndex,setIsUnfil
         setIsUnfilledModalOpen?.(true)
       }
       else if (isLock) {
-          handleSetModalOpen(activeIndex, true);
+        setIsUnlockModalOpen?.(true);
 
       } else {
           handleSetOpen(activeIndex, true);
-          handleSetModalOpen(activeIndex, true);
+          setIsUnlockModalOpen?.(true);
       }
     }}     
 >

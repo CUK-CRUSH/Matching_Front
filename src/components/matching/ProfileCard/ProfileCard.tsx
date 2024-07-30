@@ -22,7 +22,7 @@ import { useCookies } from 'react-cookie';
 
 const ProfileCard = ({ profileId, memberId, name, birthDate, mbti, tags, oneLineIntroduction, distance, lifeMusics,
   isOpen, isModalOpen, isLock, handleSetOpen, handleSetModalOpen, handleSetLockOpen, activeIndex
-  ,setIsUnfilledModalOpen
+  ,setIsUnfilledModalOpen, setIsUnlockModalOpen
 }: CombinedProfileCardProps) => {
 
   // 프로필 데이터
@@ -105,17 +105,6 @@ const ProfileCard = ({ profileId, memberId, name, birthDate, mbti, tags, oneLine
   return (
     <>
       <div className={ProfileCardStyle} ref={isYouTubeModalOpenRef}>
-        {isModalOpen && <UnlockModal
-          // setLock={setLock}
-          handleSetModalOpen={(activeIndex: number | undefined, value: boolean) => handleSetModalOpen?.(activeIndex, value)}
-          handleSetOpen={(activeIndex: number | undefined, value: boolean) => handleSetOpen?.(activeIndex, value)}
-          handleSetLockOpen={(activeIndex: number | undefined, value: boolean) => handleSetLockOpen?.(activeIndex, value)}
-          activeIndex={activeIndex}
-          profileId={profileId}
-          isOpen={isOpen}
-          currentBackground={currentBackground}
-        />}
-
         {/* Top */}
 
         <div className={`flex flex-row ml-6`}>
@@ -123,6 +112,7 @@ const ProfileCard = ({ profileId, memberId, name, birthDate, mbti, tags, oneLine
             handleSetModalOpen={(activeIndex: number | undefined, value: boolean) => handleSetModalOpen?.(activeIndex, value)}
             handleSetOpen={(activeIndex: number | undefined, value: boolean) => handleSetOpen?.(activeIndex, value)}
             setIsUnfilledModalOpen={setIsUnfilledModalOpen}
+            setIsUnlockModalOpen={setIsUnlockModalOpen}
             isLock={isLock}
             activeIndex={activeIndex}
             profileImageUrl={profiles?.profileImageUrl}
@@ -178,6 +168,7 @@ const ProfileCard = ({ profileId, memberId, name, birthDate, mbti, tags, oneLine
               handleSetModalOpen={(activeIndex: number | undefined, value: boolean) => handleSetModalOpen?.(activeIndex, value)}
               handleSetOpen={(activeIndex: number | undefined, value: boolean) => handleSetOpen?.(activeIndex, value)}
               setIsUnfilledModalOpen={setIsUnfilledModalOpen}
+              setIsUnlockModalOpen={setIsUnlockModalOpen}
               isLock={isLock}
               activeIndex={activeIndex}
             />

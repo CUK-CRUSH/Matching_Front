@@ -5,7 +5,7 @@ import {  UnlockModalProps } from '@/type/ProfileCard/ProfileCard';
 
 import useProfileCardStore from '@/store/profileCardStore';
 
-const UnlockModal = ({ setLock, handleSetOpen, handleSetModalOpen,handleSetLockOpen, isOpen,  activeIndex }: UnlockModalProps) => {
+const UnlockModal = ({ setLock, handleSetOpen, handleSetModalOpen,handleSetLockOpen,setIsUnlockModalOpen, isOpen,  activeIndex }: UnlockModalProps) => {
   
   const { setAbleSpend } = useProfileCardStore();
   // 모달 열고닫기
@@ -13,7 +13,6 @@ const UnlockModal = ({ setLock, handleSetOpen, handleSetModalOpen,handleSetLockO
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (unlockModalRef.current && !unlockModalRef.current.contains(event.target as Node)) {
-        // setLock(prevState => !prevState)
       }
     };
 
@@ -25,8 +24,8 @@ const UnlockModal = ({ setLock, handleSetOpen, handleSetModalOpen,handleSetLockO
 
   // 확인버튼 클릭시 재화 2 소모
   const openProfileCard = async () => {
-      handleSetOpen(activeIndex, true)
-      handleSetLockOpen(activeIndex, false)
+      handleSetOpen?.(activeIndex, true)
+      setIsUnlockModalOpen?.(false)
       setAbleSpend(true)
     // setOpenModal(false);
    
@@ -42,7 +41,7 @@ const UnlockModal = ({ setLock, handleSetOpen, handleSetModalOpen,handleSetLockO
             <p className={`text-[#2f2f2f] text-[0.8rem]`}>프로필 잠금을 해제할까요?</p>
             <p className={`text-[#2f2f2f] text-[0.8rem]`}>'2' 재화를 소모합니다.</p>
             <div className={`flex justify-center mt-4`}>
-              <Button className={`mr-4 w-[85px]`} variant="secondary" size="sm" onClick={() => handleSetModalOpen(activeIndex, false)
+              <Button className={`mr-4 w-[85px]`} variant="secondary" size="sm" onClick={() => setIsUnlockModalOpen?.(false)
               }>
                 취소
               </Button>

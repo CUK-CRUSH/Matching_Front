@@ -2,6 +2,7 @@ export type ProfileImageProps = {
   handleSetOpen?: (index: number | undefined, value: boolean) => void;
   handleSetModalOpen?: (index: number | undefined, value: boolean) => void;
   setIsUnfilledModalOpen?: (value : boolean) => void;
+  setIsUnlockModalOpen? : React.Dispatch<React.SetStateAction<boolean>>;
   isLock? : boolean;
   activeIndex? : number;
   profileImageUrl? : string;
@@ -11,6 +12,7 @@ export type SpreadProfileCardImageProps = {
   handleSetOpen: (index: number | undefined, value: boolean) => void;
   handleSetModalOpen: (index: number | undefined, value: boolean) => void;
   setIsUnfilledModalOpen?: (value : boolean) => void;
+  setIsUnlockModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   isLock? : boolean;
   profileId? : number;
 
@@ -24,14 +26,15 @@ export type FoldProfileCardImageProps = {
 };
 export type UnlockModalProps = {
   setLock?: React.Dispatch<React.SetStateAction<boolean>>;
-  handleSetOpen: (index: number | undefined, value: boolean) => void;
-  handleSetModalOpen:  (index: number | undefined, value: boolean) => void;
-  handleSetLockOpen: (index: number | undefined, value: boolean) => void;
+  handleSetOpen?: (index: number | undefined, value: boolean) => void;
+  handleSetModalOpen?:  (index: number | undefined, value: boolean) => void;
+  handleSetLockOpen?: (index: number | undefined, value: boolean) => void;
+  setIsUnlockModalOpen? : React.Dispatch<React.SetStateAction<boolean>>;
   profileId? : number;
   isOpen? : boolean;
   isLock? : boolean;
   activeIndex? : number;
-  currentBackground : string;
+  currentBackground? : string;
 };
 
 export type UnFilledModalProps = {
@@ -132,7 +135,8 @@ export type OpenProfileCardProps = {
   handleSetOpen? : (index: number | undefined, value: boolean) => void;
   handleSetModalOpen? : (index: number | undefined, value: boolean) => void;
   handleSetLockOpen? : (index: number | undefined, value: boolean) => void;
-  setIsUnfilledModalOpen?: React.Dispatch<React.SetStateAction<boolean>>
+  setIsUnfilledModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsUnlockModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export type CombinedProfileCardProps = ProfileCardProps & OpenProfileCardProps;
