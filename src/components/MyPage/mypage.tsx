@@ -10,13 +10,12 @@ import { MainInfoDataDTO } from '@/type/services/Mypage/MypageDTO';
 import CircularProgressWithLabel from '@/utils/CircularProgressWithLabel ';
 import UseAccessToken from '@/hooks/useAccessToken';
 import Unlock from '@/assets/ProfileCard/Unlock.svg';
-import useDecodedJWT from '@/hooks/useDecodedToken';
 
 const MyPageMain = () => {
   const { setCurrentPage } = useMyPageStore();
 
   const accessToken = UseAccessToken();
-  console.log(useDecodedJWT(accessToken));
+
   const {
     data: mainData,
     error,
