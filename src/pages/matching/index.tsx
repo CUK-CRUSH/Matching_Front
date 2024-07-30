@@ -44,7 +44,6 @@ const MatchingPage = () => {
         setProfiles((prevProfiles) => {
           const newProfiles = response.data.profileCardSummaryResponses.map(profile => ({
             ...profile,
-            isModalOpen: false,
             isLock: true,
             isOpen: false,
           }));
@@ -54,7 +53,6 @@ const MatchingPage = () => {
       }
     );
     }
-    
     
   }, [page, size, radius , isLastPage]);
   
@@ -66,6 +64,8 @@ const MatchingPage = () => {
   
   // 오픈 모달창
   const [isUnlockModalOpen,setIsUnlockModalOpen] = useState<boolean>(false) 
+
+  // 오픈상태 
 
   // 프로필카드 열기
   const handleSetOpen = (activeIndex: number | undefined, value: boolean) => {
@@ -104,8 +104,8 @@ const MatchingPage = () => {
     if (swiperIndex !== newIndex) {
       handleSetOpen(swiperIndex - 1, false);  // 이전 슬라이드 상태 초기화
       handleSetOpen(swiperIndex + 1, false);  // 이전 슬라이드 상태 초기화
-      handleSetModalOpen(swiperIndex + 1, false);  // 이전 슬라이드 상태 초기화
-      handleSetModalOpen(swiperIndex - 1, false)
+      setIsUnlockModalOpen(false)
+      setIsUnfilledModalOpen(false)
     }
 
     // 현재 슬라이드 상태 업데이트
@@ -127,9 +127,9 @@ const MatchingPage = () => {
   return (
     <Layout backgroundColor={'#252525'}>
       <ProfileCardHeader />
-      
+
       {isUnfilledModalOpen && <UnFilledModal setIsUnfilledModalOpen={setIsUnfilledModalOpen} />}
-      {isUnlockModalOpen && <UnlockModal setIsUnlockModalOpen={setIsUnlockModalOpen} />}
+      {isUnlockModalOpen && <UnlockModal setIsUnlockModalOpen={setIsUnlockModalOpen} handleSetModalOpen={handleSetModalOpen} activeIndex={profiles?.[swiperIndex].profileId}/>}
 
       <Swiper  
         onActiveIndexChange={handleActiveIndexChange}
@@ -137,17 +137,18 @@ const MatchingPage = () => {
           
         {profiles?.map((item, index) => (
           <SwiperSlide 
-            
             key={index}
-            >
+          >
             <ProfileCard {...item}
-            
+              index={item?.profileId}
+
               activeIndex={swiperIndex}
               handleSetOpen={handleSetOpen}
               handleSetModalOpen={handleSetModalOpen}
               handleSetLockOpen={handleSetLockOpen}
               setIsUnfilledModalOpen={setIsUnfilledModalOpen}
               setIsUnlockModalOpen={setIsUnlockModalOpen}
+              isUnlockModalOpen={isUnlockModalOpen}
             />
           </SwiperSlide>
         ))}

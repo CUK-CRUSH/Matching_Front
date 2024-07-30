@@ -1,18 +1,20 @@
 import { useRef, useEffect } from 'react';
 import star from '@/assets/ProfileCard/stars.svg';
 import { Button } from '@/components/ui/button';
-import {  UnlockModalProps } from '@/type/ProfileCard/ProfileCard';
+import { UnlockModalProps } from '@/type/ProfileCard/ProfileCard';
 
 import useProfileCardStore from '@/store/profileCardStore';
 
-const UnlockModal = ({ setLock, handleSetOpen, handleSetModalOpen,handleSetLockOpen,setIsUnlockModalOpen, isOpen,  activeIndex }: UnlockModalProps) => {
-  
-  const { setAbleSpend } = useProfileCardStore();
+const UnlockModal = ({ setLock, handleSetOpen, handleSetLockOpen, setIsUnlockModalOpen, isOpen, activeIndex }: UnlockModalProps) => {
+  console.log(activeIndex )
+  const { setAbleSpend, setIndex } = useProfileCardStore();
   // 모달 열고닫기
   const unlockModalRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (unlockModalRef.current && !unlockModalRef.current.contains(event.target as Node)) {
+        // setLock(prevState => !prevState)
       }
     };
 
@@ -24,12 +26,10 @@ const UnlockModal = ({ setLock, handleSetOpen, handleSetModalOpen,handleSetLockO
 
   // 확인버튼 클릭시 재화 2 소모
   const openProfileCard = async () => {
-      handleSetOpen?.(activeIndex, true)
-      setIsUnlockModalOpen?.(false)
-      setAbleSpend(true)
-    // setOpenModal(false);
-   
+    setAbleSpend(true)
+    setIndex(activeIndex)
   };
+
   return (
     <>
       {!isOpen &&
@@ -59,6 +59,5 @@ const UnlockModal = ({ setLock, handleSetOpen, handleSetModalOpen,handleSetLockO
     </>
   );
 };
-// eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzNCIsInR5cGUiOiJhY2Nlc3NfdG9rZW4iLCJpYXQiOjE3MTk5ODYzOTAsImV4cCI6MTcyODYyNjM5MH0.EcExLId_N1DVjFJPrz50l4kj2mQHqcSZGpnv0oR3kSs 
 
 export default UnlockModal;

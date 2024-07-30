@@ -1,7 +1,6 @@
 import ProfileImage from '@/components/matching/ProfileImage';
 import Name from "@/components/common/Name"
 import Comment from '@/components/matching/Comment';
-import UnlockModal from '@/components/matching/Modal/UnlockModal';
 import Spread from '@/components/matching/Spread';
 import MusicCard from '@/components/common/MusicCard';
 import BlankMusicCard from '@/components/matching/BlankMusicCard';
@@ -21,10 +20,9 @@ import SocialButtons from '../SocialButtons';
 import { useCookies } from 'react-cookie';
 
 const ProfileCard = ({ profileId, memberId, name, birthDate, mbti, tags, oneLineIntroduction, distance, lifeMusics,
-  isOpen, isModalOpen, isLock, handleSetOpen, handleSetModalOpen, handleSetLockOpen, activeIndex
-  ,setIsUnfilledModalOpen, setIsUnlockModalOpen
+  isOpen, isLock, handleSetOpen, handleSetModalOpen, handleSetLockOpen, activeIndex 
+  ,setIsUnfilledModalOpen, setIsUnlockModalOpen, isUnlockModalOpen
 }: CombinedProfileCardProps) => {
-
   // 프로필 데이터
   const [profiles, setProfiles] = useState<ProfileCardProps | undefined>();
 
@@ -52,55 +50,39 @@ const ProfileCard = ({ profileId, memberId, name, birthDate, mbti, tags, oneLine
                             `;
 
   // 메시지보내기 창 모달 오픈
-  const { openMessage, ableSpend, setAbleSpend } = useProfileCardStore();
+  const { openMessage, ableSpend, setAbleSpend,index } = useProfileCardStore();
 
   useEffect(() => {
-    ableSpend && spendCoin(accessToken, profileId)
-      .then((response) => {
-        setProfiles(response?.data?.profileCardResponse);
-        setAbleSpend(false)
-        toast({
-          title: "잠금해제 완료!",
-          className: 'h-[40px] w-[90%] bg-[#252525] text-[#fff] fixed top-[60px] left-1/2 transform -translate-x-1/2 flex justify-center border-0 exceed:w-[358px]'
-        });
-      })
-      .catch((error) => {
-        // 에러 메시지
-        alert(error.message);
-        handleSetOpen?.(profileId, false)
-        setAbleSpend(false)
+      if (ableSpend && isUnlockModalOpen && index === profileId) {
+          console.log(index === profileId)
 
-        console.error('Error spending coin:', error);
-        // 에러 처리
-      });
-  }, [isOpen]);
-
-  // 데이터를 채우라는 닥달 모달창
-  // const [isUnfilledModalOpen, setIsUnfilledModalOpen] = useState<boolean>(false)
+          spendCoin(accessToken, profileId)
+              .then((response) => {
+  
+                  setProfiles(response?.data?.profileCardResponse);
+                  handleSetOpen?.(activeIndex, true);
+                  setAbleSpend(false); // 상태를 false로 설정하여 반복 실행 방지
+                  setIsUnlockModalOpen?.(false);
+                  toast({
+                      title: "잠금 해제 완료!",
+                      className: 'h-[40px] w-[90%] bg-[#252525] text-[#fff] fixed top-[60px] left-1/2 transform -translate-x-1/2 flex justify-center border-0 exceed:w-[358px]',
+                  });
+              })
+              .catch((error) => {
+                  // 에러 메시지
+                  alert(error.message);
+                  handleSetOpen?.(activeIndex, false);
+                  setAbleSpend(false); // 오류 발생 시에도 상태를 false로 설정
+  
+                  console.error('Error spending coin:', error);
+                  // 에러 처리
+              });
+      }
+  }, [ableSpend]);
 
   // 유튜브 모달창
-  const [isYoutubeModalOpen, setIsYoutubeModalOpen] = useState<boolean>(false)
 
   const isYouTubeModalOpenRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (isYouTubeModalOpenRef.current) {
-      if (isYoutubeModalOpen) {
-        // isYouTubeModalOpenRef.current.style.height = '70vh'
-        isYouTubeModalOpenRef.current.style.marginTop = '-300px'
-        // isYouTubeModalOpenRef.current.style.margin = '0px'
-        // isYouTubeModalOpenRef.current.style.overflow = 'hidden'
-      }
-      else {
-        // isYouTubeModalOpenRef.current.style.height = '';
-        // isYouTubeModalOpenRef.current.style.padding = ''
-        // isYouTubeModalOpenRef.current.style.margin = ''
-        isYouTubeModalOpenRef.current.style.marginTop = ''
-
-      }
-    }
-  }, [isYoutubeModalOpen]);
-
 
   return (
     <>
@@ -157,7 +139,7 @@ const ProfileCard = ({ profileId, memberId, name, birthDate, mbti, tags, oneLine
           {lifeMusics?.map((item) => (
             <MusicCard title={item.title} artist={item.artist} videoId={item.videoId}
               isOpen={isOpen} isProilfeCard={true}
-              isYoutubeModalOpen={isYoutubeModalOpen} setIsYoutubeModalOpen={setIsYoutubeModalOpen} />
+              />
           ))}
 
         </MusicCardContainer>

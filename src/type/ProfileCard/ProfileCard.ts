@@ -25,7 +25,7 @@ export type FoldProfileCardImageProps = {
 
 };
 export type UnlockModalProps = {
-  setLock?: React.Dispatch<React.SetStateAction<boolean>>;
+  setLock?: any
   handleSetOpen?: (index: number | undefined, value: boolean) => void;
   handleSetModalOpen?:  (index: number | undefined, value: boolean) => void;
   handleSetLockOpen?: (index: number | undefined, value: boolean) => void;
@@ -126,6 +126,7 @@ export type ProfileCardProps = {
   isLock? : boolean;
   activeIndex? : number;
   currentBackground? :string;
+  index? : number;
 
   // 코인여부
   coin? :boolean;
@@ -137,6 +138,8 @@ export type OpenProfileCardProps = {
   handleSetLockOpen? : (index: number | undefined, value: boolean) => void;
   setIsUnfilledModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   setIsUnlockModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+
+  isUnlockModalOpen?: boolean;
 }
 
 export type CombinedProfileCardProps = ProfileCardProps & OpenProfileCardProps;
