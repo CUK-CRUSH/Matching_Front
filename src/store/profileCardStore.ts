@@ -15,6 +15,9 @@ const useProfileCardStore = create<ProfileCardState>((set) => ({
 
     index: undefined,
     setIndex: (newIndex: number | undefined) => set((state) => ({ ...state, index: newIndex })), // 상태 유지
+
+    memberId: undefined,
+    setMemberId: (newIndex: number | undefined) => set((state) => ({ ...state, memberId: newIndex })), // 상태 유지
 }));
 
 export default useProfileCardStore;

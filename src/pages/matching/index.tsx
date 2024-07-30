@@ -13,8 +13,12 @@ import { getProfileCardData } from "@/services/ProfileCard/ProfileCardApi";
 import { useCookies } from "react-cookie";
 import UnFilledModal from "@/components/matching/Modal/UnFilledModal";
 import UnlockModal from "@/components/matching/Modal/UnlockModal";
+import PostMessageModal from '@/components/matching/PostMessageModal';
+import useProfileCardStore from "@/store/profileCardStore";
 
 const MatchingPage = () => {
+
+  const { openMessage , memberId} = useProfileCardStore();
 
   // 프로필목록 조회
   const [page, ] = useState(0);
@@ -130,6 +134,7 @@ const MatchingPage = () => {
 
       {isUnfilledModalOpen && <UnFilledModal setIsUnfilledModalOpen={setIsUnfilledModalOpen} />}
       {isUnlockModalOpen && <UnlockModal setIsUnlockModalOpen={setIsUnlockModalOpen} handleSetModalOpen={handleSetModalOpen} activeIndex={profiles?.[swiperIndex].profileId}/>}
+      {openMessage && <PostMessageModal />}
 
       <Swiper  
         onActiveIndexChange={handleActiveIndexChange}

@@ -31,7 +31,9 @@ const FormSchema = z.object({
     .max(200,"최대 200자까지 입력가능합니다.")
 })
 
-const PostMessageModal = ({ memberId} : PostMessageModalProps) => {
+const PostMessageModal = () => {
+    
+  const { setOpenMessage , memberId} = useProfileCardStore();
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -49,6 +51,7 @@ const PostMessageModal = ({ memberId} : PostMessageModalProps) => {
   
 
   const onSubmit = async (formData: z.infer<typeof FormSchema>) => {
+    console.log(memberId)
     try {
       // postMessage 함수 호출하여 API에 데이터 전송
       await postMessage(
@@ -78,10 +81,9 @@ const PostMessageModal = ({ memberId} : PostMessageModalProps) => {
         'h-[40px] w-[90%] fixed top-[60px] left-1/2 transform -translate-x-1/2 flex justify-center rounded-[8px] exceed:w-[358px]',
     })
   }
-  const { setOpenMessage } = useProfileCardStore();
 
   return (
-    <div className={`fixed inset-0 bg-[#000] bg-opacity-30 flex justify-center items-center `} onClick={setOpenMessage} data-testid="postMessageModalText">
+    <div className={`fixed inset-0 bg-[#000] bg-opacity-30 flex justify-center items-center z-50 `} onClick={setOpenMessage} data-testid="postMessageModalText">
 
       <Form {...form}>
         <form data-testid='submit' onSubmit={form.handleSubmit(onSubmit, onError)} className="w-[300px] h-[350px] px-6 py-5 space-y-6 bg-[#fff] rounded-2xl"

@@ -5,7 +5,6 @@ import Spread from '@/components/matching/Spread';
 import MusicCard from '@/components/common/MusicCard';
 import BlankMusicCard from '@/components/matching/BlankMusicCard';
 import useProfileCardStore from '@/store/profileCardStore';
-import PostMessageModal from '@/components/matching/PostMessageModal';
 import useGetRandomBackgrounds from '@/hooks/useGetRandomBackgrounds/useGetRandomBackgrounds';
 import MusicCardContainer from '@/components/matching/MusicCardContainer';
 import { CombinedProfileCardProps, ProfileCardProps } from '@/type/ProfileCard/ProfileCard';
@@ -23,6 +22,7 @@ const ProfileCard = ({ profileId, memberId, name, birthDate, mbti, tags, oneLine
   isOpen, isLock, handleSetOpen, handleSetModalOpen, handleSetLockOpen, activeIndex 
   ,setIsUnfilledModalOpen, setIsUnlockModalOpen, isUnlockModalOpen
 }: CombinedProfileCardProps) => {
+  console.log(memberId)
   // 프로필 데이터
   const [profiles, setProfiles] = useState<ProfileCardProps | undefined>();
 
@@ -42,19 +42,17 @@ const ProfileCard = ({ profileId, memberId, name, birthDate, mbti, tags, oneLine
   const currentBackground = useGetRandomBackgrounds({ backgrounds });
 
   // console.log(`index : ${activeIndex} isLock: ${isLock} isOpen : ${isOpen} ,isModalOpen : ${isModalOpen}`)
-  const ProfileCardStyle = ` ${!isOpen ? 'h-auto my-[calc((100vh-200px-320px)/2)] pb-[20px] '
-                            : 'h-auto rounded-[16px] mt-[80px]'}
-                            mx-[3%] rounded-[16px] ${currentBackground} 
-                            w-[calc(100%-6%)] pt-[30px] 
-                            scrollbar-hide overflow-scroll 
-                            `;
+  const ProfileCardStyle = ` ${!isOpen ? 'h-auto my-[calc((100vh-200px-340px)/2)] pb-[20px]' : 'h-auto rounded-[16px] pt-[30px] mt-[80px]'}
+                                mx-[3%] rounded-[16px] ${currentBackground} 
+                                w-[calc(100%-6%)] pt-[30px] 
+                                scrollbar-hide overflow-scroll 
+                                `;
 
   // 메시지보내기 창 모달 오픈
-  const { openMessage, ableSpend, setAbleSpend,index } = useProfileCardStore();
+  const { ableSpend, setAbleSpend,index,setMemberId } = useProfileCardStore();
 
   useEffect(() => {
       if (ableSpend && isUnlockModalOpen && index === profileId) {
-          console.log(index === profileId)
 
           spendCoin(accessToken, profileId)
               .then((response) => {
@@ -62,6 +60,7 @@ const ProfileCard = ({ profileId, memberId, name, birthDate, mbti, tags, oneLine
                   setProfiles(response?.data?.profileCardResponse);
                   handleSetOpen?.(activeIndex, true);
                   setAbleSpend(false); // 상태를 false로 설정하여 반복 실행 방지
+                  profiles?.memberId && setMemberId(profiles?.memberId)
                   setIsUnlockModalOpen?.(false);
                   toast({
                       title: "잠금 해제 완료!",
@@ -80,8 +79,6 @@ const ProfileCard = ({ profileId, memberId, name, birthDate, mbti, tags, oneLine
       }
   }, [ableSpend]);
 
-  // 유튜브 모달창
-
   const isYouTubeModalOpenRef = useRef<HTMLDivElement>(null);
 
   return (
@@ -99,8 +96,6 @@ const ProfileCard = ({ profileId, memberId, name, birthDate, mbti, tags, oneLine
             activeIndex={activeIndex}
             profileImageUrl={profiles?.profileImageUrl}
           />
-
-          {openMessage && <PostMessageModal memberId={memberId} />}
 
           <div className={`flex flex-col ml-[5%]`}>
             <Name name={name} birthDate={birthDate} mbti={mbti} distance={distance} isProfileCard={true} />

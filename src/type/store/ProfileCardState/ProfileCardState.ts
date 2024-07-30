@@ -7,4 +7,6 @@ export interface ProfileCardState {
   setAbleSpend: (value : boolean) => void;
   index? : number;
   setIndex: (newIndex: number | undefined) => void; // setIndex 메서드 추가
+  memberId? : number;
+  setMemberId: (newIndex: number | undefined) => void; // setIndex 메서드 추가
 }
