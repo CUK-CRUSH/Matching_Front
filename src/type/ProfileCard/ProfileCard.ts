@@ -44,7 +44,7 @@ export type UnFilledModalProps = {
 };
 
 export type YouTubeModalProps = {
-  url?: string;
+  videoId?: string;
 }
 export type OneLineIntroductionProps = {
   oneLineIntroduction? : string;
@@ -91,7 +91,7 @@ export type ProfileCardProps = {
     musicId: number;
     title: string;
     artist: string;
-    url: string;
+    videoId: string;
   }[];
   tags?: {
     name : string;
@@ -117,6 +117,7 @@ export type ProfileCardProps = {
   }
   selfIntroduction? : string;
   likeableMusicTaste? : string;
+  likeState? : boolean;
   isOpen? : boolean;
   isModalOpen? : boolean;
   isLock? : boolean;
@@ -131,6 +132,7 @@ export type OpenProfileCardProps = {
   handleSetOpen? : (index: number | undefined, value: boolean) => void;
   handleSetModalOpen? : (index: number | undefined, value: boolean) => void;
   handleSetLockOpen? : (index: number | undefined, value: boolean) => void;
+  setIsUnfilledModalOpen?: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export type CombinedProfileCardProps = ProfileCardProps & OpenProfileCardProps;
@@ -139,4 +141,5 @@ export type CombinedProfileCardProps = ProfileCardProps & OpenProfileCardProps;
 
 export type SocialButtonsProps = {
   profileId? : number
+  likeState? : boolean
 }

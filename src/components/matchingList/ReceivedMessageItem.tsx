@@ -2,7 +2,7 @@ import useGetRandomBackgrounds from "@/hooks/useGetRandomBackgrounds/useGetRando
 
 import { useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
-import Name from "../common/Name";
+import Name from '@/components/common/Name'
 import Tag from "../common/Tag";
 import { MessageItemProps } from "@/type/services/LikeProfileCard/LikeProfileCard";
 import ClickedMessagePopUp from "./ClickedMessagePopUp";
