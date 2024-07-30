@@ -17,4 +17,5 @@ export interface ValidationTextDTO {
   readonly titleTexts: string[];
   readonly descriptionTexts?: string[];
   readonly titleTextColor?: string;
+  readonly marginTop?: string;
 }

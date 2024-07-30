@@ -18,7 +18,8 @@ export type MyPageState = {
     | 'location'
     | 'mood'
     | 'musicEdit'
-    | 'signout';
+    | 'signout'
+    | 'prepare';
   setCurrentPage: (page: MyPageState['currentPage']) => void;
 
   selectedMBTI: MBTIState;

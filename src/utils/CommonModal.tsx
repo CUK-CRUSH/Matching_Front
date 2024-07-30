@@ -17,7 +17,7 @@ const CommonModal = ({
         onClick={(e) => e.stopPropagation()}
         data-testid="ModalText"
       >
-        <img src={imageSrc} alt="modal" className={`w-[2rem] h-[2rem] mb-[1.5rem]`} />
+        {imageSrc && <img src={imageSrc} alt="modal" className={`w-[2rem] h-[2rem] mb-[1.5rem]`} />}
         <p className="text-[#2f2f2f] text-[0.8rem] text-center">{mainText}</p>
         {subText && <p className="text-[#2f2f2f] text-[0.8rem] text-center">{subText}</p>}
         <div className="flex justify-center mt-4">

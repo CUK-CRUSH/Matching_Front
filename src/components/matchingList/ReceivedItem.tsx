@@ -1,6 +1,6 @@
 import { ItemProps } from "@/type/MatchingList/MatchingList";
 import useGetRandomBackgrounds from "@/hooks/useGetRandomBackgrounds/useGetRandomBackgrounds";
-import Name from "@/components/common/Name";
+import Name from "@/components/common/Name"
 import Tag from "@/components/common/Tag";
 import MusicCard from "@/components/common/MusicCard";
 import { useNavigate } from "react-router-dom";

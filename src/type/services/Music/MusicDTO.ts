@@ -1,6 +1,6 @@
 // Type definitions for individual music items
 export type MusicDTO = {
-  id: string;
+  videoId: string;
   title: string;
   thumbnail: {
     url: string;
@@ -22,7 +22,7 @@ export type MusicItem = {
   musicId?: number;
   title: string;
   artist: string;
-  url: string;
+  videoId: string;
 };
 
 // Type definition for the request body
@@ -41,7 +41,7 @@ export type LifeMusicItem = {
   musicId?: number;
   title: string;
   artist: string;
-  url: string;
+  videoId: string;
 };
 
 // Type definitions for mood object (used in user profile)
@@ -62,5 +62,4 @@ export type MoodDataDTO = {
   title: string;
   artist: string;
   moodImage?: string;
-  isDeleteImage: boolean;
 };

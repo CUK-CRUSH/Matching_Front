@@ -1,7 +1,7 @@
 import { useState } from "react";
 import MusicCard from "../common/MusicCard";
 import Tag from "../common/Tag";
-import Name from "../common/Name";
+import Name from '@/components/common/Name'
 import { MessageItemProps } from "@/type/services/LikeProfileCard/LikeProfileCard";
 import ClickedMessagePopUp from "./ClickedMessagePopUp";
 import Time from "../common/Time";

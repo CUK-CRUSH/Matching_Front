@@ -93,6 +93,7 @@ const MatchingPage = () => {
   
   // 슬라이드하면 이전 카드 접기
   const handleActiveIndexChange = (swiperCore : any) => {
+
     const newIndex = swiperCore.activeIndex;
 
     // 이전 슬라이드 상태 초기화
@@ -123,6 +124,7 @@ const MatchingPage = () => {
     <Layout backgroundColor={'#252525'}>
       <ProfileCardHeader />
       {isUnfilledModalOpen && <UnFilledModal setIsUnfilledModalOpen={setIsUnfilledModalOpen} />}
+      
       <Swiper  
         onActiveIndexChange={handleActiveIndexChange}
         >
@@ -134,10 +136,11 @@ const MatchingPage = () => {
             >
             <ProfileCard {...item}
             
-            activeIndex={swiperIndex}
-            handleSetOpen={handleSetOpen}
-            handleSetModalOpen={handleSetModalOpen}
-            handleSetLockOpen={handleSetLockOpen}
+              activeIndex={swiperIndex}
+              handleSetOpen={handleSetOpen}
+              handleSetModalOpen={handleSetModalOpen}
+              handleSetLockOpen={handleSetLockOpen}
+              setIsUnfilledModalOpen={setIsUnfilledModalOpen}
             />
           </SwiperSlide>
         ))}

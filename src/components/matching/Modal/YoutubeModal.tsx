@@ -1,17 +1,17 @@
 import { YouTubeModalProps } from "@/type/ProfileCard/ProfileCard";
+import { useEffect } from "react";
 
-const YoutubeModal = ({url} : YouTubeModalProps) => {
+const YoutubeModal = ({videoId} : YouTubeModalProps) => {
+  useEffect(() => {
+    // 모달이 열릴 때 body의 overflow 스타일을 hidden으로 설정
+    document.body.style.overflow = 'hidden';
 
-  function convertYouTubeUrl(url? : string): string {
-    // URL에서 동영상 ID 추출
-    const videoId = url?.split('?v=')[1];
-  
-    // 동영상 ID를 이용해 embed URL 생성
-    const embedUrl = `https://www.youtube.com/embed/${videoId}`;
-  
-    return embedUrl;
-  }
-  
+    // 컴포넌트가 언마운트될 때 overflow 스타일을 원래대로 복원
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, []);
+
   return (
     <div className={`fixed inset-0 bg-[#000] bg-opacity-30 z-10`} >
 
@@ -22,7 +22,7 @@ const YoutubeModal = ({url} : YouTubeModalProps) => {
         <iframe
           width="100%"
           height="315"
-          src={convertYouTubeUrl(url)}
+          src={`https://www.youtube.com/embed/${videoId}`}
           allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
         />

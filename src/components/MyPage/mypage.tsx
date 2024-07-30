@@ -10,13 +10,12 @@ import { MainInfoDataDTO } from '@/type/services/Mypage/MypageDTO';
 import CircularProgressWithLabel from '@/utils/CircularProgressWithLabel ';
 import UseAccessToken from '@/hooks/useAccessToken';
 import Unlock from '@/assets/ProfileCard/Unlock.svg';
-import useDecodedJWT from '@/hooks/useDecodedToken';
 
 const MyPageMain = () => {
   const { setCurrentPage } = useMyPageStore();
 
   const accessToken = UseAccessToken();
-  console.log(useDecodedJWT(accessToken));
+
   const {
     data: mainData,
     error,
@@ -64,16 +63,18 @@ const MyPageMain = () => {
           </p>
         </div>
         {/* 페이지 이동 버튼 */}
-        <div className="flex justify-between mx-5 mt-4">
+        <div className="flex justify-between mx-5 mt-4 text-local_gray_2">
           <div>
-            <p className="text-local_gray_2">프로필 수정</p>
+            <p>프로필 수정</p>
           </div>
           <div className="flex flex-row">
-            <img
-              src={unlockFullCount === 3 ? Unlock : lock}
-              alt={unlockFullCount === 3 ? 'Unlock' : 'Lock'}
-              className="mr-1"
-            />
+            <div className="flex justify-center items-center">
+              <img
+                src={unlockFullCount === 3 ? Unlock : lock}
+                alt={unlockFullCount === 3 ? 'Unlock' : 'Lock'}
+                className=" mr-1 w-4 h-4"
+              />
+            </div>
             <span>{unlockFullCount}/3</span>
           </div>
         </div>
@@ -107,29 +108,36 @@ const MyPageMain = () => {
           </button>
         </div>
         {/* 밑에 공지사항들 */}
-        <div id="text">
-          <div className="flex flex-row items-center justify-center text-center mt-4 text-white font-bold text-sm gap-x-1">
-            <img src={lock} alt="lock" />
-            <p>정보를 입력을 모두 마치고, Duett을 더 자유롭게 사용해 보세요</p>
+        <div id="text" className="text-local_gray_2">
+          <div className="flex flex-row items-center justify-center text-center mt-4 text-white font-bold text-s gap-x-1">
+            <img src={lock} alt="lock" className="w-4 h-4" />
+            <p className="text-white">
+              정보를 입력을 모두 마치고, Duett을 더 자유롭게 사용해 보세요
+            </p>
           </div>
-          <div className="flex flex-col mt-8 w-full px-4">
-            <h3 className="text-lg font-bold text-gray-300">나의 Duett</h3>
+          <div className="flex flex-col mt-8 w-full px-4 ">
+            <h3 className="text-lg font-bold">나의 Duett</h3>
             <button
               onClick={() => setCurrentPage('location')}
               className="mt-2 text-left text-white pl-4"
             >
               내 위치 설정
             </button>
-            <button className="mt-2 text-left text-white pl-4">결제관리</button>
+            <button
+              onClick={() => setCurrentPage('prepare')}
+              className="mt-2 text-left text-white pl-4"
+            >
+              결제관리
+            </button>
           </div>
           <div className="flex flex-col mt-8 w-full px-4">
-            <h3 className="text-lg font-bold text-gray-300">Duett 소식</h3>
+            <h3 className="text-lg font-bold">Duett 소식</h3>
             <button className="mt-2 text-left text-white pl-4">공지사항</button>
             <button className="mt-2 text-left text-white pl-4">약관 및 정책</button>
           </div>
           <div className="flex flex-col mt-8 w-full px-4">
-            <h3 className="text-lg font-bold text-gray-300">회원관리</h3>
-            <button className="mt-2 text-left text-white pl-4">로그아웃</button>
+            <h3 className="text-lg font-bold">회원관리</h3>
+            <button className="mt-2 text-left text-white pl-4 cursor-not-allowed">로그아웃</button>
             <button
               onClick={() => setCurrentPage('signout')}
               className="mt-2 text-left text-white pl-4"

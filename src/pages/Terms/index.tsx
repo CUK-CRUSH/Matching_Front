@@ -3,7 +3,7 @@ import TermsCheckBox from '@/components/terms/checkBox';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import ValidationButton from '@/components/validation/validationButton';
 import ValidationText from '@/components/validation/validationText';
-import { TermsOfUseWords, PrivacyWords } from '@/fixture/termsofuse';
+import { TermsOfUseWords, PrivacyWords } from '@/components/terms/termsofuse';
 import useTermsStore from '@/store/TermStore';
 import { useCallback, useEffect } from 'react';
 
@@ -59,7 +59,7 @@ const TermsPage = () => {
       <div className="absolute left-[10%] top-12 transform -translate-x-1/2 flex items-center justify-center mt-10">
         <img src={BlurLogo} alt="BlurLogo" className="self-center w-16" />
       </div>
-      <ValidationText titleTexts={['이용약관 및 개인정보 처리방침']} />
+      <ValidationText titleTexts={['이용약관 및 개인정보 처리방침']} marginTop="8rem" />
       <div className="border-b font-bold py-4">
         <TermsCheckBox
           id="all"
@@ -111,10 +111,12 @@ const TermsPage = () => {
         </div>
 
         <div className="mt-4">
-          <div className="text-sm mb-3">
+          <div className="text-sm text-text_dary_soft mb-3">
             <p>마케팅 활용 동의 및 광고 수신 동의</p>
-            <p>서비스와 관련된 새로운 소식, 이벤트 안내, 고객 혜택 등 다양한 정보를</p>
-            <p>제공합니다.</p>
+            <p className="text-local_gray_2">
+              서비스와 관련된 새로운 소식, 이벤트 안내, 고객 혜택 등 다양한 정보를
+            </p>
+            <p className="text-local_gray_2">제공합니다.</p>
           </div>
           <div className="font-bold">
             <TermsCheckBox

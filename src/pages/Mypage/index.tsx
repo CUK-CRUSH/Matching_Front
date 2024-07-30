@@ -10,6 +10,7 @@ import MusicDetailPage from '@/components/MyPage/Music/MusicDetail';
 import MusicMoodPage from '@/components/MyPage/Music/MusicMood';
 import MusicEditPage from '@/components/MyPage/Music/MusicEdit';
 import SignOutPage from '@/components/MyPage/SignOut/Signout';
+import PreparingPage from '@/components/MyPage/Preparing/Preparing';
 
 const MyPage = () => {
   const { currentPage } = useMyPageStore();
@@ -36,6 +37,8 @@ const MyPage = () => {
         return <MusicEditPage />;
       case 'signout':
         return <SignOutPage />;
+      case 'prepare':
+        return <PreparingPage />;
       default:
         return <MyPageMain />;
     }

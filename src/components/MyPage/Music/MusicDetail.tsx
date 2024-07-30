@@ -42,7 +42,7 @@ const MusicDetailPage = () => {
       const newMusic: LifeMusicItem = {
         title: selectedItem.title,
         artist: selectedItem.channelTitle,
-        url: selectedItem.id,
+        videoId: selectedItem.videoId,
       };
       setSelectedMusic([...selectedMusic, newMusic]);
       setCurrentPage('music');
@@ -77,7 +77,7 @@ const MusicDetailPage = () => {
               {Array.isArray(musicDetailData?.data) && musicDetailData.data.length > 0 ? (
                 musicDetailData.data.map((item) => (
                   <div
-                    key={item.id}
+                    key={item.videoId}
                     className="flex items-center p-2 cursor-pointer hover:bg-[#3c3c3c]"
                     onClick={() => handleSelectItem(item)}
                   >
