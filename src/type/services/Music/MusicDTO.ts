@@ -3,7 +3,7 @@ export type MusicDTO = {
   videoId: string;
   title: string;
   thumbnail: {
-    videoId: string;
+    url: string;
     width: number;
     height: number;
   };
@@ -21,7 +21,7 @@ export type YoutubeMusicDataDTO = {
 export type MusicItem = {
   musicId?: number;
   title: string;
-  artist: string; 
+  artist: string;
   videoId: string;
 };
 
@@ -41,7 +41,7 @@ export type LifeMusicItem = {
   musicId?: number;
   title: string;
   artist: string;
-  url: string;
+  videoId: string;
 };
 
 // Type definitions for mood object (used in user profile)
@@ -62,5 +62,4 @@ export type MoodDataDTO = {
   title: string;
   artist: string;
   moodImage?: string;
-  isDeleteImage: boolean;
 };

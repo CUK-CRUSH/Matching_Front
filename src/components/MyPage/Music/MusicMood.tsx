@@ -58,7 +58,7 @@ const MusicMoodPage = () => {
       title: data.title,
       artist: data.artist,
       moodImage: compressedImage ?? undefined,
-      isDeleteImage: !compressedImage,
+      // isDeleteImage: !compressedImage,
     };
 
     mutation.mutate(updatedData);
