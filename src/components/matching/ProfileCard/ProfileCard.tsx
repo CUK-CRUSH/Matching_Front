@@ -19,7 +19,7 @@ import SocialButtons from '../SocialButtons';
 import { useCookies } from 'react-cookie';
 
 const ProfileCard = ({ profileId, name, birthDate, mbti, tags, oneLineIntroduction, distance, lifeMusics,
-  isOpen, isLock, handleSetOpen, handleSetModalOpen, activeIndex 
+  isOpen, isLock, handleSetOpen, handleSetModalOpen,handleSetLockOpen, activeIndex 
   ,setIsUnfilledModalOpen, setIsUnlockModalOpen, isUnlockModalOpen
 }: CombinedProfileCardProps) => {
   // 프로필 데이터
@@ -60,6 +60,7 @@ const ProfileCard = ({ profileId, name, birthDate, mbti, tags, oneLineIntroducti
   
                   setProfiles(response?.data?.profileCardResponse);
                   handleSetOpen?.(activeIndex, true);
+                  handleSetLockOpen?.(activeIndex, false);
                   setAbleSpend(false); // 상태를 false로 설정하여 반복 실행 방지
                   profiles?.memberId && setMemberId(profiles?.memberId)
                   setIsUnlockModalOpen?.(false);
@@ -80,7 +81,7 @@ const ProfileCard = ({ profileId, name, birthDate, mbti, tags, oneLineIntroducti
       }
   }, [ableSpend]);
 
-
+  console.log(isLock)
   return (
     <>
       <div className={ProfileCardStyle} >

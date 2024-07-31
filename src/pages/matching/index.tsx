@@ -21,7 +21,7 @@ import YoutubeModal from "@/components/matching/Modal/YoutubeModal";
 
 const MatchingPage = () => {
 
-  const { openMessage, videoId } = useProfileCardStore();
+  const { openMessage } = useProfileCardStore();
 
   // 프로필목록 조회
   const [page, ] = useState(0);

@@ -12,8 +12,6 @@ const MusicCard = ({ title, artist, isDark, isProilfeCard, isOpen, videoId}: Mus
     setIsYoutubeModalOpen(true)
   };
 
-  console.log(videoId)
-  // 유튜브 모달
   return (
     <div
       data-testid='musicCard'

@@ -22,7 +22,7 @@ const ProfileImage = ({ handleSetOpen, isLock, activeIndex,profileImageUrl,
     
           } else {
               handleSetOpen?.(activeIndex, true);
-              setIsUnlockModalOpen?.(true);
+              setIsUnlockModalOpen?.(false);
           }
         }}
       />
