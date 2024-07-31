@@ -67,10 +67,12 @@ export type MusciCardProps = {
   musicId?: number,
   title?: string;
   artist?: string;
-  url?: string,
+  videoId?: string,
   isDark?: boolean;
   isOpen?: boolean;
   isProilfeCard?: boolean;
+  isYoutubeModalOpen?: boolean;
+  setIsYoutubeModalOpen?: any;
 }
 
 export type TagProps = {
