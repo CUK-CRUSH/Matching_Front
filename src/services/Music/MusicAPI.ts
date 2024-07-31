@@ -70,6 +70,12 @@ export const postUserMoodData = async (accessToken: string, moodData: MoodDataDT
   const formData = new FormData();
   const url = `${import.meta.env.VITE_DUETT_API_URL}/api/v1/profiles/moods`;
 
+  // if (moodData.title) {
+  //   formData.append('title', moodData.title);
+  // }
+  // if (moodData.artist) {
+  //   formData.append('artist', moodData.artist);
+  // }
   formData.append('title', moodData.title || '');
   formData.append('artist', moodData.artist || '');
 
