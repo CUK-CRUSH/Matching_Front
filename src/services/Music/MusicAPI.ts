@@ -70,8 +70,8 @@ export const postUserMoodData = async (accessToken: string, moodData: MoodDataDT
   const formData = new FormData();
   const url = `${import.meta.env.VITE_DUETT_API_URL}/api/v1/profiles/moods`;
 
-  formData.append('title', moodData.title);
-  formData.append('artist', moodData.artist);
+  formData.append('title', moodData.title || '');
+  formData.append('artist', moodData.artist || '');
 
   if (moodData.moodImage && moodData.moodImage.includes(',')) {
     const contentType = moodData.moodImage.split(';')[0].split(':')[1];
@@ -79,7 +79,7 @@ export const postUserMoodData = async (accessToken: string, moodData: MoodDataDT
     formData.append('moodImage', blob, 'moodImage.jpg');
   }
 
-  // formData.append('isDeleteImage', String(moodData.isDeleteImage));
+  formData.append('isDeleteImage', String(moodData.isDeleteImage));
 
   try {
     const response = await api.post(url, formData, {

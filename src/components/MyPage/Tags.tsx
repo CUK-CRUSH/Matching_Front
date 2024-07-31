@@ -16,6 +16,7 @@ import {
   patchUserIntroData,
 } from '@/services/Mypage/MypageAPI';
 import UseAccessToken from '@/hooks/useAccessToken';
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 
 const TagsPage = () => {
   const { setCurrentPage, selectedMBTI, textarea1, textarea2 } = useMyPageStore();
@@ -126,10 +127,12 @@ const TagsPage = () => {
             : 'NONE',
       }));
 
+      // Check if all MBTI fields are filled
+      const mbtiString = `${selectedMBTI.E_I || ''}${selectedMBTI.N_S || ''}${selectedMBTI.F_T || ''}${selectedMBTI.J_P || ''}`;
+      const mbti = mbtiString.length === 4 ? mbtiString : null;
+
       const updatedIntroData: UserIntroDTO = {
-        mbti:
-          `${selectedMBTI.E_I || ''}${selectedMBTI.N_S || ''}${selectedMBTI.F_T || ''}${selectedMBTI.J_P || ''}` ||
-          null,
+        mbti,
         musicTags: updatedMusicTags,
         hobbyTags: updatedHobbyTags,
         selfIntroduction: textarea1 || null,
@@ -145,7 +148,10 @@ const TagsPage = () => {
   return (
     <div className="text-white h-full flex flex-col items-center overflow-y-auto scrollbar-hide">
       <div className="w-full max-w-md mx-auto flex flex-col h-full">
-        <MatchingListHeader onStateChange={() => setCurrentPage('introduce')} />
+        <MatchingListHeader
+          onStateChange={() => setCurrentPage('introduce')}
+          background="#252525"
+        />
         <div className="mb-10 mx-2 flex flex-col">
           <div className="mt- space-y-2">
             <p className="flex-grow-0 flex-shrink-0 text-2xl font-bold text-left text-[#f9f9f9]">
@@ -191,7 +197,9 @@ const TagsPage = () => {
                 </Button>
               )}
               {selectedMusicTags.length < 3 && (
-                <p className="text-red-500 mt-2">❗ 태그 3개를 선택해주세요</p>
+                <p className="text-red-500 mt-2">
+                  <ErrorOutlineIcon fontSize="small" /> 태그 3개를 선택해주세요
+                </p>
               )}
             </div>
 
@@ -224,7 +232,9 @@ const TagsPage = () => {
                 </Button>
               )}
               {selectedHobbyTags.length < 3 && (
-                <p className="text-red-500 mt-2">❗ 태그 3개를 선택해주세요</p>
+                <p className="text-red-500 mt-2">
+                  <ErrorOutlineIcon fontSize="small" /> 태그 3개를 선택해주세요
+                </p>
               )}
             </div>
           </div>

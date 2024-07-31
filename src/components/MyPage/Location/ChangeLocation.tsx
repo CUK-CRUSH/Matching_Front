@@ -55,6 +55,7 @@ const ChangeLocationPage = () => {
           text="내 위치 관리"
           onStateChange={() => setCurrentPage('mypage')}
           mypageText="My Page | 프로필 수정"
+          background="#252525"
         />
         <div className="mx-2">
           <ValidationText
