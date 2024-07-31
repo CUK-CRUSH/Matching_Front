@@ -21,6 +21,10 @@ const useProfileCardStore = create<ProfileCardState>((set) => ({
 
     videoId: '', // 초기값을 빈 문자열로 설정
     setVideoId: (newIndex?: string) => set((state) => ({ ...state, videoId: newIndex })), // 상태 유지
+
+    // 유튜브 모달창
+    isYoutubeModalOpen : false,
+    setIsYoutubeModalOpen: () => set((state) => ({ isYoutubeModalOpen: !state.isYoutubeModalOpen })),
     
 }));
 

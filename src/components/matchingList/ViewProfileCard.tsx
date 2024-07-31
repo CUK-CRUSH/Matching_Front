@@ -2,8 +2,6 @@ import ProfileImage from '@/components/matching/ProfileImage';
 import Name from '@/components/common/Name'
 import Comment from '@/components/matching/Comment';
 import MusicCard from '@/components/common/MusicCard';
-import useProfileCardStore from '@/store/profileCardStore';
-import PostMessageModal from '@/components/matching/PostMessageModal';
 import useGetRandomBackgrounds from '@/hooks/useGetRandomBackgrounds/useGetRandomBackgrounds';
 import MusicCardContainer from '@/components/matching/MusicCardContainer';
 import { ProfileCardProps } from '@/type/ProfileCard/ProfileCard';
@@ -19,10 +17,13 @@ import { useParams } from 'react-router-dom';
 import Layout from '../layout/layout';
 import Footer from '../layout/footer';
 import { useCookies } from 'react-cookie';
+import useProfileCardStore from '@/store/profileCardStore';
+import YoutubeModal from '../matching/Modal/YoutubeModal';
 
 const ViewProfileCard = () => {
   const { profileId } = useParams<{ profileId: string }>();
-  
+
+  const {isYoutubeModalOpen , setIsYoutubeModalOpen} = useProfileCardStore()
   // 프로필 데이터
   const [profiles, setProfiles] = useState<ProfileCardProps | undefined>();
 
@@ -44,9 +45,6 @@ const ViewProfileCard = () => {
                              w-[calc(100%-6%)]  
                              scrollbar-hide overflow-scroll 
                              `;
-
-  // 메시지보내기 창 모달 오픈
-  const { openMessage } = useProfileCardStore();
 
   //  단일조회하기 profileId 를 통해
   const { data: getProfileCardData, error } = useQuery({
@@ -75,10 +73,15 @@ const ViewProfileCard = () => {
   if (!getProfileCardData) {
     return <div>Loading...</div>;
   }
+
+  console.log(isYoutubeModalOpen);
+  
   return (
     <Layout backgroundColor={'#252525'}>
       <div className='my-[40px]'/>
       <div className={ProfileCardStyle}>
+
+      {isYoutubeModalOpen && <YoutubeModal setIsYoutubeModalOpen={setIsYoutubeModalOpen} />}
        
         {/* Top */}
 
@@ -86,8 +89,6 @@ const ViewProfileCard = () => {
           <ProfileImage
             profileImageUrl={profiles?.profileImageUrl}
           />
-
-          {openMessage && <PostMessageModal memberId={Number(profiles?.memberId)} />}
 
           <div className={`flex flex-col ml-[5%]`}>
             <Name name={profiles?.name} birthDate={profiles?.birthDate} mbti={profiles?.mbti} distance={profiles?.distance} isProfileCard={true} />
@@ -118,7 +119,8 @@ const ViewProfileCard = () => {
             </p>
          
           {profiles?.lifeMusics?.map((item) => (
-            <MusicCard title={item.title} artist={item.artist} isProilfeCard={true} />
+            <MusicCard title={item.title} artist={item.artist} videoId={item.videoId} 
+                       isOpen={true} isProilfeCard={true} />
           ))}
 
         </MusicCardContainer>

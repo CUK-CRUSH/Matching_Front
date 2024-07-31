@@ -48,7 +48,8 @@ export type UnFilledModalProps = {
 
 export type YouTubeModalProps = {
   videoId?: string;
-  setIsYoutubeModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsYoutubeModalOpen?: any
+  // Dispatch<SetStateAction<boolean>> ; React.Dispatch<React.SetStateAction<boolean>>
 }
 export type OneLineIntroductionProps = {
   oneLineIntroduction? : string;

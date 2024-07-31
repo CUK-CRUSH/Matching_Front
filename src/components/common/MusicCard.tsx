@@ -1,17 +1,18 @@
 import { MusciCardProps } from "@/type/MatchingList/MatchingList"
 import useProfileCardStore from "@/store/profileCardStore";
 
-const MusicCard = ({ title, artist,videoId, isDark, isProilfeCard, isOpen,setIsYoutubeModalOpen}: MusciCardProps) => {
+const MusicCard = ({ title, artist, isDark, isProilfeCard, isOpen, videoId}: MusciCardProps) => {
 
-  const { setVideoId } = useProfileCardStore();
+  const { setVideoId,setIsYoutubeModalOpen } = useProfileCardStore();
 
   const fontStyle = `text-[${isDark ? '#F8F8F8' : '#2f2f2f'}] text-s`
 
   const handleClick = () => {
-    videoId && setVideoId(videoId);
+    setVideoId(videoId);
     setIsYoutubeModalOpen(true)
   };
 
+  console.log(videoId)
   // 유튜브 모달
   return (
     <div

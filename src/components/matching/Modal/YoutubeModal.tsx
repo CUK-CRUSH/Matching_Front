@@ -1,7 +1,10 @@
+import useProfileCardStore from "@/store/profileCardStore";
 import { YouTubeModalProps } from "@/type/ProfileCard/ProfileCard";
 
-const YoutubeModal = ({videoId, setIsYoutubeModalOpen} : YouTubeModalProps) => {
+const YoutubeModal = ({ setIsYoutubeModalOpen} : YouTubeModalProps) => {
   
+  const {videoId } = useProfileCardStore()
+  console.log(videoId)
   const handleClose = () => {
     setIsYoutubeModalOpen?.(false)
   }

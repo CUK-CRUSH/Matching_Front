@@ -20,13 +20,15 @@ import { useCookies } from 'react-cookie';
 
 const ProfileCard = ({ profileId, name, birthDate, mbti, tags, oneLineIntroduction, distance, lifeMusics,
   isOpen, isLock, handleSetOpen, handleSetModalOpen, activeIndex 
-  ,setIsUnfilledModalOpen, setIsUnlockModalOpen, setIsYoutubeModalOpen, isUnlockModalOpen
+  ,setIsUnfilledModalOpen, setIsUnlockModalOpen, isUnlockModalOpen
 }: CombinedProfileCardProps) => {
   // 프로필 데이터
   const [profiles, setProfiles] = useState<ProfileCardProps | undefined>();
 
   const [cookies] = useCookies(['accessToken']);
   const accessToken = cookies.accessToken;
+
+  const { setIsYoutubeModalOpen} = useProfileCardStore()
 
   // 배경색 목록  
   const backgrounds = [
