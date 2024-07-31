@@ -57,7 +57,7 @@ const ClickedMessagePopUp = ({ handleClick, currentBackground, name, birthDate, 
           <div className="flex justify-between px-4">
             <div className="flex">
               {tags?.map((item) => (
-                <Tag name={item.name} state={item.state} isDark={true} />
+                <Tag name={item.name} state={item.state} isDark={false} />
               ))}
             </div>
           </div>
@@ -65,7 +65,7 @@ const ClickedMessagePopUp = ({ handleClick, currentBackground, name, birthDate, 
 
         {/* <div className="relative h-auto overflow-y-scroll scrollbar-hide" ref={outerContainerRef} onScroll={calculateThumbY}> */}
         {/* <ScrollBarThumb ref={thumbRef} height={thumbH} /> */}
-          <div className={`h-auto mt-[12px] mb-[26px]`}>
+          <div className={`h-auto mt-[12px] mb-2 mx-2`}>
             <AutoResizeTextarea value={content} isDark={isDark} />
           </div>
         {/* </div> */}

@@ -137,23 +137,27 @@ const PostMessageModal = ({memberIdProps} : PostMessageModalProps) => {
           />
           {/* 텍스트 에어리어 */}
           <FormField
-                  control={form.control}
-                  name="message"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className={`text-[0.75rem] text-[#2F2F2F] font-semibold`}>메시지 내용</FormLabel>
+  control={form.control}
+  name="message"
+  render={({ field }) => (
+    <FormItem>
+      <FormLabel className={`text-[0.75rem] text-[#2F2F2F] font-semibold`}>메시지 내용</FormLabel>
 
-                      <Textarea
-                        {...form.register("message")} // 'register' 함수를 사용하여 'message' 필드를 등록합니다.
-                        onKeyUp={() => checkTextLength(field.value)}
-                        data-testid="message"
-                        className="block w-full border-0 bg-[#F1F1F1] rounded-md shadow-sm h-[130px]"
-                      />
-                    </FormItem>
-                  )}
-                />
+      <div className="relative"> {/* 부모 div에 relative 추가 */}
+        <Textarea
+          {...form.register("message")} // 'register' 함수를 사용하여 'message' 필드를 등록합니다.
+          onKeyUp={() => checkTextLength(field.value)}
+          data-testid="message"
+          className="block w-full border-0 bg-[#F1F1F1] rounded-md shadow-sm h-[130px]"
+        />
+
+        <span className={`absolute bottom-2 right-2 ${textLength > 200 ? 'text-[#e83232]' : 'text-gray-500'} text-s`}>{textLength} / 200</span> {/* 우측 하단에 텍스트 추가 */}
+      </div>
+    </FormItem>
+  )}
+/>
+
           <div className="text-right">
-            {textLength} / 200
             <button type="submit">
               <img src={post} alt='post' />
             </button>
