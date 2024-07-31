@@ -19,11 +19,12 @@ import Footer from '../layout/footer';
 import { useCookies } from 'react-cookie';
 import useProfileCardStore from '@/store/profileCardStore';
 import YoutubeModal from '../matching/Modal/YoutubeModal';
+import PostMessageModal from '../matching/PostMessageModal';
 
 const ViewProfileCard = () => {
   const { profileId } = useParams<{ profileId: string }>();
 
-  const {isYoutubeModalOpen , setIsYoutubeModalOpen} = useProfileCardStore()
+  const {openMessage, isYoutubeModalOpen , setIsYoutubeModalOpen} = useProfileCardStore()
   // 프로필 데이터
   const [profiles, setProfiles] = useState<ProfileCardProps | undefined>();
 
@@ -78,6 +79,8 @@ const ViewProfileCard = () => {
     <Layout backgroundColor={'#252525'}>
       <div className='my-[40px]'/>
       <div className={ProfileCardStyle}>
+        
+      {openMessage && <PostMessageModal memberIdProps={profiles?.memberId} />}
 
       {isYoutubeModalOpen && <YoutubeModal setIsYoutubeModalOpen={setIsYoutubeModalOpen} />}
        

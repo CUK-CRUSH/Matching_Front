@@ -31,7 +31,7 @@ const FormSchema = z.object({
     .max(200,"최대 200자까지 입력가능합니다.")
 })
 
-const PostMessageModal = () => {
+const PostMessageModal = ({memberIdProps} : PostMessageModalProps) => {
     
   const { setOpenMessage , memberId} = useProfileCardStore();
 
@@ -57,7 +57,7 @@ const PostMessageModal = () => {
       await postMessage(
         accessToken,
         formData.type === "kakao" ? 1 : 0, // sendType
-        memberId, // receiverId 값은 어디서 받아오는지 확인 필요
+        memberId || memberIdProps, // receiverId 값은 어디서 받아오는지 확인 필요
         formData.message // content
       );
 
