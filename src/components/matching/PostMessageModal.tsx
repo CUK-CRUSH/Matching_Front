@@ -83,10 +83,14 @@ const PostMessageModal = () => {
   }
 
   return (
-    <div className={`fixed inset-0 bg-[#000] bg-opacity-30 flex justify-center items-center z-50 `} onClick={setOpenMessage} data-testid="postMessageModalText">
+    <div className={`fixed inset-0 bg-[#000] bg-opacity-30 flex justify-center items-center z-50 `} 
+         onClick={setOpenMessage}
+         data-testid="postMessageModalText">
 
       <Form {...form}>
-        <form data-testid='submit' onSubmit={form.handleSubmit(onSubmit, onError)} className="w-[300px] h-[350px] px-6 py-5 space-y-6 bg-[#fff] rounded-2xl"
+        <form data-testid='submit' onSubmit={form.handleSubmit(onSubmit, onError)}
+              className="w-[300px] h-[350px] px-6 py-5 space-y-6 bg-[#fff] rounded-2xl
+              absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
           onClick={e => e.stopPropagation()}
         >
           {/* 라디오 버튼 */}

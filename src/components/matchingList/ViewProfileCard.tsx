@@ -73,8 +73,6 @@ const ViewProfileCard = () => {
   if (!getProfileCardData) {
     return <div>Loading...</div>;
   }
-
-  console.log(isYoutubeModalOpen);
   
   return (
     <Layout backgroundColor={'#252525'}>
