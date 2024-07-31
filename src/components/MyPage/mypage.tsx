@@ -102,7 +102,7 @@ const MyPageMain = () => {
             onClick={() => setCurrentPage('music')}
           >
             <div className="flex flex-col items-center justify-center w-full bg-[#303030] rounded-lg aspect-square">
-              <CircularProgressWithLabel value={mainData.data.musicCount} total={2} />
+              <CircularProgressWithLabel value={mainData.data.musicTasteCount} total={2} />
               <p className="text-white text-sm mt-1">음악 취향</p>
             </div>
           </button>
@@ -132,8 +132,22 @@ const MyPageMain = () => {
           </div>
           <div className="flex flex-col mt-8 w-full px-4">
             <h3 className="text-lg font-bold">Duett 소식</h3>
-            <button className="mt-2 text-left text-white pl-4">공지사항</button>
-            <button className="mt-2 text-left text-white pl-4">약관 및 정책</button>
+            <button
+              className="mt-2 text-left text-white pl-4"
+              onClick={() =>
+                (window.location.href =
+                  'https://myist-info.notion.site/DUETT-c2948bcce08b4fa4bdfc02c0b5e53e0f')
+              }
+            >
+              공지사항
+            </button>
+
+            <button
+              className="mt-2 text-left text-white pl-4"
+              onClick={() => (window.location.href = 'http://myist-info.notion.site')}
+            >
+              약관 및 정책
+            </button>
           </div>
           <div className="flex flex-col mt-8 w-full px-4">
             <h3 className="text-lg font-bold">회원관리</h3>

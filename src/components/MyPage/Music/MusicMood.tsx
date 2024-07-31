@@ -2,7 +2,6 @@ import useMyPageStore from '@/store/myPageStore';
 import MatchingListHeader from '../../layout/matchingListHeader';
 import { useForm, Controller } from 'react-hook-form';
 import { useImageCrop } from '@/hooks/useImageCrop';
-import { Dialog, DialogActions, DialogContent, DialogTitle, Slider } from '@mui/material';
 import Cropper from 'react-easy-crop';
 import { Button } from '@/components/ui/button';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -148,10 +147,20 @@ const MusicMoodPage = () => {
         </div>
       </div>
 
-      <Dialog open={open} onClose={() => setOpen(false)} fullWidth fullScreen>
-        <DialogTitle>이미지 크롭</DialogTitle>
-        <DialogContent>
-          <div className="relative w-full h-full">
+      {open && (
+        <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black">
+          <div className="flex flex-row justify-between p-4 w-full max-w-[430px]">
+            <Button onClick={() => setOpen(false)} className="text-red-500 bg-transparent">
+              취소
+            </Button>
+            <Button
+              onClick={() => handleCropComplete(croppedArea)}
+              className="text-white bg-transparent"
+            >
+              저장
+            </Button>
+          </div>
+          <div className="relative flex-grow w-full max-w-[430px] h-full">
             <Cropper
               image={imageSrc ?? undefined}
               crop={crop}
@@ -160,23 +169,14 @@ const MusicMoodPage = () => {
               onCropChange={setCrop}
               onCropComplete={(_, croppedAreaPixels) => setCroppedArea(croppedAreaPixels)}
               onZoomChange={setZoom}
+              style={{
+                containerStyle: { height: '100%', width: '100%' },
+                cropAreaStyle: { border: '2px solid white' },
+              }}
             />
           </div>
-        </DialogContent>
-        <DialogActions>
-          <div className="flex flex-col w-full">
-            <Slider
-              value={zoom}
-              min={1}
-              max={3}
-              step={0.1}
-              aria-labelledby="Zoom"
-              onChange={(_, zoom) => setZoom(zoom as number)}
-            />
-            <Button onClick={() => handleCropComplete(croppedArea)}>확인</Button>
-          </div>
-        </DialogActions>
-      </Dialog>
+        </div>
+      )}
     </div>
   );
 };

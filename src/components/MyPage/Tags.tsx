@@ -16,6 +16,7 @@ import {
   patchUserIntroData,
 } from '@/services/Mypage/MypageAPI';
 import UseAccessToken from '@/hooks/useAccessToken';
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 
 const TagsPage = () => {
   const { setCurrentPage, selectedMBTI, textarea1, textarea2 } = useMyPageStore();
@@ -193,7 +194,9 @@ const TagsPage = () => {
                 </Button>
               )}
               {selectedMusicTags.length < 3 && (
-                <p className="text-red-500 mt-2">❗ 태그 3개를 선택해주세요</p>
+                <p className="text-red-500 mt-2">
+                  <ErrorOutlineIcon fontSize="small" /> 태그 3개를 선택해주세요
+                </p>
               )}
             </div>
 
@@ -226,7 +229,9 @@ const TagsPage = () => {
                 </Button>
               )}
               {selectedHobbyTags.length < 3 && (
-                <p className="text-red-500 mt-2">❗ 태그 3개를 선택해주세요</p>
+                <p className="text-red-500 mt-2">
+                  <ErrorOutlineIcon fontSize="small" /> 태그 3개를 선택해주세요
+                </p>
               )}
             </div>
           </div>

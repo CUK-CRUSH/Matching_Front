@@ -371,7 +371,9 @@ const IntroducePage = () => {
             <Button
               variant={'noHover'}
               type="submit"
-              className="w-full bg-white text-black mt-4 rounded-3xl"
+              className={`w-full bg-white text-black mt-4 rounded-3xl ${
+                filledFieldsCount < 3 ? 'opacity-50 cursor-not-allowed' : ''
+              }`}
             >
               저장하기
             </Button>

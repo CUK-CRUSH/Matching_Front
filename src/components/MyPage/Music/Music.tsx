@@ -17,6 +17,7 @@ import TrashCan from '@/assets/Icon/TrashCan.svg';
 import MusicMarker from '@/assets/Music/MusicMarker.svg';
 import CommonModal from '@/utils/CommonModal';
 import UseAccessToken from '@/hooks/useAccessToken';
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 
 const MusicPage = () => {
   const {
@@ -31,7 +32,7 @@ const MusicPage = () => {
   const accessToken = UseAccessToken();
 
   const [open, setOpen] = useState<boolean>(false);
-  const [selectedMusicId, setSelectedMusicId] = useState<number | null>(null); // New state for selected music ID
+  const [selectedMusicId, setSelectedMusicId] = useState<number | null>(null);
 
   const queryClient = useQueryClient();
 
@@ -221,7 +222,7 @@ const MusicPage = () => {
                     <Button
                       onClick={handleAddMusicClick}
                       variant={'noHover'}
-                      className="bg-[#303030] w-11/12 h-12 rounded"
+                      className="bg-[#303030] w-11/12 p-6 rounded"
                     >
                       <div className="flex flex-row space-x-2 items-center justify-center">
                         <img src={MusicNote} alt="MusicNote" className="h-4 w-4" />
@@ -232,6 +233,13 @@ const MusicPage = () => {
                 )}
               </>
             )}
+            {selectedMusic.length < 3 && (
+              <div className="text-red-500 mt-3">
+                <p>
+                  <ErrorOutlineIcon fontSize="small" /> 나의 인생곡은 3개를 추가해주세요
+                </p>
+              </div>
+            )}
           </div>
 
           {/* Mood */}
@@ -240,8 +248,8 @@ const MusicPage = () => {
             <p className="text-lg font-bold">나의 mood를 설정해보세요</p>
 
             <div className="mt-5">
-              <div className="mt-5 flex justify-center ">
-                <div onClick={handleAddMoodClick} className="h-40 w-full">
+              <div className="mt-5 flex justify-center">
+                <Button onClick={handleAddMoodClick} variant={'noHover'} className="h-40 w-full">
                   {musicTasteData?.mood?.moodImageUrl ? (
                     <img
                       src={musicTasteData.mood.moodImageUrl}
@@ -249,20 +257,24 @@ const MusicPage = () => {
                       className="h-full w-full object-cover"
                     />
                   ) : (
-                    <div className="h-full w-full flex flex-col items-center justify-center bg-[#303030] rounded">
-                      <img src={MusicMood} alt="MusicMood" className="h-8 w-8" />
+                    <div className="flex flex-col space-y-2 items-center justify-center bg-[#303030] w-11/12 p-10 rounded">
+                      <img src={MusicMood} alt="MusicNote" className="h-8 w-8" />
                       <span>이미지 추가하기</span>
                     </div>
                   )}
-                </div>
+                </Button>
               </div>
             </div>
           </div>
           {/* 저장버튼 */}
+
           <div className="flex justify-center items-center">
             <button
-              className=" bg-white text-black w-11/12 py-2 px-4 rounded mt-5"
+              className={`bg-white text-black w-11/12 py-2 px-4 rounded mt-5 ${
+                selectedMusic.length < 3 ? 'opacity-50 cursor-not-allowed' : ''
+              }`}
               onClick={handleSaveMusic}
+              disabled={selectedMusic.length < 3}
             >
               저장
             </button>
