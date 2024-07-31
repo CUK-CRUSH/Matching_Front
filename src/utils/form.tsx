@@ -42,6 +42,7 @@ export const InputForm = () => {
   });
 
   const { handleSubmit, control } = methods;
+
   const onSubmit = async (data: z.infer<typeof FormSchema>) => {
     try {
       const authenticationCode = await getAuthenticationCode(data.pin);
@@ -72,7 +73,7 @@ export const InputForm = () => {
 
         setIsSubmitted(true);
       } else {
-        throw new Error('reponse가 없나?');
+        throw new Error('reponse이 없습니다.');
       }
     } catch (error) {
       console.error(error);

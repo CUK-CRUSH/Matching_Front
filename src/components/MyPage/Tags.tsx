@@ -126,10 +126,12 @@ const TagsPage = () => {
             : 'NONE',
       }));
 
+      // Check if all MBTI fields are filled
+      const mbtiString = `${selectedMBTI.E_I || ''}${selectedMBTI.N_S || ''}${selectedMBTI.F_T || ''}${selectedMBTI.J_P || ''}`;
+      const mbti = mbtiString.length === 4 ? mbtiString : null;
+
       const updatedIntroData: UserIntroDTO = {
-        mbti:
-          `${selectedMBTI.E_I || ''}${selectedMBTI.N_S || ''}${selectedMBTI.F_T || ''}${selectedMBTI.J_P || ''}` ||
-          null,
+        mbti,
         musicTags: updatedMusicTags,
         hobbyTags: updatedHobbyTags,
         selfIntroduction: textarea1 || null,
