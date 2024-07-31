@@ -12,9 +12,7 @@ const ReceivedMessageItem = ({ sender,content,messageDate }: MessageItemProps) =
   const [isClicked, setIsClicked] = useState<boolean>(false);
 
   const handleClick = () => {
-    
       setIsClicked(prevState => !prevState);
-    
   };
 
   // 배경색 목록
