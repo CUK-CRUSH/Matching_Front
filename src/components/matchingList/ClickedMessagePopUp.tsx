@@ -7,8 +7,9 @@ import cancel from "@/assets/MatchingList/cancel.svg";
 import blackProfile from "@/assets/MatchingList/blackProfile.svg";
 import { useNavigate } from "react-router-dom";
 import Tag from "../common/Tag";
+import Time from "../common/Time";
 
-const ClickedMessagePopUp = ({ handleClick, currentBackground, name, birthDate, mbti, content,tags, profileId, isDark }: ClickedMessagePopUpProps) => {
+const ClickedMessagePopUp = ({ handleClick, currentBackground, name, birthDate, mbti, content,tags,messageDate, profileId, isDark }: ClickedMessagePopUpProps) => {
 
   const navigate = useNavigate();
 
@@ -47,8 +48,11 @@ const ClickedMessagePopUp = ({ handleClick, currentBackground, name, birthDate, 
                    ${isDark ? 'bg-[#141414] border-[#858585] border' : currentBackground} rounded-[16px]`}
       >
         <div className={`flex flex-col mb-2`}>
-          <div className="px-4 flex items-center">
+          <div className="px-4 flex justify-between items-center">
             <Name name={name} birthDate={birthDate} mbti={mbti} isDark={isDark} />
+            <div>
+              <Time date={messageDate} />
+            </div>
           </div>
           <div className="flex justify-between px-4">
             <div className="flex">
@@ -56,7 +60,6 @@ const ClickedMessagePopUp = ({ handleClick, currentBackground, name, birthDate, 
                 <Tag name={item.name} state={item.state} isDark={true} />
               ))}
             </div>
-            {/* <Time time={time} /> */}
           </div>
         </div>
 
