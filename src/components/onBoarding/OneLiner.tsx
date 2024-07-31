@@ -48,19 +48,9 @@ const OneLinerPage = () => {
       try {
         const response: any = await postSignUp(updatedUserData);
 
-        // if (
-        //   !response.data ||
-        //   !response.data.token ||
-        //   !response.data.token.accessToken ||
-        //   !response.data.token.refreshToken
-        // ) {
-        //   throw new Error('Invalid response data');
-        // }
-
         setCookie('accessToken', response.data.token.accessToken, { path: '/' });
         localStorage.setItem('refreshToken', response.data.token.refreshToken);
-
-        navigate('/mypage');
+        window.location.href = '/mypage';
       } catch (error: any) {
         console.error('로그인 실패', error);
         toast.error('로그인 실패: ' + error.message);

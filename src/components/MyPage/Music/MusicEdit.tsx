@@ -49,40 +49,54 @@ const MusicEditPage = () => {
       );
     } else {
       // Create new music
-      const newMusic: LifeMusicItem = { ...data, videoId: 'musicUrl' }; // Add the URL or other necessary fields
+      const newMusic: LifeMusicItem = { ...data, videoId: 'musicUrl' };
       setSelectedMusic([...selectedMusic, newMusic]);
     }
-    setCurrentPage('music'); // Navigate back to the music list page
+    setCurrentPage('music');
   };
 
   return (
-    <div className="text-white h-full flex flex-col items-center">
-      <div className="w-full max-w-md mx-auto flex flex-col h-full ">
-        <h2 className="text-lg font-bold">{currentMusic ? 'Edit Music' : 'Add New Music'}</h2>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 w-full">
-          <Controller
-            name="title"
-            control={control}
-            render={({ field }) => (
-              <Input {...field} placeholder="Title" className="bg-black text-white w-full" />
-            )}
-          />
-          <Controller
-            name="artist"
-            control={control}
-            render={({ field }) => (
-              <Input {...field} placeholder="Artist" className="bg-black text-white w-full" />
-            )}
-          />
-          <Button type="submit" className="w-full bg-white text-black mt-4">
-            {currentMusic ? 'Save Changes' : 'Add Music'}
-          </Button>
+    <div className="text-white h-full flex flex-col items-center justify-between">
+      <div className="w-full max-w-md mx-auto flex flex-col justify-center flex-grow">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 w-full px-4">
+          <div className="mb-4">
+            <label className="block mb-2 text-sm font-bold text-local_gray_2">제목</label>
+            <Controller
+              name="title"
+              control={control}
+              render={({ field }) => (
+                <Input
+                  {...field}
+                  placeholder="제목"
+                  className="bg-black text-white border-none w-full"
+                />
+              )}
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block mb-2 text-sm font-bold text-local_gray_2">아티스트</label>
+            <Controller
+              name="artist"
+              control={control}
+              render={({ field }) => (
+                <Input
+                  {...field}
+                  placeholder="아티스트"
+                  className="bg-black text-white border-none w-full"
+                />
+              )}
+            />
+          </div>
         </form>
+      </div>
+      <div className="w-full flex items-center justify-center px-4 mb-8">
         <Button
-          onClick={() => setCurrentPage('music')}
-          className="w-full bg-gray-500 text-white mt-4"
+          type="submit"
+          className="w-auto rounded-2xl text-l p-10 py-5 bg-black text-white"
+          variant={'noHover'}
+          onClick={handleSubmit(onSubmit)}
         >
-          Cancel
+          완료
         </Button>
       </div>
     </div>

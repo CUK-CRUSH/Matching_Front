@@ -148,7 +148,10 @@ const TagsPage = () => {
   return (
     <div className="text-white h-full flex flex-col items-center overflow-y-auto scrollbar-hide">
       <div className="w-full max-w-md mx-auto flex flex-col h-full">
-        <MatchingListHeader onStateChange={() => setCurrentPage('introduce')} />
+        <MatchingListHeader
+          onStateChange={() => setCurrentPage('introduce')}
+          background="#252525"
+        />
         <div className="mb-10 mx-2 flex flex-col">
           <div className="mt- space-y-2">
             <p className="flex-grow-0 flex-shrink-0 text-2xl font-bold text-left text-[#f9f9f9]">

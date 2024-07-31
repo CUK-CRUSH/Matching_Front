@@ -133,6 +133,7 @@ const MusicPage = () => {
           onStateChange={() => setCurrentPage('mypage')}
           text="음악취향 설정"
           mypageText="My Page | 프로필 수정"
+          background="#252525"
         />
         {/* 선호 음악추가하기  */}
         <div className="mx-4">

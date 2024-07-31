@@ -46,7 +46,7 @@ const MyPageMain = () => {
   return (
     <div className=" text-white h-auto flex flex-col items-center pb-20 ">
       <div className="w-full max-w-md mx-auto pb-10">
-        <MatchingListHeader text="My Page" router="matching" />
+        <MatchingListHeader text="My Page" router="matching" background="#252525" />
         {/* 상단 유저 정보 */}
         <div className="flex flex-col items-center mt-4">
           <Avatar

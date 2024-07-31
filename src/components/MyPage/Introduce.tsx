@@ -190,6 +190,7 @@ const IntroducePage = () => {
           text="내 소개"
           onStateChange={() => setCurrentPage('mypage')}
           mypageText="My Page | 프로필 수정"
+          background="#252525"
         />
 
         <div className="flex flex-col p-4 space-y-4">
