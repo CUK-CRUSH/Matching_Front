@@ -12,8 +12,16 @@ import { useQuery } from "@tanstack/react-query";
 import { getProfileCardData } from "@/services/ProfileCard/ProfileCardApi";
 import { useCookies } from "react-cookie";
 import UnFilledModal from "@/components/matching/Modal/UnFilledModal";
+import UnlockModal from "@/components/matching/Modal/UnlockModal";
+import PostMessageModal from '@/components/matching/PostMessageModal';
+import useProfileCardStore from "@/store/profileCardStore";
+import YoutubeModal from "@/components/matching/Modal/YoutubeModal";
+
+
 
 const MatchingPage = () => {
+
+  const { openMessage } = useProfileCardStore();
 
   // 프로필목록 조회
   const [page, ] = useState(0);
@@ -43,7 +51,6 @@ const MatchingPage = () => {
         setProfiles((prevProfiles) => {
           const newProfiles = response.data.profileCardSummaryResponses.map(profile => ({
             ...profile,
-            isModalOpen: false,
             isLock: true,
             isOpen: false,
           }));
@@ -54,15 +61,22 @@ const MatchingPage = () => {
     );
     }
     
-    
   }, [page, size, radius , isLastPage]);
   
 
   const [swiperIndex, setSwiperIndex] = useState(0);
 
-  // 모달창
+  // 닥달 모달창
   const [isUnfilledModalOpen,setIsUnfilledModalOpen] = useState<boolean>(false)
   
+  // 오픈 모달창
+  const [isUnlockModalOpen,setIsUnlockModalOpen] = useState<boolean>(false) 
+
+  // 유튜브 모달창
+  const {isYoutubeModalOpen , setIsYoutubeModalOpen} = useProfileCardStore()
+  
+  // 오픈상태 
+
   // 프로필카드 열기
   const handleSetOpen = (activeIndex: number | undefined, value: boolean) => {
     setProfiles((prev) =>
@@ -100,8 +114,8 @@ const MatchingPage = () => {
     if (swiperIndex !== newIndex) {
       handleSetOpen(swiperIndex - 1, false);  // 이전 슬라이드 상태 초기화
       handleSetOpen(swiperIndex + 1, false);  // 이전 슬라이드 상태 초기화
-      handleSetModalOpen(swiperIndex + 1, false);  // 이전 슬라이드 상태 초기화
-      handleSetModalOpen(swiperIndex - 1, false)
+      setIsUnlockModalOpen(false)
+      setIsUnfilledModalOpen(false)
     }
 
     // 현재 슬라이드 상태 업데이트
@@ -123,24 +137,31 @@ const MatchingPage = () => {
   return (
     <Layout backgroundColor={'#252525'}>
       <ProfileCardHeader />
+
       {isUnfilledModalOpen && <UnFilledModal setIsUnfilledModalOpen={setIsUnfilledModalOpen} />}
-      
+      {isUnlockModalOpen && <UnlockModal setIsUnlockModalOpen={setIsUnlockModalOpen} handleSetModalOpen={handleSetModalOpen} activeIndex={profiles?.[swiperIndex].profileId}/>}
+      {isYoutubeModalOpen && <YoutubeModal setIsYoutubeModalOpen={setIsYoutubeModalOpen} />}
+
+      {openMessage && <PostMessageModal />}
+
       <Swiper  
         onActiveIndexChange={handleActiveIndexChange}
         >
           
         {profiles?.map((item, index) => (
           <SwiperSlide 
-            
             key={index}
-            >
+          >
             <ProfileCard {...item}
-            
+              index={item?.profileId}
+
               activeIndex={swiperIndex}
               handleSetOpen={handleSetOpen}
               handleSetModalOpen={handleSetModalOpen}
               handleSetLockOpen={handleSetLockOpen}
               setIsUnfilledModalOpen={setIsUnfilledModalOpen}
+              setIsUnlockModalOpen={setIsUnlockModalOpen}
+              isUnlockModalOpen={isUnlockModalOpen}
             />
           </SwiperSlide>
         ))}

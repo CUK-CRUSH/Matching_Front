@@ -1,7 +1,8 @@
 import lock from '@/assets/ProfileCard/lock.svg';
 import { ProfileImageProps } from '@/type/ProfileCard/ProfileCard';
 
-const ProfileImage = ({ handleSetOpen, handleSetModalOpen, isLock, activeIndex,profileImageUrl,setIsUnfilledModalOpen }: ProfileImageProps) => {
+const ProfileImage = ({ handleSetOpen, isLock, activeIndex,profileImageUrl,
+                        setIsUnfilledModalOpen, setIsUnlockModalOpen }: ProfileImageProps) => {
   
   const profileImageStyle = profileImageUrl && !isLock ? 
   `absolute w-full h-full rounded-full object-cover` :
@@ -17,11 +18,11 @@ const ProfileImage = ({ handleSetOpen, handleSetModalOpen, isLock, activeIndex,p
             setIsUnfilledModalOpen?.(true)
           }
           else if (isLock) {
-              handleSetModalOpen?.(activeIndex, true);
+            setIsUnlockModalOpen?.(true)
     
           } else {
               handleSetOpen?.(activeIndex, true);
-              handleSetModalOpen?.(activeIndex, true);
+              setIsUnlockModalOpen?.(false);
           }
         }}
       />

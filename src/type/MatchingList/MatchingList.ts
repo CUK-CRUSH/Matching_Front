@@ -95,6 +95,7 @@ export type ClickedMessagePopUpProps = {
   name?: string;
   birthDate?: string;
   mbti?: string;
+  messageDate? : string;
   tags?: {
     name : string;
     state : string;

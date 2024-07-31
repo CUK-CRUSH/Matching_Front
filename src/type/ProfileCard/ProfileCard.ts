@@ -2,6 +2,7 @@ export type ProfileImageProps = {
   handleSetOpen?: (index: number | undefined, value: boolean) => void;
   handleSetModalOpen?: (index: number | undefined, value: boolean) => void;
   setIsUnfilledModalOpen?: (value : boolean) => void;
+  setIsUnlockModalOpen? : React.Dispatch<React.SetStateAction<boolean>>;
   isLock? : boolean;
   activeIndex? : number;
   profileImageUrl? : string;
@@ -11,6 +12,7 @@ export type SpreadProfileCardImageProps = {
   handleSetOpen: (index: number | undefined, value: boolean) => void;
   handleSetModalOpen: (index: number | undefined, value: boolean) => void;
   setIsUnfilledModalOpen?: (value : boolean) => void;
+  setIsUnlockModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   isLock? : boolean;
   profileId? : number;
 
@@ -23,15 +25,16 @@ export type FoldProfileCardImageProps = {
 
 };
 export type UnlockModalProps = {
-  setLock?: React.Dispatch<React.SetStateAction<boolean>>;
-  handleSetOpen: (index: number | undefined, value: boolean) => void;
-  handleSetModalOpen:  (index: number | undefined, value: boolean) => void;
-  handleSetLockOpen: (index: number | undefined, value: boolean) => void;
+  setLock?: any
+  handleSetOpen?: (index: number | undefined, value: boolean) => void;
+  handleSetModalOpen?:  (index: number | undefined, value: boolean) => void;
+  handleSetLockOpen?: (index: number | undefined, value: boolean) => void;
+  setIsUnlockModalOpen? : React.Dispatch<React.SetStateAction<boolean>>;
   profileId? : number;
   isOpen? : boolean;
   isLock? : boolean;
   activeIndex? : number;
-  currentBackground : string;
+  currentBackground? : string;
 };
 
 export type UnFilledModalProps = {
@@ -45,6 +48,8 @@ export type UnFilledModalProps = {
 
 export type YouTubeModalProps = {
   videoId?: string;
+  setIsYoutubeModalOpen?: any
+  // Dispatch<SetStateAction<boolean>> ; React.Dispatch<React.SetStateAction<boolean>>
 }
 export type OneLineIntroductionProps = {
   oneLineIntroduction? : string;
@@ -123,6 +128,7 @@ export type ProfileCardProps = {
   isLock? : boolean;
   activeIndex? : number;
   currentBackground? :string;
+  index? : number;
 
   // 코인여부
   coin? :boolean;
@@ -132,7 +138,10 @@ export type OpenProfileCardProps = {
   handleSetOpen? : (index: number | undefined, value: boolean) => void;
   handleSetModalOpen? : (index: number | undefined, value: boolean) => void;
   handleSetLockOpen? : (index: number | undefined, value: boolean) => void;
-  setIsUnfilledModalOpen?: React.Dispatch<React.SetStateAction<boolean>>
+  setIsUnfilledModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsUnlockModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsYoutubeModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+  isUnlockModalOpen?: boolean;
 }
 
 export type CombinedProfileCardProps = ProfileCardProps & OpenProfileCardProps;
