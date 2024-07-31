@@ -8,7 +8,6 @@ import { ProfileCardProps } from '@/type/ProfileCard/ProfileCard';
 import Tag from '@/components/common/Tag';
 import { useEffect, useState } from 'react';
 import { getProfileCardDetailData } from '@/services/ProfileCard/ProfileCardApi';
-import Fold from '@/components/matching/Fold';
 import UserTaste from '@/components/matching/UserTaste';
 import MoodMusic from '@/components/matching/MoodMusic';
 import SocialButtons from '@/components/matching/SocialButtons';
@@ -139,9 +138,7 @@ const ViewProfileCard = () => {
             value={profiles?.likeableMusicTaste}
             testId="likeMusic" />
           <div>
-            <Fold
-              
-            />
+            
             {/* <Divider /> */}
           </div>
         </>
