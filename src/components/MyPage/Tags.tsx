@@ -127,9 +127,20 @@ const TagsPage = () => {
             : 'NONE',
       }));
 
-      // Check if all MBTI fields are filled
       const mbtiString = `${selectedMBTI.E_I || ''}${selectedMBTI.N_S || ''}${selectedMBTI.F_T || ''}${selectedMBTI.J_P || ''}`;
       const mbti = mbtiString.length === 4 ? mbtiString : null;
+
+      const standardAndFeaturedMusicTagsCount = updatedMusicTags.filter(
+        (tag) => tag.state === 'STANDARD' || tag.state === 'FEATURED',
+      ).length;
+      const standardAndFeaturedHobbyTagsCount = updatedHobbyTags.filter(
+        (tag) => tag.state === 'STANDARD' || tag.state === 'FEATURED',
+      ).length;
+
+      if (standardAndFeaturedMusicTagsCount > 3 || standardAndFeaturedHobbyTagsCount > 3) {
+        console.error('Standard and Featured tags exceed the limit');
+        return;
+      }
 
       const updatedIntroData: UserIntroDTO = {
         mbti,
