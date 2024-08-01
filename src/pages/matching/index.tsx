@@ -120,7 +120,6 @@ const MatchingPage = () => {
 
       setIsUnlockModalOpen(false)
       setIsUnfilledModalOpen(false)
-      setIsYoutubeModalOpen(false)
     }
 
     // 현재 슬라이드 상태 업데이트
