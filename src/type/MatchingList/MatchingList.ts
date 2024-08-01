@@ -102,5 +102,11 @@ export type ClickedMessagePopUpProps = {
   }[];
   content?: string;
   profileId?: number;
+  senderName? : string;
   isDark?: boolean;
+  send? : boolean;
+}
+
+export type ContactUserType = {
+  text?:  string;
 }
