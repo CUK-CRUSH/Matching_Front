@@ -59,7 +59,8 @@ export type MusicTasteDataDTO = {
 };
 
 export type MoodDataDTO = {
-  title: string;
-  artist: string;
+  title?: string | null;
+  artist?: string | null;
   moodImage?: string;
+  isDeleteImage: boolean;
 };

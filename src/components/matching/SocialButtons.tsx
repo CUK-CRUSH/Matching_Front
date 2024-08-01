@@ -48,7 +48,7 @@ const SocialButtons = ({ profileId, likeState }: SocialButtonsProps) => {
   };
 
   return (
-    <div className={`w-[calc(100%-10%)] mx-[5%] flex justify-end mt-[10px] mb-[30px] ml-[15px]`}>
+    <div className={`w-[calc(100%-10%)] mx-[5%] flex justify-end ml-[15px] mt-[20px] mb-[150px]`}>
       <img src={!isLike ? offHeart : onHeart} alt="heart" className={`mr-3`} onClick={handleLike} />
       <img src={openMessage ? onMessage : offMessage} alt="message" onClick={setOpenMessage} />
     </div>

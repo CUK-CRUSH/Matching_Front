@@ -190,6 +190,7 @@ const IntroducePage = () => {
           text="내 소개"
           onStateChange={() => setCurrentPage('mypage')}
           mypageText="My Page | 프로필 수정"
+          background="#252525"
         />
 
         <div className="flex flex-col p-4 space-y-4">
@@ -371,7 +372,9 @@ const IntroducePage = () => {
             <Button
               variant={'noHover'}
               type="submit"
-              className="w-full bg-white text-black mt-4 rounded-3xl"
+              className={`w-full bg-white text-black mt-4 rounded-3xl ${
+                filledFieldsCount < 3 ? 'opacity-50 cursor-not-allowed' : ''
+              }`}
             >
               저장하기
             </Button>

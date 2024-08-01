@@ -31,7 +31,9 @@ const FormSchema = z.object({
     .max(200,"최대 200자까지 입력가능합니다.")
 })
 
-const PostMessageModal = ({ memberId} : PostMessageModalProps) => {
+const PostMessageModal = ({memberIdProps} : PostMessageModalProps) => {
+    
+  const { setOpenMessage , memberId} = useProfileCardStore();
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -49,12 +51,13 @@ const PostMessageModal = ({ memberId} : PostMessageModalProps) => {
   
 
   const onSubmit = async (formData: z.infer<typeof FormSchema>) => {
+    console.log(memberId)
     try {
       // postMessage 함수 호출하여 API에 데이터 전송
       await postMessage(
         accessToken,
         formData.type === "kakao" ? 1 : 0, // sendType
-        memberId, // receiverId 값은 어디서 받아오는지 확인 필요
+        memberId || memberIdProps, // receiverId 값은 어디서 받아오는지 확인 필요
         formData.message // content
       );
 
@@ -78,13 +81,16 @@ const PostMessageModal = ({ memberId} : PostMessageModalProps) => {
         'h-[40px] w-[90%] fixed top-[60px] left-1/2 transform -translate-x-1/2 flex justify-center rounded-[8px] exceed:w-[358px]',
     })
   }
-  const { setOpenMessage } = useProfileCardStore();
 
   return (
-    <div className={`fixed inset-0 bg-[#000] bg-opacity-30 flex justify-center items-center `} onClick={setOpenMessage} data-testid="postMessageModalText">
+    <div className={`fixed inset-0 bg-[#000] bg-opacity-30 flex justify-center items-center z-50 `} 
+         onClick={setOpenMessage}
+         data-testid="postMessageModalText">
 
       <Form {...form}>
-        <form data-testid='submit' onSubmit={form.handleSubmit(onSubmit, onError)} className="w-[300px] h-[350px] px-6 py-5 space-y-6 bg-[#fff] rounded-2xl"
+        <form data-testid='submit' onSubmit={form.handleSubmit(onSubmit, onError)}
+              className="w-[300px] h-[350px] px-6 py-5 space-y-6 bg-[#fff] rounded-2xl
+              absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
           onClick={e => e.stopPropagation()}
         >
           {/* 라디오 버튼 */}
@@ -131,23 +137,27 @@ const PostMessageModal = ({ memberId} : PostMessageModalProps) => {
           />
           {/* 텍스트 에어리어 */}
           <FormField
-                  control={form.control}
-                  name="message"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className={`text-[0.75rem] text-[#2F2F2F] font-semibold`}>메시지 내용</FormLabel>
+  control={form.control}
+  name="message"
+  render={({ field }) => (
+    <FormItem>
+      <FormLabel className={`text-[0.75rem] text-[#2F2F2F] font-semibold`}>메시지 내용</FormLabel>
 
-                      <Textarea
-                        {...form.register("message")} // 'register' 함수를 사용하여 'message' 필드를 등록합니다.
-                        onKeyUp={() => checkTextLength(field.value)}
-                        data-testid="message"
-                        className="block w-full border-0 bg-[#F1F1F1] rounded-md shadow-sm h-[130px]"
-                      />
-                    </FormItem>
-                  )}
-                />
+      <div className="relative"> {/* 부모 div에 relative 추가 */}
+        <Textarea
+          {...form.register("message")} // 'register' 함수를 사용하여 'message' 필드를 등록합니다.
+          onKeyUp={() => checkTextLength(field.value)}
+          data-testid="message"
+          className="block w-full border-0 bg-[#F1F1F1] rounded-md shadow-sm h-[130px]"
+        />
+
+        <span className={`absolute bottom-2 right-2 ${textLength > 200 ? 'text-[#e83232]' : 'text-gray-500'} text-s`}>{textLength} / 200</span> {/* 우측 하단에 텍스트 추가 */}
+      </div>
+    </FormItem>
+  )}
+/>
+
           <div className="text-right">
-            {textLength} / 200
             <button type="submit">
               <img src={post} alt='post' />
             </button>

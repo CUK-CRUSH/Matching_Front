@@ -127,6 +127,7 @@ const InfoPage = () => {
           text="내 정보 설정"
           onStateChange={() => setCurrentPage('mypage')}
           mypageText="My Page | 프로필 수정"
+          background="#252525"
         />
         <div className="flex flex-col h-full">
           <div className="flex flex-col items-center mt-4">

@@ -25,6 +25,7 @@ module.exports = {
         local_gray_1: '#c6c6c6',
         local_gray_2: '#858585',
         text_dary_soft: '#474747',
+        local_black_bright: '#303030',
 
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',

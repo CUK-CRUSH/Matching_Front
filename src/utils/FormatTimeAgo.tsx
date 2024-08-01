@@ -5,7 +5,6 @@ const FormatTimeAgo = (date? : string) : string => {
 
   const currentDate = new Date();
   const targetDate = new Date(String(date));
-
   const timeDiff = currentDate.getTime() - targetDate.getTime();
 
   const seconds = Math.floor(timeDiff / 1000);

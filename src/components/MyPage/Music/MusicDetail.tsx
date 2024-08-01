@@ -7,6 +7,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { SearchOutlined } from '@ant-design/icons';
 import UseAccessToken from '@/hooks/useAccessToken';
+import { decodeHtmlEntities } from '@/hooks/useDecodeHTML';
 
 const MusicDetailPage = () => {
   const { setCurrentPage, selectedMusic, setSelectedMusic } = useMyPageStore();
@@ -33,7 +34,9 @@ const MusicDetailPage = () => {
   };
 
   const handleSelectItem = (item: MusicDTO) => {
-    setSelectedItem(item);
+    const decodedTitle = decodeHtmlEntities(item.title);
+    const decodedArtist = decodeHtmlEntities(item.channelTitle);
+    setSelectedItem({ ...item, title: decodedTitle, channelTitle: decodedArtist });
     setIsDropdownOpen(false);
   };
 
@@ -49,6 +52,7 @@ const MusicDetailPage = () => {
     }
   };
 
+  console.log(selectedItem);
   if (error) {
     return <div>error</div>;
   }
@@ -59,6 +63,7 @@ const MusicDetailPage = () => {
         <MatchingListHeader
           onStateChange={() => setCurrentPage('music')}
           mypageText="My Page | 프로필 수정"
+          background="#252525"
         />
         <div className="flex h-full flex-col content-around relative mx-4">
           <form onSubmit={handleSubmit(onSubmit)} className="flex items-center mt-4 relative">

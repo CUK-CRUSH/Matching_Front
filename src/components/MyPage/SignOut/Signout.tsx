@@ -54,6 +54,7 @@ const SignOutPage = () => {
           text="회원 탈퇴"
           onStateChange={() => setCurrentPage('mypage')}
           mypageText="My Page | 나의 Duett"
+          background="#252525"
         />
         <ValidationText
           titleTexts={['계정 탈퇴']}

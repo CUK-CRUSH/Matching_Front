@@ -29,7 +29,7 @@ type MainDataDTO = {
   mbti: string;
   infoCount: number;
   introCount: number;
-  musicCount: number;
+  musicTasteCount: number;
   unlockCount: number;
 };
 

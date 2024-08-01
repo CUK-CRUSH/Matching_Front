@@ -18,7 +18,7 @@ import OpenedProfileCard from '@/pages/OpenedProfileCard';
 import OnBoardingPage from '@/pages/onBoarding';
 import ProtectedRoute from './privateRouter';
 import PublicRoute from './publicRouter';
-import ViewProfileCard from './components/matchingList/ViewProfileCard';
+import ViewProfileCard from './components/ViewProfile/ViewProfileCard';
 
 const pageRoutes = {
   main: '/',
