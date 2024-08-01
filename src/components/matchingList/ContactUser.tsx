@@ -18,7 +18,7 @@ const ContactUser = ({ text }: ContactUserType) => {
 
   // 복사하기 함수
   const handleCopy = () => {
-    navigator.clipboard.writeText(text)
+    text && navigator.clipboard.writeText(text)
       .then(() => {
         alert('복사되었습니다!'); // 복사 완료 알림
       })
