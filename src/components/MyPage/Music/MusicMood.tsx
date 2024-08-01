@@ -71,15 +71,15 @@ const MusicMoodPage = () => {
 
   return (
     <div className="text-white h-full flex flex-col items-center pb-20">
-      <div className="w-full max-w-md mx-auto mt-5">
+      <div className="w-full max-w-md mx-auto mt-5 flex flex-col h-full">
         <MatchingListHeader
           onStateChange={() => setCurrentPage('music')}
           mypageText="My Page | 프로필 수정"
           background="#252525"
         />
 
-        <div className="relative mx-4">
-          <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col space-y-4">
+        <div className="relative flex flex-col mx-4 flex-grow">
+          <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col space-y-4 flex-grow">
             <div>
               <label className="block mb-2 text-l text-local_gray_2">연인과 듣고 싶은 곡</label>
               <div className="space-y-2 mx-2">
@@ -125,28 +125,32 @@ const MusicMoodPage = () => {
               />
               <button
                 type="button"
-                className="w-full bg-local_black_bright rounded-xl flex items-center justify-center h-24"
+                className="w-full bg-local_black_bright rounded-xl flex items-center justify-center h-32"
                 onClick={handleImageUploadClick}
               >
                 {compressedImage ? (
                   <img
                     src={compressedImage}
                     alt="Selected"
-                    className="h-full w-full object-cover"
+                    className="h-full w-full object-cover rounded-xl"
                   />
                 ) : (
                   <>
-                    <img src={ImageIcon} alt="Upload" className="h-8 w-8" />
+                    <img src={ImageIcon} alt="Upload" className="h-8 w-8 rounded-xl" />
+                    <p className="text-center text-white">나의 mood 추가하기</p>
                   </>
                 )}
               </button>
             </div>
 
-            <div className="w-full flex items-center justify-center px-4 mb-8">
+            <div className="w-full flex-grow flex items-center justify-center px-4 mt-auto">
               <Button
                 type="submit"
-                className="w-auto rounded-2xl text-l p-10 py-5 bg-black text-white"
+                className={`w-auto rounded-3xl text-l px-12 py-7 bg-black text-white ${
+                  !compressedImage ? 'opacity-50 cursor-not-allowed' : ''
+                }`}
                 variant={'noHover'}
+                disabled={!compressedImage}
               >
                 완료
               </Button>
