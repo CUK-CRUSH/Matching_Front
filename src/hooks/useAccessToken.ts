@@ -34,7 +34,7 @@ const UseAccessToken = () => {
       if (accessToken) {
         const decodedToken = useDecodedJWT(accessToken);
         if (decodedToken && decodedToken.exp) {
-          const currentTime = Date.now() / 1000;
+          const currentTime = Math.floor(Date.now() / 1000); // 현재 시간을 초 단위로 변환
           const tokenExpiryTime = decodedToken.exp;
 
           // 토큰 만료 시간이 현재 시간보다 작거나 같으면 토큰을 갱신합니다.
