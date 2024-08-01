@@ -112,14 +112,24 @@ const MatchingPage = () => {
 
     // 이전 슬라이드 상태 초기화
     if (swiperIndex !== newIndex) {
+
+      // 혹시모르니까
       handleSetOpen(swiperIndex - 1, false);  // 이전 슬라이드 상태 초기화
       handleSetOpen(swiperIndex + 1, false);  // 이전 슬라이드 상태 초기화
+      handleSetOpen(swiperIndex, false);  // 이전 슬라이드 상태 초기화
+
       setIsUnlockModalOpen(false)
       setIsUnfilledModalOpen(false)
+      setIsYoutubeModalOpen(false)
     }
 
     // 현재 슬라이드 상태 업데이트
     setSwiperIndex(newIndex);
+
+  // useEffect(() => {
+  //   // swiperIndex가 변경될 때마다 페이지 최상단으로 스크롤
+  //   window.scrollTo(0, 0);
+  // }, [swiperIndex]);
 
     if(sessionStorage.getItem('isProfileComplete') === 'false' && newIndex >= 3){
       setIsUnfilledModalOpen(true)
