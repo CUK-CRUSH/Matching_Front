@@ -40,7 +40,7 @@ const ViewProfileCard = () => {
   const currentBackground = useGetRandomBackgrounds({ backgrounds });
 
   // console.log(`index : ${activeIndex} isLock: ${isLock} isOpen : ${isOpen} ,isModalOpen : ${isModalOpen}`)
-  const ProfileCardStyle = `  rounded-[16px] pt-[30px] mt-[80px]'
+  const ProfileCardStyle = ` rounded-[16px] pt-[30px] mt-[80px] '
                              mx-[3%]  ${currentBackground} 
                              w-[calc(100%-6%)]  
                              scrollbar-hide overflow-scroll 
@@ -142,6 +142,7 @@ const ViewProfileCard = () => {
             {/* <Divider /> */}
           </div>
         </>
+        <div className='mt-8'/>
 
       </div>
       <SocialButtons profileId={Number(profileId)} likeState={profiles?.likeState}/>
