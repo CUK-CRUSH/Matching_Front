@@ -39,7 +39,9 @@ const UnlockModal = ({ setLock, setIsUnlockModalOpen, isOpen, activeIndex }: Unl
 
             <img src={star} alt='star' className={`w-[2rem] h-[2rem] mb-[1.5rem]`} />
             <p className={`text-[#2f2f2f] text-[0.8rem]`}>프로필 잠금을 해제할까요?</p>
-            <p className={`text-[#2f2f2f] text-[0.8rem]`}>'2' 재화를 소모합니다.</p>
+            <p className={`text-[#2f2f2f] text-[0.8rem]`}>
+              {/* '2' 재화를 소모합니다. */}
+            </p>
             <div className={`flex justify-center mt-4`}>
               <Button className={`mr-4 w-[85px]`} variant="secondary" size="sm" onClick={() => setIsUnlockModalOpen?.(false)
               }>
