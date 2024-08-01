@@ -7,7 +7,7 @@ import ClickedMessagePopUp from "./ClickedMessagePopUp";
 import Time from "../common/Time";
 
 
-const SendedMessageItem = ({ receiver,content,messageDate }: MessageItemProps) => {
+const SendedMessageItem = ({ receiver,content,messageDate,senderName }: MessageItemProps) => {
   const [isClicked, setIsClicked] = useState<boolean>(false);
 
   const handleClick = () => {
@@ -41,7 +41,7 @@ const SendedMessageItem = ({ receiver,content,messageDate }: MessageItemProps) =
       {isClicked && <ClickedMessagePopUp
         handleClick={handleClick}
         name={receiver?.name} birthDate={receiver?.birthDate} mbti={receiver?.mbti} tags={receiver?.tags} messageDate={messageDate} isDark={true}
-        content={content} profileId={receiver?.profileId}
+        content={content} profileId={receiver?.profileId} senderName={senderName} send={true}
         />}
     </>
   );

@@ -8,7 +8,7 @@ import { MessageItemProps } from "@/type/services/LikeProfileCard/LikeProfileCar
 import ClickedMessagePopUp from "./ClickedMessagePopUp";
 import Time from "../common/Time";
 
-const ReceivedMessageItem = ({ sender,content,messageDate }: MessageItemProps) => {
+const ReceivedMessageItem = ({ sender,content,messageDate,senderName }: MessageItemProps) => {
   const [isClicked, setIsClicked] = useState<boolean>(false);
 
   const handleClick = () => {
@@ -62,7 +62,7 @@ const ReceivedMessageItem = ({ sender,content,messageDate }: MessageItemProps) =
       {isClicked && <ClickedMessagePopUp
         handleClick={handleClick}
         name={sender?.name} birthDate={sender?.birthDate} mbti={sender?.mbti} tags={sender?.tags} messageDate={messageDate} isDark={false}
-        content={content} profileId={sender?.profileId} currentBackground={currentBackground}
+        content={content} profileId={sender?.profileId} currentBackground={currentBackground} senderName={senderName} send={false}
         />}
     </>
   );
