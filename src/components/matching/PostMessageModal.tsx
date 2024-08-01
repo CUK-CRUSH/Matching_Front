@@ -34,7 +34,7 @@ const FormSchema = z.object({
 const PostMessageModal = ({memberIdProps} : PostMessageModalProps) => {
     
   const { setOpenMessage , memberId} = useProfileCardStore();
-
+  console.log(memberId)
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
@@ -51,7 +51,6 @@ const PostMessageModal = ({memberIdProps} : PostMessageModalProps) => {
   
 
   const onSubmit = async (formData: z.infer<typeof FormSchema>) => {
-    console.log(memberId)
     try {
       // postMessage 함수 호출하여 API에 데이터 전송
       await postMessage(

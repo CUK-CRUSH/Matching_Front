@@ -93,7 +93,7 @@ const MatchingListPage = () => {
   return (
     <Layout backgroundColor='#2C2C2C'>
 
-      <div className="h-auto bg-matching-list relative flex flex-col rounded-t-[28px] pb-[130px]">
+      <div className="h-full bg-matching-list relative flex flex-col rounded-t-[28px]">
         <MatchingListHeader text={'matchingList'} background={'#2C2C2C'} router={'matching'} />
 
         <SocialButtons />

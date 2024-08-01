@@ -375,6 +375,7 @@ const IntroducePage = () => {
               className={`w-full bg-white text-black mt-4 rounded-3xl ${
                 filledFieldsCount < 3 ? 'opacity-50 cursor-not-allowed' : ''
               }`}
+              disabled={filledFieldsCount < 3}
             >
               저장하기
             </Button>

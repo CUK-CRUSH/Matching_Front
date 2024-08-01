@@ -43,7 +43,7 @@ const ProfileCard = ({ profileId, name, birthDate, mbti, tags, oneLineIntroducti
   const currentBackground = useGetRandomBackgrounds({ backgrounds });
 
   // console.log(`index : ${activeIndex} isLock: ${isLock} isOpen : ${isOpen} ,isModalOpen : ${isModalOpen}`)
-  const ProfileCardStyle = ` ${!isOpen ? 'h-auto my-[calc((100vh-200px-340px)/2)] pb-[20px]' : 'h-auto rounded-[16px] pt-[30px] mt-[80px] '}
+  const ProfileCardStyle = ` ${!isOpen ? 'relative h-auto my-[calc((100vh-200px-340px)/2)] pb-[20px]' : 'h-auto rounded-[16px] pt-[30px] mt-[80px] '}
                                 mx-[3%] rounded-[16px] ${currentBackground} 
                                 w-[calc(100%-6%)] pt-[30px] 
                                 scrollbar-hide overflow-scroll 
@@ -51,6 +51,11 @@ const ProfileCard = ({ profileId, name, birthDate, mbti, tags, oneLineIntroducti
 
   // 메시지보내기 창 모달 오픈
   const { ableSpend, setAbleSpend,index,setMemberId } = useProfileCardStore();
+
+  // 멤버아이디 저장
+  useEffect(() => {
+    setMemberId(profiles?.memberId)
+  },[profiles])
 
   useEffect(() => {
       if (ableSpend && isUnlockModalOpen && index === profileId) {
@@ -62,7 +67,6 @@ const ProfileCard = ({ profileId, name, birthDate, mbti, tags, oneLineIntroducti
                   handleSetOpen?.(activeIndex, true);
                   handleSetLockOpen?.(activeIndex, false);
                   setAbleSpend(false); // 상태를 false로 설정하여 반복 실행 방지
-                  profiles?.memberId && setMemberId(profiles?.memberId)
                   setIsUnlockModalOpen?.(false);
                   toast({
                       title: "잠금 해제 완료!",
@@ -81,7 +85,6 @@ const ProfileCard = ({ profileId, name, birthDate, mbti, tags, oneLineIntroducti
       }
   }, [ableSpend]);
 
-  console.log(isLock)
   return (
     <>
       <div className={ProfileCardStyle} >
