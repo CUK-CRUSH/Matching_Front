@@ -2,6 +2,7 @@ import useProfileCardStore from "@/store/profileCardStore";
 
 import coinLogo from "@/assets/ProfileCard/coin.svg";
 import OpenedProfileCardIcon from "@/assets/ProfileCard/openedProfileCardIcon.svg";
+import logo from "@/assets/ProfileCard/logo.svg";
 import { Link } from "react-router-dom";
 
 const ProfileCardHeader = () => { 
@@ -10,7 +11,9 @@ const ProfileCardHeader = () => {
   return (
     <header className="fixed top-0 w-full max-w-[430px] mx-auto h-[60px] bg-[#252525] z-50 flex justify-between items-center px-4">
       <div>
-        로고
+        <Link to='/matching'>
+          <img src={logo} alt='.' />
+        </Link>
       </div>
       
       <div className="flex items-center " data-testid='currency'> 
