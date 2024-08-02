@@ -8,9 +8,11 @@ import blackProfile from "@/assets/MatchingList/blackProfile.svg";
 import { useNavigate } from "react-router-dom";
 import Tag from "../common/Tag";
 import Time from "../common/Time";
+import ContactUser from "./ContactUser";
 
-const ClickedMessagePopUp = ({ handleClick, currentBackground, name, birthDate, mbti, content,tags,messageDate, profileId, isDark }: ClickedMessagePopUpProps) => {
-
+const ClickedMessagePopUp = ({ handleClick, currentBackground, name, birthDate,
+  mbti, content, tags, messageDate, profileId, senderName, isDark, send }: ClickedMessagePopUpProps) => {
+  console.log(isDark)
   const navigate = useNavigate();
 
   // 버튼색 배열
@@ -57,17 +59,23 @@ const ClickedMessagePopUp = ({ handleClick, currentBackground, name, birthDate, 
           <div className="flex justify-between px-4">
             <div className="flex">
               {tags?.map((item) => (
-                <Tag name={item.name} state={item.state} isDark={false} />
+                <Tag name={item.name} state={item.state} isDark={isDark} />
               ))}
             </div>
           </div>
+          {!send &&
+            <div>
+              <ContactUser text={senderName} />
+            </div>
+          }
+
         </div>
 
         {/* <div className="relative h-auto overflow-y-scroll scrollbar-hide" ref={outerContainerRef} onScroll={calculateThumbY}> */}
         {/* <ScrollBarThumb ref={thumbRef} height={thumbH} /> */}
-          <div className={`h-auto mt-[12px] mb-2 mx-2`}>
-            <AutoResizeTextarea value={content} isDark={isDark} />
-          </div>
+        <div className={`h-auto mt-[12px] mb-2 mx-2`}>
+          <AutoResizeTextarea value={content} isDark={isDark} />
+        </div>
         {/* </div> */}
 
       </div>
