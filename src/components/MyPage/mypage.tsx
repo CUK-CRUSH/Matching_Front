@@ -10,6 +10,7 @@ import { MainInfoDataDTO } from '@/type/services/Mypage/MypageDTO';
 import CircularProgressWithLabel from '@/utils/CircularProgressWithLabel ';
 import UseAccessToken from '@/hooks/useAccessToken';
 import Unlock from '@/assets/ProfileCard/Unlock.svg';
+import useDecodedJWT from '@/hooks/useDecodedToken';
 
 const MyPageMain = () => {
   const { setCurrentPage } = useMyPageStore();
@@ -42,6 +43,20 @@ const MyPageMain = () => {
   if (!mainData) {
     return <div>No user data found</div>; // userData가 없을 때 처리
   }
+  const decodedToken = useDecodedJWT(accessToken);
+  console.log(decodedToken.exp);
+
+  const date = new Date(decodedToken.exp * 1000); // Unix timestamp는 밀리초가 아닌 초 단위이므로 1000을 곱합니다.
+
+  const year = date.getFullYear();
+  const month = ('0' + (date.getMonth() + 1)).slice(-2); // 월은 0부터 시작하므로 1을 더합니다.
+  const day = ('0' + date.getDate()).slice(-2);
+  const hours = ('0' + date.getHours()).slice(-2);
+  const minutes = ('0' + date.getMinutes()).slice(-2);
+  const seconds = ('0' + date.getSeconds()).slice(-2);
+
+  const formattedTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  console.log(formattedTime); // 예: 2024-07-04 12:34:56
 
   return (
     <div className=" text-white h-auto flex flex-col items-center pb-20 ">
@@ -54,7 +69,7 @@ const MyPageMain = () => {
             sx={{ width: 80, height: 80 }}
             alt={mainData.data.profileImageUrl}
           />
-          <h2 className="text-m font-bold mt-2">{mainData.data.name}</h2>
+          <h2 className="text-m font-bold mt-2 bg-local_gr">{mainData.data.name}</h2>
           <p className="text-m text-gray-400">
             {calculateAge(mainData.data.birthDate)}
             {mainData.data.mbti === 'NONE' || mainData.data.mbti === null
