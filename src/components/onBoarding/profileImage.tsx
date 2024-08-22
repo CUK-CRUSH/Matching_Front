@@ -8,7 +8,6 @@ import InnerImage from '@/assets/InnerImage.png';
 import ProgressBar from '@/utils/ProgressBar';
 import { useImageCrop } from '@/hooks/useImageCrop';
 import { Button } from '../ui/button';
-import PostMessageModal from '../matching/PostMessageModal';
 
 const ProfileImagePage = () => {
   const { setCurrentPage, userData } = useOnboardingStore();
