@@ -22,19 +22,17 @@ import { useState } from "react"
 
 const FormSchema = z.object({
   type: z.enum(["kakao", "phone"], {
-    required_error: "한 가지 이상은 선택하셔야 합니다.",
+    required_error: "전송방식을 선택해야 합니다.",
+
   }),
 
-  message: z.string({
-    required_error: "메시지를 입력해야 합니다.",
-  })
+  message: z.string()
     .max(200, "최대 200자까지 입력가능합니다.")
 })
 
 const PostMessageModal = ({ memberIdProps }: PostMessageModalProps) => {
 
   const { setOpenMessage, memberId } = useProfileCardStore();
-  console.log(memberId)
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
@@ -130,7 +128,7 @@ const PostMessageModal = ({ memberIdProps }: PostMessageModalProps) => {
 
                   </RadioGroup>
                 </FormControl>
-                <FormMessage className="fixed top-0 left-0 right-0 mx-auto" />
+                <FormMessage className="absolute bottom-0 p-5 left-0 right-0 mx-auto" />
               </FormItem>
             )}
           />
