@@ -1,18 +1,15 @@
-import useOnboardingStore from '@/store/validationStore';
-import { LocationDTO } from '@/type/services/GoogleLocation';
 import { useQuery } from '@tanstack/react-query';
+import useOnboardingStore from '@/store/validationStore';
 
-const fetchAddress = async (lat: number, lng: number): Promise<string> => {
-  const apikey = import.meta.env.VITE_GOOGLE_MAP_API_KEY;
-  const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${apikey}`;
-
-  const response = await fetch(url);
-  const data = await response.json();
-  if (data.status === 'OK' && data.results?.length > 2) {
-    return data.results[3].formatted_address;
-  } else {
-    throw new Error('주소를 찾을 수 없습니다.');
+declare global {
+  interface Window {
+    kakao: any; // `kakao` 객체에 대한 타입 정의
   }
+}
+
+type LocationDTO = {
+  lat: number;
+  lng: number;
 };
 
 export const useLocationData = () => {
@@ -21,7 +18,7 @@ export const useLocationData = () => {
   const locationQuery = useQuery<LocationDTO, Error>({
     queryKey: ['location'],
     queryFn: () =>
-      new Promise((resolve, reject) => {
+      new Promise<LocationDTO>((resolve, reject) => {
         navigator.geolocation.getCurrentPosition(
           (position) => {
             const { latitude, longitude } = position.coords;
@@ -39,14 +36,25 @@ export const useLocationData = () => {
     enabled: false,
   });
 
-  const addressQuery = useQuery({
+  const addressQuery = useQuery<string, Error>({
     queryKey: ['address', locationQuery.data?.lat, locationQuery.data?.lng],
-    queryFn: async () => {
+    queryFn: () => {
       if (locationQuery.data) {
-        if (locationQuery.data) {
-          return await fetchAddress(locationQuery.data.lat, locationQuery.data.lng);
-        }
-        throw new Error('Location data is not available');
+        return new Promise<string>((resolve, reject) => {
+          const geocoder = new window.kakao.maps.services.Geocoder();
+          const coord = new window.kakao.maps.LatLng(
+            locationQuery.data.lat,
+            locationQuery.data.lng,
+          );
+
+          geocoder.coord2Address(coord.getLng(), coord.getLat(), (result: any, status: string) => {
+            if (status === window.kakao.maps.services.Status.OK) {
+              resolve(result[0].address.address_name);
+            } else {
+              reject(new Error('주소를 찾을 수 없습니다.'));
+            }
+          });
+        });
       }
       throw new Error('Location data is not available');
     },
