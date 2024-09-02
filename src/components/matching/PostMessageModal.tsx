@@ -22,19 +22,17 @@ import { useState } from "react"
 
 const FormSchema = z.object({
   type: z.enum(["kakao", "phone"], {
-    required_error: "한 가지 이상은 선택하셔야 합니다.",
+    required_error: "전송방식을 선택해야 합니다.",
+
   }),
 
-  message: z.string({
-    required_error: "메시지를 입력해야 합니다.",
-  }).min(1, "메시지를 입력해야 합니다.")
-    .max(200,"최대 200자까지 입력가능합니다.")
+  message: z.string()
+    .max(200, "최대 200자까지 입력가능합니다.")
 })
 
-const PostMessageModal = ({memberIdProps} : PostMessageModalProps) => {
-    
-  const { setOpenMessage , memberId} = useProfileCardStore();
-  console.log(memberId)
+const PostMessageModal = ({ memberIdProps }: PostMessageModalProps) => {
+
+  const { setOpenMessage, memberId } = useProfileCardStore();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
@@ -48,7 +46,7 @@ const PostMessageModal = ({memberIdProps} : PostMessageModalProps) => {
 
   const [cookies] = useCookies(['accessToken']);
   const accessToken = cookies.accessToken;
-  
+
 
   const onSubmit = async (formData: z.infer<typeof FormSchema>) => {
     try {
@@ -82,13 +80,13 @@ const PostMessageModal = ({memberIdProps} : PostMessageModalProps) => {
   }
 
   return (
-    <div className={`fixed inset-0 bg-[#000] bg-opacity-30 flex justify-center items-center z-50 `} 
-         onClick={setOpenMessage}
-         data-testid="postMessageModalText">
+    <div className={`fixed inset-0 bg-[#000] bg-opacity-30 flex justify-center items-center z-50 `}
+      onClick={setOpenMessage}
+      data-testid="postMessageModalText">
 
       <Form {...form}>
         <form data-testid='submit' onSubmit={form.handleSubmit(onSubmit, onError)}
-              className="w-[300px] h-[350px] px-6 py-5 space-y-6 bg-[#fff] rounded-2xl
+          className="w-[300px] h-[350px] px-6 py-5 space-y-6 bg-[#fff] rounded-2xl
               absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
           onClick={e => e.stopPropagation()}
         >
@@ -99,9 +97,9 @@ const PostMessageModal = ({memberIdProps} : PostMessageModalProps) => {
             name="type"
             render={({ field }) => (
               <FormItem className="">
-                <div className={`flex flex-row justify-between`}> 
+                <div className={`flex flex-row justify-between`}>
                   <FormLabel className={`text-[0.75rem] text-[#2F2F2F] font-semibold`}>전송방식 선택</FormLabel>
-                  <img src={closeButton} className={`cursor-pointer`} onClick={setOpenMessage}/>
+                  <img src={closeButton} className={`cursor-pointer`} onClick={setOpenMessage} />
                 </div>
                 <FormControl>
                   <RadioGroup
@@ -130,31 +128,31 @@ const PostMessageModal = ({memberIdProps} : PostMessageModalProps) => {
 
                   </RadioGroup>
                 </FormControl>
-                <FormMessage className="fixed top-0 left-0 right-0 mx-auto" />
+                <FormMessage className="absolute bottom-0 p-5 left-0 right-0 mx-auto" />
               </FormItem>
             )}
           />
           {/* 텍스트 에어리어 */}
           <FormField
-  control={form.control}
-  name="message"
-  render={({ field }) => (
-    <FormItem>
-      <FormLabel className={`text-[0.75rem] text-[#2F2F2F] font-semibold`}>메시지 내용</FormLabel>
+            control={form.control}
+            name="message"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className={`text-[0.75rem] text-[#2F2F2F] font-semibold`}>메시지 내용</FormLabel>
 
-      <div className="relative"> {/* 부모 div에 relative 추가 */}
-        <Textarea
-          {...form.register("message")} // 'register' 함수를 사용하여 'message' 필드를 등록합니다.
-          onKeyUp={() => checkTextLength(field.value)}
-          data-testid="message"
-          className="block w-full border-0 bg-[#F1F1F1] rounded-md shadow-sm h-[130px]"
-        />
+                <div className="relative"> {/* 부모 div에 relative 추가 */}
+                  <Textarea
+                    {...form.register("message")} // 'register' 함수를 사용하여 'message' 필드를 등록합니다.
+                    onKeyUp={() => checkTextLength(field.value)}
+                    data-testid="message"
+                    className="block w-full border-0 bg-[#F1F1F1] rounded-md shadow-sm h-[130px]"
+                  />
 
-        <span className={`absolute bottom-2 right-2 ${textLength > 200 ? 'text-[#e83232]' : 'text-gray-500'} text-s`}>{textLength} / 200</span> {/* 우측 하단에 텍스트 추가 */}
-      </div>
-    </FormItem>
-  )}
-/>
+                  <span className={`absolute bottom-2 right-2 ${textLength > 200 ? 'text-[#e83232]' : 'text-gray-500'} text-s`}>{textLength} / 200</span> {/* 우측 하단에 텍스트 추가 */}
+                </div>
+              </FormItem>
+            )}
+          />
 
           <div className="text-right">
             <button type="submit">
