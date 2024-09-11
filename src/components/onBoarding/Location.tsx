@@ -30,7 +30,6 @@ const LocationPage = () => {
     }
   }, [addressQuery.data, setValue]);
 
-  // 위도 경도 데이터 보낼때 => locationQuery.data?.lat.toFixed(6), locationQuery.data?.lng.toFixed(6)
   return (
     <QueryClientProvider client={queryClient}>
       <div className="flex flex-col justify-between h-screen">
@@ -76,7 +75,7 @@ const LocationPage = () => {
             </div>
           </div>
         )}
-        {/* 현재 위치정보를 제대로 불러왔을떄만 넘어가도록 한다. */}
+        {/* 현재 위치정보를 제대로 불러왔을 때만 넘어가도록 합니다. */}
         <div className="flex">
           <ValidationPrevButton onStateChange={() => setCurrentPage('sex')} />
           <ValidationButton
