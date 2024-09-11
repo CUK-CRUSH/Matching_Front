@@ -31,17 +31,20 @@ const UnFilledModal = ({ setIsUnfilledModalOpen }: UnFilledModalProps) => {
 
         <div className={`w-[310px] h-auto p-12 bg-white rounded-lg flex flex-col justify-start items-center z-99`} ref={unlockModalRef} onClick={e => e.stopPropagation()} data-testid="unlockModalText">
 
-          <div className="flex flex-col items-center justify-center">
+          <div className="flex flex-col items-center justify-center space-y-2">
             <p className="text-[#2f2f2f] text-[1rem] font-semibold text-center">
               내 프로필 정보를 추가하고 프로필 카드를 열어보세요
             </p>
             <p className="text-[#2f2f2f] text-[0.8rem] text-center">
-              추가하기를 누르면 마이페이지로 이동합니다
+              추가하기를 누르면
+            </p>
+            <p className="text-[#2f2f2f] text-[0.8rem] text-center">
+              마이페이지로 이동합니다
             </p>
           </div>
 
           <div className={`flex justify-center mt-4`}>
-            <Button className={`mr-4 w-[85px]`} variant="secondary" size="sm" onClick={() => setIsUnfilledModalOpen(false)
+            <Button className={`mr-4 w-[85px]`} variant="secondary" size="sm" onClick={() => setIsUnfilledModalOpen?.(false)
             }>
               뒤로
             </Button>

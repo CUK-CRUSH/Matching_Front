@@ -101,12 +101,12 @@ export const postLogin = async (phoneNumber: string, verificationCode: string) =
 };
 
 // 리프레시 재발급
-export const reIssueToken = async (accessToken: string): Promise<ReissueResponseData> => {
+export const reIssueToken = async (refreshToken: string): Promise<ReissueResponseData> => {
   const url = `${import.meta.env.VITE_DUETT_API_URL}/api/v1/authentication/reissue`;
   try {
     const { data } = await api.get<ReissueResponseData>(url, {
       headers: {
-        Authorization: `Bearer ${accessToken}`,
+        Authorization: `Bearer ${refreshToken}`,
       },
     });
     return data;
