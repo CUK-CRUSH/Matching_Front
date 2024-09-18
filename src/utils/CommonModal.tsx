@@ -11,7 +11,7 @@ const CommonModal = ({
   onConfirm,
 }: CommonModalDTO) => {
   return (
-    <div className={`fixed inset-0 bg-[#000] bg-opacity-30 flex justify-center items-center`}>
+    <div className={`fixed inset-0 bg-[#000] bg-opacity-30 flex justify-center items-center z-50`}>
       <div
         className={`w-[250px] h-auto relative p-12 bg-white rounded-lg flex flex-col justify-start items-center z-99`}
         onClick={(e) => e.stopPropagation()}

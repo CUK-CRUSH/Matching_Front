@@ -147,19 +147,19 @@ const MyPageMain = () => {
           </div>
           <div className="flex flex-col mt-8 w-full px-4">
             <h3 className="text-lg font-bold">Duett 소식</h3>
+
+            <button
+              className="mt-2 text-left text-white pl-4"
+              onClick={() => (window.location.href = 'http://myist-info.notion.site')}
+            >
+              공지사항
+            </button>
             <button
               className="mt-2 text-left text-white pl-4"
               onClick={() =>
                 (window.location.href =
                   'https://myist-info.notion.site/DUETT-c2948bcce08b4fa4bdfc02c0b5e53e0f')
               }
-            >
-              공지사항
-            </button>
-
-            <button
-              className="mt-2 text-left text-white pl-4"
-              onClick={() => (window.location.href = 'http://myist-info.notion.site')}
             >
               약관 및 정책
             </button>
