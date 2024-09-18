@@ -31,9 +31,10 @@ const formSchema = z.object({
       message: '3자 이상 입력해주세요',
     })
     .max(15, { message: '최대 15자 까지만 입력할 수 있어요' }),
-  oneLiner: z.string().max(50, {
-    message: '최대 50자 까지 입력할 수 있어요',
-  }),
+  oneLiner: z
+    .string()
+    .min(5, { message: '5글자 이상 입력해야합니다.' })
+    .max(50, '최대 50자 까지 입력할 수 있어요'),
 });
 
 const InfoPage = () => {
@@ -87,7 +88,7 @@ const InfoPage = () => {
 
   const filledFieldsCount =
     (form.watch('nickname').length >= 3 && form.watch('nickname').length <= 15 ? 1 : 0) +
-    (form.watch('oneLiner').length <= 50 && form.watch('oneLiner').length > 0 ? 1 : 0);
+    (form.watch('oneLiner').length >= 5 && form.watch('oneLiner').length <= 50 ? 1 : 0);
 
   const {
     imageSrc,
@@ -162,7 +163,7 @@ const InfoPage = () => {
                           {...field}
                         />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage>{errors.nickname?.message}</FormMessage>
                     </FormItem>
                   )}
                 />
@@ -200,11 +201,11 @@ const InfoPage = () => {
                         />
                       </FormControl>
                       <FormDescription>최대 50자 까지 입력할 수 있어요</FormDescription>
-                      <FormMessage />
+                      <FormMessage>{errors.oneLiner?.message}</FormMessage>
                       {fieldState.error && (
                         <span className="text-red-500">
                           {fieldState.error.type === 'minLength'
-                            ? '최소 50자 이상 입력해주세요'
+                            ? '5글자 이상 입력해야합니다.'
                             : '최대 50자 까지 입력할 수 있어요'}
                         </span>
                       )}
