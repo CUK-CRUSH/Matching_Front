@@ -39,7 +39,7 @@ export type UnlockModalProps = {
 
 export type UnFilledModalProps = {
   
-  setIsUnfilledModalOpen:  (value: boolean) => void;
+  setIsUnfilledModalOpen?:  (value: boolean) => void;
   profileId? : number;
 
   activeIndex? : number;
