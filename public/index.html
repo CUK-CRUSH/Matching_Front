@@ -1,8 +1,7 @@
 <!doctype html>
 <html>
   <head>
-
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     // ios에서 input 클릭 시 zoom 방지
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 
@@ -20,10 +19,10 @@
     <script defer src="/__/firebase/10.12.2/firebase-analytics-compat.js"></script>
     <script defer src="/__/firebase/10.12.2/firebase-remote-config-compat.js"></script>
     <script defer src="/__/firebase/10.12.2/firebase-performance-compat.js"></script>
-    <script
+    <!-- <script
       type="text/javascript"
       src="//dapi.kakao.com/v2/maps/sdk.js?appkey=%VITE_KAKAO_MAP_API_KEY%&libraries=services,clusterer"
-    ></script>
+    ></script> -->
 
     <!-- 
       initialize the SDK after all desired features are loaded, set useEmulator to false
@@ -98,6 +97,16 @@
     </style>
   </head>
   <body>
+    <script type="module">
+      // 환경 변수를 JavaScript에서 가져오기
+      const appKey = import.meta.env.VITE_KAKAO_MAP_API_KEY;
+
+      // 카카오 지도 API를 동적으로 로드
+      const script = document.createElement('script');
+      script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${appKey}&libraries=services,clusterer`;
+      script.async = true;
+      document.head.appendChild(script);
+    </script>
     <div id="message">
       <h2>Welcome</h2>
       <h1>Firebase Hosting Setup Complete</h1>
