@@ -98,15 +98,14 @@
   </head>
   <body>
     <script type="module">
-      // 환경 변수를 JavaScript에서 가져오기
-      const appKey = import.meta.env.VITE_KAKAO_MAP_API_KEY;
-
-      // 카카오 지도 API를 동적으로 로드
+      const appKey = process.env.VITE_KAKAO_MAP_API_KEY;
+    
       const script = document.createElement('script');
       script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${appKey}&libraries=services,clusterer`;
       script.async = true;
       document.head.appendChild(script);
     </script>
+    
     <div id="message">
       <h2>Welcome</h2>
       <h1>Firebase Hosting Setup Complete</h1>
