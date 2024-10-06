@@ -15,12 +15,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: env setting
         run: |
           echo "VITE_DUETT_API_URL=${{ secrets.VITE_DUETT_API_URL }}" >> .env
           echo "VITE_GOOGLE_MAP_API_KEY=${{ secrets.VITE_GOOGLE_MAP_API_KEY }}" >> .env
           echo "VITE_DUETT_EMAIL=${{ secrets.VITE_DUETT_EMAIL }}" >> .env
+          echo "VITE_KAKAO_MAP_API_KEY=${{ secrets.VITE_KAKAO_MAP_API_KEY }}" >> .env
 
       - run: yarn install && yarn run build
 
