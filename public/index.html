@@ -29,6 +29,7 @@
       to avoid connecting the SDK to running emulators.
     -->
     <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+    <script type="module" src="/src/main.tsx"></script>
 
     <style media="screen">
       body {
@@ -97,15 +98,6 @@
     </style>
   </head>
   <body>
-    <script type="module">
-      const appKey = process.env.VITE_KAKAO_MAP_API_KEY;
-    
-      const script = document.createElement('script');
-      script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${appKey}&libraries=services,clusterer`;
-      script.async = true;
-      document.head.appendChild(script);
-    </script>
-    
     <div id="message">
       <h2>Welcome</h2>
       <h1>Firebase Hosting Setup Complete</h1>
