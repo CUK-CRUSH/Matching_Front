@@ -133,7 +133,7 @@ const MatchingPage = () => {
   if (!profileCardData) {
     return <div>Loading...</div>;
   }
-  console.log(profiles);
+
   return (
     <Layout backgroundColor={'#252525'}>
       <ProfileCardHeader />
