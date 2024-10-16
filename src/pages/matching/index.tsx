@@ -16,6 +16,7 @@ import UnlockModal from '@/components/matching/Modal/UnlockModal';
 import PostMessageModal from '@/components/matching/PostMessageModal';
 import useProfileCardStore from '@/store/profileCardStore';
 import YoutubeModal from '@/components/matching/Modal/YoutubeModal';
+import headphones from '@/assets/ProfileCard/headphones.svg';
 
 const MatchingPage = () => {
   const { openMessage } = useProfileCardStore();
@@ -168,10 +169,11 @@ const MatchingPage = () => {
             </SwiperSlide>
           ))
         ) : (
-          <div className="flex flex-col items-center justify-center mx-[2%] w-[96%] h-[90vh]">
-            <div className="bg-[#2f2f2f] text-white p-5 rounded-lg shadow-lg">
-              <div className="text-lg font-bold mb-3">현재 매칭된 상대가 없습니다.</div>
-              <div className="text-center mb-5">새로운 인연을 위해 프로필을 꾸며 보세요!</div>
+          <div className="flex flex-col items-center justify-center h-[90vh]">
+            <div className=" p-5 rounded-lg shadow-lg">
+              <img src={headphones} alt="헤드셋" />
+              <div className="text-[#474747] font-bold text-[1.25rem]">매칭 가능한 상대를</div>
+              <div className="text-[#474747] font-bold text-[1.25rem]">찾지 못했어요</div>
             </div>
           </div>
         )}
