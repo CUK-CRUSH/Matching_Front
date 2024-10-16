@@ -23,3 +23,7 @@ dist-ssr
 *.sln
 *.sw?
 .env
+
+# yarn 파일
+*.yarn
+*.yarnrc.yml
