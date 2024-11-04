@@ -4,6 +4,8 @@ import ValidationText from '@/components/validation/validationText';
 import useOnboardingStore from '@/store/validationStore';
 import ProgressBar from '@/utils/ProgressBar';
 import { InputForm } from '@/utils/form';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
+import LoginConfirm from '@/assets/loginConfirm.svg';
 
 const LoginPage = () => {
   const { userExist, isSubmitted } = useOnboardingStore();
@@ -21,6 +23,14 @@ const LoginPage = () => {
         <div className="mt-16 mx-4">
           <InputForm />
         </div>
+        <div className="text-gray-400 text-sm flex items-center justify-center">
+          <ExclamationCircleOutlined className="mr-1" />
+          <div>
+            <p>'인증메시지 전송'을 누르고,</p>
+            <p>미리 작성되어있는 인증메시지를 전송해주세요.</p>
+          </div>
+        </div>
+        <img src={LoginConfirm} alt="loginConfirm" className="w-full h-64 mt-4" />
       </div>
       <div className="flex">
         <ValidationPrevButton navigation="/" />
