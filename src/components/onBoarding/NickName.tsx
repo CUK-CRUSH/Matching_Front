@@ -34,6 +34,7 @@ const NickNamePage = () => {
   useEffect(() => {
     setIsDuplicate(null);
   }, [name]);
+  // 닉네임
 
   return (
     <div className="flex flex-col justify-between h-screen">
